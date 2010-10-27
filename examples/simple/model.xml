@@ -1,0 +1,10 @@
+<model package="examples.simple">
+	<type name="Point">
+		<property name="x" type="double" />
+		<property name="y" type="double" default="2" />
+	</type>
+`	<type name="Line">
+		<property type="Point" name="p1" />
+		<property type="Point" name="p2" />
+	</type>
+</model>

@@ -1,0 +1,1 @@
+public const string $it.DefineName$ = "$it.Name$";

@@ -23,7 +23,9 @@ namespace $it.Package$
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
 		#endregion INotifyPropertyChanged implementation

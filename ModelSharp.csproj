@@ -120,6 +120,10 @@
     <None Include="templates\builder_class.st" />
     <None Include="templates\builder_setter.st" />
     <None Include="templates\builder_name.st" />
+    <None Include="templates\var_name.st" />
+    <None Include="templates\immutable_class_extended.st" />
+    <None Include="templates\mutable_class_extended.st" />
+    <None Include="templates\switch_setter.st" />
     <None Include="templates\param_to_field.st" />
     <None Include="templates\param.st" />
     <None Include="templates\private_name.st" />
@@ -133,6 +137,7 @@
     <None Include="templates\property_decl.st" />
     <None Include="templates\field.st" />
     <None Include="templates\immutable_class.st" />
+    <None Include="templates\switch_getter.st" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

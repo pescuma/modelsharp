@@ -17,26 +17,28 @@ using System.Diagnostics.Contracts;
 
 namespace org.pescuma.ModelSharp.Model
 {
-    public class TypeInfo
-    {
-        public readonly string Name;
-        public readonly string Package;
-        public readonly bool Immutable;
+	public class TypeInfo
+	{
+		public readonly string Name;
+		public readonly string ImplementationName;
+		public readonly string Package;
+		public readonly bool Immutable;
 
-        public List<PropertyInfo> Properties = new List<PropertyInfo>();
-        public List<FieldInfo> Fields = new List<FieldInfo>();
-        public List<MethodInfo> Methods = new List<MethodInfo>();
+		public List<PropertyInfo> Properties = new List<PropertyInfo>();
+		public List<FieldInfo> Fields = new List<FieldInfo>();
+		public List<MethodInfo> Methods = new List<MethodInfo>();
 
-        public readonly List<string> Annotations = new List<string>();
+		public readonly List<string> Annotations = new List<string>();
 
-        public TypeInfo(string name, string package, bool immutable)
-        {
-            Contract.Requires(StringUtils.IsValidVariableName(name));
-            Contract.Requires(StringUtils.IsValidTypeName(package));
+		public TypeInfo(string name, string package, bool immutable)
+		{
+			Contract.Requires(StringUtils.IsValidVariableName(name));
+			Contract.Requires(StringUtils.IsValidTypeName(package));
 
-            Name = name;
-            Package = package;
-            Immutable = immutable;
-        }
-    }
+			Name = name;
+			ImplementationName = "Base" + name;
+			Package = package;
+			Immutable = immutable;
+		}
+	}
 }

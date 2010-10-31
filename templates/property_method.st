@@ -25,6 +25,8 @@ $if(it.Setter)$
 			if ($it.Field.Name$ == value)
 				return;
 
+			OnPropertyChanging(PROPERTIES.$it.DefineName$);
+
 			$it.Field.Name$ = value;
 
 			OnPropertyChanged(PROPERTIES.$it.DefineName$);

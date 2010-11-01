@@ -9,7 +9,7 @@ namespace $it.Package$
 
 		$it.Fields:builder_setter()$
 
-		public $it.Name$ Build()
+		public virtual $it.Name$ Build()
 		{
 			return new $it.Name$($it.Fields:private_name(); separator=", "$);
 		}

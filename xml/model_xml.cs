@@ -73,7 +73,7 @@ namespace org.pescuma.ModelSharp.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class type {
         
-        private property[] propertyField;
+        private object[] itemsField;
         
         private bool immutableField;
         
@@ -82,13 +82,15 @@ namespace org.pescuma.ModelSharp.xml {
         private string nameField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("property")]
-        public property[] property {
+        [System.Xml.Serialization.XmlElementAttribute("collection", typeof(collection))]
+        [System.Xml.Serialization.XmlElementAttribute("component", typeof(component))]
+        [System.Xml.Serialization.XmlElementAttribute("property", typeof(property))]
+        public object[] Items {
             get {
-                return this.propertyField;
+                return this.itemsField;
             }
             set {
-                this.propertyField = value;
+                this.itemsField = value;
             }
         }
         
@@ -122,6 +124,130 @@ namespace org.pescuma.ModelSharp.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class collection {
+        
+        private string contentsField;
+        
+        private bool lazyField;
+        
+        private bool lazyFieldSpecified;
+        
+        private string nameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string contents {
+            get {
+                return this.contentsField;
+            }
+            set {
+                this.contentsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool lazy {
+            get {
+                return this.lazyField;
+            }
+            set {
+                this.lazyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lazySpecified {
+            get {
+                return this.lazyFieldSpecified;
+            }
+            set {
+                this.lazyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class component {
+        
+        private bool lazyField;
+        
+        private bool lazyFieldSpecified;
+        
+        private string nameField;
+        
+        private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool lazy {
+            get {
+                return this.lazyField;
+            }
+            set {
+                this.lazyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lazySpecified {
+            get {
+                return this.lazyFieldSpecified;
+            }
+            set {
+                this.lazyFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
             }
         }
     }

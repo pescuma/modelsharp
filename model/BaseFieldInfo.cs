@@ -15,39 +15,39 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace org.pescuma.ModelSharp.Model
+namespace org.pescuma.ModelSharp.model
 {
-    public class BaseFieldInfo
-    {
-        public readonly string Name;
-        public readonly string PrivateName;
-        public readonly string PublicName;
-        public readonly string VarName;
-        public readonly string TypeName;
-        public readonly string DefineName;
-        public readonly bool Public;
-        public readonly bool ReadOnly;
-        public readonly List<string> Annotations = new List<string>();
+	public class BaseFieldInfo
+	{
+		public readonly string Name;
+		public readonly string PrivateName;
+		public readonly string PublicName;
+		public readonly string VarName;
+		public readonly string TypeName;
+		public readonly string DefineName;
+		public readonly bool Public;
+		public readonly bool ReadOnly;
+		public readonly List<string> Annotations = new List<string>();
 
-        public BaseFieldInfo(string name, string type, bool @public, bool readOnly)
-        {
-            Contract.Requires(StringUtils.IsValidVariableName(name));
-            Contract.Requires(StringUtils.IsValidTypeName(type));
-            Contract.Ensures(StringUtils.IsValidVariableName(Name));
-            Contract.Ensures(StringUtils.IsValidVariableName(PrivateName));
-            Contract.Ensures(StringUtils.IsValidVariableName(PublicName));
-            Contract.Ensures(StringUtils.IsValidVariableName(VarName));
-            Contract.Ensures(StringUtils.IsValidTypeName(TypeName));
-            Contract.Ensures(StringUtils.IsValidVariableName(DefineName));
+		public BaseFieldInfo(string name, string type, bool @public, bool readOnly)
+		{
+			Contract.Requires(StringUtils.IsValidVariableName(name));
+			Contract.Requires(StringUtils.IsValidTypeName(type));
+			Contract.Ensures(StringUtils.IsValidVariableName(Name));
+			Contract.Ensures(StringUtils.IsValidVariableName(PrivateName));
+			Contract.Ensures(StringUtils.IsValidVariableName(PublicName));
+			Contract.Ensures(StringUtils.IsValidVariableName(VarName));
+			Contract.Ensures(StringUtils.IsValidTypeName(TypeName));
+			Contract.Ensures(StringUtils.IsValidVariableName(DefineName));
 
-            Name = name;
-            PublicName = StringUtils.FirstUpper(name);
-            PrivateName = "_" + StringUtils.FirstLower(name);
-            VarName = StringUtils.FirstLower(name);
-            TypeName = type;
-            DefineName = StringUtils.ToDefineName(name);
-            Public = @public;
-            ReadOnly = readOnly;
-        }
-    }
+			Name = name;
+			PublicName = StringUtils.FirstUpper(name);
+			PrivateName = "_" + StringUtils.FirstLower(name);
+			VarName = StringUtils.FirstLower(name);
+			TypeName = type;
+			DefineName = StringUtils.ToDefineName(name);
+			Public = @public;
+			ReadOnly = readOnly;
+		}
+	}
 }

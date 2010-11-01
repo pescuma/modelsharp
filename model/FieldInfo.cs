@@ -12,30 +12,37 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-namespace org.pescuma.ModelSharp.Model
+namespace org.pescuma.ModelSharp.model
 {
-    public class FieldInfo : BaseFieldInfo
-    {
-        private string _defaultValue;
+	public class FieldInfo : BaseFieldInfo
+	{
+		private string _defaultValue;
 
-        public FieldInfo(string name, string type, bool @public, bool readOnly)
-            : base(name, type, @public, readOnly)
-        {
-        }
+		public FieldInfo(string name, string type, bool @public, bool readOnly)
+			: base(name, type, @public, readOnly)
+		{
+		}
 
-        public string DefaultValue
-        {
-            get { return _defaultValue; }
-            set
-            {
-                _defaultValue = value;
+		public string DefaultValue
+		{
+			get
+			{
+				if (_defaultValue == "")
+					return null;
 
-                if (TypeName == "string" && (_defaultValue[0] != '"' || _defaultValue[-1] != '"'))
-                {
-                    _defaultValue = _defaultValue.Replace("\"", "\\\"");
-                    _defaultValue = "\"" + _defaultValue + "\"";
-                }
-            }
-        }
-    }
+				return _defaultValue;
+			}
+			set
+			{
+				_defaultValue = value;
+
+				if (TypeName == "string" && _defaultValue != null
+				    && (_defaultValue.Length < 2 || _defaultValue[0] != '"' || _defaultValue[-1] != '"'))
+				{
+					_defaultValue = _defaultValue.Replace("\"", "\\\"");
+					_defaultValue = "\"" + _defaultValue + "\"";
+				}
+			}
+		}
+	}
 }

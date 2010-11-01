@@ -9,7 +9,6 @@ $if(it.ReadOnly)$
 $endif$
 
 $it.TypeName$ $it.Name$
-
 $if(it.DefaultValue)$
 	= $it.DefaultValue$
 $endif$

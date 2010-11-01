@@ -1,6 +1,6 @@
 $if(it.LazyInitializer)$
 		$it.LazyInitializer.Annotations:annotation()$
-		protected $it.LazyInitializer.TypeName$ $it.LazyInitializer.Name$() 
+		protected virtual $it.LazyInitializer.TypeName$ $it.LazyInitializer.Name$() 
 		{
 			if ($it.Field.Name$ != null)
 				return;
@@ -11,7 +11,7 @@ $if(it.LazyInitializer)$
 $endif$
 $if(it.Getter)$
 		$it.Getter.Annotations:annotation()$
-		protected $it.Getter.TypeName$ $it.Getter.Name$()
+		protected virtual $it.Getter.TypeName$ $it.Getter.Name$()
 		{
 			$it.LazyInitializer:call()$
 			return $it.Field.Name$;
@@ -20,7 +20,7 @@ $if(it.Getter)$
 $endif$
 $if(it.Setter)$
 		$it.Setter.Annotations:annotation()$
-		protected $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ value) 
+		protected virtual $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ value) 
 		{
 			if ($it.Field.Name$ == value)
 				return;

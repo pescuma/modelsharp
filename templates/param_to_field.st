@@ -1,1 +1,1 @@
-this.$it.Name$ = $it.VarName$;$\n$
+this.$it.Name$ = $it.VarName$;

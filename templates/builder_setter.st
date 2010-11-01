@@ -1,4 +1,4 @@
-		protected $class$ Set$it.Name$($it.TypeName$ value) 
+		public virtual $class$ Set$it.Name$($it.TypeName$ value) 
 		{
 			this.$it.PrivateName$ = value;
 			return this;

@@ -8,7 +8,7 @@
     <ProjectGuid>{B375035A-4FF4-4373-AB99-319166336F6B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>org.pescuma.ModelSharp</RootNamespace>
+    <RootNamespace>org.pescuma.modelsharp</RootNamespace>
     <AssemblyName>ModelSharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -105,6 +105,8 @@
   <ItemGroup>
     <Compile Include="ModelProcessor.cs" />
     <Compile Include="model\BaseFieldInfo.cs" />
+    <Compile Include="model\CollectionInfo.cs" />
+    <Compile Include="model\ComponentInfo.cs" />
     <Compile Include="model\FieldInfo.cs" />
     <Compile Include="model\MethodInfo.cs" />
     <Compile Include="xml\model_xml.cs" />

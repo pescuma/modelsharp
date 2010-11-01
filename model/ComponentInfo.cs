@@ -12,29 +12,20 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-
 namespace org.pescuma.ModelSharp.model
 {
-	public class MethodInfo
+	public class ComponentInfo : PropertyInfo
 	{
-		public readonly string Name;
-		public readonly string TypeName;
-		public string[] Parameters;
-
-		public readonly List<string> Annotations = new List<string>();
-
-		public MethodInfo(string name, string type = "void", params string[] parameters)
+		public ComponentInfo(string name, string type, bool lazy)
+			: base(name, type, !lazy, lazy)
 		{
-			Contract.Requires(StringUtils.IsValidVariableName(name));
-			Contract.Requires(StringUtils.IsValidTypeName(type));
-			Contract.Requires(!Array.Exists(parameters, x => !StringUtils.IsValidTypeName(x)));
+			if (!lazy)
+				Field.DefaultValue = "new " + TypeName + "()";
+		}
 
-			Name = name;
-			TypeName = type;
-			Parameters = parameters;
+		public override string GetSetterName()
+		{
+			return null;
 		}
 	}
 }

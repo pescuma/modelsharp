@@ -1,5 +1,5 @@
 ﻿$if(it.Getter)$
-				case $it.DefineName$:
+				case PROPERTIES.$it.DefineName$:
 					return $it.Getter.Name$();
 
 $endif$

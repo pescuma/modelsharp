@@ -18,7 +18,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
-using org.pescuma.ModelSharp.Model;
+using org.pescuma.ModelSharp.model;
 
 namespace org.pescuma.ModelSharp
 {
@@ -26,7 +26,7 @@ namespace org.pescuma.ModelSharp
 	{
 		private readonly FileInfo _filename;
 		private readonly string _templatesPath;
-		private StringTemplateGroup _templates;
+		private readonly StringTemplateGroup _templates;
 
 		public ModelProcessor(string templatesPath, string filename)
 		{
@@ -75,37 +75,109 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
+		private void SefDefaults(xml.model model)
+		{
+			foreach (var type in model.type)
+			{
+				if (!type.immutableSpecified)
+					type.immutable = false;
+
+				foreach (var item in type.Items)
+				{
+					if (item is xml.property)
+					{
+						var property = (xml.property) item;
+
+						property.name = StringUtils.FirstUpper(property.name);
+					}
+					else if (item is xml.component)
+					{
+						var component = (xml.component) item;
+
+						component.name = StringUtils.FirstUpper(component.name);
+
+						if (!component.lazySpecified)
+							component.lazy = false;
+					}
+					else if (item is xml.collection)
+					{
+						var collection = (xml.collection) item;
+
+						collection.name = StringUtils.FirstUpper(collection.name);
+
+						if (!collection.lazySpecified)
+							collection.lazy = false;
+					}
+				}
+			}
+		}
+
 		private List<TypeInfo> GetTypes()
 		{
 			List<TypeInfo> ret = new List<TypeInfo>();
 
 			xml.model model = ReadXml();
+			SefDefaults(model);
 
 			foreach (var type in model.type)
 			{
 				TypeInfo ti = new TypeInfo(type.name, model.package, type.immutable);
 
-				foreach (var property in type.property)
+				foreach (var item in type.Items)
 				{
-					property.name = StringUtils.FirstUpper(property.name);
-
-					if (ti.Immutable)
+					if (item is xml.property)
 					{
-						FieldInfo fi = new FieldInfo(property.name, property.type, true, true);
+						var property = (xml.property) item;
 
-						if (!string.IsNullOrEmpty(property.@default))
-							fi.DefaultValue = property.@default;
+						if (ti.Immutable)
+						{
+							FieldInfo fi = new FieldInfo(property.name, property.type, true, true);
 
-						ti.Fields.Add(fi);
+							if (!string.IsNullOrEmpty(property.@default))
+								fi.DefaultValue = property.@default;
+
+							ti.Fields.Add(fi);
+						}
+						else
+						{
+							PropertyInfo prop = new PropertyInfo(property.name, property.type, false, false);
+
+							if (!string.IsNullOrEmpty(property.@default))
+								prop.Field.DefaultValue = property.@default;
+
+							ti.Properties.Add(prop);
+						}
 					}
-					else
+					else if (item is xml.component)
 					{
-						PropertyInfo prop = new PropertyInfo(property.name, property.type, false, false);
+						var component = (xml.component) item;
 
-						if (!string.IsNullOrEmpty(property.@default))
-							prop.Field.DefaultValue = property.@default;
+						if (ti.Immutable)
+						{
+							FieldInfo fi = new FieldInfo(component.name, component.type, true, true);
+							fi.DefaultValue = "new " + fi.TypeName + "()";
+							ti.Fields.Add(fi);
+						}
+						else
+						{
+							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
+							ti.Properties.Add(comp);
+						}
+					}
+					else if (item is xml.collection)
+					{
+						var collection = (xml.collection) item;
 
-						ti.Properties.Add(prop);
+						if (ti.Immutable)
+						{
+							FieldInfo fi = new FieldInfo(collection.name, "List<" + collection.contents + ">", true, true);
+							ti.Fields.Add(fi);
+						}
+						else
+						{
+							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
+							ti.Properties.Add(prop);
+						}
 					}
 				}
 

@@ -13,41 +13,20 @@
 // 
 
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace org.pescuma.ModelSharp
+namespace org.pescuma.ModelSharp.model
 {
-	internal class Program
+	public class CollectionInfo : PropertyInfo
 	{
-		private const string TemplatesPath = @"templates\";
+		public readonly string Contents;
 
-		private static int Main(string[] args)
+		public CollectionInfo(string name, string contents, bool lazy, string collectionType = "ObservableCollection")
+			: base(name, collectionType + "<" + contents + ">", !lazy, lazy)
 		{
-			if (args.Length < 1)
-			{
-				Console.WriteLine("Model# " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
-				Console.WriteLine("");
-				Console.WriteLine("Use:");
-				Console.WriteLine("    ModelSharp <model.ms>");
-				return 1;
-			}
-
-			foreach (var arg in args)
-			{
-				FileInfo xml = new FileInfo(arg);
-				if (!xml.Exists)
-				{
-					Console.WriteLine("File not found: " + xml.FullName);
-					return -1;
-				}
-			}
-
-			foreach (var arg in args)
-			{
-				new ModelProcessor(TemplatesPath, arg).Process();
-			}
-
-			return 0;
+			Contents = contents;
 		}
 	}
 }

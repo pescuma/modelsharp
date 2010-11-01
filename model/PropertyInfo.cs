@@ -12,63 +12,68 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-namespace org.pescuma.ModelSharp.Model
+namespace org.pescuma.ModelSharp.model
 {
-    public class PropertyInfo : BaseFieldInfo
-    {
-        public readonly bool Lazy;
-        public readonly int Order = -1;
+	public class PropertyInfo : BaseFieldInfo
+	{
+		public readonly bool Lazy;
+		public readonly int Order = -1;
 
-        public FieldInfo Field; 
-        public MethodInfo Getter;
-        public MethodInfo Setter;
-        public MethodInfo LazyInitializer;
+		public FieldInfo Field;
+		public MethodInfo Getter;
+		public MethodInfo Setter;
+		public MethodInfo LazyInitializer;
 
-        public PropertyInfo(string name, string type, bool readOnly, bool lazy) 
-            : base(name, type, true, readOnly)
-        {
-            Lazy = lazy;
+		public PropertyInfo(string name, string type, bool readOnly, bool lazy)
+			: base(name, type, true, readOnly)
+		{
+			Lazy = lazy;
 
-            Field = new FieldInfo(GetFieldName(), TypeName, false, false);
+			Field = new FieldInfo(GetFieldName(), TypeName, false, readOnly);
 
-            string getter = GetGetterName();
-            if (getter != null)
-                Getter = new MethodInfo(getter, TypeName);
+			string getter = GetGetterName();
+			if (getter != null)
+				Getter = new MethodInfo(getter, TypeName);
 
-            string setter = GetSetterName();
-            if (setter != null)
-                Setter = new MethodInfo(setter, "void", TypeName);
+			string setter = GetSetterName();
+			if (setter != null)
+				Setter = new MethodInfo(setter, "void", TypeName);
 
-            string lazyIntializer = GetLazyInitializerName();
-            if (lazyIntializer != null)
-                LazyInitializer = new MethodInfo(lazyIntializer);
-        }
+			string lazyIntializer = GetLazyInitializerName();
+			if (lazyIntializer != null)
+			{
+				LazyInitializer = new MethodInfo(lazyIntializer);
 
-        public string GetLazyInitializerName()
-        {
-            if (!Lazy)
-                return null;
-            return "LazyInit" + Name;
-        }
+				// Will create it lazy
+				Field.DefaultValue = "";
+			}
+		}
 
-        public string GetGetterName()
-        {
-            if (TypeName == "bool" || TypeName == "Boolean")
-                return "Is" + Name;
-            else
-                return "Get" + Name;
-        }
+		public virtual string GetLazyInitializerName()
+		{
+			if (!Lazy)
+				return null;
+			return "LazyInit" + Name;
+		}
 
-        public string GetSetterName()
-        {
-            if (ReadOnly)
-                return null;
-            return "Set" + Name;
-        }
+		public virtual string GetGetterName()
+		{
+			if (TypeName == "bool" || TypeName == "Boolean")
+				return "Is" + Name;
+			else
+				return "Get" + Name;
+		}
 
-        public string GetFieldName()
-        {
-            return "_" + StringUtils.FirstLower(Name);
-        }
-    }
+		public virtual string GetSetterName()
+		{
+			if (ReadOnly)
+				return null;
+			return "Set" + Name;
+		}
+
+		public virtual string GetFieldName()
+		{
+			return "_" + StringUtils.FirstLower(Name);
+		}
+	}
 }

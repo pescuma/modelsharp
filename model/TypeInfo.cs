@@ -14,8 +14,9 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
-namespace org.pescuma.ModelSharp.Model
+namespace org.pescuma.ModelSharp.model
 {
 	public class TypeInfo
 	{
@@ -39,6 +40,11 @@ namespace org.pescuma.ModelSharp.Model
 			ImplementationName = "Base" + name;
 			Package = package;
 			Immutable = immutable;
+		}
+
+		public bool HasSettableProperties
+		{
+			get { return Properties.Count(prop => prop.Setter != null) > 0; }
 		}
 	}
 }

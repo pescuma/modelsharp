@@ -12,11 +12,6 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace org.pescuma.ModelSharp.model
 {
 	public class CollectionInfo : PropertyInfo
@@ -27,6 +22,11 @@ namespace org.pescuma.ModelSharp.model
 			: base(name, collectionType + "<" + contents + ">", !lazy, lazy)
 		{
 			Contents = contents;
+		}
+
+		public override string GetSetterName()
+		{
+			return null;
 		}
 	}
 }

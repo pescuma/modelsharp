@@ -46,5 +46,10 @@ namespace org.pescuma.ModelSharp.model
 		{
 			get { return Properties.Count(prop => prop.Setter != null) > 0; }
 		}
+
+		public bool HasCollections
+		{
+			get { return Properties.Count(prop => prop is CollectionInfo) > 0; }
+		}
 	}
 }

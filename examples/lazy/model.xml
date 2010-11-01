@@ -1,0 +1,10 @@
+<model package="examples.lazy">
+	<type name="Type1">
+		<property name="prop1" type="Type2" />
+		<component name="comp1" type="Type2" lazy="true" />
+		<collection name="col1" contents="Type2" lazy="true" />
+	</type>
+	<type name="Type2">
+		<property name="name" type="string" />
+	</type>
+</model>

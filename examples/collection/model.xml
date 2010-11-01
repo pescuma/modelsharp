@@ -1,0 +1,10 @@
+<model package="examples.collection">
+	<type name="Person">
+		<collection name="cars" contents="string" />
+		<property name="name" type="string" />
+		<collection name="houses" contents="House" />
+	</type>
+	<type name="House">
+		<property name="address" type="string" />
+	</type>
+</model>

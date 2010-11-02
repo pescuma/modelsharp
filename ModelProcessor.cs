@@ -41,18 +41,19 @@ namespace org.pescuma.ModelSharp
 
 			string outDir = _filename.Directory.FullName;
 
-			foreach (var type in GetTypes())
+			var model = GetModel();
+			foreach (var type in model.Types)
 			{
 				if (type.Immutable)
 				{
-					CreateFileIfNotExits(type, "immutable_class_extended", outDir, type.Name);
-					CreateFile(type, "immutable_class", outDir, type.ImplementationName);
-					CreateFile(type, "builder_class", outDir, type.Name + "Builder");
+					CreateFileIfNotExits(model.Using, type, "immutable_class_extended", outDir, type.Name);
+					CreateFile(model.Using, type, "immutable_class", outDir, type.ImplementationName);
+					CreateFile(model.Using, type, "builder_class", outDir, type.Name + "Builder");
 				}
 				else
 				{
-					CreateFileIfNotExits(type, "mutable_class_extended", outDir, type.Name);
-					CreateFile(type, "mutable_class", outDir, type.ImplementationName);
+					CreateFileIfNotExits(model.Using, type, "mutable_class_extended", outDir, type.Name);
+					CreateFile(model.Using, type, "mutable_class", outDir, type.ImplementationName);
 				}
 			}
 			Console.WriteLine("... Done");
@@ -75,119 +76,162 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
-		private void SefDefaults(xml.model model)
+		private void ReprocessXml(xml.model model)
 		{
-			foreach (var type in model.type)
+			foreach (var modelItem in model.Items)
 			{
-				if (!type.immutableSpecified)
-					type.immutable = false;
-
-				foreach (var item in type.Items)
+				if (modelItem is xml.type)
 				{
-					if (item is xml.property)
+					var type = (xml.type) modelItem;
+					if (!type.immutableSpecified)
+						type.immutable = false;
+
+					foreach (var item in type.Items)
 					{
-						var property = (xml.property) item;
+						if (item is xml.property)
+						{
+							var property = (xml.property) item;
 
-						property.name = StringUtils.FirstUpper(property.name);
+							property.name = StringUtils.FirstUpper(property.name);
+						}
+						else if (item is xml.component)
+						{
+							var component = (xml.component) item;
+
+							component.name = StringUtils.FirstUpper(component.name);
+
+							if (!component.lazySpecified)
+								component.lazy = false;
+						}
+						else if (item is xml.collection)
+						{
+							var collection = (xml.collection) item;
+
+							collection.name = StringUtils.FirstUpper(collection.name);
+
+							if (!collection.lazySpecified)
+								collection.lazy = false;
+						}
 					}
-					else if (item is xml.component)
-					{
-						var component = (xml.component) item;
-
-						component.name = StringUtils.FirstUpper(component.name);
-
-						if (!component.lazySpecified)
-							component.lazy = false;
-					}
-					else if (item is xml.collection)
-					{
-						var collection = (xml.collection) item;
-
-						collection.name = StringUtils.FirstUpper(collection.name);
-
-						if (!collection.lazySpecified)
-							collection.lazy = false;
-					}
+				}
+				else if (modelItem is xml.@using)
+				{
+					xml.@using us = modelItem as xml.@using;
+					us.@namespace = us.@namespace.Trim();
 				}
 			}
 		}
 
-		private List<TypeInfo> GetTypes()
+		private ModelInfo GetModel()
 		{
-			List<TypeInfo> ret = new List<TypeInfo>();
+			var xmlModel = ReadXml();
+			ReprocessXml(xmlModel);
 
-			xml.model model = ReadXml();
-			SefDefaults(model);
+			var model = CreateModel(xmlModel);
+			ProcessModel(model);
 
-			foreach (var type in model.type)
+			return model;
+		}
+
+		private ModelInfo CreateModel(xml.model model)
+		{
+			ModelInfo ret = new ModelInfo();
+
+			foreach (var modelItem in model.Items)
 			{
-				TypeInfo ti = new TypeInfo(type.name, model.package, type.immutable);
-
-				foreach (var item in type.Items)
+				if (modelItem is xml.type)
 				{
-					if (item is xml.property)
+					xml.type type = (xml.type) modelItem;
+
+					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable);
+
+					foreach (var item in type.Items)
 					{
-						var property = (xml.property) item;
-
-						if (ti.Immutable)
+						if (item is xml.property)
 						{
-							FieldInfo fi = new FieldInfo(property.name, property.type, true, true);
+							var property = (xml.property) item;
 
-							if (!string.IsNullOrEmpty(property.@default))
-								fi.DefaultValue = property.@default;
+							if (ti.Immutable)
+							{
+								FieldInfo fi = new FieldInfo(property.name, property.type, true, true);
 
-							ti.Fields.Add(fi);
+								if (!string.IsNullOrEmpty(property.@default))
+									fi.DefaultValue = property.@default;
+
+								ti.Fields.Add(fi);
+							}
+							else
+							{
+								PropertyInfo prop = new PropertyInfo(property.name, property.type, false, false);
+
+								if (!string.IsNullOrEmpty(property.@default))
+									prop.Field.DefaultValue = property.@default;
+
+								ti.Properties.Add(prop);
+							}
 						}
-						else
+						else if (item is xml.component)
 						{
-							PropertyInfo prop = new PropertyInfo(property.name, property.type, false, false);
+							var component = (xml.component) item;
 
-							if (!string.IsNullOrEmpty(property.@default))
-								prop.Field.DefaultValue = property.@default;
+							if (ti.Immutable)
+							{
+								FieldInfo fi = new FieldInfo(component.name, component.type, true, true);
+								fi.DefaultValue = "new " + fi.TypeName + "()";
+								ti.Fields.Add(fi);
+							}
+							else
+							{
+								ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
+								ti.Properties.Add(comp);
+							}
+						}
+						else if (item is xml.collection)
+						{
+							var collection = (xml.collection) item;
 
-							ti.Properties.Add(prop);
+							if (ti.Immutable)
+							{
+								FieldInfo fi = new FieldInfo(collection.name, "List<" + collection.contents + ">", true, true);
+								ti.Fields.Add(fi);
+							}
+							else
+							{
+								CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
+								ti.Properties.Add(prop);
+							}
 						}
 					}
-					else if (item is xml.component)
-					{
-						var component = (xml.component) item;
 
-						if (ti.Immutable)
-						{
-							FieldInfo fi = new FieldInfo(component.name, component.type, true, true);
-							fi.DefaultValue = "new " + fi.TypeName + "()";
-							ti.Fields.Add(fi);
-						}
-						else
-						{
-							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
-							ti.Properties.Add(comp);
-						}
-					}
-					else if (item is xml.collection)
-					{
-						var collection = (xml.collection) item;
-
-						if (ti.Immutable)
-						{
-							FieldInfo fi = new FieldInfo(collection.name, "List<" + collection.contents + ">", true, true);
-							ti.Fields.Add(fi);
-						}
-						else
-						{
-							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
-							ti.Properties.Add(prop);
-						}
-					}
+					ret.AddType(ti);
 				}
-
-				ret.Add(ti);
+				else if (modelItem is xml.@using)
+				{
+					xml.@using us = modelItem as xml.@using;
+					ret.AddUsing(us.@namespace);
+				}
 			}
 
 			return ret;
 		}
 
-		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir, string className)
+		private void ProcessModel(ModelInfo model)
+		{
+			// Add needed using namespaces
+			foreach (var type in model.Types)
+			{
+				if (type.Properties.Count > 0)
+				{
+					model.AddUsing("System");
+					model.AddUsing("System.ComponentModel");
+				}
+
+				if (type.HasCollections)
+					model.AddUsing("System.Collections.ObjectModel");
+			}
+		}
+
+		private void CreateFileIfNotExits(List<string> @using, TypeInfo type, string templateName, string outDir, string className)
 		{
 			var fullname = Path.Combine(outDir, type.Package.Replace('.', '\\'), className + ".cs");
 			if (new FileInfo(fullname).Exists)
@@ -196,12 +240,13 @@ namespace org.pescuma.ModelSharp
 				return;
 			}
 
-			CreateFile(type, templateName, outDir, className);
+			CreateFile(@using, type, templateName, outDir, className);
 		}
 
-		private void CreateFile(TypeInfo type, string templateName, string outDir, string className)
+		private void CreateFile(List<string> @using, TypeInfo type, string templateName, string outDir, string className)
 		{
 			var template = _templates.GetInstanceOf(templateName);
+			template.SetAttribute("using", @using);
 			template.SetAttribute("it", type);
 			template.SetAttribute("class", className);
 

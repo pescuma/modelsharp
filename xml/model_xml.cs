@@ -24,20 +24,21 @@ namespace org.pescuma.ModelSharp.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class model {
         
-        private type[] typeField;
+        private object[] itemsField;
         
         private string[] textField;
         
-        private string packageField;
+        private string namespaceField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("type")]
-        public type[] type {
+        [System.Xml.Serialization.XmlElementAttribute("type", typeof(type))]
+        [System.Xml.Serialization.XmlElementAttribute("using", typeof(@using))]
+        public object[] Items {
             get {
-                return this.typeField;
+                return this.itemsField;
             }
             set {
-                this.typeField = value;
+                this.itemsField = value;
             }
         }
         
@@ -54,12 +55,12 @@ namespace org.pescuma.ModelSharp.xml {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
-        public string package {
+        public string @namespace {
             get {
-                return this.packageField;
+                return this.namespaceField;
             }
             set {
-                this.packageField = value;
+                this.namespaceField = value;
             }
         }
     }
@@ -297,6 +298,29 @@ namespace org.pescuma.ModelSharp.xml {
             }
             set {
                 this.typeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class @using {
+        
+        private string namespaceField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string @namespace {
+            get {
+                return this.namespaceField;
+            }
+            set {
+                this.namespaceField = value;
             }
         }
     }

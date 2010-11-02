@@ -1,4 +1,4 @@
-<model package="examples.simple">
+<model namespace="examples.simple">
 	<type name="Point">
 		<property name="x" type="double" />
 		<property name="y" type="double" default="2" />

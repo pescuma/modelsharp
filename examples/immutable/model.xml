@@ -1,4 +1,4 @@
-<model package="examples.immutable">
+<model namespace="examples.immutable">
 	<type name="Point" immutable="true">
 		<property name="x" type="double" />
 		<property name="y" type="double" default="2" />

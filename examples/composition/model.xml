@@ -1,4 +1,4 @@
-<model package="examples.aggregation">
+<model namespace="examples.composition">
 	<type name="Person">
 		<component name="homeAddress" type="Address" />
 		<component name="workAddress" type="Address" />

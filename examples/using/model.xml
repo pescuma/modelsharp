@@ -1,0 +1,7 @@
+<model namespace="examples.simple">
+	<using namespace="System" />
+	
+	<type name="Test">
+		<property name="date" type="DateTime" />
+	</type>
+</model>

@@ -289,6 +289,7 @@ namespace org.pescuma.ModelSharp
 				type.Using.Add("System.Diagnostics");
 				foreach (var prop in type.Properties)
 				{
+					prop.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
 					prop.PropGetAnnotations.Add("DebuggerStepThroughAttribute");
 					prop.PropSetAnnotations.Add("DebuggerStepThroughAttribute");
 				}

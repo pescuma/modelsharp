@@ -1,15 +1,5 @@
-$if(it.Public)$
-	public
-$else$
-	private
-$endif$
+private 
 $if(it.ReadOnly)$
-	readonly
+	readonly 
 $endif$
-
-$it.TypeName$ $it.Name$
-
-$if(it.DefaultValue)$
-	= $it.DefaultValue$
-$endif$
-;
+$it.TypeName$ $it.FieldName$$if(it.DefaultValue)$ = $it.DefaultValue$$endif$;

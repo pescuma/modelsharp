@@ -1,11 +1,11 @@
-﻿$using:create_using()$
+﻿$it.Using:create_using()$
 
 namespace $it.Package$
 {
 	public class $it.Name$ : $it.ImplementationName$
 	{
-		public $it.Name$($it.Fields:param(); separator=", "$)
-			: base($it.Fields:var_name(); separator=", "$)
+		public $it.Name$($it.Properties:param(); separator=", "$)
+			: base($it.Properties:var_name(); separator=", "$)
 		{
 		}
 	}

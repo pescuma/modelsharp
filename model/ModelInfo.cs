@@ -18,28 +18,12 @@ namespace org.pescuma.ModelSharp.model
 {
 	public class ModelInfo
 	{
-		private readonly List<string> _using = new List<string>();
+		public readonly HashSet<string> Using = new HashSet<string>();
 		private readonly List<TypeInfo> _types = new List<TypeInfo>();
-
-		public List<string> Using
-		{
-			get { return _using; }
-		}
 
 		public List<TypeInfo> Types
 		{
 			get { return _types; }
-		}
-
-		public void AddUsing(string value)
-		{
-			value = value.Trim();
-
-			if (_using.Contains(value))
-				return;
-
-			_using.Add(value);
-			_using.Sort();
 		}
 
 		public void AddType(TypeInfo type)

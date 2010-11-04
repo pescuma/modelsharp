@@ -13,7 +13,6 @@
 // 
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Antlr3.ST;
@@ -24,6 +23,8 @@ namespace org.pescuma.ModelSharp
 {
 	internal class ModelProcessor
 	{
+		private readonly Logger _log = new Logger();
+
 		private readonly FileInfo _filename;
 		private readonly string _templatesPath;
 		private readonly StringTemplateGroup _templates;
@@ -35,9 +36,9 @@ namespace org.pescuma.ModelSharp
 			_templates = new StringTemplateGroup("templates", templatesPath);
 		}
 
-		public void Process()
+		public bool Process()
 		{
-			Console.WriteLine("Processing " + _filename + " ...");
+			_log.Info("Processing " + _filename + " ...");
 
 			string outDir = _filename.Directory.FullName;
 
@@ -46,18 +47,20 @@ namespace org.pescuma.ModelSharp
 			{
 				if (type.Immutable)
 				{
-					CreateFileIfNotExits(model.Using, type, "immutable_class_extended", outDir, type.Name);
-					CreateFile(model.Using, type, "immutable_class", outDir, type.ImplementationName);
-					CreateFile(model.Using, type, "builder_class", outDir, type.Name + "Builder");
+					CreateFileIfNotExits(type, "immutable_class_extended", outDir, type.Name);
+					CreateFile(type, "immutable_class", outDir, type.ImplementationName);
+					CreateFile(type, "builder_class", outDir, type.Name + "Builder");
 				}
 				else
 				{
-					CreateFileIfNotExits(model.Using, type, "mutable_class_extended", outDir, type.Name);
-					CreateFile(model.Using, type, "mutable_class", outDir, type.ImplementationName);
+					CreateFileIfNotExits(type, "mutable_class_extended", outDir, type.Name);
+					CreateFile(type, "mutable_class", outDir, type.ImplementationName);
 				}
 			}
-			Console.WriteLine("... Done");
-			Console.WriteLine("");
+			_log.Info("... Done");
+			_log.Info("");
+
+			return !_log.HasError;
 		}
 
 		private xml.model ReadXml()
@@ -76,7 +79,7 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
-		private void ReprocessXml(xml.model model)
+		private void PosProcessXml(xml.model model)
 		{
 			foreach (var modelItem in model.Items)
 			{
@@ -125,7 +128,7 @@ namespace org.pescuma.ModelSharp
 		private ModelInfo GetModel()
 		{
 			var xmlModel = ReadXml();
-			ReprocessXml(xmlModel);
+			PosProcessXml(xmlModel);
 
 			var model = CreateModel(xmlModel);
 			ProcessModel(model);
@@ -151,55 +154,26 @@ namespace org.pescuma.ModelSharp
 						{
 							var property = (xml.property) item;
 
-							if (ti.Immutable)
-							{
-								FieldInfo fi = new FieldInfo(property.name, property.type, true, true);
+							PropertyInfo prop = new PropertyInfo(property.name, property.type, false);
 
-								if (!string.IsNullOrEmpty(property.@default))
-									fi.DefaultValue = property.@default;
+							if (!string.IsNullOrEmpty(property.@default))
+								prop.DefaultValue = property.@default;
 
-								ti.Fields.Add(fi);
-							}
-							else
-							{
-								PropertyInfo prop = new PropertyInfo(property.name, property.type, false, false);
-
-								if (!string.IsNullOrEmpty(property.@default))
-									prop.Field.DefaultValue = property.@default;
-
-								ti.Properties.Add(prop);
-							}
+							ti.Properties.Add(prop);
 						}
 						else if (item is xml.component)
 						{
 							var component = (xml.component) item;
 
-							if (ti.Immutable)
-							{
-								FieldInfo fi = new FieldInfo(component.name, component.type, true, true);
-								fi.DefaultValue = "new " + fi.TypeName + "()";
-								ti.Fields.Add(fi);
-							}
-							else
-							{
-								ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
-								ti.Properties.Add(comp);
-							}
+							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
+							ti.Properties.Add(comp);
 						}
 						else if (item is xml.collection)
 						{
 							var collection = (xml.collection) item;
 
-							if (ti.Immutable)
-							{
-								FieldInfo fi = new FieldInfo(collection.name, "List<" + collection.contents + ">", true, true);
-								ti.Fields.Add(fi);
-							}
-							else
-							{
-								CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
-								ti.Properties.Add(prop);
-							}
+							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
+							ti.Properties.Add(prop);
 						}
 					}
 
@@ -208,7 +182,7 @@ namespace org.pescuma.ModelSharp
 				else if (modelItem is xml.@using)
 				{
 					xml.@using us = modelItem as xml.@using;
-					ret.AddUsing(us.@namespace);
+					ret.Using.Add(us.@namespace);
 				}
 			}
 
@@ -217,36 +191,94 @@ namespace org.pescuma.ModelSharp
 
 		private void ProcessModel(ModelInfo model)
 		{
-			// Add needed using namespaces
+			CopyUsingsToType(model);
+			AddCollectionUsings(model);
+			MakeChangesForImmutable(model);
+			AddNotifcationInformation(model);
+		}
+
+		private void CopyUsingsToType(ModelInfo model)
+		{
 			foreach (var type in model.Types)
 			{
-				if (type.Properties.Count > 0)
+				foreach (var ns in model.Using)
 				{
-					model.AddUsing("System");
-					model.AddUsing("System.ComponentModel");
+					type.Using.Add(ns);
 				}
-
-				if (type.HasCollections)
-					model.AddUsing("System.Collections.ObjectModel");
 			}
 		}
 
-		private void CreateFileIfNotExits(List<string> @using, TypeInfo type, string templateName, string outDir, string className)
+		private void AddCollectionUsings(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				if (type.HasCollections)
+					type.Using.Add("System.Collections.ObjectModel");
+			}
+		}
+
+		private void MakeChangesForImmutable(ModelInfo model)
+		{
+			// Convert all properties to fields
+			foreach (var type in model.Types)
+			{
+				if (!type.Immutable)
+					continue;
+
+				foreach (var prop in type.Properties)
+				{
+					prop.FieldName = prop.Name;
+					prop.Getter = null;
+					prop.Setter = null;
+					prop.LazyInitializer = null;
+
+					if (prop is CollectionInfo)
+					{
+						string contents = ((CollectionInfo) prop).Contents;
+
+						prop.TypeName = "ReadOnlyCollection<" + contents + ">";
+						prop.DefaultValue = "";
+
+						type.Using.Add("System.Collections.Generic");
+					}
+					else if (prop is ComponentInfo)
+					{
+						prop.DefaultValue = "";
+					}
+				}
+			}
+		}
+
+		private void AddNotifcationInformation(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				if (type.Immutable)
+					continue;
+
+				type.Using.Add("System");
+				type.Using.Add("System.ComponentModel");
+
+				type.Implements.Add("INotifyPropertyChanging");
+				type.Implements.Add("INotifyPropertyChanged");
+			}
+		}
+
+		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir, string className)
 		{
 			var fullname = Path.Combine(outDir, type.Package.Replace('.', '\\'), className + ".cs");
 			if (new FileInfo(fullname).Exists)
 			{
-				Console.WriteLine("Skiped (because already exists) file " + fullname);
+				_log.Info("Skiped (because already exists) file " + fullname);
 				return;
 			}
 
-			CreateFile(@using, type, templateName, outDir, className);
+			CreateFile(type, templateName, outDir, className);
 		}
 
-		private void CreateFile(List<string> @using, TypeInfo type, string templateName, string outDir, string className)
+		private void CreateFile(TypeInfo type, string templateName, string outDir, string className)
 		{
 			var template = _templates.GetInstanceOf(templateName);
-			template.SetAttribute("using", @using);
 			template.SetAttribute("it", type);
 			template.SetAttribute("class", className);
 
@@ -257,14 +289,14 @@ namespace org.pescuma.ModelSharp
 			WriteFile(template, fullname);
 			FormatFile(fullname);
 
-			Console.WriteLine("Created file " + fullname);
+			_log.Info("Created file " + fullname);
 		}
 
 		private void FormatFile(string filename)
 		{
 			FileArranger fileArranger = new FileArranger(Path.Combine(_templatesPath, "SimpleConfig.xml"), null);
 			if (!fileArranger.Arrange(filename, null))
-				throw new InvalidDataException();
+				_log.Error("Could not format file: " + filename + ". The file has wrong code :(");
 		}
 
 		private void WriteFile(StringTemplate template, string filename)
@@ -272,6 +304,22 @@ namespace org.pescuma.ModelSharp
 			TextWriter tw = new StreamWriter(filename);
 			template.Write(new NoIndentWriter(tw));
 			tw.Close();
+		}
+	}
+
+	public class Logger
+	{
+		public bool HasError;
+
+		public void Info(string msg)
+		{
+			Console.WriteLine(msg);
+		}
+
+		public void Error(string msg)
+		{
+			Console.WriteLine(" [ERR] " + msg);
+			HasError = true;
 		}
 	}
 }

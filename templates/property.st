@@ -1,6 +1,6 @@
 #region Property $it.Name$
 
-$it.Field:property_field()$
+$it:property_field()$
 
 $it:property_decl()$
 

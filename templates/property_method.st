@@ -2,10 +2,10 @@ $if(it.LazyInitializer)$
 		$it.LazyInitializer.Annotations:annotation()$
 		protected virtual $it.LazyInitializer.TypeName$ $it.LazyInitializer.Name$() 
 		{
-			if ($it.Field.Name$ != null)
+			if ($it.FieldName$ != null)
 				return;
 
-			$it.Field.Name$ = new $it.TypeName$();
+			$it.FieldName$ = new $it.TypeName$();
 		}
 
 $endif$
@@ -14,20 +14,20 @@ $if(it.Getter)$
 		protected virtual $it.Getter.TypeName$ $it.Getter.Name$()
 		{
 			$it.LazyInitializer:call()$
-			return $it.Field.Name$;
+			return $it.FieldName$;
 		}
 
 $endif$
 $if(it.Setter)$
 		$it.Setter.Annotations:annotation()$
-		protected virtual $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ value) 
+		protected virtual $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ $it.VarName$) 
 		{
-			if ($it.Field.Name$ == value)
+			if ($it.FieldName$ == $it.VarName$)
 				return;
 
 			OnPropertyChanging(PROPERTIES.$it.DefineName$);
 
-			$it.Field.Name$ = value;
+			$it.FieldName$ = $it.VarName$;
 
 			OnPropertyChanged(PROPERTIES.$it.DefineName$);
 		}

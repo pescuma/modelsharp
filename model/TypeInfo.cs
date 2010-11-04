@@ -20,14 +20,16 @@ namespace org.pescuma.ModelSharp.model
 {
 	public class TypeInfo
 	{
+		public readonly HashSet<string> Using = new HashSet<string>();
+
 		public readonly string Name;
 		public readonly string ImplementationName;
 		public readonly string Package;
 		public readonly bool Immutable;
 
-		public List<PropertyInfo> Properties = new List<PropertyInfo>();
-		public List<FieldInfo> Fields = new List<FieldInfo>();
-		public List<MethodInfo> Methods = new List<MethodInfo>();
+		public readonly List<string> Implements = new List<string>();
+		public readonly List<PropertyInfo> Properties = new List<PropertyInfo>();
+		public readonly List<MethodInfo> Methods = new List<MethodInfo>();
 
 		public readonly List<string> Annotations = new List<string>();
 

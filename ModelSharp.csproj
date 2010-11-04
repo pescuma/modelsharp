@@ -109,7 +109,6 @@
     <Compile Include="model\BaseFieldInfo.cs" />
     <Compile Include="model\CollectionInfo.cs" />
     <Compile Include="model\ComponentInfo.cs" />
-    <Compile Include="model\FieldInfo.cs" />
     <Compile Include="model\MethodInfo.cs" />
     <Compile Include="model\ModelInfo.cs" />
     <None Include="templates\create_using.st" />
@@ -130,7 +129,7 @@
     <None Include="templates\immutable_class_extended.st" />
     <None Include="templates\mutable_class_extended.st" />
     <None Include="templates\switch_setter.st" />
-    <None Include="templates\param_to_field.st" />
+    <None Include="templates\immutable_param_to_field.st" />
     <None Include="templates\param.st" />
     <None Include="templates\private_name.st" />
     <None Include="templates\immutable_field.st" />
@@ -141,7 +140,6 @@
     <None Include="templates\property_field.st" />
     <None Include="templates\property_method.st" />
     <None Include="templates\property_decl.st" />
-    <None Include="templates\field.st" />
     <None Include="templates\immutable_class.st" />
     <None Include="templates\switch_getter.st" />
   </ItemGroup>
@@ -170,6 +168,7 @@
   <ItemGroup>
     <Content Include="templates\SimpleConfig.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

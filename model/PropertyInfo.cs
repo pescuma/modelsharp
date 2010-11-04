@@ -19,17 +19,14 @@ namespace org.pescuma.ModelSharp.model
 		public readonly bool Lazy;
 		public readonly int Order = -1;
 
-		public FieldInfo Field;
 		public MethodInfo Getter;
 		public MethodInfo Setter;
 		public MethodInfo LazyInitializer;
 
-		public PropertyInfo(string name, string type, bool readOnly, bool lazy)
-			: base(name, type, true, readOnly)
+		public PropertyInfo(string name, string type, bool lazy)
+			: base(name, type)
 		{
 			Lazy = lazy;
-
-			Field = new FieldInfo(GetFieldName(), TypeName, false, readOnly);
 
 			string getter = GetGetterName();
 			if (getter != null)
@@ -41,22 +38,17 @@ namespace org.pescuma.ModelSharp.model
 
 			string lazyIntializer = GetLazyInitializerName();
 			if (lazyIntializer != null)
-			{
 				LazyInitializer = new MethodInfo(lazyIntializer);
-
-				// Will create it lazy
-				Field.DefaultValue = "";
-			}
 		}
 
-		public virtual string GetLazyInitializerName()
+		private string GetLazyInitializerName()
 		{
 			if (!Lazy)
 				return null;
 			return "LazyInit" + Name;
 		}
 
-		public virtual string GetGetterName()
+		private string GetGetterName()
 		{
 			if (TypeName == "bool" || TypeName == "Boolean")
 				return "Is" + Name;
@@ -64,16 +56,19 @@ namespace org.pescuma.ModelSharp.model
 				return "Get" + Name;
 		}
 
-		public virtual string GetSetterName()
+		private string GetSetterName()
 		{
-			if (ReadOnly)
-				return null;
 			return "Set" + Name;
 		}
 
-		public virtual string GetFieldName()
+		public bool GetIsCollection()
 		{
-			return "_" + StringUtils.FirstLower(Name);
+			return this is CollectionInfo;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);
 		}
 	}
 }

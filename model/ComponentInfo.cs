@@ -17,15 +17,13 @@ namespace org.pescuma.ModelSharp.model
 	public class ComponentInfo : PropertyInfo
 	{
 		public ComponentInfo(string name, string type, bool lazy)
-			: base(name, type, !lazy, lazy)
+			: base(name, type, lazy)
 		{
-			if (!lazy)
-				Field.DefaultValue = "new " + TypeName + "()";
-		}
+			Setter = null;
+			ReadOnly = !lazy;
 
-		public override string GetSetterName()
-		{
-			return null;
+			if (!lazy)
+				DefaultValue = "new " + TypeName + "()";
 		}
 	}
 }

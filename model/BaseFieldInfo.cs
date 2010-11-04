@@ -19,17 +19,19 @@ namespace org.pescuma.ModelSharp.model
 {
 	public class BaseFieldInfo
 	{
-		public readonly string Name;
-		public readonly string PrivateName;
-		public readonly string PublicName;
-		public readonly string VarName;
-		public readonly string TypeName;
-		public readonly string DefineName;
-		public readonly bool Public;
-		public readonly bool ReadOnly;
+		public string Name;
+		public string FieldName;
+		public string PrivateName;
+		public string PublicName;
+		public string VarName;
+		public string TypeName;
+		public string DefineName;
+		public bool ReadOnly;
 		public readonly List<string> Annotations = new List<string>();
 
-		public BaseFieldInfo(string name, string type, bool @public, bool readOnly)
+		private string _defaultValue;
+
+		public BaseFieldInfo(string name, string type)
 		{
 			Contract.Requires(StringUtils.IsValidVariableName(name));
 			Contract.Requires(StringUtils.IsValidTypeName(type));
@@ -42,12 +44,33 @@ namespace org.pescuma.ModelSharp.model
 
 			Name = name;
 			PublicName = StringUtils.FirstUpper(name);
-			PrivateName = "_" + StringUtils.FirstLower(name);
+			FieldName = PrivateName = "_" + StringUtils.FirstLower(name);
 			VarName = StringUtils.FirstLower(name);
 			TypeName = type;
 			DefineName = StringUtils.ToDefineName(name);
-			Public = @public;
-			ReadOnly = readOnly;
+			ReadOnly = false;
+		}
+
+		public string DefaultValue
+		{
+			get
+			{
+				if (_defaultValue == "")
+					return null;
+
+				return _defaultValue;
+			}
+			set
+			{
+				_defaultValue = value;
+
+				if (TypeName == "string" && _defaultValue != null
+				    && (_defaultValue.Length < 2 || _defaultValue[0] != '"' || _defaultValue[-1] != '"'))
+				{
+					_defaultValue = _defaultValue.Replace("\"", "\\\"");
+					_defaultValue = "\"" + _defaultValue + "\"";
+				}
+			}
 		}
 	}
 }

@@ -42,12 +42,17 @@ namespace org.pescuma.ModelSharp
 				}
 			}
 
+			int ret = 0;
 			foreach (var arg in args)
 			{
-				new ModelProcessor(TemplatesPath, arg).Process();
+				bool success = new ModelProcessor(TemplatesPath, arg).Process();
+				if (!success)
+					ret = -1;
 			}
 
-			return 0;
+			if (ret != 0)
+				Console.WriteLine("Finished with error(s)");
+			return ret;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿$using:create_using()$
+﻿$it.Using:create_using()$
 
 namespace $it.Package$
 {

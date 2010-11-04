@@ -12,6 +12,8 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
+using System.Diagnostics.Contracts;
+
 namespace org.pescuma.ModelSharp.model
 {
 	public class CollectionInfo : PropertyInfo
@@ -19,14 +21,16 @@ namespace org.pescuma.ModelSharp.model
 		public readonly string Contents;
 
 		public CollectionInfo(string name, string contents, bool lazy, string collectionType = "ObservableCollection")
-			: base(name, collectionType + "<" + contents + ">", !lazy, lazy)
+			: base(name, collectionType + "<" + contents + ">", lazy)
 		{
-			Contents = contents;
-		}
+			Contract.Requires(!string.IsNullOrWhiteSpace(contents));
 
-		public override string GetSetterName()
-		{
-			return null;
+			Contents = contents;
+			Setter = null;
+			ReadOnly = !lazy;
+
+			if (!lazy)
+				DefaultValue = "new " + TypeName + "()";
 		}
 	}
 }

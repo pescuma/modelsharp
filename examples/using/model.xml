@@ -1,5 +1,5 @@
-<model namespace="examples.simple">
-	<using namespace="System" />
+<model namespace="examples.@using">
+	<using namespace="System.Xml" />
 	
 	<type name="Test">
 		<property name="date" type="DateTime" />

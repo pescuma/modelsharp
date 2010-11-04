@@ -3,8 +3,11 @@
 		<property name="x" type="double" />
 		<property name="y" type="double" default="2" />
 	</type>
-`	<type name="Line" immutable="true">
+	<type name="Line" immutable="true">
 		<property type="Point" name="p1" />
 		<property type="Point" name="p2" />
+		<component type="Point" name="dir" />
+		<collection contents="Point" name="Border" />
 	</type>
+
 </model>

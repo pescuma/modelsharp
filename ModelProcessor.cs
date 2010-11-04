@@ -27,11 +27,13 @@ namespace org.pescuma.ModelSharp
 
 		private readonly FileInfo _filename;
 		private readonly string _templatesPath;
+		private readonly bool _overrideFiles;
 		private readonly StringTemplateGroup _templates;
 
-		public ModelProcessor(string templatesPath, string filename)
+		public ModelProcessor(string templatesPath, string filename, bool overrideFiles)
 		{
 			_templatesPath = templatesPath;
+			_overrideFiles = overrideFiles;
 			_filename = new FileInfo(filename);
 			_templates = new StringTemplateGroup("templates", templatesPath);
 		}
@@ -195,6 +197,7 @@ namespace org.pescuma.ModelSharp
 			AddCollectionUsings(model);
 			MakeChangesForImmutable(model);
 			AddNotifcationInformation(model);
+			AddDataContracts(model);
 		}
 
 		private void CopyUsingsToType(ModelInfo model)
@@ -264,13 +267,34 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
+		private void AddDataContracts(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				type.Using.Add("System.Runtime.Serialization");
+				type.Annotations.Add("DataContract");
+				for (int i = 0; i < type.Properties.Count; i++)
+				{
+					var prop = type.Properties[i];
+					prop.FieldAnnotations.Add(string.Format("DataMember(Name = \"{0}\", Order = {1}, IsRequired = true)", prop.Name, i));
+				}
+			}
+		}
+
 		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir, string className)
 		{
 			var fullname = Path.Combine(outDir, type.Package.Replace('.', '\\'), className + ".cs");
 			if (new FileInfo(fullname).Exists)
 			{
-				_log.Info("Skiped (because already exists) file " + fullname);
-				return;
+				if (!_overrideFiles)
+				{
+					_log.Info("Skiped (because already exists) file " + fullname);
+					return;
+				}
+				else
+				{
+					_log.Info("Overriding file " + fullname);
+				}
 			}
 
 			CreateFile(type, templateName, outDir, className);

@@ -1,3 +1,4 @@
+$it.FieldAnnotations:annotation()$
 private 
 $if(it.ReadOnly)$
 	readonly 

@@ -12,6 +12,8 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
+using System.Collections.Generic;
+
 namespace org.pescuma.ModelSharp.model
 {
 	public class PropertyInfo : BaseFieldInfo
@@ -22,6 +24,9 @@ namespace org.pescuma.ModelSharp.model
 		public MethodInfo Getter;
 		public MethodInfo Setter;
 		public MethodInfo LazyInitializer;
+
+		public readonly List<string> FieldAnnotations = new List<string>();
+
 
 		public PropertyInfo(string name, string type, bool lazy)
 			: base(name, type)

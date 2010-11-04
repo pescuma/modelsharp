@@ -13,39 +13,53 @@
 // 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace org.pescuma.ModelSharp
 {
 	internal class Program
 	{
-		private const string TemplatesPath = @"templates\";
+		private static string _templatesPath;
 
 		private static int Main(string[] args)
 		{
-			if (args.Length < 1)
+			ComputeTemplatePath();
+
+			bool overrideFile = false;
+			List<string> files = new List<string>();
+			foreach (var arg in args)
+			{
+				if (IsOverrideArg(arg))
+				{
+					overrideFile = true;
+				}
+				else
+				{
+					FileInfo xml = new FileInfo(arg);
+					if (!xml.Exists)
+					{
+						Console.WriteLine("File not found: " + xml.FullName);
+						return -1;
+					}
+					files.Add(arg);
+				}
+			}
+
+			if (files.Count < 1)
 			{
 				Console.WriteLine("Model# " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 				Console.WriteLine("");
 				Console.WriteLine("Use:");
-				Console.WriteLine("    ModelSharp <model.ms>");
+				Console.WriteLine("    ModelSharp [-override] <model.ms>");
 				return 1;
 			}
 
-			foreach (var arg in args)
-			{
-				FileInfo xml = new FileInfo(arg);
-				if (!xml.Exists)
-				{
-					Console.WriteLine("File not found: " + xml.FullName);
-					return -1;
-				}
-			}
-
 			int ret = 0;
-			foreach (var arg in args)
+			foreach (var file in files)
 			{
-				bool success = new ModelProcessor(TemplatesPath, arg).Process();
+				bool success = new ModelProcessor(_templatesPath, file, overrideFile).Process();
 				if (!success)
 					ret = -1;
 			}
@@ -53,6 +67,23 @@ namespace org.pescuma.ModelSharp
 			if (ret != 0)
 				Console.WriteLine("Finished with error(s)");
 			return ret;
+		}
+
+		private static bool IsOverrideArg(string arg)
+		{
+			return string.Compare(arg, "-override", true) == 0;
+		}
+
+		private static void ComputeTemplatePath()
+		{
+			string fullPath = System.Reflection.Assembly.GetAssembly(typeof (Program)).Location;
+			string dir = Path.GetDirectoryName(fullPath);
+
+#if DEBUG
+			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\templates\"));
+#else
+			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
+#endif
 		}
 	}
 }

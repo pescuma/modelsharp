@@ -2,6 +2,7 @@
 
 namespace $it.Package$
 {
+	$it.Annotations:annotation()$
 	public class $it.Name$ : $it.ImplementationName$
 	{
 		public $it.Name$($it.Properties:param(); separator=", "$)

@@ -26,7 +26,8 @@ namespace org.pescuma.ModelSharp.model
 		public MethodInfo LazyInitializer;
 
 		public readonly List<string> FieldAnnotations = new List<string>();
-
+		public readonly List<string> PropSetAnnotations = new List<string>();
+		public readonly List<string> PropGetAnnotations = new List<string>();
 
 		public PropertyInfo(string name, string type, bool lazy)
 			: base(name, type)

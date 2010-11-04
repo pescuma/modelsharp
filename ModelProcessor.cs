@@ -198,6 +198,7 @@ namespace org.pescuma.ModelSharp
 			MakeChangesForImmutable(model);
 			AddNotifcationInformation(model);
 			AddDataContracts(model);
+			AddDebugAttributes(model);
 		}
 
 		private void CopyUsingsToType(ModelInfo model)
@@ -277,6 +278,19 @@ namespace org.pescuma.ModelSharp
 				{
 					var prop = type.Properties[i];
 					prop.FieldAnnotations.Add(string.Format("DataMember(Name = \"{0}\", Order = {1}, IsRequired = true)", prop.Name, i));
+				}
+			}
+		}
+
+		private void AddDebugAttributes(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				type.Using.Add("System.Diagnostics");
+				foreach (var prop in type.Properties)
+				{
+					prop.PropGetAnnotations.Add("DebuggerStepThroughAttribute");
+					prop.PropSetAnnotations.Add("DebuggerStepThroughAttribute");
 				}
 			}
 		}

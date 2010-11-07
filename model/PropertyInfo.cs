@@ -18,8 +18,9 @@ namespace org.pescuma.ModelSharp.model
 {
 	public class PropertyInfo : BaseFieldInfo
 	{
-		public readonly bool Lazy;
-		public readonly int Order = -1;
+		public bool Required;
+		public bool Lazy;
+		public int Order = -1;
 
 		public MethodInfo Getter;
 		public MethodInfo Setter;
@@ -29,9 +30,10 @@ namespace org.pescuma.ModelSharp.model
 		public readonly List<string> PropSetAnnotations = new List<string>();
 		public readonly List<string> PropGetAnnotations = new List<string>();
 
-		public PropertyInfo(string name, string type, bool lazy)
+		public PropertyInfo(string name, string type, bool required, bool lazy)
 			: base(name, type)
 		{
+			Required = !lazy && required;
 			Lazy = lazy;
 
 			string getter = GetGetterName();

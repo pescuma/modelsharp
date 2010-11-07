@@ -98,6 +98,9 @@ namespace org.pescuma.ModelSharp
 							var property = (xml.property) item;
 
 							property.name = StringUtils.FirstUpper(property.name);
+
+							if (!property.requiredSpecified)
+								property.required = true;
 						}
 						else if (item is xml.component)
 						{
@@ -107,6 +110,9 @@ namespace org.pescuma.ModelSharp
 
 							if (!component.lazySpecified)
 								component.lazy = false;
+
+							if (!component.requiredSpecified)
+								component.required = true;
 						}
 						else if (item is xml.collection)
 						{
@@ -156,7 +162,7 @@ namespace org.pescuma.ModelSharp
 						{
 							var property = (xml.property) item;
 
-							PropertyInfo prop = new PropertyInfo(property.name, property.type, false);
+							PropertyInfo prop = new PropertyInfo(property.name, property.type, property.required, false);
 
 							if (!string.IsNullOrEmpty(property.@default))
 								prop.DefaultValue = property.@default;
@@ -167,14 +173,16 @@ namespace org.pescuma.ModelSharp
 						{
 							var component = (xml.component) item;
 
-							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
+							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.required,
+							                                       component.lazy);
 							ti.Properties.Add(comp);
 						}
 						else if (item is xml.collection)
 						{
 							var collection = (xml.collection) item;
 
-							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents, collection.lazy);
+							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents,
+							                                         collection.lazy);
 							ti.Properties.Add(prop);
 						}
 					}
@@ -196,6 +204,7 @@ namespace org.pescuma.ModelSharp
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
 			MakeChangesForImmutable(model);
+			ComputePropertyOrder(model);
 			AddNotifcationInformation(model);
 			AddDataContracts(model);
 			AddDebugAttributes(model);
@@ -253,6 +262,18 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
+		private void ComputePropertyOrder(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				for (int i = 0; i < type.Properties.Count; i++)
+				{
+					var prop = type.Properties[i];
+					prop.Order = i;
+				}
+			}
+		}
+
 		private void AddNotifcationInformation(ModelInfo model)
 		{
 			foreach (var type in model.Types)
@@ -274,10 +295,11 @@ namespace org.pescuma.ModelSharp
 			{
 				type.Using.Add("System.Runtime.Serialization");
 				type.Annotations.Add("DataContract");
-				for (int i = 0; i < type.Properties.Count; i++)
+				foreach (var prop in type.Properties)
 				{
-					var prop = type.Properties[i];
-					prop.FieldAnnotations.Add(string.Format("DataMember(Name = \"{0}\", Order = {1}, IsRequired = true)", prop.Name, i));
+					prop.FieldAnnotations.Add(
+						string.Format("DataMember(Name = \"{0}\", Order = {1}, IsRequired = {2})", prop.Name,
+						              prop.Order, prop.Required ? "true" : "false"));
 				}
 			}
 		}
@@ -296,7 +318,8 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
-		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir, string className)
+		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir,
+		                                  string className)
 		{
 			var fullname = Path.Combine(outDir, type.Package.Replace('.', '\\'), className + ".cs");
 			if (new FileInfo(fullname).Exists)
@@ -333,7 +356,8 @@ namespace org.pescuma.ModelSharp
 
 		private void FormatFile(string filename)
 		{
-			FileArranger fileArranger = new FileArranger(Path.Combine(_templatesPath, "SimpleConfig.xml"), null);
+			FileArranger fileArranger = new FileArranger(Path.Combine(_templatesPath, "SimpleConfig.xml"),
+			                                             null);
 			if (!fileArranger.Arrange(filename, null))
 				_log.Error("Could not format file: " + filename + ". The file has wrong code :(");
 		}

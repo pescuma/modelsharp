@@ -1,0 +1,10 @@
+<model namespace="examples.required">
+	<type name="Type1">
+		<property name="prop1" type="Type2" required="false" />
+		<component name="compLazy" type="Type2" lazy="true" required="false" />
+		<component name="comp" type="Type2" required="false" />
+	</type>
+	<type name="Type2">
+		<property name="name" type="string" />
+	</type>
+</model>

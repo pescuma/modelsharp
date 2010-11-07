@@ -5,7 +5,11 @@ $if(it.LazyInitializer)$
 			if ($it.FieldName$ != null)
 				return;
 
+$if(it.DefaultValue)$
+			$it.FieldName$ = $it.DefaultValue$;
+$else$
 			$it.FieldName$ = new $it.TypeName$();
+$endif$
 		}
 
 $endif$

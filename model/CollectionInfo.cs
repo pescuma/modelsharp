@@ -21,7 +21,7 @@ namespace org.pescuma.ModelSharp.model
 		public readonly string Contents;
 
 		public CollectionInfo(string name, string contents, bool lazy, string collectionType = "ObservableCollection")
-			: base(name, collectionType + "<" + contents + ">", lazy)
+			: base(name, collectionType + "<" + contents + ">", false, lazy)
 		{
 			Contract.Requires(!string.IsNullOrWhiteSpace(contents));
 

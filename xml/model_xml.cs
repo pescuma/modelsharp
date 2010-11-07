@@ -54,7 +54,7 @@ namespace org.pescuma.ModelSharp.xml {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string @namespace {
             get {
                 return this.namespaceField;
@@ -206,6 +206,10 @@ namespace org.pescuma.ModelSharp.xml {
         
         private string nameField;
         
+        private bool requiredField;
+        
+        private bool requiredFieldSpecified;
+        
         private string typeField;
         
         /// <remarks/>
@@ -242,6 +246,28 @@ namespace org.pescuma.ModelSharp.xml {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool required {
+            get {
+                return this.requiredField;
+            }
+            set {
+                this.requiredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool requiredSpecified {
+            get {
+                return this.requiredFieldSpecified;
+            }
+            set {
+                this.requiredFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
         public string type {
             get {
@@ -266,6 +292,10 @@ namespace org.pescuma.ModelSharp.xml {
         
         private string nameField;
         
+        private bool requiredField;
+        
+        private bool requiredFieldSpecified;
+        
         private string typeField;
         
         /// <remarks/>
@@ -287,6 +317,28 @@ namespace org.pescuma.ModelSharp.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool required {
+            get {
+                return this.requiredField;
+            }
+            set {
+                this.requiredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool requiredSpecified {
+            get {
+                return this.requiredFieldSpecified;
+            }
+            set {
+                this.requiredFieldSpecified = value;
             }
         }
         

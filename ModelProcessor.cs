@@ -294,7 +294,9 @@ namespace org.pescuma.ModelSharp
 			foreach (var type in model.Types)
 			{
 				type.Using.Add("System.Runtime.Serialization");
+
 				type.Annotations.Add("DataContract");
+
 				foreach (var prop in type.Properties)
 				{
 					prop.FieldAnnotations.Add(
@@ -309,6 +311,7 @@ namespace org.pescuma.ModelSharp
 			foreach (var type in model.Types)
 			{
 				type.Using.Add("System.Diagnostics");
+
 				foreach (var prop in type.Properties)
 				{
 					prop.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");

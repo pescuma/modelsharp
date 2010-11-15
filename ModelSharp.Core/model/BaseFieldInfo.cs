@@ -15,7 +15,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace org.pescuma.ModelSharp.model
+namespace org.pescuma.ModelSharp.Core.model
 {
 	public class BaseFieldInfo
 	{

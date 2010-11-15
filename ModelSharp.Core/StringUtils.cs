@@ -14,7 +14,7 @@
 
 using System.Diagnostics.Contracts;
 
-namespace org.pescuma.ModelSharp
+namespace org.pescuma.ModelSharp.Core
 {
 	public class StringUtils
 	{

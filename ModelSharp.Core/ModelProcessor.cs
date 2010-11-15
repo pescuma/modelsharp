@@ -17,11 +17,11 @@ using System.IO;
 using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
-using org.pescuma.ModelSharp.model;
+using org.pescuma.ModelSharp.Core.model;
 
-namespace org.pescuma.ModelSharp
+namespace org.pescuma.ModelSharp.Core
 {
-	internal class ModelProcessor
+	public class ModelProcessor
 	{
 		private readonly Logger _log = new Logger();
 
@@ -30,21 +30,25 @@ namespace org.pescuma.ModelSharp
 		private readonly bool _overrideFiles;
 		private readonly StringTemplateGroup _templates;
 
+		public string ProjectNamespace { get; set; }
+
 		public ModelProcessor(string templatesPath, string filename, bool overrideFiles)
 		{
 			_templatesPath = templatesPath;
 			_overrideFiles = overrideFiles;
 			_filename = new FileInfo(filename);
 			_templates = new StringTemplateGroup("templates", templatesPath);
+			ProjectNamespace = "";
 		}
 
 		public bool Process()
 		{
 			_log.Info("Processing " + _filename + " ...");
 
+			var model = GetModel();
+
 			string outDir = _filename.Directory.FullName;
 
-			var model = GetModel();
 			foreach (var type in model.Types)
 			{
 				if (type.Immutable)
@@ -83,6 +87,9 @@ namespace org.pescuma.ModelSharp
 
 		private void PosProcessXml(xml.model model)
 		{
+			if (model.projectNamespace == null)
+				model.projectNamespace = "";
+
 			foreach (var modelItem in model.Items)
 			{
 				if (modelItem is xml.type)
@@ -148,6 +155,9 @@ namespace org.pescuma.ModelSharp
 		{
 			ModelInfo ret = new ModelInfo();
 
+			if (model.projectNamespace != "")
+				ProjectNamespace = model.projectNamespace;
+
 			foreach (var modelItem in model.Items)
 			{
 				if (modelItem is xml.type)
@@ -166,6 +176,11 @@ namespace org.pescuma.ModelSharp
 
 							if (!string.IsNullOrEmpty(property.@default))
 								prop.DefaultValue = property.@default;
+
+							if (!string.IsNullOrEmpty(property.getter) && ValidateVisibility(property.getter, "getter"))
+								prop.GetterVisibility = property.getter;
+							if (!string.IsNullOrEmpty(property.setter) && ValidateVisibility(property.setter, "setter"))
+								prop.SetterVisibility = property.setter;
 
 							ti.Properties.Add(prop);
 						}
@@ -197,6 +212,14 @@ namespace org.pescuma.ModelSharp
 			}
 
 			return ret;
+		}
+
+		private bool ValidateVisibility(string visibility, string name)
+		{
+			if (visibility != "public" && visibility != "protected" && visibility != "private")
+				throw new ArgumentException(name + " can be one of: public protected private");
+
+			return true;
 		}
 
 		private void ProcessModel(ModelInfo model)
@@ -321,10 +344,23 @@ namespace org.pescuma.ModelSharp
 			}
 		}
 
+		private string GetPackageDir(string outDir, TypeInfo type)
+		{
+			var pkg = type.Package;
+
+			if (pkg == "" || pkg == ProjectNamespace)
+				return outDir;
+
+			if (ProjectNamespace != "" && pkg.StartsWith(ProjectNamespace + '.'))
+				pkg = pkg.Substring(ProjectNamespace.Length + 1);
+
+			return Path.Combine(outDir, pkg.Replace('.', '\\'));
+		}
+
 		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir,
 		                                  string className)
 		{
-			var fullname = Path.Combine(outDir, type.Package.Replace('.', '\\'), className + ".cs");
+			var fullname = Path.Combine(GetPackageDir(outDir, type), className + ".cs");
 			if (new FileInfo(fullname).Exists)
 			{
 				if (!_overrideFiles)
@@ -347,7 +383,7 @@ namespace org.pescuma.ModelSharp
 			template.SetAttribute("it", type);
 			template.SetAttribute("class", className);
 
-			var path = Path.Combine(outDir, type.Package.Replace('.', '\\'));
+			var path = GetPackageDir(outDir, type);
 			Directory.CreateDirectory(path);
 			var fullname = Path.Combine(path, className + ".cs");
 
@@ -360,7 +396,7 @@ namespace org.pescuma.ModelSharp
 		private void FormatFile(string filename)
 		{
 			FileArranger fileArranger = new FileArranger(Path.Combine(_templatesPath, "SimpleConfig.xml"),
-			                                             null);
+			                                             new NArrangeLogger());
 			if (!fileArranger.Arrange(filename, null))
 				_log.Error("Could not format file: " + filename + ". The file has wrong code :(");
 		}
@@ -370,6 +406,25 @@ namespace org.pescuma.ModelSharp
 			TextWriter tw = new StreamWriter(filename);
 			template.Write(new NoIndentWriter(tw));
 			tw.Close();
+		}
+	}
+
+	public class NArrangeLogger : ILogger
+	{
+		public void LogMessage(LogLevel level, string message, params object[] args)
+		{
+			switch (level)
+			{
+				case LogLevel.Error:
+					Console.WriteLine("[NArrange] [ERR] " + message);
+					break;
+				case LogLevel.Warning:
+					Console.WriteLine("[NArrange] [WARN] " + message);
+					break;
+				case LogLevel.Info:
+					Console.WriteLine("[NArrange] [INFO] " + message);
+					break;
+			}
 		}
 	}
 

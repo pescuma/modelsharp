@@ -12,28 +12,18 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-using System.Collections.Generic;
-
-namespace org.pescuma.ModelSharp.model
+namespace org.pescuma.ModelSharp.Core.model
 {
-	public class ModelInfo
+	public class ComponentInfo : PropertyInfo
 	{
-		public readonly HashSet<string> Using = new HashSet<string>();
-		private readonly List<TypeInfo> _types = new List<TypeInfo>();
-
-		public List<TypeInfo> Types
+		public ComponentInfo(string name, string type, bool required, bool lazy)
+			: base(name, type, required, lazy)
 		{
-			get { return _types; }
-		}
+			Setter = null;
+			ReadOnly = !lazy;
 
-		public void AddType(TypeInfo type)
-		{
-			_types.Add(type);
-		}
-
-		public TypeInfo GetType(string name)
-		{
-			return _types.Find(type => name == type.Name);
+			if (!lazy)
+				DefaultValue = "new " + TypeName + "()";
 		}
 	}
 }

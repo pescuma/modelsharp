@@ -12,25 +12,29 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
-namespace org.pescuma.ModelSharp.model
+namespace org.pescuma.ModelSharp.Core.model
 {
-	public class CollectionInfo : PropertyInfo
+	public class MethodInfo
 	{
-		public readonly string Contents;
+		public readonly string Name;
+		public readonly string TypeName;
+		public string[] Parameters;
 
-		public CollectionInfo(string name, string contents, bool lazy, string collectionType = "ObservableCollection")
-			: base(name, collectionType + "<" + contents + ">", false, lazy)
+		public readonly List<string> Annotations = new List<string>();
+
+		public MethodInfo(string name, string type = "void", params string[] parameters)
 		{
-			Contract.Requires(!string.IsNullOrWhiteSpace(contents));
+			Contract.Requires(StringUtils.IsValidVariableName(name));
+			Contract.Requires(StringUtils.IsValidTypeName(type));
+			Contract.Requires(!Array.Exists(parameters, x => !StringUtils.IsValidTypeName(x)));
 
-			Contents = contents;
-			Setter = null;
-			ReadOnly = !lazy;
-
-			if (!lazy)
-				DefaultValue = "new " + TypeName + "()";
+			Name = name;
+			TypeName = type;
+			Parameters = parameters;
 		}
 	}
 }

@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 
-namespace org.pescuma.ModelSharp.model
+namespace org.pescuma.ModelSharp.Core.model
 {
 	public class PropertyInfo : BaseFieldInfo
 	{
@@ -25,6 +25,8 @@ namespace org.pescuma.ModelSharp.model
 		public MethodInfo Getter;
 		public MethodInfo Setter;
 		public MethodInfo LazyInitializer;
+		public string GetterVisibility;
+		public string SetterVisibility;
 
 		public readonly List<string> FieldAnnotations = new List<string>();
 		public readonly List<string> PropSetAnnotations = new List<string>();

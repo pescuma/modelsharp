@@ -12,29 +12,46 @@
 // You should have received a copy of the GNU Lesser General Public License along with Model#. If not, see <http://www.gnu.org/licenses/>.
 // 
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
-namespace org.pescuma.ModelSharp.model
+namespace org.pescuma.ModelSharp.Core.model
 {
-	public class MethodInfo
+	public class TypeInfo
 	{
+		public readonly HashSet<string> Using = new HashSet<string>();
+
 		public readonly string Name;
-		public readonly string TypeName;
-		public string[] Parameters;
+		public readonly string ImplementationName;
+		public readonly string Package;
+		public readonly bool Immutable;
+
+		public readonly List<string> Implements = new List<string>();
+		public readonly List<PropertyInfo> Properties = new List<PropertyInfo>();
+		public readonly List<MethodInfo> Methods = new List<MethodInfo>();
 
 		public readonly List<string> Annotations = new List<string>();
 
-		public MethodInfo(string name, string type = "void", params string[] parameters)
+		public TypeInfo(string name, string package, bool immutable)
 		{
 			Contract.Requires(StringUtils.IsValidVariableName(name));
-			Contract.Requires(StringUtils.IsValidTypeName(type));
-			Contract.Requires(!Array.Exists(parameters, x => !StringUtils.IsValidTypeName(x)));
+			Contract.Requires(StringUtils.IsValidTypeName(package));
 
 			Name = name;
-			TypeName = type;
-			Parameters = parameters;
+			ImplementationName = "Base" + name;
+			Package = package;
+			Immutable = immutable;
+		}
+
+		public bool HasSettableProperties
+		{
+			get { return Properties.Count(prop => prop.Setter != null) > 0; }
+		}
+
+		public bool HasCollections
+		{
+			get { return Properties.Count(prop => prop is CollectionInfo) > 0; }
 		}
 	}
 }

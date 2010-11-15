@@ -15,11 +15,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using org.pescuma.ModelSharp.Core;
 
-namespace org.pescuma.ModelSharp
+namespace org.pescuma.ModelSharp.CommandLine
 {
-	internal class Program
+	public class Program
 	{
 		private static string _templatesPath;
 
@@ -49,7 +49,8 @@ namespace org.pescuma.ModelSharp
 
 			if (files.Count < 1)
 			{
-				Console.WriteLine("Model# " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
+				Console.WriteLine("Model# "
+				                  + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 				Console.WriteLine("");
 				Console.WriteLine("Use:");
 				Console.WriteLine("    ModelSharp [-override] <model.ms>");
@@ -80,7 +81,7 @@ namespace org.pescuma.ModelSharp
 			string dir = Path.GetDirectoryName(fullPath);
 
 #if DEBUG
-			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\templates\"));
+			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\..\ModelSharp.Core\templates\"));
 #else
 			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
 #endif

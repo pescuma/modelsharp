@@ -1,0 +1,5 @@
+<model namespace="examples.privateSetter">
+	<type name="Test">
+		<property name="date" type="DateTime" getter="protected" setter="private" />
+	</type>
+</model>

@@ -1,4 +1,4 @@
-<model namespace="examples.collection" projectNamespace="examples.collection">
+<model namespace="examples.collection">
 	<type name="Person">
 		<collection name="cars" contents="string" />
 		<property name="name" type="string" />

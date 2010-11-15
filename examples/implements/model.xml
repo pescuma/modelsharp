@@ -1,0 +1,5 @@
+<model namespace="examples.implements">
+	<type name="Test" implements="IList, XYZ">
+		<property name="date" type="DateTime" />
+	</type>
+</model>

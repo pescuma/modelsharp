@@ -166,6 +166,17 @@ namespace org.pescuma.ModelSharp.Core
 
 					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable);
 
+					if (!string.IsNullOrEmpty(type.implements))
+					{
+						var impls = type.implements.Split(',');
+						foreach (var impl in impls)
+						{
+							var tmp = impl.Trim();
+							if (!string.IsNullOrEmpty(tmp))
+								ti.Implements.Add(tmp);
+						}
+					}
+
 					foreach (var item in type.Items)
 					{
 						if (item is xml.property)

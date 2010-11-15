@@ -27,6 +27,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string Package;
 		public readonly bool Immutable;
 
+		public string Extends;
 		public readonly List<string> Implements = new List<string>();
 		public readonly List<PropertyInfo> Properties = new List<PropertyInfo>();
 		public readonly List<MethodInfo> Methods = new List<MethodInfo>();

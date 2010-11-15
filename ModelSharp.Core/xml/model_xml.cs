@@ -93,6 +93,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private bool immutableFieldSpecified;
         
+        private string implementsField;
+        
         private string nameField;
         
         /// <remarks/>
@@ -127,6 +129,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.immutableFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string implements {
+            get {
+                return this.implementsField;
+            }
+            set {
+                this.implementsField = value;
             }
         }
         

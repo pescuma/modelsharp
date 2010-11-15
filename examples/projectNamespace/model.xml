@@ -1,0 +1,5 @@
+<model namespace="examples.projectNamespace" projectNamespace="examples.projectNamespace">
+	<type name="Person">
+		<property name="name" type="string" />
+	</type>
+</model>

@@ -18,6 +18,7 @@ using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
 using org.pescuma.ModelSharp.Core.model;
+using org.pescuma.ModelSharp.Core.xml;
 
 namespace org.pescuma.ModelSharp.Core
 {
@@ -92,26 +93,26 @@ namespace org.pescuma.ModelSharp.Core
 
 			foreach (var modelItem in model.Items)
 			{
-				if (modelItem is xml.type)
+				if (modelItem is type)
 				{
-					var type = (xml.type) modelItem;
+					var type = (type) modelItem;
 					if (!type.immutableSpecified)
 						type.immutable = false;
 
 					foreach (var item in type.Items)
 					{
-						if (item is xml.property)
+						if (item is property)
 						{
-							var property = (xml.property) item;
+							var property = (property) item;
 
 							property.name = StringUtils.FirstUpper(property.name);
 
 							if (!property.requiredSpecified)
 								property.required = true;
 						}
-						else if (item is xml.component)
+						else if (item is component)
 						{
-							var component = (xml.component) item;
+							var component = (component) item;
 
 							component.name = StringUtils.FirstUpper(component.name);
 
@@ -121,9 +122,9 @@ namespace org.pescuma.ModelSharp.Core
 							if (!component.requiredSpecified)
 								component.required = true;
 						}
-						else if (item is xml.collection)
+						else if (item is collection)
 						{
-							var collection = (xml.collection) item;
+							var collection = (collection) item;
 
 							collection.name = StringUtils.FirstUpper(collection.name);
 
@@ -132,9 +133,9 @@ namespace org.pescuma.ModelSharp.Core
 						}
 					}
 				}
-				else if (modelItem is xml.@using)
+				else if (modelItem is @using)
 				{
-					xml.@using us = modelItem as xml.@using;
+					@using us = modelItem as @using;
 					us.@namespace = us.@namespace.Trim();
 				}
 			}
@@ -160,9 +161,9 @@ namespace org.pescuma.ModelSharp.Core
 
 			foreach (var modelItem in model.Items)
 			{
-				if (modelItem is xml.type)
+				if (modelItem is type)
 				{
-					xml.type type = (xml.type) modelItem;
+					type type = (type) modelItem;
 
 					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable);
 
@@ -179,9 +180,9 @@ namespace org.pescuma.ModelSharp.Core
 
 					foreach (var item in type.Items)
 					{
-						if (item is xml.property)
+						if (item is property)
 						{
-							var property = (xml.property) item;
+							var property = (property) item;
 
 							PropertyInfo prop = new PropertyInfo(property.name, property.type, property.required, false);
 
@@ -195,17 +196,17 @@ namespace org.pescuma.ModelSharp.Core
 
 							ti.Properties.Add(prop);
 						}
-						else if (item is xml.component)
+						else if (item is component)
 						{
-							var component = (xml.component) item;
+							var component = (component) item;
 
 							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.required,
 							                                       component.lazy);
 							ti.Properties.Add(comp);
 						}
-						else if (item is xml.collection)
+						else if (item is collection)
 						{
-							var collection = (xml.collection) item;
+							var collection = (collection) item;
 
 							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents,
 							                                         collection.lazy);
@@ -215,9 +216,9 @@ namespace org.pescuma.ModelSharp.Core
 
 					ret.AddType(ti);
 				}
-				else if (modelItem is xml.@using)
+				else if (modelItem is @using)
 				{
-					xml.@using us = modelItem as xml.@using;
+					@using us = modelItem as @using;
 					ret.Using.Add(us.@namespace);
 				}
 			}
@@ -376,7 +377,7 @@ namespace org.pescuma.ModelSharp.Core
 			{
 				if (!_overrideFiles)
 				{
-					_log.Info("Skiped (because already exists) file " + fullname);
+					_log.Info("Skipped (because already exists) file " + fullname);
 					return;
 				}
 				else
@@ -424,17 +425,25 @@ namespace org.pescuma.ModelSharp.Core
 	{
 		public void LogMessage(LogLevel level, string message, params object[] args)
 		{
+			message = string.Format(message, args);
+
 			switch (level)
 			{
 				case LogLevel.Error:
+				{
 					Console.WriteLine("[NArrange] [ERR] " + message);
 					break;
+				}
 				case LogLevel.Warning:
+				{
 					Console.WriteLine("[NArrange] [WARN] " + message);
 					break;
+				}
 				case LogLevel.Info:
+				{
 					Console.WriteLine("[NArrange] [INFO] " + message);
 					break;
+				}
 			}
 		}
 	}

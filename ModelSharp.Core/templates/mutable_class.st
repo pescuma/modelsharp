@@ -5,65 +5,84 @@ $it.Using:create_using()$
 
 namespace $it.Package$
 {
-    $it.Annotations:annotation()$
-    public class $it.ImplementationName$ $if(it.Implements)$ : $it.Implements; separator=", "$ $endif$
-    {
-        #region Field Name Defines
-        public static class PROPERTIES
-        {
-            $it.Properties:define()$
-        }
-        #endregion
+	$it.Annotations:annotation()$
+	public abstract class $it.ImplementationName$ $if(it.Implements)$ : $it.Implements; separator=", "$ $endif$
+	{
+		#region Field Name Defines
+		public class PROPERTIES
+		{
+			$it.Properties:define()$
+		}
+		#endregion
 
-        $it.Properties:property()$
+		public $it.ImplementationName$()
+		{
+		}
 
-        #region Get/Set by name
-        
-        public object GetField(string fieldName)
-        {
-            switch (fieldName)
-            {
-                $it.Properties:switch_getter()$
-            }
+		public $it.ImplementationName$($it.ImplementationName$ other)
+		{
+			$it.Properties:mutable_other_to_field()$
+		}
 
-            throw new ArgumentException("No gettable field named " + fieldName);
-        }
+		$it.Properties:property()$
 
-        public void SetField(string fieldName, object value)
-        {
+		#region Get/Set by name
+		
+		public object GetField(string fieldName)
+		{
+			switch (fieldName)
+			{
+				$it.Properties:switch_getter()$
+			}
+
+			throw new ArgumentException("No gettable field named " + fieldName);
+		}
+
+		public void SetField(string fieldName, object value)
+		{
 $if(it.HasSettableProperties)$
-            switch (fieldName)
-            {
-                $it.Properties:switch_setter()$
-            }
+			switch (fieldName)
+			{
+				$it.Properties:switch_setter()$
+			}
 $endif$
 
-            throw new ArgumentException("No settable field named " + fieldName);
-        }
+			throw new ArgumentException("No settable field named " + fieldName);
+		}
 
-        #endregion
+		#endregion
 
-        #region Property Notification
+		#region Property Notification
 
-        public event PropertyChangingEventHandler PropertyChanging;
-        public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangingEventHandler PropertyChanging;
+		public event PropertyChangedEventHandler PropertyChanged;
 
 $if(it.HasSettableProperties)$
-        private void OnPropertyChanging(string propertyName)
-        {
-            PropertyChangingEventHandler handler = PropertyChanging;
-            if (handler != null)
-                handler(this, new PropertyChangingEventArgs(propertyName));
-        }
+		protected void OnPropertyChanging(string propertyName)
+		{
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
 
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
-        }
+		protected void OnPropertyChanged(string propertyName)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
 $endif$
 
-        #endregion Property Notification
-    }
+		#endregion Property Notification
+
+		public new $it.Name$ Clone()
+		{
+			return ($it.Name$) ((ICloneable) this).Clone();
+		}
+
+		object ICloneable.Clone()
+		{
+			return new $it.Name$(($it.Name$) this);
+		}
+	}
 }

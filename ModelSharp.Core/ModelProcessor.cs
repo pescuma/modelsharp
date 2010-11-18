@@ -243,6 +243,15 @@ namespace org.pescuma.ModelSharp.Core
 			AddNotifcationInformation(model);
 			AddDataContracts(model);
 			AddDebugAttributes(model);
+			AddClonable(model);
+		}
+
+		private void AddClonable(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				type.Implements.Add("ICloneable");
+			}
 		}
 
 		private void CopyUsingsToType(ModelInfo model)

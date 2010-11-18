@@ -9,5 +9,10 @@ namespace $it.Package$
 			: base($it.Properties:var_name(); separator=", "$)
 		{
 		}
+
+		public $it.Name$($it.Name$ other)
+			: base(other)
+		{
+		}
 	}
 }

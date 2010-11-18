@@ -14,5 +14,20 @@ namespace $it.Package$
 		{
 			$it.Properties:immutable_param_to_field()$
 		}
+
+		public $it.ImplementationName$($it.ImplementationName$ other)
+		{
+			$it.Properties:immutable_other_to_field()$
+		}
+		
+		public new $it.Name$ Clone()
+		{
+			return ($it.Name$) ((ICloneable) this).Clone();
+		}
+
+		object ICloneable.Clone()
+		{
+			return new $it.Name$(($it.Name$) this);
+		}
 	}
 }

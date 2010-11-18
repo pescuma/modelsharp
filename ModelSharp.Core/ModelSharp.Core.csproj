@@ -95,6 +95,8 @@
     <None Include="templates\builder_name.st" />
     <None Include="templates\builder_setter.st" />
     <None Include="templates\call.st" />
+    <None Include="templates\mutable_other_to_field.st" />
+    <None Include="templates\immutable_other_to_field.st" />
     <None Include="templates\create_using.st" />
     <None Include="templates\define.st" />
     <None Include="templates\immutable_class.st" />

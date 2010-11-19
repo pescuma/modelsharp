@@ -44,7 +44,7 @@ namespace org.pescuma.ModelSharp.Core.model
 
 			string setter = GetSetterName();
 			if (setter != null)
-				Setter = new MethodInfo(setter, "void", TypeName);
+				Setter = new MethodInfo(setter, "bool", TypeName);
 
 			string lazyIntializer = GetLazyInitializerName();
 			if (lazyIntializer != null)

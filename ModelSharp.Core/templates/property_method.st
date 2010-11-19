@@ -27,13 +27,15 @@ $if(it.Setter)$
 		protected virtual $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ $it.VarName$) 
 		{
 			if ($it.FieldName$ == $it.VarName$)
-				return;
+				return false;
 
 			OnPropertyChanging(PROPERTIES.$it.DefineName$);
 
 			$it.FieldName$ = $it.VarName$;
 
 			OnPropertyChanged(PROPERTIES.$it.DefineName$);
+
+			return true;
 		}
 
 $endif$

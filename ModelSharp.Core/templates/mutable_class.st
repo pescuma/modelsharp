@@ -15,6 +15,8 @@ namespace $it.Package$
 		}
 		#endregion
 
+		#region Constructors
+
 		public $it.ImplementationName$()
 		{
 			$it.Properties:mutable_init_field()$
@@ -24,6 +26,8 @@ namespace $it.Package$
 		{
 			$it.Properties:mutable_other_to_field()$
 		}
+
+		#endregion
 
 		$it.Properties:property()$
 
@@ -74,9 +78,11 @@ $if(it.HasSettableProperties)$
 		}
 $endif$
 
-		#endregion Property Notification
+		#endregion
+		
+		#region Clone
 
-		public new $it.Name$ Clone()
+		public $it.Name$ Clone()
 		{
 			return ($it.Name$) ((ICloneable) this).Clone();
 		}
@@ -85,5 +91,7 @@ $endif$
 		{
 			return new $it.Name$(($it.Name$) this);
 		}
+
+		#endregion
 	}
 }

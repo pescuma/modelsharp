@@ -20,7 +20,7 @@ namespace $it.Package$
 			$it.Properties:immutable_other_to_field()$
 		}
 		
-		public new $it.Name$ Clone()
+		public $it.Name$ Clone()
 		{
 			return ($it.Name$) ((ICloneable) this).Clone();
 		}

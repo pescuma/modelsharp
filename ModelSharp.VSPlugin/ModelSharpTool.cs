@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using CustomToolTemplate;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using org.pescuma.ModelSharp.Core;
 
 namespace org.pescuma.ModelSharp.VSPlugin
@@ -101,8 +102,13 @@ namespace org.pescuma.ModelSharp.VSPlugin
 		{
 			foreach (var relativeName in relativeNames)
 			{
-				var input = new FileInfo(Path.Combine(srcDir, relativeName));
-				var output = new FileInfo(Path.Combine(destDir, relativeName));
+				FileInfo input = new FileInfo(Path.Combine(srcDir, relativeName));
+				FileInfo output;
+
+				if (onlyIfNotExists)
+					output = new FileInfo(Path.Combine(destDir, relativeName));
+				else
+					output = new FileInfo(Path.Combine(destDir, relativeName.Split('\\').Last()));
 
 				if (onlyIfNotExists && output.Exists)
 					continue;
@@ -117,12 +123,12 @@ namespace org.pescuma.ModelSharp.VSPlugin
 		{
 			HashSet<string> filenames = new HashSet<string>();
 			foreach (var name in relativeNames)
-				filenames.Add(Path.Combine(dir, name));
+				filenames.Add(name.Split('\\').Last());
 
 			HashSet<string> existingNames = new HashSet<string>();
 			foreach (ProjectItem item in e.ProjectItem.ProjectItems)
 			{
-				if (!filenames.Contains(item.FileNames[0]) && !item.Name.EndsWith(".dot"))
+				if (!filenames.Contains(item.Name) && !item.Name.EndsWith(".dot"))
 					item.Delete();
 				else
 					existingNames.Add(item.FileNames[0]);
@@ -133,27 +139,49 @@ namespace org.pescuma.ModelSharp.VSPlugin
 				if (existingNames.Contains(name))
 					continue;
 
-				e.ProjectItem.ProjectItems.AddFromFile(name);
+				e.ProjectItem.ProjectItems.AddFromFile(Path.Combine(dir, name));
 			}
 		}
 
 		private void AddToProject(GenerationEventArgs e, string dir, List<string> names)
 		{
+			Project project = e.ProjectItem.ContainingProject;
+
 			var proj = e.ProjectItem.ContainingProject;
+
 			foreach (var name in names)
 			{
 				AddFromFileWithFolders(proj.ProjectItems, name, dir);
 			}
 		}
 
-		private void AddFromFileWithFolders(ProjectItems root, string name, string dir)
+		private bool HasInProject(ProjectItems root, string name)
 		{
 			var tmp = name.Split('\\');
 			for (int i = 0; i < tmp.Length - 1; i++)
 			{
 				var item = Find(root, tmp[i]);
 				if (item == null)
-					item = root.AddFolder(tmp[i]);
+					return false;
+
+				root = item.ProjectItems;
+			}
+
+			return Find(root, tmp[tmp.Length - 1]) != null;
+		}
+
+		private void AddFromFileWithFolders(ProjectItems root, string name, string dir)
+		{
+			var pathToNow = dir;
+			var tmp = name.Split('\\');
+			for (int i = 0; i < tmp.Length - 1; i++)
+			{
+				string thisDir = tmp[i];
+				pathToNow = Path.Combine(pathToNow, thisDir);
+
+				var item = Find(root, thisDir);
+				if (item == null)
+					item = root. AddFolder(thisDir);
 
 				root = item.ProjectItems;
 			}

@@ -37,11 +37,11 @@ namespace org.pescuma.ModelSharp.Core.model
 		public TypeInfo(string name, string package, bool immutable)
 		{
 			Contract.Requires(StringUtils.IsValidVariableName(name));
-			Contract.Requires(StringUtils.IsValidTypeName(package));
+			Contract.Requires(string.IsNullOrEmpty(package) || StringUtils.IsValidTypeName(package));
 
 			Name = name;
 			ImplementationName = "Base" + name;
-			Package = package;
+			Package = string.IsNullOrEmpty(package) ? null : package;
 			Immutable = immutable;
 		}
 

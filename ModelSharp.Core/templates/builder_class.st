@@ -3,8 +3,11 @@
 
 $it.Using:create_using()$
 
+$if(it.Package)$
 namespace $it.Package$
 {
+$endif$
+
 	public class $class$
 	{
 		$it.Properties:builder_field()$
@@ -21,4 +24,7 @@ namespace $it.Package$
 			return new $it.Name$($it.Properties:private_name(); separator=", "$);
 		}
 	}
+
+$if(it.Package)$
 }
+$endif$

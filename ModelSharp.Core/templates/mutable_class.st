@@ -3,8 +3,11 @@
 
 $it.Using:create_using()$
 
+$if(it.Package)$
 namespace $it.Package$
 {
+$endif$
+
 	$it.Annotations:annotation()$
 	public abstract class $it.ImplementationName$ $if(it.Implements)$ : $it.Implements; separator=", "$ $endif$
 	{
@@ -94,4 +97,7 @@ $endif$
 
 		#endregion
 	}
+
+$if(it.Package)$
 }
+$endif$

@@ -107,6 +107,8 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void PosProcessXml(xml.model model)
 		{
+			if (model.@namespace == null)
+				model.@namespace = model.projectNamespace ?? ProjectNamespace;
 			if (model.projectNamespace == null)
 				model.projectNamespace = "";
 
@@ -388,10 +390,10 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			var pkg = type.Package;
 
-			if (pkg == "" || pkg == ProjectNamespace)
+			if (string.IsNullOrEmpty(pkg) || pkg == ProjectNamespace)
 				return "";
 
-			if (ProjectNamespace != "" && pkg.StartsWith(ProjectNamespace + '.'))
+			if (!string.IsNullOrEmpty(ProjectNamespace) && pkg.StartsWith(ProjectNamespace + '.'))
 				pkg = pkg.Substring(ProjectNamespace.Length + 1);
 
 			return pkg.Replace('.', '\\');

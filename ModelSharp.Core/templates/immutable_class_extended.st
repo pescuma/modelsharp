@@ -1,7 +1,10 @@
 ﻿$it.Using:create_using()$
 
+$if(it.Package)$
 namespace $it.Package$
 {
+$endif$
+
 	$it.Annotations:annotation()$
 	public class $it.Name$ : $it.ImplementationName$
 	{
@@ -15,4 +18,7 @@ namespace $it.Package$
 		{
 		}
 	}
+
+$if(it.Package)$
 }
+$endif$

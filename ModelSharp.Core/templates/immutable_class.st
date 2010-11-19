@@ -3,8 +3,11 @@
 
 $it.Using:create_using()$
 
+$if(it.Package)$
 namespace $it.Package$
 {
+$endif$
+
 	$it.Annotations:annotation()$
 	public class $it.ImplementationName$ $if(it.Implements)$ : $it.Implements; separator=", "$ $endif$
 	{
@@ -30,4 +33,7 @@ namespace $it.Package$
 			return new $it.Name$(($it.Name$) this);
 		}
 	}
+
+$if(it.Package)$
 }
+$endif$

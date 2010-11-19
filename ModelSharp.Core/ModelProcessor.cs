@@ -13,6 +13,7 @@
 // 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using Antlr3.ST;
@@ -24,50 +25,68 @@ namespace org.pescuma.ModelSharp.Core
 {
 	public class ModelProcessor
 	{
-		private readonly Logger _log = new Logger();
+		private LoggerWrapper log;
 
-		private readonly FileInfo _filename;
-		private readonly string _templatesPath;
-		private readonly bool _overrideFiles;
-		private readonly StringTemplateGroup _templates;
+		private readonly FileInfo filename;
+		private readonly string templatesPath;
+		private readonly bool overrideFiles;
+		private readonly StringTemplateGroup templates;
 
 		public string ProjectNamespace { get; set; }
+		public string BaseOutputPath { get; set; }
+
+		public ILogger Logger { get; set; }
 
 		public ModelProcessor(string templatesPath, string filename, bool overrideFiles)
 		{
-			_templatesPath = templatesPath;
-			_overrideFiles = overrideFiles;
-			_filename = new FileInfo(filename);
-			_templates = new StringTemplateGroup("templates", templatesPath);
+			this.templatesPath = templatesPath;
+			this.overrideFiles = overrideFiles;
+			this.filename = new FileInfo(filename);
+			BaseOutputPath = this.filename.Directory.FullName;
+
+			templates = new StringTemplateGroup("templates", templatesPath);
 			ProjectNamespace = "";
 		}
 
-		public bool Process()
+		public ModelProcessorResult Process()
 		{
-			_log.Info("Processing " + _filename + " ...");
+			ModelProcessorResult result = new ModelProcessorResult();
+			result.Success = true;
+
+			log = new LoggerWrapper(Logger, result);
+
+			log.Info("Processing " + filename + " ...");
 
 			var model = GetModel();
-
-			string outDir = _filename.Directory.FullName;
 
 			foreach (var type in model.Types)
 			{
 				if (type.Immutable)
 				{
-					CreateFileIfNotExits(type, "immutable_class_extended", outDir, type.Name);
-					CreateFile(type, "immutable_class", outDir, type.ImplementationName);
-					CreateFile(type, "builder_class", outDir, type.Name + "Builder");
+					AddIfNotNull(result.EditableFilenames,
+					             CreateFileIfNotExits(type, "immutable_class_extended", type.Name));
+					result.NotToChangeFilenames.Add(CreateFile(type, "immutable_class", type.ImplementationName));
+					result.NotToChangeFilenames.Add(CreateFile(type, "builder_class", type.Name + "Builder"));
 				}
 				else
 				{
-					CreateFileIfNotExits(type, "mutable_class_extended", outDir, type.Name);
-					CreateFile(type, "mutable_class", outDir, type.ImplementationName);
+					AddIfNotNull(result.EditableFilenames,
+					             CreateFileIfNotExits(type, "mutable_class_extended", type.Name));
+					result.NotToChangeFilenames.Add(CreateFile(type, "mutable_class", type.ImplementationName));
 				}
 			}
-			_log.Info("... Done");
-			_log.Info("");
+			log.Info("... Done");
+			log.Info("");
 
-			return !_log.HasError;
+			log = null;
+
+			return result;
+		}
+
+		private void AddIfNotNull(List<string> list, string value)
+		{
+			if (value != null)
+				list.Add(value);
 		}
 
 		private xml.model ReadXml()
@@ -76,7 +95,7 @@ namespace org.pescuma.ModelSharp.Core
 			try
 			{
 				XmlSerializer deserializer = new XmlSerializer(typeof (xml.model));
-				textReader = new StreamReader(_filename.FullName);
+				textReader = new StreamReader(filename.FullName);
 				return (xml.model) deserializer.Deserialize(textReader);
 			}
 			finally
@@ -365,73 +384,83 @@ namespace org.pescuma.ModelSharp.Core
 			}
 		}
 
-		private string GetPackageDir(string outDir, TypeInfo type)
+		private string GetPackageDir(TypeInfo type)
 		{
 			var pkg = type.Package;
 
 			if (pkg == "" || pkg == ProjectNamespace)
-				return outDir;
+				return "";
 
 			if (ProjectNamespace != "" && pkg.StartsWith(ProjectNamespace + '.'))
 				pkg = pkg.Substring(ProjectNamespace.Length + 1);
 
-			return Path.Combine(outDir, pkg.Replace('.', '\\'));
+			return pkg.Replace('.', '\\');
 		}
 
-		private void CreateFileIfNotExits(TypeInfo type, string templateName, string outDir,
-		                                  string className)
+		private string CreateFileIfNotExits(TypeInfo type, string templateName, string className)
 		{
-			var fullname = Path.Combine(GetPackageDir(outDir, type), className + ".cs");
+			var relativeName = Path.Combine(GetPackageDir(type), className + ".cs");
+			var fullname = Path.Combine(BaseOutputPath, relativeName);
 			if (new FileInfo(fullname).Exists)
 			{
-				if (!_overrideFiles)
+				if (!overrideFiles)
 				{
-					_log.Info("Skipped (because already exists) file " + fullname);
-					return;
+					log.Info("Skipped (because already exists) file " + relativeName);
+					return null;
 				}
 				else
 				{
-					_log.Info("Overriding file " + fullname);
+					log.Info("Overriding file " + relativeName);
 				}
 			}
 
-			CreateFile(type, templateName, outDir, className);
+			return CreateFile(type, templateName, className);
 		}
 
-		private void CreateFile(TypeInfo type, string templateName, string outDir, string className)
+		private string CreateFile(TypeInfo type, string templateName, string className)
 		{
-			var template = _templates.GetInstanceOf(templateName);
+			var template = templates.GetInstanceOf(templateName);
 			template.SetAttribute("it", type);
 			template.SetAttribute("class", className);
 
-			var path = GetPackageDir(outDir, type);
-			Directory.CreateDirectory(path);
-			var fullname = Path.Combine(path, className + ".cs");
+			var relativeName = Path.Combine(GetPackageDir(type), className + ".cs");
+			var fullname = Path.Combine(BaseOutputPath, relativeName);
+
+			Directory.CreateDirectory(Path.Combine(BaseOutputPath, GetPackageDir(type)));
 
 			WriteFile(template, fullname);
 			FormatFile(fullname);
 
-			_log.Info("Created file " + fullname);
+			log.Info("Created file " + relativeName);
+
+			return relativeName;
 		}
 
-		private void FormatFile(string filename)
+		private void FormatFile(string file)
 		{
-			FileArranger fileArranger = new FileArranger(Path.Combine(_templatesPath, "SimpleConfig.xml"),
-			                                             new NArrangeLogger());
-			if (!fileArranger.Arrange(filename, null))
-				_log.Error("Could not format file: " + filename + ". The file has wrong code :(");
+			FileArranger fileArranger = new FileArranger(Path.Combine(templatesPath, "SimpleConfig.xml"),
+			                                             new NArrangeLogger(log));
+			if (!fileArranger.Arrange(file, null))
+				log.Error("Could not format file: " + file + ". The file has wrong code :(");
 		}
 
-		private void WriteFile(StringTemplate template, string filename)
+		private void WriteFile(StringTemplate template, string file)
 		{
-			TextWriter tw = new StreamWriter(filename);
+			TextWriter tw = new StreamWriter(file);
 			template.Write(new NoIndentWriter(tw));
 			tw.Close();
 		}
 	}
 
-	public class NArrangeLogger : ILogger
+	public class NArrangeLogger : NArrange.Core.ILogger
 	{
+		private readonly ILogger log;
+
+		public NArrangeLogger(ILogger log)
+		{
+			this.log = log;
+		}
+
 		public void LogMessage(LogLevel level, string message, params object[] args)
 		{
 			message = string.Format(message, args);
@@ -440,36 +469,56 @@ namespace org.pescuma.ModelSharp.Core
 			{
 				case LogLevel.Error:
 				{
-					Console.WriteLine("[NArrange] [ERR] " + message);
+					log.Error("[NArrange] " + message);
 					break;
 				}
 				case LogLevel.Warning:
 				{
-					Console.WriteLine("[NArrange] [WARN] " + message);
+					log.Info("[NArrange] [WARN] " + message);
 					break;
 				}
 				case LogLevel.Info:
 				{
-					Console.WriteLine("[NArrange] [INFO] " + message);
+					log.Info("[NArrange] " + message);
 					break;
 				}
 			}
 		}
 	}
 
-	public class Logger
+	public interface ILogger
 	{
-		public bool HasError;
+		void Info(string msg, int line = 0, int column = 0);
 
-		public void Info(string msg)
+		void Error(string msg, int line = 0, int column = 0);
+	}
+
+	internal class LoggerWrapper : ILogger
+	{
+		private readonly ILogger log;
+		private readonly ModelProcessorResult result;
+
+		public LoggerWrapper(ILogger log, ModelProcessorResult result)
 		{
-			Console.WriteLine(msg);
+			this.log = log;
+			this.result = result;
 		}
 
-		public void Error(string msg)
+		public void Info(string msg, int line = 0, int column = 0)
 		{
-			Console.WriteLine(" [ERR] " + msg);
-			HasError = true;
+			result.Messages.Add(new Message(false, msg, line, column));
+
+			if (log != null)
+				log.Info(msg, line, column);
+		}
+
+		public void Error(string msg, int line = 0, int column = 0)
+		{
+			result.Success = false;
+			result.Messages.Add(new Message(true, msg, line, column));
+
+			if (log != null)
+				log.Error(msg, line, column);
 		}
 	}
 }

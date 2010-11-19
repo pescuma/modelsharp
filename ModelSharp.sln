@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "ModelSharp.Core\Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "ModelSharp.CommandLine\CommandLine.csproj", "{D63CEBAD-F84B-45E5-A380-7C9A7985DF35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSPlugin", "ModelSharp.VSPlugin\VSPlugin.csproj", "{11D11D0C-69E5-4BE5-B884-5E37620EB58A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,16 @@ Global
 		{D63CEBAD-F84B-45E5-A380-7C9A7985DF35}.Release|Mixed Platforms.Build.0 = Release|x86
 		{D63CEBAD-F84B-45E5-A380-7C9A7985DF35}.Release|x86.ActiveCfg = Release|x86
 		{D63CEBAD-F84B-45E5-A380-7C9A7985DF35}.Release|x86.Build.0 = Release|x86
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{11D11D0C-69E5-4BE5-B884-5E37620EB58A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

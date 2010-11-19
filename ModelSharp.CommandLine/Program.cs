@@ -60,8 +60,11 @@ namespace org.pescuma.ModelSharp.CommandLine
 			int ret = 0;
 			foreach (var file in files)
 			{
-				bool success = new ModelProcessor(_templatesPath, file, overrideFile).Process();
-				if (!success)
+				var modelProcessor = new ModelProcessor(_templatesPath, file, overrideFile);
+				modelProcessor.Logger = new Logger();
+
+				var result = modelProcessor.Process();
+				if (!result.Success)
 					ret = -1;
 			}
 
@@ -85,6 +88,19 @@ namespace org.pescuma.ModelSharp.CommandLine
 #else
 			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
 #endif
+		}
+	}
+
+	public class Logger : ILogger
+	{
+		public void Info(string msg, int line = 0, int column = 0)
+		{
+			Console.WriteLine(msg);
+		}
+
+		public void Error(string msg, int line = 0, int column = 0)
+		{
+			Console.WriteLine(" [ERR] " + msg);
 		}
 	}
 }

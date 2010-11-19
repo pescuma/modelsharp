@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Model# Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Pescuma")]
+[assembly: AssemblyCompany("Ricardo Pescuma Domenecci")]
 [assembly: AssemblyProduct("Model# Core")]
 [assembly: AssemblyCopyright("Copyright © Ricardo Pescuma Domenecci 2010")]
 [assembly: AssemblyTrademark("")]

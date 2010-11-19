@@ -4,16 +4,6 @@
         <name>NArrange.CSharp</name>
     </assembly>
     <members>
-        <member name="T:NArrange.CSharp.CSharpExtendedProperties">
-            <summary>
-            CSharp extended element property names.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpExtendedProperties.Fixed">
-            <summary>
-            Property for whether or not the field is fixed (bool).
-            </summary>
-        </member>
         <member name="T:NArrange.CSharp.CSharpKeyword">
             <summary>
             C# keyword constants.
@@ -522,128 +512,6 @@
             <param name="attributes">Attributes to apply to the element.</param>
             <returns>Code element if succesful, otherwise null.</returns>
         </member>
-        <member name="T:NArrange.CSharp.CSharpSymbol">
-            <summary>
-            C# character constants.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.AliasQualifier">
-            <summary>
-            Alias qualifier symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.AliasSeparator">
-            <summary>
-            Alias separator symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.Assignment">
-            <summary>
-            Assignment symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginAttribute">
-            <summary>
-            Beginning of attribute symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginBlock">
-            <summary>
-            Beginning of block symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginCharLiteral">
-            <summary>
-            Beginning of character literal symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginComment">
-            <summary>
-            Beginning of comment symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginFinalizer">
-            <summary>
-            End of string symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginGeneric">
-            <summary>
-            Beginning of generic parameter symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginParameterList">
-            <summary>
-            Beginning of parameter list symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginString">
-            <summary>
-            Beginning of string symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BeginVerbatimString">
-            <summary>
-            Begin verbatim string symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.BlockCommentModifier">
-            <summary>
-            Beginning of block comment symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.EndAttribute">
-            <summary>
-            End of attribute symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.EndBlock">
-            <summary>
-            End of block symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.EndGeneric">
-            <summary>
-            End of generic parameter symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.EndOfStatement">
-            <summary>
-            End of statement symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.EndParameterList">
-            <summary>
-            End of parameter list symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.Negate">
-            <summary>
-            Negate symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.Nullable">
-            <summary>
-            Nullable symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.Preprocessor">
-            <summary>
-            Preprocessor symbol.
-            </summary>
-        </member>
-        <member name="F:NArrange.CSharp.CSharpSymbol.TypeImplements">
-            <summary>
-            Type inheritance symbol.
-            </summary>
-        </member>
-        <member name="M:NArrange.CSharp.CSharpSymbol.IsCSharpSymbol(System.Char)">
-            <summary>
-            Determines if the specified char is a Csharp symbol character.
-            </summary>
-            <param name="character">The character to test.</param>
-            <returns>True if the character is a C# symbol, otherwise false.</returns>
-        </member>
         <member name="T:NArrange.CSharp.CSharpWriter">
             <summary>
             Writes CSharp code elements to a file.
@@ -808,6 +676,138 @@
             Writes the list of type parameters for a generic code element.
             </summary>
             <param name="genericElement">Generic code element.</param>
+        </member>
+        <member name="T:NArrange.CSharp.CSharpExtendedProperties">
+            <summary>
+            CSharp extended element property names.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpExtendedProperties.Fixed">
+            <summary>
+            Property for whether or not the field is fixed (bool).
+            </summary>
+        </member>
+        <member name="T:NArrange.CSharp.CSharpSymbol">
+            <summary>
+            C# character constants.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.AliasQualifier">
+            <summary>
+            Alias qualifier symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.AliasSeparator">
+            <summary>
+            Alias separator symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.Assignment">
+            <summary>
+            Assignment symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginAttribute">
+            <summary>
+            Beginning of attribute symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginBlock">
+            <summary>
+            Beginning of block symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginCharLiteral">
+            <summary>
+            Beginning of character literal symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginComment">
+            <summary>
+            Beginning of comment symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginFinalizer">
+            <summary>
+            End of string symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginGeneric">
+            <summary>
+            Beginning of generic parameter symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginParameterList">
+            <summary>
+            Beginning of parameter list symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginString">
+            <summary>
+            Beginning of string symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BeginVerbatimString">
+            <summary>
+            Begin verbatim string symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.BlockCommentModifier">
+            <summary>
+            Beginning of block comment symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.EndAttribute">
+            <summary>
+            End of attribute symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.EndBlock">
+            <summary>
+            End of block symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.EndGeneric">
+            <summary>
+            End of generic parameter symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.EndOfStatement">
+            <summary>
+            End of statement symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.EndParameterList">
+            <summary>
+            End of parameter list symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.Negate">
+            <summary>
+            Negate symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.Nullable">
+            <summary>
+            Nullable symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.Preprocessor">
+            <summary>
+            Preprocessor symbol.
+            </summary>
+        </member>
+        <member name="F:NArrange.CSharp.CSharpSymbol.TypeImplements">
+            <summary>
+            Type inheritance symbol.
+            </summary>
+        </member>
+        <member name="M:NArrange.CSharp.CSharpSymbol.IsCSharpSymbol(System.Char)">
+            <summary>
+            Determines if the specified char is a Csharp symbol character.
+            </summary>
+            <param name="character">The character to test.</param>
+            <returns>True if the character is a C# symbol, otherwise false.</returns>
         </member>
     </members>
 </doc>

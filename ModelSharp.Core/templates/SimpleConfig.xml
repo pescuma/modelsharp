@@ -2,7 +2,7 @@
 <CodeConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <Handlers>
         <!-- Source handlers are plugins that help NArrange parse and write source files -->
-        <SourceHandler Language="CSharp" Assembly="NArrange.CSharp, Version=0.2.9.0, Culture=neutral, PublicKeyToken=null">
+        <SourceHandler Language="CSharp" Assembly="NArrange.CSharp, Version=0.2.9.0, Culture=neutral, PublicKeyToken=716ebeb29c26e39d">
             <!-- List of handled source file extensions -->
             <SourceExtensions>
                 <Extension Name="cs">
@@ -21,7 +21,7 @@
     <Formatting>
         <Tabs Style="Tabs" SpacesPerTab="4"/>
         <ClosingComments Enabled="false" Format="End $(ElementType) $(Name)"/>
-        <Regions EndRegionNameEnabled="true" Style="Default"
+        <Regions EndRegionNameEnabled="false" Style="Default"
                  CommentDirectiveBeginPattern="^\s?\$\(\s?Begin\s?\)\s?(?&lt;Name&gt;.*)$"
                  CommentDirectiveEndPattern="^\s?\$\(\s?End\s?\)\s?(?&lt;Name&gt;.*)?$"
                  CommentDirectiveBeginFormat=" $(Begin) {0}"

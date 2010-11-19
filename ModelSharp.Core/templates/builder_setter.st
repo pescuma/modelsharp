@@ -1,4 +1,9 @@
 $if(it.IsCollection)$
+		public virtual $class$ Clear$it.Name$() 
+		{
+			$it.PrivateName$.Clear();
+			return this;
+		}
 		public virtual $class$ AddTo$it.Name$($it.Contents$ $it.VarName$) 
 		{
 			$it.PrivateName$.Add($it.VarName$);

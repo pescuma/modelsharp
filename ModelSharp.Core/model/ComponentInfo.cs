@@ -21,9 +21,6 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			Setter = null;
 			ReadOnly = !lazy;
-
-			if (!lazy)
-				DefaultValue = "new " + TypeName + "()";
 		}
 	}
 }

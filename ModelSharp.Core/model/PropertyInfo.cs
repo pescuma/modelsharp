@@ -76,6 +76,11 @@ namespace org.pescuma.ModelSharp.Core.model
 			return this is CollectionInfo;
 		}
 
+		public bool GetIsComponent()
+		{
+			return this is ComponentInfo;
+		}
+
 		public override string ToString()
 		{
 			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);

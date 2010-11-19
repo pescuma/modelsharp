@@ -9,6 +9,11 @@ namespace $it.Package$
 	{
 		$it.Properties:builder_field()$
 
+		public virtual $class$ Set($it.Name$ other) 
+		{
+			$it.Properties:builder_set_from_other()$return this;
+		}
+
 		$it.Properties:builder_setter()$
 
 		public virtual $it.Name$ Build()

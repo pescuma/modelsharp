@@ -17,6 +17,7 @@ namespace $it.Package$
 
 		public $it.ImplementationName$()
 		{
+			$it.Properties:mutable_init_field()$
 		}
 
 		public $it.ImplementationName$($it.ImplementationName$ other)

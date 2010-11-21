@@ -26,6 +26,7 @@ $if(it.Setter)$
 		$it.Setter.Annotations:annotation()$
 		protected virtual $it.Setter.TypeName$ $it.Setter.Name$($first(it.Setter.Parameters)$ $it.VarName$) 
 		{
+			$it:not_null_if_required()$
 			if ($it.FieldName$ == $it.VarName$)
 				return false;
 

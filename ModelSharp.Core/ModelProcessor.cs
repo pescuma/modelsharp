@@ -129,7 +129,7 @@ namespace org.pescuma.ModelSharp.Core
 							property.name = StringUtils.FirstUpper(property.name);
 
 							if (!property.requiredSpecified)
-								property.required = true;
+								property.required = false;
 						}
 						else if (item is component)
 						{
@@ -139,9 +139,6 @@ namespace org.pescuma.ModelSharp.Core
 
 							if (!component.lazySpecified)
 								component.lazy = false;
-
-							if (!component.requiredSpecified)
-								component.required = true;
 						}
 						else if (item is collection)
 						{
@@ -221,8 +218,7 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var component = (component) item;
 
-							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.required,
-							                                       component.lazy);
+							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
 							ti.Properties.Add(comp);
 						}
 						else if (item is collection)

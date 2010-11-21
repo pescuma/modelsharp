@@ -35,7 +35,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public PropertyInfo(string name, string type, bool required, bool lazy)
 			: base(name, type)
 		{
-			Required = !lazy && required;
+			Required = required;
 			Lazy = lazy;
 
 			string getter = GetGetterName();
@@ -71,14 +71,19 @@ namespace org.pescuma.ModelSharp.Core.model
 			return "Set" + Name;
 		}
 
-		public bool GetIsCollection()
+		public bool IsCollection
 		{
-			return this is CollectionInfo;
+			get { return this is CollectionInfo; }
 		}
 
-		public bool GetIsComponent()
+		public bool IsComponent
 		{
-			return this is ComponentInfo;
+			get { return this is ComponentInfo; }
+		}
+
+		public bool AssertNotNull
+		{
+			get { return !IsPrimitive && Required; }
 		}
 
 		public override string ToString()

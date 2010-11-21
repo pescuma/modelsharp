@@ -20,9 +20,11 @@ $endif$
 
 		#region Constructors
 
-		public $it.ImplementationName$()
+		public $it.ImplementationName$($it.ContructorArguments:param(); separator=", "$)
 		{
+			$it.ContructorArguments:not_null_if_required()$
 			$it.Properties:mutable_init_field()$
+			$it.ContructorArguments:mutable_param_to_field()$
 		}
 
 		public $it.ImplementationName$($it.ImplementationName$ other)

@@ -72,5 +72,28 @@ namespace org.pescuma.ModelSharp.Core.model
 				}
 			}
 		}
+
+		public bool IsPrimitive
+		{
+			get
+			{
+				HashSet<string> simpleTypes = new HashSet<string>();
+				simpleTypes.Add("sbyte");
+				simpleTypes.Add("byte");
+				simpleTypes.Add("short");
+				simpleTypes.Add("ushort");
+				simpleTypes.Add("int");
+				simpleTypes.Add("uint");
+				simpleTypes.Add("long");
+				simpleTypes.Add("ulong");
+				simpleTypes.Add("char");
+				simpleTypes.Add("float");
+				simpleTypes.Add("double");
+				simpleTypes.Add("bool");
+				simpleTypes.Add("decimal");
+
+				return simpleTypes.Contains(TypeName);
+			}
+		}
 	}
 }

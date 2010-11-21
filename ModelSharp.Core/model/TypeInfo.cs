@@ -52,7 +52,26 @@ namespace org.pescuma.ModelSharp.Core.model
 
 		public bool HasCollections
 		{
-			get { return Properties.Count(prop => prop is CollectionInfo) > 0; }
+			get { return Properties.Any(prop => prop.IsCollection); }
+		}
+
+		public bool HasComponents
+		{
+			get { return Properties.Any(prop => prop.IsComponent); }
+		}
+
+		public IEnumerable<PropertyInfo> ContructorArguments
+		{
+			get
+			{
+				List<PropertyInfo> result = new List<PropertyInfo>();
+				foreach (var prop in Properties)
+				{
+					if (!prop.IsComponent && prop.Required && prop.DefaultValue == null)
+						result.Add(prop);
+				}
+				return result;
+			}
 		}
 	}
 }

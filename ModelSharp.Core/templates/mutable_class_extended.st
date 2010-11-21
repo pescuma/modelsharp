@@ -8,7 +8,8 @@ $endif$
 	$it.Annotations:annotation()$
 	public class $it.Name$ : $it.ImplementationName$
 	{
-		public $it.Name$()
+		public $it.Name$($it.ContructorArguments:param(); separator=", "$)
+			: base($it.ContructorArguments:arg_name(); separator=", "$)
 		{
 		}
 

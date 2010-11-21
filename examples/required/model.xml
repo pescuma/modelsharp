@@ -1,8 +1,12 @@
 <model namespace="examples.required">
 	<type name="Type1">
 		<property name="prop1" type="Type2" required="false" />
-		<component name="compLazy" type="Type2" lazy="true" required="false" />
-		<component name="comp" type="Type2" required="false" />
+		<property name="prop2" type="Type2" required="true" />
+		<property name="prop3" type="int" required="false" />
+		<property name="prop4" type="int" required="true" />
+		<property name="prop5" type="string" required="true" />
+		<component name="compLazy" type="Type2" lazy="true" />
+		<component name="comp" type="Type2" />
 	</type>
 	<type name="Type2">
 		<property name="name" type="string" />

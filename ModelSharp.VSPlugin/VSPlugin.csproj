@@ -176,6 +176,9 @@
     <Content Include="templates\annotation.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="templates\arg_name.st">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="templates\builder_class.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -225,6 +228,12 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="templates\mutable_other_to_field.st">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="templates\mutable_param_to_field.st">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="templates\not_null_if_required.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="templates\param.st">

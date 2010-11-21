@@ -449,7 +449,7 @@ namespace org.pescuma.ModelSharp.Core
 			tw.Close();
 		}
 	}
-
+	
 	public class NArrangeLogger : NArrange.Core.ILogger
 	{
 		private readonly ILogger log;

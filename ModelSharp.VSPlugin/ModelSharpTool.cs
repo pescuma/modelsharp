@@ -149,8 +149,6 @@ namespace org.pescuma.ModelSharp.VSPlugin
 
 		private void AddToProject(GenerationEventArgs e, string dir, List<string> names)
 		{
-			Project project = e.ProjectItem.ContainingProject;
-
 			var proj = e.ProjectItem.ContainingProject;
 
 			foreach (var name in names)
@@ -159,39 +157,103 @@ namespace org.pescuma.ModelSharp.VSPlugin
 			}
 		}
 
-		private bool HasInProject(ProjectItems root, string name)
-		{
-			var tmp = name.Split('\\');
-			for (int i = 0; i < tmp.Length - 1; i++)
-			{
-				var item = Find(root, tmp[i]);
-				if (item == null)
-					return false;
-
-				root = item.ProjectItems;
-			}
-
-			return Find(root, tmp[tmp.Length - 1]) != null;
-		}
-
 		private void AddFromFileWithFolders(ProjectItems root, string name, string dir)
 		{
-			var pathToNow = dir;
+			string pathToNow = null;
 			var tmp = name.Split('\\');
 			for (int i = 0; i < tmp.Length - 1; i++)
 			{
 				string thisDir = tmp[i];
-				pathToNow = Path.Combine(pathToNow, thisDir);
+				pathToNow = pathToNow == null ? thisDir : Path.Combine(pathToNow, thisDir);
 
 				var item = Find(root, thisDir);
 				if (item == null)
-					item = root.AddFolder(thisDir, EnvDTE.Constants.vsProjectItemKindPhysicalFolder);
+				{
+					//AddExistingFolder(root.ContainingProject, pathToNow);
+
+					//item = Find(root, thisDir);
+					//if (item == null)
+					item = root.AddFolder(thisDir);
+				}
 
 				root = item.ProjectItems;
 			}
 
 			if (Find(root, tmp[tmp.Length - 1]) == null)
 				root.AddFromFile(Path.Combine(dir, name));
+		}
+
+		//private bool AddExistingFolder(Project proj, string folder)
+		//{
+		//    var dte2 = ((DTE2)proj.DTE);
+		//    var items = dte2.ToolWindows.SolutionExplorer.UIHierarchyItems;
+
+		//    dte2.ExecuteCommand("Project.ShowAllFiles");
+
+		//    try
+		//    {
+		//        UIHierarchyItem item = RecursiveFind(items.Item(proj.Name).UIHierarchyItems,
+		//                                             proj.Name + "\\" + folder);
+		//        if (item == null)
+		//            return false;
+
+		//        var oldSelection = (object[])dte2.ToolWindows.SolutionExplorer.SelectedItems;
+
+		//        item.Select(vsUISelectionType.vsUISelectionTypeSelect);
+		//        dte2.ExecuteCommand("Project.IncludeInProject");
+
+		//        item.Select(vsUISelectionType.vsUISelectionTypeToggle);
+
+		//        foreach (UIHierarchyItem sel in oldSelection)
+		//        {
+		//            sel.Select(vsUISelectionType.vsUISelectionTypeToggle);
+		//        }
+		//    }
+		//    finally
+		//    {
+		//    }
+		//    return true;
+		//}
+
+		private UIHierarchyItem RecursiveFind(UIHierarchyItems root, string name)
+		{
+			var tmp = name.Split('\\');
+			for (int i = 0; i < tmp.Length - 1; i++)
+			{
+				var item = Find(root, tmp[i]);
+				if (item == null)
+					return null;
+
+				root = item.UIHierarchyItems;
+			}
+
+			return Find(root, tmp[tmp.Length - 1]);
+		}
+
+		private UIHierarchyItem Find(UIHierarchyItems items, string name)
+		{
+			foreach (UIHierarchyItem item in items)
+			{
+				if (string.Compare(item.Name, name, StringComparison.CurrentCultureIgnoreCase) == 0)
+					return item;
+			}
+
+			return null;
+		}
+
+		private ProjectItem RecursiveFind(ProjectItems root, string name)
+		{
+			var tmp = name.Split('\\');
+			for (int i = 0; i < tmp.Length - 1; i++)
+			{
+				var item = Find(root, tmp[i]);
+				if (item == null)
+					return null;
+
+				root = item.ProjectItems;
+			}
+
+			return Find(root, tmp[tmp.Length - 1]);
 		}
 
 		private ProjectItem Find(ProjectItems items, string name)

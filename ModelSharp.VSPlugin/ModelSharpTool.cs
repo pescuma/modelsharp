@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using CustomToolTemplate;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using org.pescuma.ModelSharp.Core;
+using VSLangProj;
 
 namespace org.pescuma.ModelSharp.VSPlugin
 {
@@ -77,6 +79,8 @@ namespace org.pescuma.ModelSharp.VSPlugin
 
 				SetSubItems(e, inputDir, result.NotToChangeFilenames);
 				AddToProject(e, inputDir, result.EditableFilenames);
+
+				EnsureDllIsInProject(e);
 			}
 			finally
 			{
@@ -181,7 +185,7 @@ namespace org.pescuma.ModelSharp.VSPlugin
 
 				var item = Find(root, thisDir);
 				if (item == null)
-					item = root. AddFolder(thisDir);
+					item = root.AddFolder(thisDir, EnvDTE.Constants.vsProjectItemKindPhysicalFolder);
 
 				root = item.ProjectItems;
 			}
@@ -222,6 +226,35 @@ namespace org.pescuma.ModelSharp.VSPlugin
 			catch (Exception ex)
 			{
 				e.GenerateWarning(ex.Message);
+			}
+		}
+
+		private void EnsureDllIsInProject(GenerationEventArgs e)
+		{
+			AddAssemblyDependency(e, (VSProject) e.ProjectItem.ContainingProject.Object,
+			                      Assembly.GetAssembly(typeof (DataContractAttribute)));
+		}
+
+		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, Assembly assembly)
+		{
+			string assemblyName = assembly.GetName().Name;
+
+			try
+			{
+				bool hasRef =
+					project.References.Cast<Reference>().Any(
+						r =>
+						r != null && string.Equals(r.Name, assemblyName, StringComparison.InvariantCultureIgnoreCase));
+
+				if (!hasRef)
+				{
+					Reference dllRef = project.References.Add(assembly.Location);
+					dllRef.CopyLocal = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				e.GenerateWarning("Failed to add reference to " + assemblyName + ":" + ex.Message);
 			}
 		}
 

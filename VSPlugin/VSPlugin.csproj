@@ -274,7 +274,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ModelSharp.Core\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{87ACEB61-93A9-400B-8949-4E878CF0D8B0}</Project>
       <Name>Core</Name>
     </ProjectReference>

@@ -275,6 +275,8 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
+				type.Using.Add("System");
+
 				type.Implements.Add("ICloneable");
 			}
 		}

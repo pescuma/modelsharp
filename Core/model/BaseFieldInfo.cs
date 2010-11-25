@@ -104,7 +104,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
-		public bool CanListenTo
+		public virtual bool CanListenTo
 		{
 			get
 			{

@@ -97,50 +97,6 @@ $endif$
 			if (handler != null)
 				handler(this, new ChildPropertyChangedEventArgs(this, propertyName, e));
 		}
-		
-		protected void AddChildListeners(object child)
-		{
-			if (child == null)
-				return;
-
-			var notifyPropertyChanging = child as INotifyPropertyChanging;
-			if (notifyPropertyChanging != null)
-				notifyPropertyChanging.PropertyChanging += ISOPropertyChangingEventHandler;
-
-			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
-			if (notifyChildPropertyChanging != null)
-				notifyChildPropertyChanging.ChildPropertyChanging += ISOChildPropertyChangingEventHandler;
-
-			var notifyPropertyChanged = child as INotifyPropertyChanged;
-			if (notifyPropertyChanged != null)
-				notifyPropertyChanged.PropertyChanged += ISOPropertyChangedEventHandler;
-
-			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
-			if (notifyChildPropertyChanged != null)
-				notifyChildPropertyChanged.ChildPropertyChanged += ISOChildPropertyChangedEventHandler;
-		}
-		
-		protected void RemoveChildListeners(object child)
-		{
-			if (child == null)
-				return;
-
-			var notifyPropertyChanging = child as INotifyPropertyChanging;
-			if (notifyPropertyChanging != null)
-				notifyPropertyChanging.PropertyChanging -= ISOPropertyChangingEventHandler;
-
-			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
-			if (notifyChildPropertyChanging != null)
-				notifyChildPropertyChanging.ChildPropertyChanging -= ISOChildPropertyChangingEventHandler;
-
-			var notifyPropertyChanged = child as INotifyPropertyChanged;
-			if (notifyPropertyChanged != null)
-				notifyPropertyChanged.PropertyChanged -= ISOPropertyChangedEventHandler;
-
-			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
-			if (notifyChildPropertyChanged != null)
-				notifyChildPropertyChanged.ChildPropertyChanged -= ISOChildPropertyChangedEventHandler;
-		}
 
 		#endregion
 		

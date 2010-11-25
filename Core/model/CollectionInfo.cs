@@ -37,5 +37,13 @@ namespace org.pescuma.ModelSharp.Core.model
 			Setter = null;
 			ReadOnly = !lazy;
 		}
+
+		public override bool CanListenTo
+		{
+			get
+			{
+				return false;
+			}
+		}
 	}
 }

@@ -8,7 +8,10 @@ $if(it.LazyInitializer)$
 $if(it.DefaultValue)$
 			$it.FieldName$ = $it.DefaultValue$;
 $else$
-			$it.FieldName$ = new $it.TypeName$();
+			$it.FieldName$ = new $it.TypeName$();$\n$
+$endif$
+$if(it.CanListenTo)$
+			Add$it.Name$Listeners($it.FieldName$);
 $endif$
 		}
 
@@ -35,11 +38,13 @@ $if(it.Setter)$
 $if(it.CanListenTo)$
 			Remove$it.Name$Listeners($it.VarName$);
 
+
 $endif$
 			$it.FieldName$ = $it.VarName$;
 
 $if(it.CanListenTo)$
 			Add$it.Name$Listeners($it.VarName$);
+
 
 $endif$
 			OnPropertyChanged(PROPERTIES.$it.DefineName$);
@@ -70,6 +75,9 @@ $if(it.CanListenTo)$
 				notifyChildPropertyChanged.ChildPropertyChanged -= $it.Name$ChildPropertyChangedEventHandler;
 		}
 
+$endif$
+$endif$
+$if(it.CanListenTo)$
 		private void Add$it.Name$Listeners(object child)
 		{
 			if (child == null)
@@ -112,5 +120,4 @@ $if(it.CanListenTo)$
 			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
-$endif$
 $endif$

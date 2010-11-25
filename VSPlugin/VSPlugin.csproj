@@ -173,6 +173,9 @@
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="lib\ModelSharp.Lib.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="templates\annotation.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -278,7 +281,9 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\VSSDK\Microsoft.VsSDK.targets" />
   <PropertyGroup>
     <PreBuildEvent>del /Q $(SolutionDir)VSPlugin\templates\*.*
-copy $(SolutionDir)Core\templates\*.* $(SolutionDir)VSPlugin\templates\</PreBuildEvent>
+copy $(SolutionDir)Core\templates\*.* $(SolutionDir)VSPlugin\templates\
+del /Q $(SolutionDir)VSPlugin\lib\*.*
+copy $(SolutionDir)Lib\bin\$(ConfigurationName)\*.dll $(SolutionDir)VSPlugin\lib\</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -38,6 +38,13 @@ namespace org.pescuma.ModelSharp.VSPlugin
 				return;
 			}
 
+			string libDll = GetInstallPath(GetInstallPath(@"lib\ModelSharp.Lib.dll"));
+			if (!Directory.Exists(templatesDir))
+			{
+				e.GenerateError("Missing dll from install: " + libDll);
+				return;
+			}
+
 			string tempFile = Path.GetTempFileName();
 			string tempDir = null;
 			try
@@ -80,7 +87,7 @@ namespace org.pescuma.ModelSharp.VSPlugin
 				SetSubItems(e, inputDir, result.NotToChangeFilenames);
 				AddToProject(e, inputDir, result.EditableFilenames);
 
-				EnsureDllIsInProject(e);
+				EnsureDllIsInProject(e, libDll);
 			}
 			finally
 			{
@@ -291,16 +298,23 @@ namespace org.pescuma.ModelSharp.VSPlugin
 			}
 		}
 
-		private void EnsureDllIsInProject(GenerationEventArgs e)
+		private void EnsureDllIsInProject(GenerationEventArgs e, string libDll)
 		{
-			AddAssemblyDependency(e, (VSProject) e.ProjectItem.ContainingProject.Object,
-			                      Assembly.GetAssembly(typeof (DataContractAttribute)));
+			var project = (VSProject) e.ProjectItem.ContainingProject.Object;
+
+			AddAssemblyDependency(e, project, Assembly.GetAssembly(typeof (DataContractAttribute)), false);
+			AddAssemblyDependency(e, project, "ModelSharp.Lib", libDll, true);
 		}
 
-		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, Assembly assembly)
+		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, Assembly assembly,
+		                                   bool copyLocal)
 		{
-			string assemblyName = assembly.GetName().Name;
+			AddAssemblyDependency(e, project, assembly.GetName().Name, assembly.Location, copyLocal);
+		}
 
+		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, string assemblyName,
+		                                   string assemblyLocation, bool copyLocal)
+		{
 			try
 			{
 				bool hasRef =
@@ -310,8 +324,8 @@ namespace org.pescuma.ModelSharp.VSPlugin
 
 				if (!hasRef)
 				{
-					Reference dllRef = project.References.Add(assembly.Location);
-					dllRef.CopyLocal = false;
+					Reference dllRef = project.References.Add(assemblyLocation);
+					dllRef.CopyLocal = copyLocal;
 				}
 			}
 			catch (Exception ex)

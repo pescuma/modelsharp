@@ -10,7 +10,11 @@
             <CustomDictionary>
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
-              <UserWords />
+              <UserWords>pescuma
+Namespace
+Browsable
+Config
+args</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

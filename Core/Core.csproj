@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
@@ -44,7 +44,7 @@
     <CodeContractsBaseLineFile />
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +53,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">
@@ -77,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelProcessor.cs" />
+    <Compile Include="ModelProcessorResult.cs" />
     <Compile Include="model\BaseFieldInfo.cs" />
     <Compile Include="model\CollectionInfo.cs" />
     <Compile Include="model\ComponentInfo.cs" />
@@ -89,31 +96,34 @@
     <Compile Include="xml\model_xml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="templates\annotation.st" />
-    <None Include="templates\builder_class.st" />
-    <None Include="templates\builder_field.st" />
-    <None Include="templates\builder_name.st" />
-    <None Include="templates\builder_setter.st" />
-    <None Include="templates\call.st" />
-    <None Include="templates\mutable_other_to_field.st" />
-    <None Include="templates\immutable_other_to_field.st" />
-    <None Include="templates\create_using.st" />
-    <None Include="templates\define.st" />
-    <None Include="templates\immutable_class.st" />
-    <None Include="templates\immutable_class_extended.st" />
-    <None Include="templates\immutable_field.st" />
-    <None Include="templates\immutable_param_to_field.st" />
-    <None Include="templates\mutable_class.st" />
-    <None Include="templates\mutable_class_extended.st" />
-    <None Include="templates\param.st" />
-    <None Include="templates\private_name.st" />
-    <None Include="templates\property.st" />
-    <None Include="templates\property_decl.st" />
-    <None Include="templates\property_field.st" />
-    <None Include="templates\property_method.st" />
-    <None Include="templates\switch_getter.st" />
-    <None Include="templates\switch_setter.st" />
-    <None Include="templates\var_name.st" />
+    <None Include="Key.snk" />
+    <Content Include="templates\annotation.st" />
+    <Content Include="templates\builder_class.st" />
+    <Content Include="templates\builder_field.st" />
+    <Content Include="templates\builder_name.st" />
+    <Content Include="templates\builder_setter.st" />
+    <Content Include="templates\builder_set_from_other.st" />
+    <Content Include="templates\call.st" />
+    <Content Include="templates\create_using.st" />
+    <Content Include="templates\define.st" />
+    <Content Include="templates\immutable_class.st" />
+    <Content Include="templates\immutable_class_extended.st" />
+    <Content Include="templates\immutable_field.st" />
+    <Content Include="templates\immutable_other_to_field.st" />
+    <Content Include="templates\immutable_param_to_field.st" />
+    <Content Include="templates\mutable_class.st" />
+    <Content Include="templates\mutable_class_extended.st" />
+    <Content Include="templates\mutable_init_field.st" />
+    <Content Include="templates\mutable_other_to_field.st" />
+    <Content Include="templates\param.st" />
+    <Content Include="templates\private_name.st" />
+    <Content Include="templates\property.st" />
+    <Content Include="templates\property_decl.st" />
+    <Content Include="templates\property_field.st" />
+    <Content Include="templates\property_method.st" />
+    <Content Include="templates\switch_getter.st" />
+    <Content Include="templates\switch_setter.st" />
+    <Content Include="templates\var_name.st" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="templates\SimpleConfig.xml" />

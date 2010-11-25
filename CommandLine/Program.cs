@@ -74,7 +74,7 @@ namespace org.pescuma.ModelSharp.CommandLine
 			string dir = Path.GetDirectoryName(fullPath);
 
 #if DEBUG
-			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\..\ModelSharp.Core\templates\"));
+			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\..\Core\templates\"));
 #else
 			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
 #endif

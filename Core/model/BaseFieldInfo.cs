@@ -19,7 +19,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public bool ReadOnly;
 		public readonly List<string> Annotations = new List<string>();
 
-		private string _defaultValue;
+		private string defaultValue;
 
 		public BaseFieldInfo(string name, string type)
 		{
@@ -45,20 +45,20 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			get
 			{
-				if (_defaultValue == "")
+				if (defaultValue == "")
 					return null;
 
-				return _defaultValue;
+				return defaultValue;
 			}
 			set
 			{
-				_defaultValue = value;
+				defaultValue = value;
 
-				if (TypeName == "string" && _defaultValue != null
-				    && (_defaultValue.Length < 2 || _defaultValue[0] != '"' || _defaultValue[-1] != '"'))
+				if (TypeName == "string" && defaultValue != null
+				    && (defaultValue.Length < 2 || defaultValue[0] != '"' || defaultValue[-1] != '"'))
 				{
-					_defaultValue = _defaultValue.Replace("\"", "\\\"");
-					_defaultValue = "\"" + _defaultValue + "\"";
+					defaultValue = defaultValue.Replace("\"", "\\\"");
+					defaultValue = "\"" + defaultValue + "\"";
 				}
 			}
 		}
@@ -83,6 +83,18 @@ namespace org.pescuma.ModelSharp.Core.model
 				simpleTypes.Add("decimal");
 
 				return simpleTypes.Contains(TypeName);
+			}
+		}
+
+		public bool CanListenTo
+		{
+			get
+			{
+				HashSet<string> notListenTo = new HashSet<string>();
+				notListenTo.Add("string");
+				notListenTo.Add("String");
+
+				return !IsPrimitive && !notListenTo.Contains(TypeName);
 			}
 		}
 	}

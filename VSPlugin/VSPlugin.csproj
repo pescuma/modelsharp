@@ -24,7 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RegisterForComInterop>false</RegisterForComInterop>
-    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
     <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
     <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
     <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
@@ -46,7 +46,7 @@
     <CodeContractsBaseLineFile />
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
-    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -176,9 +176,6 @@
     <Content Include="templates\annotation.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="templates\arg_name.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="templates\builder_class.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -228,12 +225,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="templates\mutable_other_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_param_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\not_null_if_required.st">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="templates\param.st">
@@ -286,8 +277,8 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\VSSDK\Microsoft.VsSDK.targets" />
   <PropertyGroup>
-    <PreBuildEvent>del /Q $(SolutionDir)ModelSharp.VSPlugin\templates\*.*
-copy $(SolutionDir)ModelSharp.Core\templates\*.* $(SolutionDir)ModelSharp.VSPlugin\templates\</PreBuildEvent>
+    <PreBuildEvent>del /Q $(SolutionDir)VSPlugin\templates\*.*
+copy $(SolutionDir)Core\templates\*.* $(SolutionDir)VSPlugin\templates\</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

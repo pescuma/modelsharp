@@ -334,9 +334,12 @@ namespace org.pescuma.ModelSharp.Core
 
 				type.Using.Add("System");
 				type.Using.Add("System.ComponentModel");
+				type.Using.Add("org.pescuma.ModelSharp.Lib");
 
 				type.Implements.Add("INotifyPropertyChanging");
+				type.Implements.Add("INotifyChildPropertyChanging");
 				type.Implements.Add("INotifyPropertyChanged");
+				type.Implements.Add("INotifyChildPropertyChanged");
 			}
 		}
 
@@ -439,7 +442,7 @@ namespace org.pescuma.ModelSharp.Core
 			tw.Close();
 		}
 	}
-	
+
 	public class NArrangeLogger : NArrange.Core.ILogger
 	{
 		private readonly ILogger log;
@@ -494,7 +497,7 @@ namespace org.pescuma.ModelSharp.Core
 
 		public void Info(string msg, int line = 0, int column = 0)
 		{
-			result.Messages.Add(new Message(false, msg, line, column));
+			result.Messages.Add(new ModelProcessorResult.Message(false, msg, line, column));
 
 			if (log != null)
 				log.Info(msg, line, column);
@@ -503,7 +506,7 @@ namespace org.pescuma.ModelSharp.Core
 		public void Error(string msg, int line = 0, int column = 0)
 		{
 			result.Success = false;
-			result.Messages.Add(new Message(true, msg, line, column));
+			result.Messages.Add(new ModelProcessorResult.Message(true, msg, line, column));
 
 			if (log != null)
 				log.Error(msg, line, column);

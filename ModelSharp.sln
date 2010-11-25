@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "CommandLine\CommandLine.csproj", "{D63CEBAD-F84B-45E5-A380-7C9A7985DF35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSPlugin", "VSPlugin\VSPlugin.csproj", "{11D11D0C-69E5-4BE5-B884-5E37620EB58A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{82694868-37D4-4368-8DBC-AF57E6A3D001} = {82694868-37D4-4368-8DBC-AF57E6A3D001}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib", "Lib\Lib.csproj", "{82694868-37D4-4368-8DBC-AF57E6A3D001}"
 EndProject

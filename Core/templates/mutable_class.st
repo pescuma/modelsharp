@@ -42,8 +42,7 @@ $endif$
 		{
 			switch (fieldName)
 			{
-				$it.Properties:switch_getter()$
-			}
+				$it.Properties:switch_getter()$			}
 
 			throw new ArgumentException("No gettable field named " + fieldName);
 		}
@@ -53,10 +52,10 @@ $endif$
 $if(it.HasSettableProperties)$
 			switch (fieldName)
 			{
-				$it.Properties:switch_setter()$
-			}
-$endif$
+				$it.Properties:switch_setter()$			}
 
+
+$endif$
 			throw new ArgumentException("No settable field named " + fieldName);
 		}
 

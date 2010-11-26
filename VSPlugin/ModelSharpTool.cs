@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -324,14 +325,14 @@ namespace org.pescuma.ModelSharp.VSPlugin
 		{
 			var project = (VSProject) e.ProjectItem.ContainingProject.Object;
 
-			AddAssemblyDependency(e, project, Assembly.GetAssembly(typeof (DataContractAttribute)), false);
+			AddAssemblyDependency(e, project, Assembly.GetAssembly(typeof (DataContractAttribute)));
+			AddAssemblyDependency(e, project, Assembly.GetAssembly(typeof (INotifyCollectionChanged)));
 			AddAssemblyDependency(e, project, "ModelSharp.Lib", libDll, true);
 		}
 
-		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, Assembly assembly,
-		                                   bool copyLocal)
+		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, Assembly assembly)
 		{
-			AddAssemblyDependency(e, project, assembly.GetName().Name, assembly.Location, copyLocal);
+			AddAssemblyDependency(e, project, assembly.GetName().Name, assembly.Location, false);
 		}
 
 		private void AddAssemblyDependency(GenerationEventArgs e, VSProject project, string assemblyName,

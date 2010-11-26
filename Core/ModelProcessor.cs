@@ -296,8 +296,8 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
-				if (type.HasCollections)
-					type.Using.Add("System.Collections.ObjectModel");
+				if (type.HasCollections && !type.Immutable)
+					type.Using.Add("org.pescuma.ModelSharp.Lib");
 			}
 		}
 

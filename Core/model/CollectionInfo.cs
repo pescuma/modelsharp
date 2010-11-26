@@ -27,12 +27,15 @@ namespace org.pescuma.ModelSharp.Core.model
 	public class CollectionInfo : PropertyInfo
 	{
 		public readonly string Contents;
+		public readonly BaseFieldInfo ContentsType;
 
-		public CollectionInfo(string name, string contents, bool lazy, string collectionType = "ObservableCollection")
+		public CollectionInfo(string name, string contents, bool lazy,
+		                      string collectionType = "ObservableList")
 			: base(name, collectionType + "<" + contents + ">", false, lazy)
 		{
-			Contract.Requires(contents != null && contents != "");
+			Contract.Requires(!string.IsNullOrEmpty(contents));
 
+			ContentsType = new BaseFieldInfo("Items", contents);
 			Contents = contents;
 			Setter = null;
 			ReadOnly = !lazy;
@@ -40,10 +43,7 @@ namespace org.pescuma.ModelSharp.Core.model
 
 		public override bool CanListenTo
 		{
-			get
-			{
-				return false;
-			}
+			get { return false; }
 		}
 	}
 }

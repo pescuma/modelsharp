@@ -63,6 +63,15 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return Properties.Any(prop => prop.IsCollection); }
 		}
 
+		public bool HasCollectionWithListenContentType
+		{
+			get
+			{
+				return
+					Properties.Any(prop => prop.IsCollection && ((CollectionInfo) prop).ContentsType.CanListenTo);
+			}
+		}
+
 		public bool HasComponents
 		{
 			get { return Properties.Any(prop => prop.IsComponent); }

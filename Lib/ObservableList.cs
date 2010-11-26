@@ -30,14 +30,25 @@ using System.Diagnostics;
 namespace org.pescuma.ModelSharp.Lib
 {
 	/// <summary>
-	/// A observable list that implements all methods of List&lg;T&gt; and add notifications to it. 
-	/// It only notifies of Add, Remove and Replace (and not about Move), but those notifications are always with an 
-	/// index and object.
+	///   A observable list that implements all methods of List and add notifications to it. 
+	///   It only notifies of Add, Remove and Replace (and not about Move), but those notifications are always with an 
+	///   index and object.
 	/// </summary>
 	[DebuggerDisplay("Count = {Count}")]
 	[Serializable]
-	public class ObservableList<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanged
+	public class ObservableList<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanging,
+	                                 INotifyPropertyChanged
 	{
+		#region Field Name Defines
+
+		public class PROPERTIES
+		{
+			public const string ITEMS = "Item[]";
+			public const string COUNT = "Count";
+		}
+
+		#endregion
+
 		private readonly List<T> items;
 
 		#region Constructors
@@ -66,6 +77,7 @@ namespace org.pescuma.ModelSharp.Lib
 			get { return items[index]; }
 			set
 			{
+				OnItemsChanging();
 				T oldItem = items[index];
 
 				items[index] = value;
@@ -82,6 +94,9 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Insert(int index, T item)
 		{
+			OnCountChanging();
+			OnItemsChanging();
+
 			items.Insert(index, item);
 
 			OnCountChanged();
@@ -91,6 +106,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void RemoveAt(int index)
 		{
+			OnCountChanging();
+			OnItemsChanging();
 			T oldItem = items[index];
 
 			items.RemoveAt(index);
@@ -116,6 +133,9 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Add(T item)
 		{
+			OnCountChanging();
+			OnItemsChanging();
+
 			Add(item);
 
 			OnCountChanged();
@@ -128,6 +148,8 @@ namespace org.pescuma.ModelSharp.Lib
 			if (Count == 0)
 				return;
 
+			OnCountChanging();
+			OnItemsChanging();
 			T[] oldItems = ToArray();
 
 			((ICollection<T>) items).Clear();
@@ -185,14 +207,14 @@ namespace org.pescuma.ModelSharp.Lib
 
 		object IList.this[int index]
 		{
-			get { return ((IList) items)[index]; }
+			get { return (items)[index]; }
 			set
 			{
+				OnItemsChanging();
 				T oldItem = items[index];
 
 				((IList) items)[index] = value;
 
-				OnCountChanged();
 				OnItemsChanged();
 				OnCollectionReplace(index, oldItem, (T) value);
 			}
@@ -210,6 +232,9 @@ namespace org.pescuma.ModelSharp.Lib
 
 		int IList.Add(object value)
 		{
+			OnCountChanging();
+			OnItemsChanging();
+
 			int result = ((IList) items).Add(value);
 
 			OnCountChanged();
@@ -231,6 +256,9 @@ namespace org.pescuma.ModelSharp.Lib
 
 		void IList.Insert(int index, object value)
 		{
+			OnCountChanging();
+			OnItemsChanging();
+
 			((IList) items).Insert(index, value);
 
 			OnCountChanged();
@@ -268,16 +296,19 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void AddRange(IEnumerable<T> collection)
 		{
+			var asArray = new List<T>(collection).ToArray();
+			if (asArray.Length < 1)
+				return;
+
+			OnCountChanging();
+			OnItemsChanging();
 			int oldCount = Count;
 
-			items.AddRange(collection);
+			items.AddRange(asArray);
 
-			if (oldCount != Count)
-			{
-				OnCountChanged();
-				OnItemsChanged();
-				OnCollectionAdd(oldCount, new List<T>(collection).ToArray());
-			}
+			OnCountChanged();
+			OnItemsChanged();
+			OnCollectionAdd(oldCount, asArray);
 		}
 
 		public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
@@ -372,16 +403,18 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void InsertRange(int index, IEnumerable<T> collection)
 		{
-			int oldCount = Count;
+			var asArray = new List<T>(collection).ToArray();
+			if (asArray.Length < 1)
+				return;
 
-			items.InsertRange(index, collection);
+			OnCountChanging();
+			OnItemsChanging();
 
-			if (oldCount != Count)
-			{
-				OnCountChanged();
-				OnItemsChanged();
-				OnCollectionAdd(index, new List<T>(collection).ToArray());
-			}
+			items.InsertRange(index, asArray);
+
+			OnCountChanged();
+			OnItemsChanged();
+			OnCollectionAdd(index, asArray);
 		}
 
 		public int LastIndexOf(T item)
@@ -401,26 +434,33 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public int RemoveAll(Predicate<T> match)
 		{
-			var oldItems = new Dictionary<int, T>();
+			var toRemove = new HashSet<T>();
+			int firstIndex = -1;
 			for (int i = 0; i < items.Count; i++)
 			{
 				T value = items[i];
 				if (match(value))
-					oldItems.Add(i, value);
+				{
+					if (firstIndex < 0)
+						firstIndex = i;
+					toRemove.Add(value);
+				}
 			}
 
-			int result = items.RemoveAll(match);
+			if (toRemove.Count < 1)
+				return 0;
 
-			if (result != oldItems.Count)
-				throw new InvalidOperationException();
+			OnCountChanging();
+			OnItemsChanging();
 
-			if (result > 0)
-			{
-				OnCountChanged();
-				OnItemsChanged();
-				foreach (var oldItem in oldItems)
-					OnCollectionRemove(oldItem.Key, oldItem.Value);
-			}
+			int result = items.RemoveAll(toRemove.Contains);
+
+			OnCountChanged();
+			OnItemsChanged();
+
+			var removed = new T[toRemove.Count];
+			toRemove.CopyTo(removed);
+			OnCollectionRemove(removed.Length == 1 ? firstIndex : -1, removed);
 
 			return result;
 		}
@@ -430,6 +470,8 @@ namespace org.pescuma.ModelSharp.Lib
 			if (count == 0)
 				return;
 
+			OnCountChanging();
+			OnItemsChanging();
 			T[] oldItems = GetRange(index, count).ToArray();
 
 			items.RemoveRange(index, count);
@@ -461,6 +503,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Reverse(int index, int count)
 		{
+			OnItemsChanging();
+
 			items.Reverse(index, count);
 
 			OnItemsChanged();
@@ -468,6 +512,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Sort()
 		{
+			OnItemsChanging();
+
 			items.Sort();
 
 			OnItemsChanged();
@@ -475,6 +521,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Sort(IComparer<T> comparer)
 		{
+			OnItemsChanging();
+
 			items.Sort(comparer);
 
 			OnItemsChanged();
@@ -482,6 +530,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Sort(int index, int count, IComparer<T> comparer)
 		{
+			OnItemsChanging();
+
 			items.Sort(index, count, comparer);
 
 			OnItemsChanged();
@@ -489,6 +539,8 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Sort(Comparison<T> comparison)
 		{
+			OnItemsChanging();
+
 			items.Sort(comparison);
 
 			OnItemsChanged();
@@ -524,10 +576,30 @@ namespace org.pescuma.ModelSharp.Lib
 			if (handler != null)
 				handler(this,
 				        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem,
-				                                             newItem));
+				                                             newItem, index));
 		}
 
 		#endregion INotifyCollectionChanged
+
+		#region INotifyPropertyChanging
+
+		public event PropertyChangingEventHandler PropertyChanging;
+
+		private void OnCountChanging()
+		{
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(PROPERTIES.COUNT));
+		}
+
+		private void OnItemsChanging()
+		{
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(PROPERTIES.ITEMS));
+		}
+
+		#endregion INotifyPropertyChanging
 
 		#region INotifyPropertyChanged
 
@@ -537,14 +609,14 @@ namespace org.pescuma.ModelSharp.Lib
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
-				handler(this, new PropertyChangedEventArgs("Count"));
+				handler(this, new PropertyChangedEventArgs(PROPERTIES.COUNT));
 		}
 
 		private void OnItemsChanged()
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
-				handler(this, new PropertyChangedEventArgs("Item[]"));
+				handler(this, new PropertyChangedEventArgs(PROPERTIES.ITEMS));
 		}
 
 		#endregion INotifyPropertyChanged

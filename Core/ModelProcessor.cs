@@ -297,7 +297,12 @@ namespace org.pescuma.ModelSharp.Core
 			foreach (var type in model.Types)
 			{
 				if (type.HasCollections && !type.Immutable)
+				{
 					type.Using.Add("org.pescuma.ModelSharp.Lib");
+
+					if (type.HasCollectionWithListenContentType)
+						type.Using.Add("System.Collections.Specialized");
+				}
 			}
 		}
 

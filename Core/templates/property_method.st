@@ -13,6 +13,9 @@ $endif$
 $if(it.CanListenTo)$
 			Add$it.Name$Listeners($it.FieldName$);
 $endif$
+$if(it.IsCollection)$
+			Add$it.Name$ListListeners($it.FieldName$);
+$endif$
 		}
 
 $endif$
@@ -120,4 +123,133 @@ $if(it.CanListenTo)$
 			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
+$endif$
+$if(it.IsCollection)$
+
+		private void Add$it.Name$ListListeners(object child)
+		{
+			if (child == null)
+				return;
+
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += $it.Name$ListPropertyChangingEventHandler;
+
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += $it.Name$ListPropertyChangedEventHandler;
+$if(it.ContentsType.CanListenTo)$
+
+			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.CollectionChanged += $it.Name$ListChangedEventHandler;
+$endif$
+		}
+
+		private void $it.Name$ListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			if (e.PropertyName != $it.TypeName$.PROPERTIES.ITEMS)
+				return;
+
+			OnPropertyChanging(PROPERTIES.$it.DefineName$);
+		}
+
+		private void $it.Name$ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != $it.TypeName$.PROPERTIES.ITEMS)
+				return;
+
+			OnPropertyChanged(PROPERTIES.$it.DefineName$);
+		}
+
+$if(it.ContentsType.CanListenTo)$
+		private void $it.Name$ListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+				case NotifyCollectionChangedAction.Remove:
+				case NotifyCollectionChangedAction.Replace:
+
+					foreach (var item in e.OldItems)
+						Remove$it.Name$ItemListeners(item);
+					foreach (var item in e.NewItems)
+						Add$it.Name$ItemListeners(item);
+
+					break;
+				case NotifyCollectionChangedAction.Move:
+					// Do nothing
+					break;
+				default:
+					// NotifyCollectionChangedAction.Reset: The list should not fire this or 
+					// we can't control the items
+					throw new InvalidOperationException();
+			}
+		}
+
+		private void Remove$it.Name$ItemListeners(object child)
+		{
+			if (child == null)
+				return;
+
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging -= $it.Name$ItemPropertyChangingEventHandler;
+
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging -= $it.Name$ItemChildPropertyChangingEventHandler;
+
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged -= $it.Name$ItemPropertyChangedEventHandler;
+
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged -= $it.Name$ItemChildPropertyChangedEventHandler;
+		}
+
+		private void Add$it.Name$ItemListeners(object child)
+		{
+			if (child == null)
+				return;
+
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += $it.Name$ItemPropertyChangingEventHandler;
+
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += $it.Name$ItemChildPropertyChangingEventHandler;
+
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += $it.Name$ItemPropertyChangedEventHandler;
+
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += $it.Name$ItemChildPropertyChangedEventHandler;
+		}
+
+		private void $it.Name$ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+		}
+
+		private void $it.Name$ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+		}
+
+		private void $it.Name$ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+		}
+
+		private void $it.Name$ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+		}
+
+$endif$
 $endif$

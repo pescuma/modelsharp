@@ -4,6 +4,7 @@ if (other.$it.FieldName$ != null)
 $endif$
 $if(it.IsCollection)$
 	$it.FieldName$ = new $it.TypeName$(other.$it.Name$);
+	Add$it.Name$ListListeners($it.FieldName$);
 $elseif(it.IsComponent)$
 	$it.FieldName$ = new $it.TypeName$(other.$it.Name$);$\n$
 $else$

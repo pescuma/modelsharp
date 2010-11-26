@@ -328,6 +328,7 @@ namespace org.pescuma.ModelSharp.Core
 						prop.TypeName = "ReadOnlyCollection<" + contents + ">";
 						prop.DefaultValue = "";
 
+						type.Using.Add("System.Collections.ObjectModel");
 						type.Using.Add("System.Collections.Generic");
 					}
 					else if (prop is ComponentInfo)

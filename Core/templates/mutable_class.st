@@ -70,28 +70,28 @@ $endif$
 		public event PropertyChangedEventHandler PropertyChanged;
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 
-		protected void OnPropertyChanging(string propertyName)
+		protected void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
 		}
 		
-		protected void OnChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(this, new ChildPropertyChangingEventArgs(this, propertyName, e));
 		}
 
-		protected void OnPropertyChanged(string propertyName)
+		protected void NotifyPropertyChanged(string propertyName)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
 		
-		protected void OnChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)

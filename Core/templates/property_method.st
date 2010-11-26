@@ -36,7 +36,7 @@ $if(it.Setter)$
 			if ($it.FieldName$ == $it.VarName$)
 				return false;
 
-			OnPropertyChanging(PROPERTIES.$it.DefineName$);
+			NotifyPropertyChanging(PROPERTIES.$it.DefineName$);
 
 $if(it.CanListenTo)$
 			Remove$it.Name$Listeners($it.VarName$);
@@ -50,7 +50,7 @@ $if(it.CanListenTo)$
 
 
 $endif$
-			OnPropertyChanged(PROPERTIES.$it.DefineName$);
+			NotifyPropertyChanged(PROPERTIES.$it.DefineName$);
 
 			return true;
 		}
@@ -105,22 +105,22 @@ $if(it.CanListenTo)$
 
 		private void $it.Name$PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 $endif$
@@ -151,7 +151,7 @@ $endif$
 			if (e.PropertyName != $it.TypeName$.PROPERTIES.ITEMS)
 				return;
 
-			OnPropertyChanging(PROPERTIES.$it.DefineName$);
+			NotifyPropertyChanging(PROPERTIES.$it.DefineName$);
 		}
 
 		private void $it.Name$ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -159,7 +159,7 @@ $endif$
 			if (e.PropertyName != $it.TypeName$.PROPERTIES.ITEMS)
 				return;
 
-			OnPropertyChanged(PROPERTIES.$it.DefineName$);
+			NotifyPropertyChanged(PROPERTIES.$it.DefineName$);
 		}
 
 $if(it.ContentsType.CanListenTo)$
@@ -240,22 +240,22 @@ $if(it.ContentsType.CanListenTo)$
 
 		private void $it.Name$ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			OnChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 		private void $it.Name$ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			OnChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.$it.DefineName$, sender, e);
 		}
 
 $endif$

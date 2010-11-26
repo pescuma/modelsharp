@@ -136,7 +136,7 @@ namespace org.pescuma.ModelSharp.Lib
 			OnCountChanging();
 			OnItemsChanging();
 
-			Add(item);
+			items.Add(item);
 
 			OnCountChanged();
 			OnItemsChanged();
@@ -150,7 +150,7 @@ namespace org.pescuma.ModelSharp.Lib
 
 			OnCountChanging();
 			OnItemsChanging();
-			T[] oldItems = ToArray();
+			T[] oldItems = items.ToArray();
 
 			((ICollection<T>) items).Clear();
 
@@ -171,7 +171,7 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public bool Remove(T item)
 		{
-			int index = IndexOf(item);
+			int index = items.IndexOf(item);
 			if (index < 0)
 			{
 				return false;
@@ -302,7 +302,7 @@ namespace org.pescuma.ModelSharp.Lib
 
 			OnCountChanging();
 			OnItemsChanging();
-			int oldCount = Count;
+			int oldCount = items.Count;
 
 			items.AddRange(asArray);
 
@@ -472,7 +472,7 @@ namespace org.pescuma.ModelSharp.Lib
 
 			OnCountChanging();
 			OnItemsChanging();
-			T[] oldItems = GetRange(index, count).ToArray();
+			T[] oldItems = items.GetRange(index, count).ToArray();
 
 			items.RemoveRange(index, count);
 

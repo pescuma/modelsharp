@@ -84,6 +84,19 @@
     <Compile Include="using\examples\%40using\BaseTest.cs" />
     <Compile Include="using\examples\%40using\Test.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="collection\model.xml" />
+    <Content Include="composition\model.xml" />
+    <Content Include="immutable\model.xml" />
+    <Content Include="implements\model.xml" />
+    <Content Include="lazy\model.xml" />
+    <Content Include="noNamespace\model.xml" />
+    <Content Include="privateSetter\model.xml" />
+    <Content Include="projectNamespace\model.xml" />
+    <Content Include="required\model.xml" />
+    <Content Include="simple\model.xml" />
+    <Content Include="using\model.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

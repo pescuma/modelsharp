@@ -170,11 +170,18 @@ $if(it.ContentsType.CanListenTo)$
 				case NotifyCollectionChangedAction.Add:
 				case NotifyCollectionChangedAction.Remove:
 				case NotifyCollectionChangedAction.Replace:
+					
+					if ((e.OldItems == null || e.OldItems.Count == 0) 
+							&& (e.NewItems == null || e.NewItems.Count == 0))
+						throw new InvalidOperationException();
 
-					foreach (var item in e.OldItems)
-						Remove$it.Name$ItemListeners(item);
-					foreach (var item in e.NewItems)
-						Add$it.Name$ItemListeners(item);
+					if (e.OldItems != null)
+						foreach (var item in e.OldItems)
+							Remove$it.Name$ItemListeners(item);
+
+					if (e.NewItems != null)
+						foreach (var item in e.NewItems)
+							Add$it.Name$ItemListeners(item);
 
 					break;
 				case NotifyCollectionChangedAction.Move:

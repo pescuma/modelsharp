@@ -12,10 +12,12 @@ $endif$
 	public abstract class $it.ImplementationName$ $if(it.Implements)$ : $it.Implements; separator=", "$ $endif$
 	{
 		#region Field Name Defines
+
 		public class PROPERTIES
 		{
 			$it.Properties:define()$
 		}
+
 		#endregion
 
 		#region Constructors
@@ -36,7 +38,7 @@ $endif$
 
 		$it.Properties:property()$
 
-		#region Get/Set by name
+		#region Get/Set by name and CopyFrom
 		
 		public object GetField(string fieldName)
 		{
@@ -57,6 +59,11 @@ $if(it.HasSettableProperties)$
 
 $endif$
 			throw new ArgumentException("No settable field named " + fieldName);
+		}
+
+		public void CopyFrom($it.Name$ other)
+		{
+			$it.Properties:mutable_other_copyto_field()$
 		}
 
 		#endregion

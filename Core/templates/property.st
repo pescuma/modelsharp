@@ -6,5 +6,4 @@ $it:property_decl()$
 
 $it:property_method()$
 
-#endregion Property $it.Name$
-$\n$
+#endregion Property $it.Name$$\n$

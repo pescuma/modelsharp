@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AStyleInterface.cs" />
     <Compile Include="ModelProcessor.cs" />
     <Compile Include="ModelProcessorResult.cs" />
     <Compile Include="model\BaseFieldInfo.cs" />
@@ -75,12 +76,14 @@
   <ItemGroup>
     <None Include="Key.snk" />
     <None Include="templates\annotation.st" />
+    <None Include="templates\astylerc" />
     <None Include="templates\builder_class.st" />
     <None Include="templates\builder_field.st" />
     <None Include="templates\builder_name.st" />
     <None Include="templates\builder_setter.st" />
     <None Include="templates\builder_set_from_other.st" />
     <None Include="templates\call.st" />
+    <None Include="templates\mutable_other_copyto_field.st" />
     <None Include="templates\create_using.st" />
     <None Include="templates\define.st" />
     <None Include="templates\immutable_class.st" />

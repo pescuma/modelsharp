@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
@@ -446,26 +447,87 @@ namespace org.pescuma.ModelSharp.Core
 			Directory.CreateDirectory(Path.Combine(BaseOutputPath, GetPackageDir(type)));
 
 			WriteFile(template, fullname);
-			FormatFile(fullname);
+			FormatFileWithNArranger(fullname);
+			FormatFileWithAStyle(fullname);
 
 			log.Info("Created file " + relativeName);
 
 			return relativeName;
 		}
 
-		private void FormatFile(string file)
+		private void FormatFileWithNArranger(string file)
 		{
+			WaitForUnlock(file);
+
 			FileArranger fileArranger = new FileArranger(Path.Combine(templatesPath, "SimpleConfig.xml"),
 			                                             new NArrangeLogger(log));
 			if (!fileArranger.Arrange(file, null))
 				log.Error("Could not format file: " + file + ". The file has wrong code :(");
 		}
 
+		private void FormatFileWithAStyle(string file)
+		{
+			WaitForUnlock(file);
+
+			AStyleInterface astyle = new AStyleInterface(new AStyleLogger(log));
+
+			var options = File.ReadAllLines(Path.Combine(templatesPath, "astylerc"));
+
+			string result = astyle.FormatSource(File.ReadAllText(file),
+			                                    "mode=cs " + string.Join(" ", options));
+
+			if (result == null)
+			{
+				log.Error("Could not format file: " + file + ". The file has wrong code :(");
+			}
+			else
+			{
+				result = result.Replace("\r\n", "\n").Replace('\r', '\n').Replace("\n", "\r\n");
+
+				try
+				{
+					File.WriteAllText(file, result);
+				}
+				catch (IOException e)
+				{
+					log.Info("[AStyle] [Warn] Could not format file: " + file + ". Error writting file to disc: "
+					         + e.Message);
+				}
+			}
+		}
+
+		private void WaitForUnlock(string file)
+		{
+			Thread.Sleep(10);
+		}
+
 		private void WriteFile(StringTemplate template, string file)
 		{
-			TextWriter tw = new StreamWriter(file);
-			template.Write(new NoIndentWriter(tw));
-			tw.Close();
+			using (TextWriter tw = new StreamWriter(file))
+			{
+				template.Write(new NoIndentWriter(tw));
+				tw.Close();
+			}
+		}
+	}
+
+	public class AStyleLogger : AStyleInterface.ILog
+	{
+		private readonly ILogger log;
+
+		public AStyleLogger(ILogger log)
+		{
+			this.log = log;
+		}
+
+		public void Error(int errorNumber, string errorMessage)
+		{
+			log.Error("[AStyle] " + errorNumber + ": " + (errorMessage ?? ""));
+		}
+
+		public void Warning(int errorNumber, string errorMessage)
+		{
+			log.Info("[AStyle] " + errorNumber + ": " + (errorMessage ?? ""));
 		}
 	}
 

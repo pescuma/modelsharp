@@ -8,6 +8,6 @@ $elseif(it.IsComponent)$
 	$it.FieldName$ = new $it.TypeName$();
 $endif$
 $if(it.CanListenTo)$
-	Add$it.Name$Listeners($it.FieldName$);$\n$
+	Add$it.Name$Listeners($it.FieldName$);
 $endif$
 $endif$

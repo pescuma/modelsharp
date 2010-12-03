@@ -4,4 +4,3 @@ $if(it.IsCollection)$
 $else$
 	Set$it.Name$(other.$it.Name$);
 $endif$
-$\n$

@@ -8,7 +8,7 @@ $if(it.LazyInitializer)$
 $if(it.DefaultValue)$
 			$it.FieldName$ = $it.DefaultValue$;
 $else$
-			$it.FieldName$ = new $it.TypeName$();$\n$
+			$it.FieldName$ = new $it.TypeName$();
 $endif$
 $if(it.CanListenTo)$
 			Add$it.Name$Listeners($it.FieldName$);

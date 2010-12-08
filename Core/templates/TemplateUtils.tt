@@ -1,0 +1,1 @@
+﻿<#@ template language="C#" #><#@ parameter name="dummyJustToCreateNeededInitializeMethod" type="System.String" #>

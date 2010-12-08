@@ -22,6 +22,8 @@ $endif$
 		{
 			$it.Properties:immutable_other_to_field()$
 		}
+
+		$it.Properties:immutable_property()$
 		
 		public $it.Name$ Clone()
 		{

@@ -1,0 +1,14 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# 
+if (it is CollectionInfo) 
+{ 
+	CollectionInfo col = (CollectionInfo) it; 
+	#>IEnumerable<<#= col.Contents #>> <#= col.VarName #><#
+}
+else
+{
+	#><#= it.TypeName#> <#= it.VarName #><#
+} 
+#>

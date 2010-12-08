@@ -1,0 +1,21 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# 
+if (it is CollectionInfo) 
+{ 
+	CollectionInfo col = (CollectionInfo) it;  
+	#>
+			<#= col.Name #> = new ReadOnlyCollection<<#= col.Contents #>>(new List<<#= col.Contents #>>(other.<#= col.Name #>));
+<# }
+else if (it is ComponentInfo) 
+{ 
+	ComponentInfo comp = (ComponentInfo) it;  
+	#>
+			<#= comp.Name #> = new <#= comp.TypeName #>(other.<#= comp.Name #>);
+<# }
+else
+{ #>
+			<#= it.Name#> = other.<#= it.Name #>;
+<# } 
+#>

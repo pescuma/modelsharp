@@ -31,6 +31,19 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string Name;
 		public readonly string TypeName;
 		public string[] Parameters;
+		private string visibility;
+
+		public string Visibility
+		{
+			get { return visibility; }
+			set
+			{
+				if (value != "public" && value != "protected" && value != "private" && value != "internal")
+					throw new ArgumentException();
+
+				visibility = value;
+			}
+		}
 
 		public readonly List<string> Annotations = new List<string>();
 
@@ -43,6 +56,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			Name = name;
 			TypeName = type;
 			Parameters = parameters;
+			Visibility = "public";
 		}
 	}
 }

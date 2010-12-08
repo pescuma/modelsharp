@@ -26,23 +26,60 @@ namespace org.pescuma.ModelSharp.Core.model
 {
 	public class PropertyInfo : BaseFieldInfo
 	{
+		public readonly TypeInfo Owner;
 		public bool Required;
 		public bool Lazy;
 		public int Order = -1;
 
 		public MethodInfo Getter;
 		public MethodInfo Setter;
+		public MethodInfo WithSetter;
 		public MethodInfo LazyInitializer;
-		public string GetterVisibility;
-		public string SetterVisibility;
+
+		public string GetterVisibility
+		{
+			get
+			{
+				if (Getter != null)
+					return Getter.Visibility == "public" ? null : Getter.Visibility;
+				else
+					return null;
+			}
+			set
+			{
+				if (Getter != null)
+					Getter.Visibility = value ?? "public";
+			}
+		}
+
+		public string SetterVisibility
+		{
+			get
+			{
+				if (Setter != null)
+					return Setter.Visibility == "public" ? null : Setter.Visibility;
+				else if (WithSetter != null)
+					return WithSetter.Visibility == "public" ? null : WithSetter.Visibility;
+				else
+					return null;
+			}
+			set
+			{
+				if (Setter != null)
+					Setter.Visibility = value ?? "public";
+				if (WithSetter != null)
+					WithSetter.Visibility = value ?? "public";
+			}
+		}
 
 		public readonly List<string> FieldAnnotations = new List<string>();
 		public readonly List<string> PropSetAnnotations = new List<string>();
 		public readonly List<string> PropGetAnnotations = new List<string>();
 
-		public PropertyInfo(string name, string type, bool required, bool lazy)
+		public PropertyInfo(TypeInfo owner, string name, string type, bool required, bool lazy)
 			: base(name, type)
 		{
+			Owner = owner;
 			Required = required;
 			Lazy = lazy;
 
@@ -53,6 +90,10 @@ namespace org.pescuma.ModelSharp.Core.model
 			string setter = GetSetterName();
 			if (setter != null)
 				Setter = new MethodInfo(setter, "bool", TypeName);
+
+			string withSetter = GetWithSetterName();
+			if (withSetter != null)
+				WithSetter = new MethodInfo(withSetter, owner.Name, TypeName);
 
 			string lazyIntializer = GetLazyInitializerName();
 			if (lazyIntializer != null)
@@ -77,6 +118,13 @@ namespace org.pescuma.ModelSharp.Core.model
 		private string GetSetterName()
 		{
 			return "Set" + Name;
+		}
+
+		private string GetWithSetterName()
+		{
+			if (!Owner.Immutable)
+				return null;
+			return "With" + Name;
 		}
 
 		public bool IsCollection

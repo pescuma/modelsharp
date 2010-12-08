@@ -1,0 +1,3 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="System.String" #>
+[<#= it #>]

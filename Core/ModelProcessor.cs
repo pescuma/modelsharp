@@ -28,6 +28,7 @@ using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
 using org.pescuma.ModelSharp.Core.model;
+using org.pescuma.ModelSharp.Core.templates;
 using org.pescuma.ModelSharp.Core.xml;
 
 namespace org.pescuma.ModelSharp.Core
@@ -72,10 +73,17 @@ namespace org.pescuma.ModelSharp.Core
 			{
 				if (type.Immutable)
 				{
-					AddIfNotNull(result.EditableFilenames,
-					             CreateFileIfNotExits(type, "immutable_class_extended", type.Name));
-					result.NotToChangeFilenames.Add(CreateFile(type, "immutable_class", type.ImplementationName));
-					result.NotToChangeFilenames.Add(CreateFile(type, "builder_class", type.Name + "Builder"));
+					ImmutableClass page = new ImmutableClass();
+					page.Session = new Dictionary<string, object>();
+					page.Session.Add("it", type);
+					page.Initialize();
+					String txt = page.TransformText();
+					Console.WriteLine(txt);
+
+					//AddIfNotNull(result.EditableFilenames,
+					//             CreateFileIfNotExits(type, "immutable_class_extended", type.Name));
+					//result.NotToChangeFilenames.Add(CreateFile(type, "immutable_class", type.ImplementationName));
+					//result.NotToChangeFilenames.Add(CreateFile(type, "builder_class", type.Name + "Builder"));
 				}
 				else
 				{
@@ -211,7 +219,8 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var property = (property) item;
 
-							PropertyInfo prop = new PropertyInfo(property.name, property.type, property.required, false);
+							PropertyInfo prop = new PropertyInfo(ti, property.name, property.type, property.required,
+							                                     false);
 
 							if (!string.IsNullOrEmpty(property.@default))
 								prop.DefaultValue = property.@default;
@@ -227,14 +236,14 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var component = (component) item;
 
-							ComponentInfo comp = new ComponentInfo(component.name, component.type, component.lazy);
+							ComponentInfo comp = new ComponentInfo(ti, component.name, component.type, component.lazy);
 							ti.Properties.Add(comp);
 						}
 						else if (item is collection)
 						{
 							var collection = (collection) item;
 
-							CollectionInfo prop = new CollectionInfo(collection.name, collection.contents,
+							CollectionInfo prop = new CollectionInfo(ti, collection.name, collection.contents,
 							                                         collection.lazy);
 							ti.Properties.Add(prop);
 						}

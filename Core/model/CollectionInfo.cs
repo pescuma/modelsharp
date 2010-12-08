@@ -29,15 +29,16 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string Contents;
 		public readonly BaseFieldInfo ContentsType;
 
-		public CollectionInfo(string name, string contents, bool lazy,
+		public CollectionInfo(TypeInfo owner, string name, string contents, bool lazy,
 		                      string collectionType = "ObservableList")
-			: base(name, collectionType + "<" + contents + ">", false, lazy)
+			: base(owner, name, collectionType + "<" + contents + ">", false, lazy)
 		{
 			Contract.Requires(!string.IsNullOrEmpty(contents));
 
 			ContentsType = new BaseFieldInfo("Items", contents);
 			Contents = contents;
 			Setter = null;
+			WithSetter = null;
 			ReadOnly = !lazy;
 		}
 

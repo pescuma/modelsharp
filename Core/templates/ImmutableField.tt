@@ -1,0 +1,4 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# ForEach("Annotation", it.FieldAnnotations); #><# ForEach("Annotation", it.Annotations); #>
+		public readonly <#= it.TypeName #> <#= it.FieldName #>;

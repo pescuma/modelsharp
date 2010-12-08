@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# if (it.WithSetter != null) { #>
+<# ForEach("Annotation", it.WithSetter.Annotations); #>
+		public virtual <#= it.WithSetter.TypeName #> <#= it.WithSetter.Name #>(<#= it.WithSetter.Parameters[0] #> <#= it.VarName #>) 
+		{
+			return new <#= it.Owner.Name #>(<#	
+bool first = true;
+foreach(var prop in it.Owner.Properties)
+{
+	if (!first)
+		Write(", ");
+
+	if (prop == it)
+		Write(it.VarName);
+	else
+		Write(prop.Name);
+
+	first = false;
+}
+											#>);
+		}
+
+<# } #>

@@ -391,6 +391,9 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
+				if (type.Immutable)
+					continue;
+
 				type.Using.Add("System.Diagnostics");
 
 				foreach (var prop in type.Properties)

@@ -1,0 +1,8 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# if (it.IsCollection) { #>
+			Clear<#= it.Name #>();
+			AddTo<#= it.Name #>(other.<#= it.Name #>);
+<# } else { #>
+			Set<#= it.Name #>(other.<#= it.Name #>);
+<# } #>

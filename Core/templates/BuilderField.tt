@@ -1,0 +1,10 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# ForEach("Annotation", it.Annotations); #>
+<# if (it.IsCollection) {
+	var col = (CollectionInfo) it; #>
+		private readonly List<<#= col.Contents #>> <#= col.PrivateName #> = new List<<#= col.Contents #>>();
+<# } else { #>
+		private <#= it.TypeName #> <#= it.PrivateName #><# if(it.DefaultValue != null) { #> = <#= it.DefaultValue #><# } #>;
+<# } #>

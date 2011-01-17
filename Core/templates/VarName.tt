@@ -1,0 +1,3 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#= it.VarName #>

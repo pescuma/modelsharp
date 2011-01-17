@@ -179,111 +179,12 @@
     <Content Include="lib\ModelSharp.Lib.dll">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="templates\annotation.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\builder_class.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\builder_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\builder_name.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\builder_setter.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\builder_set_from_other.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\call.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\create_using.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\define.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\immutable_class.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\immutable_class_extended.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\immutable_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\immutable_other_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\immutable_param_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_class.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_class_extended.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_init_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_other_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\param.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\private_name.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\property.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\property_decl.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\property_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\property_method.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\switch_getter.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\switch_setter.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\var_name.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\arg_name.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_param_to_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\not_null_if_required.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\astylerc">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="templates\mutable_other_copyto_field.st">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Package.ico" />
-    <Content Include="templates\SimpleConfig.xml">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

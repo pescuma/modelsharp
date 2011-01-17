@@ -1,0 +1,28 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# if (it.LazyInitializer != null) { #>
+			if (other.<#= it.FieldName #> != null) 
+			{
+<# } #>
+<# if (it.IsCollection) { #>
+			<#= it.Name #>.Clear();
+			<#= it.Name #>.AddRange(other.<#= it.Name #>);
+<# } else if (it.IsComponent) { #>
+			<#= it.Name #>.CopyFrom(other.<#= it.Name #>);
+<# } else { #>
+			<#= it.Name #> = other.<#= it.Name #>;
+<# } #>
+<# if (it.LazyInitializer != null) { #>
+			}
+			else
+			{
+<#		if (it.IsCollection) { #>
+				if (<#= it.FieldName #> != null)
+					<#= it.Name #>.Clear();
+<#		} else if (it.IsComponent) { #>
+				if (<#= it.FieldName #> != null)
+					<#= it.FieldName #>.CopyFrom(new <#= it.TypeName #>());
+<#		} #>
+			}
+<# } #>

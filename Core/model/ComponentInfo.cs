@@ -27,6 +27,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public ComponentInfo(TypeInfo owner, string name, string type, bool lazy)
 			: base(owner, name, type, !lazy, lazy)
 		{
+			Setter = null;
 			WithSetter = null;
 			ReadOnly = !lazy;
 		}

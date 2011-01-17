@@ -1,14 +1,7 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
-<# 
-if (it is CollectionInfo) 
-{ 
-	var col = (CollectionInfo) it; 
-	#>IEnumerable<<#= col.Contents #>> <#= col.VarName #><#
-}
-else
-{
-	#><#= it.TypeName#> <#= it.VarName #><#
-} 
-#>
+			<#= it.FieldName #> = <#= it.VarName #>;
+<# if (it.CanListenTo) { #>
+			Add<#= it.Name #>Listeners(<#= it.FieldName #>);
+<# } #>

@@ -40,7 +40,7 @@ namespace org.pescuma.ModelSharp.Core
 		private readonly FileInfo filename;
 		private readonly string templatesPath;
 		private readonly bool overrideFiles;
-		private readonly StringTemplateGroup templates;
+//		private readonly StringTemplateGroup templates;
 
 		public string ProjectNamespace { get; set; }
 		public string BaseOutputPath { get; set; }
@@ -54,7 +54,7 @@ namespace org.pescuma.ModelSharp.Core
 			this.filename = new FileInfo(filename);
 			BaseOutputPath = this.filename.Directory.FullName;
 
-			templates = new StringTemplateGroup("templates", templatesPath);
+//			templates = new StringTemplateGroup("templates", templatesPath);
 			ProjectNamespace = "";
 		}
 
@@ -73,23 +73,16 @@ namespace org.pescuma.ModelSharp.Core
 			{
 				if (type.Immutable)
 				{
-					ImmutableClass page = new ImmutableClass();
-					page.Session = new Dictionary<string, object>();
-					page.Session.Add("it", type);
-					page.Initialize();
-					String txt = page.TransformText();
-					Console.WriteLine(txt);
-
-					//AddIfNotNull(result.EditableFilenames,
-					//             CreateFileIfNotExits(type, "immutable_class_extended", type.Name));
-					//result.NotToChangeFilenames.Add(CreateFile(type, "immutable_class", type.ImplementationName));
-					//result.NotToChangeFilenames.Add(CreateFile(type, "builder_class", type.Name + "Builder"));
+					AddIfNotNull(result.EditableFilenames,
+					             CreateFileIfNotExits(type, "ImmutableClassExtended", type.Name));
+					result.NotToChangeFilenames.Add(CreateFile(type, "ImmutableClass", type.ImplementationName));
+					result.NotToChangeFilenames.Add(CreateFile(type, "BuilderClass", type.Name + "Builder"));
 				}
 				else
 				{
 					AddIfNotNull(result.EditableFilenames,
-					             CreateFileIfNotExits(type, "mutable_class_extended", type.Name));
-					result.NotToChangeFilenames.Add(CreateFile(type, "mutable_class", type.ImplementationName));
+					             CreateFileIfNotExits(type, "MutableClassExtended", type.Name));
+					result.NotToChangeFilenames.Add(CreateFile(type, "MutableClass", type.ImplementationName));
 				}
 			}
 			log.Info("... Done");
@@ -449,18 +442,19 @@ namespace org.pescuma.ModelSharp.Core
 
 		private string CreateFile(TypeInfo type, string templateName, string className)
 		{
-			var template = templates.GetInstanceOf(templateName);
-			template.SetAttribute("it", type);
-			template.SetAttribute("class", className);
-
 			var relativeName = Path.Combine(GetPackageDir(type), className + ".cs");
 			var fullname = Path.Combine(BaseOutputPath, relativeName);
 
 			Directory.CreateDirectory(Path.Combine(BaseOutputPath, GetPackageDir(type)));
 
-			WriteFile(template, fullname);
-			FormatFileWithNArranger(fullname);
-			FormatFileWithAStyle(fullname);
+			TemplateWrapper template = new TemplateWrapper(templateName);
+			template.StartSession();
+			template.SetAttribute("it", type);
+			template.SetAttribute("class", className);
+
+			File.WriteAllText(fullname, template.Render());
+//			FormatFileWithNArranger(fullname);
+//			FormatFileWithAStyle(fullname);
 
 			log.Info("Created file " + relativeName);
 

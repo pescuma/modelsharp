@@ -1,0 +1,6 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# if (it.AssertNotNull) { #>
+			if (<#= it.VarName #> == null)
+				throw new ArgumentException("<#= it.Name #> can't be null");
+<# } #>

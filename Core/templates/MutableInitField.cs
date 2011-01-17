@@ -13,9 +13,9 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class ImmutableOtherToField : TemplateUtils
+    public partial class MutableInitField : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,110 +77,124 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- 
-if (it is CollectionInfo) 
-{ 
-	CollectionInfo col = (CollectionInfo) it;  
-	
+            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+
+if (it.LazyInitializer != null) {
+
+	if (it.DefaultValue != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
+            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(" = new ReadOnlyCollection<");
+            this.Write(" = ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(">(new List<");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(">(other.");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write("));\r\n");
-            
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else if (it is ComponentInfo) 
-{ 
-	ComponentInfo comp = (ComponentInfo) it;  
-	
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("(other.");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else
-{ 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = other.");
-            
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- } 
+            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+ 
+	} else if (it.IsCollection) {
+		var col = (CollectionInfo) it; 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t");
+            
+            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(" = new ");
+            
+            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write("();\r\n\t\t\tAdd");
+            
+            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListListeners(");
+            
+            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 14 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
 
+	} else if (it.IsComponent) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t");
+            
+            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(" = new ");
+            
+            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write("();\r\n");
+            
+            #line 17 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+
+	}
+
+	if(it.CanListenTo) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tAdd");
+            
+            #line 21 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Listeners(");
+            
+            #line 21 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 22 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+
+	} 
+} 
             
             #line default
             #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

@@ -9,13 +9,12 @@
 // ------------------------------------------------------------------------------
 namespace org.pescuma.ModelSharp.Core.templates
 {
-    using org.pescuma.ModelSharp.Core.model;
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class ImmutableOtherToField : TemplateUtils
+    public partial class BuilderSetFromOther : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,110 +76,64 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- 
-if (it is CollectionInfo) 
-{ 
-	CollectionInfo col = (CollectionInfo) it;  
-	
+            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+ if (it.IsCollection) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tClear");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ReadOnlyCollection<");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
+            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(">(new List<");
+            this.Write("();\r\n\t\t\tAddTo");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(">(other.");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write("));\r\n");
-            
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else if (it is ComponentInfo) 
-{ 
-	ComponentInfo comp = (ComponentInfo) it;  
-	
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.TypeName));
+            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(other.");
             
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
+            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else
-{ 
+            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+ } else { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tSet");
             
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" = other.");
+            this.Write("(other.");
             
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(";\r\n");
+            this.Write(");\r\n");
             
-            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
  } 
-
             
             #line default
             #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

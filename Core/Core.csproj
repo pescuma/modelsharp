@@ -71,6 +71,31 @@
     <Compile Include="model\TypeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringUtils.cs" />
+    <Compile Include="templates\ArgName.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArgName.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\BuilderClass.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuilderClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\BuilderField.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuilderField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\BuilderSetFromOther.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuilderSetFromOther.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Define.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Define.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\ImmutableClass.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +110,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Annotation.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\ImmutableClassExtended.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImmutableClassExtended.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\ImmutableField.cs">
       <AutoGen>True</AutoGen>
@@ -106,10 +136,65 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImmutableProperty.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\MutableClass.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\MutableClassExtended.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableClassExtended.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\MutableInitField.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableInitField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\MutableOtherCopyToField.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableOtherCopyToField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\MutableOtherToField.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableOtherToField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\MutableParamToField.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableParamToField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\NotNullIfRequired.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotNullIfRequired.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\Param.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Param.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\PrivateName.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrivateName.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\Property.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Property.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\SwitchGetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SwitchGetter.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\SwitchSetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SwitchSetter.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\TemplateUtils.cs">
       <AutoGen>True</AutoGen>
@@ -117,18 +202,37 @@
       <DependentUpon>TemplateUtils.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\TemplateUtilsCode.cs" />
+    <Compile Include="templates\VarName.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VarName.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateWrapper.cs" />
     <Compile Include="xml\model_xml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
-    <None Include="templates\annotation.st" />
+    <None Include="templates\ArgName.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ArgName.cs</LastGenOutput>
+    </None>
     <None Include="templates\astylerc" />
-    <None Include="templates\builder_class.st" />
-    <None Include="templates\builder_field.st" />
-    <None Include="templates\builder_name.st" />
-    <None Include="templates\builder_setter.st" />
-    <None Include="templates\builder_set_from_other.st" />
-    <None Include="templates\call.st" />
+    <None Include="templates\BuilderClass.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BuilderClass.cs</LastGenOutput>
+    </None>
+    <None Include="templates\BuilderField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BuilderField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\BuilderSetFromOther.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BuilderSetFromOther.cs</LastGenOutput>
+    </None>
+    <None Include="templates\Define.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Define.cs</LastGenOutput>
+    </None>
     <None Include="templates\ImmutableClass.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ImmutableClass.cs</LastGenOutput>
@@ -140,6 +244,10 @@
     <None Include="templates\Annotation.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Annotation.cs</LastGenOutput>
+    </None>
+    <None Include="templates\ImmutableClassExtended.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ImmutableClassExtended.cs</LastGenOutput>
     </None>
     <None Include="templates\ImmutableField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -157,40 +265,63 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ImmutableProperty.cs</LastGenOutput>
     </None>
+    <None Include="templates\MutableClass.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableClass.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableClassExtended.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableClassExtended.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableInitField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableInitField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableOtherCopyToField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableOtherCopyToField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableOtherToField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableOtherToField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableParamToField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableParamToField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\NotNullIfRequired.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NotNullIfRequired.cs</LastGenOutput>
+    </None>
     <None Include="templates\Param.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Param.cs</LastGenOutput>
+    </None>
+    <None Include="templates\PrivateName.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PrivateName.cs</LastGenOutput>
+    </None>
+    <None Include="templates\Property.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Property.cs</LastGenOutput>
+    </None>
+    <None Include="templates\SwitchGetter.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SwitchGetter.cs</LastGenOutput>
+    </None>
+    <None Include="templates\SwitchSetter.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SwitchSetter.cs</LastGenOutput>
     </None>
     <None Include="templates\TemplateUtils.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TemplateUtils.cs</LastGenOutput>
     </None>
-    <None Include="templates\var_name_or_property.st" />
-    <None Include="templates\immutable_property.st" />
-    <None Include="templates\mutable_other_copyto_field.st" />
-    <None Include="templates\create_using.st" />
-    <None Include="templates\define.st" />
-    <None Include="templates\immutable_class.st" />
-    <None Include="templates\immutable_class_extended.st" />
-    <None Include="templates\immutable_field.st" />
-    <None Include="templates\immutable_other_to_field.st" />
-    <None Include="templates\immutable_param_to_field.st" />
-    <None Include="templates\mutable_class.st" />
-    <None Include="templates\mutable_class_extended.st" />
-    <None Include="templates\mutable_init_field.st" />
-    <None Include="templates\mutable_other_to_field.st" />
-    <None Include="templates\param.st" />
-    <None Include="templates\private_name.st" />
-    <None Include="templates\property.st" />
-    <None Include="templates\property_decl.st" />
-    <None Include="templates\property_field.st" />
-    <None Include="templates\property_method.st" />
-    <None Include="templates\switch_getter.st" />
-    <None Include="templates\switch_setter.st" />
-    <None Include="templates\var_name.st" />
-    <None Include="templates\arg_name.st" />
-    <None Include="templates\mutable_param_to_field.st" />
-    <None Include="templates\not_null_if_required.st" />
+    <None Include="templates\VarName.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>VarName.cs</LastGenOutput>
+    </None>
+    <None Include="not_null_if_required.st" />
   </ItemGroup>
   <ItemGroup>
     <None Include="templates\SimpleConfig.xml" />

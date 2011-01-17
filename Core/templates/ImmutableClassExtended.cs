@@ -13,9 +13,9 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class ImmutableOtherToField : TemplateUtils
+    public partial class ImmutableClassExtended : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,121 +77,129 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- 
-if (it is CollectionInfo) 
-{ 
-	CollectionInfo col = (CollectionInfo) it;  
-	
+            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ ForEach("CreateUsing", it.Using); 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\r\n");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ReadOnlyCollection<");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
+            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ if (it.Package != null) { 
             
             #line default
             #line hidden
-            this.Write(">(new List<");
+            this.Write("namespace ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(">(other.");
-            
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
+            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Package));
             
             #line default
             #line hidden
-            this.Write("));\r\n");
+            this.Write("\r\n{\r\n\r\n");
             
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else if (it is ComponentInfo) 
-{ 
-	ComponentInfo comp = (ComponentInfo) it;  
-	
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("(other.");
-            
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(comp.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
- }
-else
-{ 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = other.");
-            
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+            #line 11 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
  } 
-
+            
+            #line default
+            #line hidden
+            
+            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ ForEach("Annotation", it.Annotations); 
+            
+            #line default
+            #line hidden
+            this.Write("\tpublic class ");
+            
+            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" : ");
+            
+            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t{\r\n\t\tpublic ");
+            
+            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("(");
+            
+            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ ForEach("Param", it.Properties, separator: ", "); 
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n\t\t\t: base(");
+            
+            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ ForEach("VarName", it.Properties, separator: ", "); 
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic ");
+            
+            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("(");
+            
+            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" other)\r\n\t\t\t: base(other)\r\n\t\t{\r\n\t\t}\r\n\t}\r\n");
+            
+            #line 25 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ if (it.Package != null) { 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n}\r\n");
+            
+            #line 28 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
+ } 
             
             #line default
             #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableOtherToField.tt"
+        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableClassExtended.tt"
 
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
+private global::org.pescuma.ModelSharp.Core.model.TypeInfo _itField;
 
 /// <summary>
 /// Access the it parameter of the template.
 /// </summary>
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo it
+private global::org.pescuma.ModelSharp.Core.model.TypeInfo it
 {
     get
     {
         return this._itField;
+    }
+}
+
+private string _classField;
+
+/// <summary>
+/// Access the class parameter of the template.
+/// </summary>
+private string @class
+{
+    get
+    {
+        return this._classField;
     }
 }
 
@@ -204,14 +212,14 @@ public override void Initialize()
 bool itValueAcquired = false;
 if (this.Session.ContainsKey("it"))
 {
-    if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
+    if ((typeof(global::org.pescuma.ModelSharp.Core.model.TypeInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
     {
-        this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                "id not match the type of the data passed to the template.");
+        this.Error("The type \'org.pescuma.ModelSharp.Core.model.TypeInfo\' of the parameter \'it\' did n" +
+                "ot match the type of the data passed to the template.");
     }
     else
     {
-        this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(this.Session["it"]));
+        this._itField = ((global::org.pescuma.ModelSharp.Core.model.TypeInfo)(this.Session["it"]));
         itValueAcquired = true;
     }
 }
@@ -220,14 +228,44 @@ if ((itValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("it");
     if ((data != null))
     {
-        if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::org.pescuma.ModelSharp.Core.model.TypeInfo).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                    "id not match the type of the data passed to the template.");
+            this.Error("The type \'org.pescuma.ModelSharp.Core.model.TypeInfo\' of the parameter \'it\' did n" +
+                    "ot match the type of the data passed to the template.");
         }
         else
         {
-            this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(data));
+            this._itField = ((global::org.pescuma.ModelSharp.Core.model.TypeInfo)(data));
+        }
+    }
+}
+bool classValueAcquired = false;
+if (this.Session.ContainsKey("class"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["class"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'class\' did not match the type of the d" +
+                "ata passed to the template.");
+    }
+    else
+    {
+        this._classField = ((string)(this.Session["class"]));
+        classValueAcquired = true;
+    }
+}
+if ((classValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("class");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'class\' did not match the type of the d" +
+                    "ata passed to the template.");
+        }
+        else
+        {
+            this._classField = ((string)(data));
         }
     }
 }

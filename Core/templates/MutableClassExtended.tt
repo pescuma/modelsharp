@@ -1,0 +1,28 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.TypeInfo" #>
+<#@ parameter name="class" type="System.String" #>
+<# ForEach("CreateUsing", it.Using); #>
+
+<# if (it.Package != null) { #>
+namespace <#= it.Package #>
+{
+
+<# } #>
+<# ForEach("Annotation", it.Annotations); #>
+	public class <#= it.Name #> : <#= it.ImplementationName #>
+	{
+		public <#= it.Name #>(<# ForEach("Param", it.ContructorArguments, separator: ", "); #>)
+			: base(<# ForEach("ArgName", it.ContructorArguments, separator: ", "); #>)
+		{
+		}
+
+		public <#= it.Name #>(<#= it.Name #> other)
+			: base(other)
+		{
+		}
+	}
+<# if (it.Package != null) { #>
+
+}
+<# } #>

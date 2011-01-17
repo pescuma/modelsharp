@@ -1,0 +1,24 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#
+if (it.LazyInitializer != null) {
+
+	if (it.DefaultValue != null) { #>
+			<#= it.FieldName #> = <#= it.DefaultValue #>;
+<# 
+	} else if (it.IsCollection) {
+		var col = (CollectionInfo) it; #>
+			<#= col.FieldName #> = new <#= col.TypeName #>();
+			Add<#= col.Name #>ListListeners(<#= col.FieldName #>);
+<#
+	} else if (it.IsComponent) { #>
+			<#= it.FieldName #> = new <#= it.TypeName #>();
+<#
+	}
+
+	if(it.CanListenTo) { #>
+			Add<#= it.Name #>Listeners(<#= it.FieldName #>);
+<#
+	} 
+} #>

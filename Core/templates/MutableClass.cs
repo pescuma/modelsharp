@@ -274,7 +274,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
-				handler(this, new ChildPropertyChangingEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
 		}
 
 		protected void NotifyPropertyChanged(string propertyName)
@@ -288,7 +288,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 		{
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
-				handler(this, new ChildPropertyChangedEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, e));
 		}
 
 		#endregion

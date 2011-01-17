@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using Antlr3.ST;
@@ -390,18 +391,50 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
-				if (type.Immutable)
-					continue;
-
 				type.Using.Add("System.Diagnostics");
 
-				foreach (var prop in type.Properties)
+				type.BaseOnlyAnnotations.Add(CreateDebugDisplay(type));
+
+				if (!type.Immutable)
 				{
-					prop.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
-					prop.PropGetAnnotations.Add("DebuggerStepThrough");
-					prop.PropSetAnnotations.Add("DebuggerStepThrough");
+					foreach (var prop in type.Properties)
+					{
+						prop.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
+						prop.PropGetAnnotations.Add("DebuggerStepThrough");
+						prop.PropSetAnnotations.Add("DebuggerStepThrough");
+					}
 				}
 			}
+		}
+
+		private string CreateDebugDisplay(TypeInfo type)
+		{
+			StringBuilder dd = new StringBuilder();
+
+			dd.Append("DebuggerDisplay(\"").Append(type.Name).Append("[");
+
+			int count = 0;
+			foreach (var prop in type.Properties)
+			{
+				if (prop.IsComponent)
+					continue;
+
+				if (count > 0)
+					dd.Append(" ");
+
+				dd.Append(prop.Name).Append("=");
+
+				if (prop.IsCollection)
+					dd.Append("{").Append(prop.Name).Append(".Count}items");
+				else
+					dd.Append("{").Append(prop.Name).Append("}");
+
+				count++;
+			}
+
+			dd.Append("]\")");
+
+			return dd.ToString();
 		}
 
 		private string GetPackageDir(TypeInfo type)

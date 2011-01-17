@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class ImmutableParamToField : TemplateUtils
     {
@@ -77,7 +77,7 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
  
 if (it is CollectionInfo) 
 { 
@@ -88,35 +88,35 @@ if (it is CollectionInfo)
             #line hidden
             this.Write("\t\t\t");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = new ReadOnlyCollection<");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write(">(new List<");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write(">(");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.VarName));
             
             #line default
             #line hidden
             this.Write("));\r\n");
             
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
  }
 else
 { 
@@ -125,21 +125,21 @@ else
             #line hidden
             this.Write("\t\t\t");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" =  ");
+            this.Write(" = ");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 14 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
  } 
 
             
@@ -148,7 +148,7 @@ else
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableParamToField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

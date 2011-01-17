@@ -41,6 +41,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<MethodInfo> Methods = new List<MethodInfo>();
 
 		public readonly List<string> Annotations = new List<string>();
+		public readonly List<string> BaseOnlyAnnotations = new List<string>();
 
 		public TypeInfo(string name, string package, bool immutable)
 		{

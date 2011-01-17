@@ -11,7 +11,9 @@
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
               <UserWords>pescuma
-Namespace</UserWords>
+Namespace
+Browsable
+Utils</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

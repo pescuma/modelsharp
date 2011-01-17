@@ -10,6 +10,6 @@ if (it is CollectionInfo)
 <# }
 else
 { #>
-			<#= it.Name#> =  <#= it.VarName #>;
+			<#= it.Name#> = <#= it.VarName #>;
 <# } 
 #>

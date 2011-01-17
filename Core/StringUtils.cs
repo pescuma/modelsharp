@@ -24,7 +24,7 @@ using System.Diagnostics.Contracts;
 
 namespace org.pescuma.ModelSharp.Core
 {
-	public class StringUtils
+	public static class StringUtils
 	{
 		[Pure]
 		public static string FirstUpper(string str)
@@ -41,7 +41,19 @@ namespace org.pescuma.ModelSharp.Core
 			if (string.IsNullOrEmpty(str))
 				return str;
 
-			return char.ToLower(str[0]) + str.Substring(1);
+			var chars = str.ToCharArray();
+
+			for (int i = 0; i < chars.Length; i++)
+			{
+				var lower = char.ToLower(chars[i]);
+
+				if (i == 0 || i == chars.Length - 1 || char.IsUpper(chars[i + 1]))
+					chars[i] = lower;
+				else
+					break;
+			}
+
+			return new string(chars);
 		}
 
 		[Pure]

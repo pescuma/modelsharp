@@ -28,7 +28,6 @@ using System.Xml.Serialization;
 using Antlr3.ST;
 using NArrange.Core;
 using org.pescuma.ModelSharp.Core.model;
-using org.pescuma.ModelSharp.Core.templates;
 using org.pescuma.ModelSharp.Core.xml;
 
 namespace org.pescuma.ModelSharp.Core

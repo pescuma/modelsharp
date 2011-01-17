@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class MutableInitField : TemplateUtils
     {
@@ -77,9 +77,9 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
-if (it.LazyInitializer != null) {
+if (it.LazyInitializer == null) {
 
 	if (it.DefaultValue != null) { 
             
@@ -87,21 +87,21 @@ if (it.LazyInitializer != null) {
             #line hidden
             this.Write("\t\t\t");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
  
 	} else if (it.IsCollection) {
 		var col = (CollectionInfo) it; 
@@ -110,35 +110,35 @@ if (it.LazyInitializer != null) {
             #line hidden
             this.Write("\t\t\t");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
             
             #line default
             #line hidden
             this.Write("();\r\n\t\t\tAdd");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write("ListListeners(");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 14 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
 	} else if (it.IsComponent) { 
             
@@ -146,21 +146,21 @@ if (it.LazyInitializer != null) {
             #line hidden
             this.Write("\t\t\t");
             
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 17 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
 	}
 
@@ -170,21 +170,21 @@ if (it.LazyInitializer != null) {
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 21 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 21 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 22 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+            #line 22 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
 	} 
 } 
@@ -194,7 +194,7 @@ if (it.LazyInitializer != null) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableInitField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

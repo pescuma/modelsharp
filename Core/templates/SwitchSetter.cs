@@ -12,7 +12,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class SwitchSetter : TemplateUtils
     {
@@ -76,49 +76,49 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 3 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
  if(it.Setter != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tcase PROPERTIES.");
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(":\r\n\t\t\t\t\tif (!(value is ");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write("))\r\n\t\t\t\t\t\tthrow new ArgumentException(fieldName + \" must be of type ");
             
-            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write("\");\r\n\t\t\t\t\t\r\n\t\t\t\t\t");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Setter.Name));
             
             #line default
             #line hidden
             this.Write("((");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
-            this.Write(") value);\r\n\t\t\t\t\t\r\n\t\t\t\t\treturn;\r\n\r\n");
+            this.Write(") value);\r\n\t\t\t\t\t\r\n\t\t\t\t\treturn;\r\n");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
  } 
             
             #line default
@@ -126,7 +126,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\SwitchSetter.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

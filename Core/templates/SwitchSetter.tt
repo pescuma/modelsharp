@@ -8,5 +8,4 @@
 					<#= it.Setter.Name #>((<#= it.TypeName #>) value);
 					
 					return;
-
 <# } #>

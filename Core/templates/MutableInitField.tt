@@ -2,7 +2,7 @@
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#
-if (it.LazyInitializer != null) {
+if (it.LazyInitializer == null) {
 
 	if (it.DefaultValue != null) { #>
 			<#= it.FieldName #> = <#= it.DefaultValue #>;

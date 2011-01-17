@@ -13,7 +13,7 @@ namespace <#= it.Package #>
 
 <# } #>
 <# ForEach("Annotation", it.Annotations); #>
-	public abstract class <#= it.ImplementationName #> <# if (it.Implements.Count > 0) { #> : <# ForEach(it.Implements, separator: ", "); #> <# } #>
+	public abstract class <#= it.ImplementationName #> <# if (it.Implements.Count > 0) { #>: <# ForEach(it.Implements, separator: ", "); #> <# } #>
 
 	{
 		#region Field Name Defines

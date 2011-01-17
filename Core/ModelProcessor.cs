@@ -40,7 +40,6 @@ namespace org.pescuma.ModelSharp.Core
 		private readonly FileInfo filename;
 		private readonly string templatesPath;
 		private readonly bool overrideFiles;
-//		private readonly StringTemplateGroup templates;
 
 		public string ProjectNamespace { get; set; }
 		public string BaseOutputPath { get; set; }
@@ -54,7 +53,6 @@ namespace org.pescuma.ModelSharp.Core
 			this.filename = new FileInfo(filename);
 			BaseOutputPath = this.filename.Directory.FullName;
 
-//			templates = new StringTemplateGroup("templates", templatesPath);
 			ProjectNamespace = "";
 		}
 
@@ -454,7 +452,7 @@ namespace org.pescuma.ModelSharp.Core
 
 			File.WriteAllText(fullname, template.Render());
 //			FormatFileWithNArranger(fullname);
-//			FormatFileWithAStyle(fullname);
+			FormatFileWithAStyle(fullname);
 
 			log.Info("Created file " + relativeName);
 

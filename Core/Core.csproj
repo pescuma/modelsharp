@@ -321,7 +321,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>VarName.cs</LastGenOutput>
     </None>
-    <None Include="not_null_if_required.st" />
   </ItemGroup>
   <ItemGroup>
     <None Include="templates\SimpleConfig.xml" />

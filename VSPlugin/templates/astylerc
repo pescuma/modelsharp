@@ -1,0 +1,4 @@
+indent-namespaces 
+indent-switches
+fill-empty-lines
+indent=tab

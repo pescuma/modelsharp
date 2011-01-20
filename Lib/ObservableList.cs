@@ -37,7 +37,7 @@ namespace org.pescuma.ModelSharp.Lib
 	[DebuggerDisplay("Count = {Count}")]
 	[Serializable]
 	public class ObservableList<T> : IList<T>, IList, INotifyCollectionChanged, INotifyPropertyChanging,
-	                                 INotifyPropertyChanged
+	                                 INotifyPropertyChanged, INotifyCollectionChangedConfiguration
 	{
 		#region Field Name Defines
 
@@ -148,15 +148,23 @@ namespace org.pescuma.ModelSharp.Lib
 			if (Count == 0)
 				return;
 
-			OnCountChanging();
-			OnItemsChanging();
-			T[] oldItems = items.ToArray();
+			if (batchMode)
+			{
+				OnCountChanging();
+				OnItemsChanging();
+				T[] oldItems = items.ToArray();
 
-			((ICollection<T>) items).Clear();
+				((ICollection<T>) items).Clear();
 
-			OnCountChanged();
-			OnItemsChanged();
-			OnCollectionRemove(0, oldItems);
+				OnCountChanged();
+				OnItemsChanged();
+				OnCollectionRemove(0, oldItems);
+			}
+			else
+			{
+				while (Count > 0)
+					RemoveAt(0);
+			}
 		}
 
 		public bool Contains(T item)
@@ -300,15 +308,23 @@ namespace org.pescuma.ModelSharp.Lib
 			if (asArray.Length < 1)
 				return;
 
-			OnCountChanging();
-			OnItemsChanging();
-			int oldCount = items.Count;
+			if (batchMode)
+			{
+				OnCountChanging();
+				OnItemsChanging();
+				int oldCount = items.Count;
 
-			items.AddRange(asArray);
+				items.AddRange(asArray);
 
-			OnCountChanged();
-			OnItemsChanged();
-			OnCollectionAdd(oldCount, asArray);
+				OnCountChanged();
+				OnItemsChanged();
+				OnCollectionAdd(oldCount, asArray);
+			}
+			else
+			{
+				foreach (var element in asArray)
+					Add(element);
+			}
 		}
 
 		public int BinarySearch(int index, int count, T item, IComparer<T> comparer)
@@ -407,14 +423,22 @@ namespace org.pescuma.ModelSharp.Lib
 			if (asArray.Length < 1)
 				return;
 
-			OnCountChanging();
-			OnItemsChanging();
+			if (batchMode)
+			{
+				OnCountChanging();
+				OnItemsChanging();
 
-			items.InsertRange(index, asArray);
+				items.InsertRange(index, asArray);
 
-			OnCountChanged();
-			OnItemsChanged();
-			OnCollectionAdd(index, asArray);
+				OnCountChanged();
+				OnItemsChanged();
+				OnCollectionAdd(index, asArray);
+			}
+			else
+			{
+				for (int i = 0; i < asArray.Length; i++)
+					Insert(index + i, asArray[i]);
+			}
 		}
 
 		public int LastIndexOf(T item)
@@ -450,17 +474,31 @@ namespace org.pescuma.ModelSharp.Lib
 			if (toRemove.Count < 1)
 				return 0;
 
-			OnCountChanging();
-			OnItemsChanging();
+			int result;
 
-			int result = items.RemoveAll(toRemove.Contains);
+			if (batchMode)
+			{
+				OnCountChanging();
+				OnItemsChanging();
 
-			OnCountChanged();
-			OnItemsChanged();
+				result = items.RemoveAll(toRemove.Contains);
 
-			var removed = new T[toRemove.Count];
-			toRemove.CopyTo(removed);
-			OnCollectionRemove(removed.Length == 1 ? firstIndex : -1, removed);
+				OnCountChanged();
+				OnItemsChanged();
+
+				var removed = new T[toRemove.Count];
+				toRemove.CopyTo(removed);
+				OnCollectionRemove(removed.Length == 1 ? firstIndex : -1, removed);
+			}
+			else
+			{
+				result = 0;
+				foreach (var element in toRemove)
+				{
+					if (Remove(element))
+						result++;
+				}
+			}
 
 			return result;
 		}
@@ -470,15 +508,26 @@ namespace org.pescuma.ModelSharp.Lib
 			if (count == 0)
 				return;
 
-			OnCountChanging();
-			OnItemsChanging();
-			T[] oldItems = items.GetRange(index, count).ToArray();
+			if (batchMode)
+			{
+				OnCountChanging();
+				OnItemsChanging();
+				T[] oldItems = items.GetRange(index, count).ToArray();
 
-			items.RemoveRange(index, count);
+				items.RemoveRange(index, count);
 
-			OnCountChanged();
-			OnItemsChanged();
-			OnCollectionRemove(index, oldItems);
+				OnCountChanged();
+				OnItemsChanged();
+				OnCollectionRemove(index, oldItems);
+			}
+			else
+			{
+				while (count > 0 && Count > index)
+				{
+					RemoveAt(index);
+					count--;
+				}
+			}
 		}
 
 		public bool TrueForAll(Predicate<T> match)
@@ -554,20 +603,19 @@ namespace org.pescuma.ModelSharp.Lib
 
 		private void OnCollectionAdd(int startIndex, params T[] newItems)
 		{
-			NotifyCollectionChangedEventHandler handler = CollectionChanged;
-			if (handler != null)
-				handler(this,
-				        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItems,
-				                                             startIndex));
+			NotifyCollectionChanged(NotifyCollectionChangedAction.Add, startIndex, newItems);
 		}
 
 		private void OnCollectionRemove(int startIndex, params T[] oldItems)
 		{
+			NotifyCollectionChanged(NotifyCollectionChangedAction.Remove, startIndex, oldItems);
+		}
+
+		private void NotifyCollectionChanged(NotifyCollectionChangedAction type, int startIndex, T[] items)
+		{
 			NotifyCollectionChangedEventHandler handler = CollectionChanged;
 			if (handler != null)
-				handler(this,
-				        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems,
-				                                             startIndex));
+				handler(this, new NotifyCollectionChangedEventArgs(type, items, startIndex));
 		}
 
 		private void OnCollectionReplace(int index, T oldItem, T newItem)
@@ -620,5 +668,29 @@ namespace org.pescuma.ModelSharp.Lib
 		}
 
 		#endregion INotifyPropertyChanged
+
+		#region INotifyCollectionChangedConfiguration
+
+		bool INotifyCollectionChangedConfiguration.BatchMode
+		{
+			get { return batchMode; }
+			set { batchMode = value; }
+		}
+
+		private bool batchMode = true;
+
+		#endregion INotifyCollectionChangedConfiguration
 	}
+
+	public interface INotifyCollectionChangedConfiguration
+	{
+		/// <summary>
+		/// When true the behavior of methods that work on ranges, such as AddRange(), Clear(), etc. will
+		/// do its work for all affected objects in one step. If false, it will be done once per element.
+		/// 
+		/// This interface was created because WPF only works when this is 'false'.
+		/// </summary>
+		bool BatchMode { get; set; }
+	}
+
 }

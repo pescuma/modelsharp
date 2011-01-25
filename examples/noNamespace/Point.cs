@@ -16,4 +16,5 @@ public class Point : BasePoint
 	: base(other)
 	{
 	}
+	
 }

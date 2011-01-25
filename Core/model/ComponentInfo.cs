@@ -31,5 +31,12 @@ namespace org.pescuma.ModelSharp.Core.model
 			WithSetter = null;
 			ReadOnly = !lazy;
 		}
+
+		public override void MakeImmutable()
+		{
+			base.MakeImmutable();
+
+			DefaultValue = "";
+		}
 	}
 }

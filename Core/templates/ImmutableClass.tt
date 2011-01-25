@@ -14,22 +14,21 @@ namespace <#= it.Package #>
 <# } #>
 <# ForEach("Annotation", it.Annotations); #>
 <# ForEach("Annotation", it.BaseOnlyAnnotations); #>
-	public class <#= it.ImplementationName #><# if(it.Implements != null) { #> : <# ForEach(it.Implements, separator:", "); #><# } #> 
+	public abstract class <#= it.ImplementationName #><# if(it.Implements != null) { #> : <# ForEach(it.Implements, separator:", "); #><# } #> 
 	{
 <# ForEach("ImmutableField", it.Properties); #>
-
-		public <#= it.ImplementationName #>(<# ForEach("Param", it.Properties, separator: ", "); #>)
+		public <#= it.ImplementationName #>(<# ForEach("Param", it.NonComputedProperties, separator: ", "); #>)
 		{
-<# ForEach("ImmutableParamToField", it.Properties); #>
+<# ForEach("ImmutableParamToField", it.NonComputedProperties); #>
 		}
 
 		public <#= it.ImplementationName #>(<#= it.ImplementationName #> other)
 		{
-<# ForEach("ImmutableOtherToField", it.Properties); #>
+<# ForEach("ImmutableOtherToField", it.NonComputedProperties); #>
 		}
 
 <# ForEach("ImmutableProperty", it.Properties); #>
-		
+<# if (it.Cloneable) { #>
 		public <#= it.Name #> Clone()
 		{
 			return (<#= it.Name #>) ((ICloneable) this).Clone();
@@ -39,6 +38,7 @@ namespace <#= it.Package #>
 		{
 			return new <#= it.Name #>((<#= it.Name #>) this);
 		}
+<# } #>
 	}
 <# if (it.Package != null) { #>
 

@@ -1,0 +1,23 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# var computed = (ComputedPropertyInfo) it; #>
+<# ForEach("Annotation", it.Annotations); #>
+		public <#= it.TypeName #> <#= it.Name #> 
+		{
+<# ForEach("Annotation", it.PropGetAnnotations); #>
+			<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #> <# } #>get{ return <#= it.Getter.Name #>(); }
+		}
+
+<#		if (computed.Formula != null) { #>
+<# ForEach("Annotation", it.Getter.Annotations); #>
+		protected virtual <#= it.Getter.TypeName #> <#= it.Getter.Name #>()
+		{
+			return <#= computed.Formula #>;
+		}
+
+<#		} else { #>
+<# ForEach("Annotation", it.Getter.Annotations); #>
+		protected abstract <#= it.Getter.TypeName #> <#= it.Getter.Name #>();
+
+<#		} #>

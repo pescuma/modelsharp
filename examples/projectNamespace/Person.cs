@@ -19,6 +19,7 @@ namespace examples.projectNamespace
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

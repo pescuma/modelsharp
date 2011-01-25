@@ -17,6 +17,7 @@ namespace examples.immutable
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

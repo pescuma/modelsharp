@@ -1,0 +1,7 @@
+<model namespace="examples.noncloneable">
+	<type name="Point" cloneable="false">
+		<property name="x" type="double" />
+		<property name="y" type="double" default="2" />
+		<property name="a" type="Point" default="new Point(2, 3)" />
+	</type>
+</model>

@@ -20,6 +20,7 @@ namespace examples.@using
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

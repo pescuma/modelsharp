@@ -21,6 +21,8 @@ namespace <#= it.Package #>
 			: base(other)
 		{
 		}
+
+<# ForEach("PropertyExtended", it.Properties); #>
 	}
 <# if (it.Package != null) { #>
 

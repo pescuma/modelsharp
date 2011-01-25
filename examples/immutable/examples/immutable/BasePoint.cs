@@ -10,10 +10,11 @@ namespace examples.immutable
 
 	[DataContract]
 	[DebuggerDisplay("Point[X={X} Y={Y}]")]
-	public class BasePoint : ICloneable
+	public abstract class BasePoint : ICloneable
 	{
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		public readonly double X;
+		
 		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		public readonly double Y;
 		
@@ -38,7 +39,6 @@ namespace examples.immutable
 		{
 			return new Point(X, y);
 		}
-		
 		
 		public Point Clone()
 		{

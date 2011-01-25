@@ -1,28 +1,28 @@
-﻿//
-// Copyright (c) 2010 Ricardo Pescuma Domenecci
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-// 
-
+﻿// 
+//  Copyright (c) 2010 Ricardo Pescuma Domenecci
+//  
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//  
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
@@ -125,8 +125,15 @@ namespace org.pescuma.ModelSharp.Core
 				if (modelItem is type)
 				{
 					var type = (type) modelItem;
+
 					if (!type.immutableSpecified)
 						type.immutable = false;
+
+					if (!type.cloneableSpecified)
+						type.cloneable = true;
+
+					if (!type.serializableSpecified)
+						type.serializable = true;
 
 					foreach (var item in type.Items)
 					{
@@ -156,6 +163,18 @@ namespace org.pescuma.ModelSharp.Core
 
 							if (!collection.lazySpecified)
 								collection.lazy = false;
+						}
+						else if (item is computedproperty)
+						{
+							var computed = (computedproperty)item;
+
+							computed.name = StringUtils.FirstUpper(computed.name);
+
+							if (computed.dependsOn == null)
+								computed.dependsOn = "";
+
+							if (computed.formula == null)
+								computed.formula = "";
 						}
 					}
 				}
@@ -191,7 +210,8 @@ namespace org.pescuma.ModelSharp.Core
 				{
 					type type = (type) modelItem;
 
-					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable);
+					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
+					                           type.serializable);
 
 					if (!string.IsNullOrEmpty(type.implements))
 					{
@@ -238,6 +258,18 @@ namespace org.pescuma.ModelSharp.Core
 							                                         collection.lazy);
 							ti.Properties.Add(prop);
 						}
+						else if (item is computedproperty)
+						{
+							var computedProperty = (computedproperty) item;
+
+							var deps = (from d in computedProperty.dependsOn.Split(',')
+							            where d.Trim() != ""
+							            select d.Trim());
+
+							var prop = new ComputedPropertyInfo(ti, computedProperty.name, computedProperty.type, deps,
+							                                    computedProperty.formula);
+							ti.Properties.Add(prop);
+						}
 					}
 
 					ret.AddType(ti);
@@ -262,6 +294,7 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void ProcessModel(ModelInfo model)
 		{
+			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
 			MakeChangesForImmutable(model);
@@ -272,10 +305,42 @@ namespace org.pescuma.ModelSharp.Core
 			AddClonable(model);
 		}
 
+		private void ComputeDependentProperties(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				foreach (var prop in type.Properties)
+				{
+					var computed = prop as ComputedPropertyInfo;
+					if (computed == null)
+						continue;
+
+					foreach (var dep in computed.DependsOn)
+					{
+						string dep1 = dep;
+						var other = (from p in type.Properties
+						             where p.Name == dep1
+						             select p).FirstOrDefault();
+
+						if (other == null)
+						{
+							log.Error("Could not find property referenced on dependsOn: " + dep);
+							continue;
+						}
+
+						other.DependentProperties.Add(computed);
+					}
+				}
+			}
+		}
+
 		private void AddClonable(ModelInfo model)
 		{
 			foreach (var type in model.Types)
 			{
+				if (!type.Cloneable)
+					continue;
+
 				type.Using.Add("System");
 
 				type.Implements.Add("ICloneable");
@@ -316,27 +381,7 @@ namespace org.pescuma.ModelSharp.Core
 					continue;
 
 				foreach (var prop in type.Properties)
-				{
-					prop.FieldName = prop.Name;
-					prop.Getter = null;
-					prop.Setter = null;
-					prop.LazyInitializer = null;
-
-					if (prop is CollectionInfo)
-					{
-						string contents = ((CollectionInfo) prop).Contents;
-
-						prop.TypeName = "ReadOnlyCollection<" + contents + ">";
-						prop.DefaultValue = "";
-
-						type.Using.Add("System.Collections.ObjectModel");
-						type.Using.Add("System.Collections.Generic");
-					}
-					else if (prop is ComponentInfo)
-					{
-						prop.DefaultValue = "";
-					}
-				}
+					prop.MakeImmutable();
 			}
 		}
 
@@ -374,6 +419,9 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
+				if (!type.Serializable)
+					continue;
+
 				type.Using.Add("System.Runtime.Serialization");
 
 				type.Annotations.Add("DataContract");
@@ -414,7 +462,7 @@ namespace org.pescuma.ModelSharp.Core
 			dd.Append("DebuggerDisplay(\"").Append(type.Name).Append("[");
 
 			int count = 0;
-			foreach (var prop in type.Properties)
+			foreach (var prop in type.NonComputedProperties)
 			{
 				if (prop.IsComponent)
 					continue;

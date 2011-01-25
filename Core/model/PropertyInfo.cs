@@ -1,25 +1,24 @@
-﻿//
-// Copyright (c) 2010 Ricardo Pescuma Domenecci
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-// 
-
+﻿// 
+//  Copyright (c) 2010 Ricardo Pescuma Domenecci
+//  
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//  
 using System.Collections.Generic;
 
 namespace org.pescuma.ModelSharp.Core.model
@@ -75,6 +74,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> FieldAnnotations = new List<string>();
 		public readonly List<string> PropSetAnnotations = new List<string>();
 		public readonly List<string> PropGetAnnotations = new List<string>();
+		public readonly HashSet<PropertyInfo> DependentProperties = new HashSet<PropertyInfo>();
 
 		public PropertyInfo(TypeInfo owner, string name, string type, bool required, bool lazy)
 			: base(name, type)
@@ -137,6 +137,11 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return this is ComponentInfo; }
 		}
 
+		public bool IsComputed
+		{
+			get { return this is ComputedPropertyInfo; }
+		}
+
 		public bool AssertNotNull
 		{
 			get { return !IsPrimitive && Required; }
@@ -145,6 +150,14 @@ namespace org.pescuma.ModelSharp.Core.model
 		public override string ToString()
 		{
 			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);
+		}
+
+		public virtual void MakeImmutable()
+		{
+			FieldName = Name;
+			Getter = null;
+			Setter = null;
+			LazyInitializer = null;
 		}
 	}
 }

@@ -1,0 +1,7 @@
+<model namespace="examples.nonserializable">
+	<type name="Point" serializable="false">
+		<property name="x" type="double" />
+		<property name="y" type="double" default="2" />
+		<property name="a" type="Point" default="new Point(2, 3)" />
+	</type>
+</model>

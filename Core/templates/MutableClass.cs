@@ -174,7 +174,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 34 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("MutableInitField", it.Properties); 
+ ForEach("MutableInitField", it.NonComputedProperties); 
             
             #line default
             #line hidden
@@ -201,7 +201,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(" other)\r\n\t\t{\r\n");
             
             #line 40 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("MutableOtherToField", it.Properties); 
+ ForEach("MutableOtherToField", it.NonComputedProperties); 
             
             #line default
             #line hidden
@@ -253,7 +253,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(" other)\r\n\t\t{\r\n");
             
             #line 72 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("MutableOtherCopyToField", it.Properties); 
+ ForEach("MutableOtherCopyToField", it.NonComputedProperties); 
             
             #line default
             #line hidden
@@ -300,19 +300,23 @@ namespace org.pescuma.ModelSharp.Core.templates
 		}
 
 		#endregion
-		
-		#region Clone
-
-		public ");
+");
             
-            #line 119 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 116 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ if (it.Cloneable) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\r\n\t\t#region Clone\r\n\r\n\t\tpublic ");
+            
+            #line 120 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" Clone()\r\n\t\t{\r\n\t\t\treturn (");
             
-            #line 121 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 122 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -320,28 +324,35 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(") ((ICloneable) this).Clone();\r\n\t\t}\r\n\r\n\t\tobject ICloneable.Clone()\r\n\t\t{\r\n\t\t\tretur" +
                     "n new ");
             
-            #line 126 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 127 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("((");
             
-            #line 126 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 127 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(") this);\r\n\t\t}\r\n\r\n\t\t#endregion\r\n\t}\r\n");
+            this.Write(") this);\r\n\t\t}\r\n\r\n\t\t#endregion\r\n");
             
             #line 131 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\t}\r\n");
+            
+            #line 133 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 134 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 136 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default

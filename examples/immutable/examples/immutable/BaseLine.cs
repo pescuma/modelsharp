@@ -12,14 +12,17 @@ namespace examples.immutable
 
 	[DataContract]
 	[DebuggerDisplay("Line[P1={P1} P2={P2} Border={Border.Count}items]")]
-	public class BaseLine : ICloneable
+	public abstract class BaseLine : ICloneable
 	{
 		[DataMember(Name = "P1", Order = 0, IsRequired = false)]
 		public readonly Point P1;
+		
 		[DataMember(Name = "P2", Order = 1, IsRequired = false)]
 		public readonly Point P2;
+		
 		[DataMember(Name = "Dir", Order = 2, IsRequired = true)]
 		public readonly Point Dir;
+		
 		[DataMember(Name = "Border", Order = 3, IsRequired = false)]
 		public readonly ReadOnlyCollection<Point> Border;
 		
@@ -48,7 +51,6 @@ namespace examples.immutable
 		{
 			return new Line(P1, p2, Dir, Border);
 		}
-		
 		
 		public Line Clone()
 		{

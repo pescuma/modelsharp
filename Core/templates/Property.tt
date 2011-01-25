@@ -3,6 +3,9 @@
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 		#region Property <#= it.Name #>
 
+<#	if (it.IsComputed) { #>
+<#		Include ("ComputedProperty", it); #>
+<#	} else { #>
 <# ForEach("Annotation", it.FieldAnnotations); #>
 		private <# if (it.ReadOnly) { #>readonly <# } #><#= it.TypeName #> <#= it.FieldName #>;
 
@@ -63,6 +66,9 @@
 				return false;
 
 			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
+<# foreach (var prop in it.DependentProperties) { #>
+			NotifyPropertyChanging(PROPERTIES.<#= prop.DefineName #>);
+<#} #>
 
 <# if (it.CanListenTo) { #>
 			Remove<#= it.Name #>Listeners(<#= it.VarName #>);
@@ -75,6 +81,9 @@
 
 <# } #>
 			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
+<# foreach (var prop in it.DependentProperties) { #>
+			NotifyPropertyChanged(PROPERTIES.<#= prop.DefineName #>);
+<#} #>
 
 			return true;
 		}
@@ -177,6 +186,9 @@
 				return;
 
 			NotifyPropertyChanging(PROPERTIES.<#= col.DefineName #>);
+<# foreach (var prop in it.DependentProperties) { #>
+			NotifyPropertyChanging(PROPERTIES.<#= prop.DefineName #>);
+<#} #>
 		}
 
 		private void <#= col.Name #>ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -185,6 +197,9 @@
 				return;
 
 			NotifyPropertyChanged(PROPERTIES.<#= col.DefineName #>);
+<# foreach (var prop in it.DependentProperties) { #>
+			NotifyPropertyChanged(PROPERTIES.<#= prop.DefineName #>);
+<#} #>
 		}
 
 <# if (col.ContentsType.CanListenTo) { #>
@@ -283,6 +298,7 @@
 			NotifyChildPropertyChanged(PROPERTIES.<#= col.DefineName #>, sender, e);
 		}
 
+<# } #>
 <# } #>
 <# } #>
 		#endregion Property <#= it.Name #>

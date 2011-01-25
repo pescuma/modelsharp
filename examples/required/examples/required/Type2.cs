@@ -19,6 +19,7 @@ namespace examples.required
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

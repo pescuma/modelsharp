@@ -12,8 +12,8 @@ namespace <#= it.Package #>
 <# ForEach("Annotation", it.Annotations); #>
 	public class <#= it.Name #> : <#= it.ImplementationName #>
 	{
-		public <#= it.Name #>(<# ForEach("Param", it.Properties, separator: ", "); #>)
-			: base(<# ForEach("VarName", it.Properties, separator: ", "); #>)
+		public <#= it.Name #>(<# ForEach("Param", it.NonComputedProperties, separator: ", "); #>)
+			: base(<# ForEach("VarName", it.NonComputedProperties, separator: ", "); #>)
 		{
 		}
 
@@ -21,6 +21,8 @@ namespace <#= it.Package #>
 			: base(other)
 		{
 		}
+
+<# ForEach("PropertyExtended", it.Properties); #>
 	}
 <# if (it.Package != null) { #>
 

@@ -77,31 +77,43 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             
             #line 3 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+	if (!it.IsComputed) { 
+            
+            #line default
+            #line hidden
+            
+            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
  ForEach("Annotation", it.FieldAnnotations); 
             
             #line default
             #line hidden
             
-            #line 3 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
  ForEach("Annotation", it.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tpublic readonly ");
             
-            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(";\r\n");
+            this.Write(";\r\n\r\n");
+            
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+	} 
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
         

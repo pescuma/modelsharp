@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class MutableOtherToField : TemplateUtils
     {
@@ -77,158 +77,158 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tif (other.");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" != null) \r\n\t\t\t{\r\n");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.IsCollection) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write("(other.");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\tAdd");
             
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListListeners(");
             
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 11 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } else if (it.IsComponent) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write("(other.");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 14 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = other.");
             
-            #line 14 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 17 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 17 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 17 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 17 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 18 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 18 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 19 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t}\r\n");
             
-            #line 21 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
@@ -236,7 +236,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableOtherToField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

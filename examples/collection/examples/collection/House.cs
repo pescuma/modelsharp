@@ -19,6 +19,7 @@ namespace examples.collection
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

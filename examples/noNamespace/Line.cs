@@ -16,4 +16,5 @@ public class Line : BaseLine
 	: base(other)
 	{
 	}
+	
 }

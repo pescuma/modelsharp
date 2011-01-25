@@ -89,6 +89,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private object[] itemsField;
         
+        private bool cloneableField;
+        
+        private bool cloneableFieldSpecified;
+        
         private bool immutableField;
         
         private bool immutableFieldSpecified;
@@ -97,9 +101,14 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string nameField;
         
+        private bool serializableField;
+        
+        private bool serializableFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("collection", typeof(collection))]
         [System.Xml.Serialization.XmlElementAttribute("component", typeof(component))]
+        [System.Xml.Serialization.XmlElementAttribute("computed-property", typeof(computedproperty))]
         [System.Xml.Serialization.XmlElementAttribute("property", typeof(property))]
         public object[] Items {
             get {
@@ -107,6 +116,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.itemsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool cloneable {
+            get {
+                return this.cloneableField;
+            }
+            set {
+                this.cloneableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cloneableSpecified {
+            get {
+                return this.cloneableFieldSpecified;
+            }
+            set {
+                this.cloneableFieldSpecified = value;
             }
         }
         
@@ -151,6 +182,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool serializable {
+            get {
+                return this.serializableField;
+            }
+            set {
+                this.serializableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool serializableSpecified {
+            get {
+                return this.serializableFieldSpecified;
+            }
+            set {
+                this.serializableFieldSpecified = value;
             }
         }
     }
@@ -285,6 +338,68 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute("computed-property", Namespace="", IsNullable=false)]
+    public partial class computedproperty {
+        
+        private string dependsOnField;
+        
+        private string formulaField;
+        
+        private string nameField;
+        
+        private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string dependsOn {
+            get {
+                return this.dependsOnField;
+            }
+            set {
+                this.dependsOnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string formula {
+            get {
+                return this.formulaField;
+            }
+            set {
+                this.formulaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class property {
         
@@ -303,7 +418,7 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private string typeField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string @default {
             get {
                 return this.defaultField;

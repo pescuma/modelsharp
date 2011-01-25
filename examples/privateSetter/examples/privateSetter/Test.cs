@@ -19,6 +19,7 @@ namespace examples.privateSetter
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

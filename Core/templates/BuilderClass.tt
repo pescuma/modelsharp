@@ -14,16 +14,16 @@ namespace <#= it.Package #>
 <# } #>
 	public class <#= class #>
 	{
-<# ForEach("BuilderField", it.Properties); #>
+<# ForEach("BuilderField", it.NonComputedProperties); #>
 
 		public virtual <#= class #> Set(<#= it.Name #> other) 
 		{
-<# ForEach("BuilderSetFromOther", it.Properties); #>
+<# ForEach("BuilderSetFromOther", it.NonComputedProperties); #>
 			return this;
 		}
 
 <# // Setters
-foreach(var prop in it.Properties) {
+foreach(var prop in it.NonComputedProperties) {
 	if (prop.IsCollection) { 
 		var col = (CollectionInfo) prop; #>
 		public virtual <#= class #> Clear<#= col.Name #>() 
@@ -53,7 +53,7 @@ foreach(var prop in it.Properties) {
 } #>
 		public virtual <#= it.Name #> Build()
 		{
-			return new <#= it.Name #>(<# ForEach("PrivateName", it.Properties, separator: ", "); #>);
+			return new <#= it.Name #>(<# ForEach("PrivateName", it.NonComputedProperties, separator: ", "); #>);
 		}
 	}
 <# if (it.Package != null) { #>

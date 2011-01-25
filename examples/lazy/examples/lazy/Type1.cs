@@ -20,6 +20,7 @@ namespace examples.lazy
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

@@ -1,0 +1,18 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# 
+if (it.IsComputed) 
+{ 
+	var computed = (ComputedPropertyInfo) it;
+
+	if (computed.Formula == null) 
+	{ #>
+		protected override <#= it.Getter.TypeName #> <#= it.Getter.Name #>()
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
+
+<#	} 
+} #>

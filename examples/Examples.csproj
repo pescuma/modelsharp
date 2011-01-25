@@ -52,6 +52,11 @@
     <Compile Include="composition\examples\composition\BaseAddress.cs" />
     <Compile Include="composition\examples\composition\BasePerson.cs" />
     <Compile Include="composition\examples\composition\Person.cs" />
+    <Compile Include="computed-property\examples\computeProperty\BaseMyClass.cs" />
+    <Compile Include="computed-property\examples\computeProperty\BaseMyImmutableClass.cs" />
+    <Compile Include="computed-property\examples\computeProperty\MyClass.cs" />
+    <Compile Include="computed-property\examples\computeProperty\MyImmutableClass.cs" />
+    <Compile Include="computed-property\examples\computeProperty\MyImmutableClassBuilder.cs" />
     <Compile Include="immutable\examples\immutable\BaseLine.cs" />
     <Compile Include="immutable\examples\immutable\BasePoint.cs" />
     <Compile Include="immutable\examples\immutable\Line.cs" />
@@ -68,6 +73,10 @@
     <Compile Include="noNamespace\BasePoint.cs" />
     <Compile Include="noNamespace\Line.cs" />
     <Compile Include="noNamespace\Point.cs" />
+    <Compile Include="noncloneable\examples\noncloneable\BasePoint.cs" />
+    <Compile Include="noncloneable\examples\noncloneable\Point.cs" />
+    <Compile Include="nonserializable\examples\nonserializable\BasePoint.cs" />
+    <Compile Include="nonserializable\examples\nonserializable\Point.cs" />
     <Compile Include="privateSetter\examples\privateSetter\BaseTest.cs" />
     <Compile Include="privateSetter\examples\privateSetter\Test.cs" />
     <Compile Include="projectNamespace\BasePerson.cs" />
@@ -87,10 +96,13 @@
   <ItemGroup>
     <Content Include="collection\model.xml" />
     <Content Include="composition\model.xml" />
+    <Content Include="computed-property\model.xml" />
     <Content Include="immutable\model.xml" />
     <Content Include="implements\model.xml" />
     <Content Include="lazy\model.xml" />
     <Content Include="noNamespace\model.xml" />
+    <Content Include="noncloneable\model.xml" />
+    <Content Include="nonserializable\model.xml" />
     <Content Include="privateSetter\model.xml" />
     <Content Include="projectNamespace\model.xml" />
     <Content Include="required\model.xml" />

@@ -65,6 +65,7 @@
     <Compile Include="model\BaseFieldInfo.cs" />
     <Compile Include="model\CollectionInfo.cs" />
     <Compile Include="model\ComponentInfo.cs" />
+    <Compile Include="model\ComputedPropertyInfo.cs" />
     <Compile Include="model\MethodInfo.cs" />
     <Compile Include="model\ModelInfo.cs" />
     <Compile Include="model\PropertyInfo.cs" />
@@ -90,6 +91,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BuilderSetFromOther.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\ComputedProperty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComputedProperty.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\Define.cs">
       <AutoGen>True</AutoGen>
@@ -186,6 +192,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Property.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\PropertyExtended.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PropertyExtended.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\SwitchGetter.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -228,6 +239,10 @@
     <None Include="templates\BuilderSetFromOther.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BuilderSetFromOther.cs</LastGenOutput>
+    </None>
+    <None Include="templates\ComputedProperty.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ComputedProperty.cs</LastGenOutput>
     </None>
     <None Include="templates\Define.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -304,6 +319,10 @@
     <None Include="templates\Property.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Property.cs</LastGenOutput>
+    </None>
+    <None Include="templates\PropertyExtended.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PropertyExtended.cs</LastGenOutput>
     </None>
     <None Include="templates\SwitchGetter.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

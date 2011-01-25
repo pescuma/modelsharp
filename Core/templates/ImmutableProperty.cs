@@ -12,7 +12,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class ImmutableProperty : TemplateUtils
     {
@@ -76,55 +76,67 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
- if (it.WithSetter != null) { 
+            #line 3 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+	if (it.IsComputed) { 
             
             #line default
             #line hidden
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
- ForEach("Annotation", it.WithSetter.Annotations); 
+            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+		Include ("ComputedProperty", it); 
+            
+            #line default
+            #line hidden
+            
+            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+	} else if (it.WithSetter != null) { 
+            
+            #line default
+            #line hidden
+            
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+		ForEach("Annotation", it.WithSetter.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tpublic virtual ");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.Parameters[0]));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(") \r\n\t\t{\r\n\t\t\treturn new ");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Owner.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 	
 bool first = true;
 foreach(var prop in it.Owner.Properties)
@@ -145,15 +157,15 @@ foreach(var prop in it.Owner.Properties)
             #line hidden
             this.Write(");\r\n\t\t}\r\n\r\n");
             
-            #line 24 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
- } 
+            #line 26 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+	} 
             
             #line default
             #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ImmutableProperty.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

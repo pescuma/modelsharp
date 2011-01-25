@@ -19,6 +19,7 @@ namespace examples.composition
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

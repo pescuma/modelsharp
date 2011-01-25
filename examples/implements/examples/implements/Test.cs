@@ -19,6 +19,7 @@ namespace examples.implements
 		: base(other)
 		{
 		}
+		
 	}
 	
 }

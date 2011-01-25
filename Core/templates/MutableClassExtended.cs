@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class MutableClassExtended : TemplateUtils
     {
@@ -77,97 +77,104 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  ForEach("CreateUsing", it.Using); 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("namespace ");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Package));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\r\n");
             
-            #line 11 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  ForEach("Annotation", it.Annotations); 
             
             #line default
             #line hidden
             this.Write("\tpublic class ");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" : ");
             
-            #line 13 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
             
             #line default
             #line hidden
             this.Write("\r\n\t{\r\n\t\tpublic ");
             
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 15 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  ForEach("Param", it.ContructorArguments, separator: ", "); 
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t: base(");
             
-            #line 16 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  ForEach("ArgName", it.ContructorArguments, separator: ", "); 
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic ");
             
-            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 20 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 20 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 20 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" other)\r\n\t\t\t: base(other)\r\n\t\t{\r\n\t\t}\r\n\t}\r\n");
+            this.Write(" other)\r\n\t\t\t: base(other)\r\n\t\t{\r\n\t\t}\r\n\r\n");
             
-            #line 25 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
+ ForEach("PropertyExtended", it.Properties); 
+            
+            #line default
+            #line hidden
+            this.Write("\t}\r\n");
+            
+            #line 27 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 28 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+            #line 30 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
  } 
             
             #line default
@@ -175,7 +182,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableClassExtended.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.TypeInfo _itField;
 

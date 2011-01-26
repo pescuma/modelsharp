@@ -286,8 +286,8 @@ namespace org.pescuma.ModelSharp.Core
 
 		private bool ValidateVisibility(string visibility, string name)
 		{
-			if (visibility != "public" && visibility != "protected" && visibility != "private")
-				throw new ArgumentException(name + " can be one of: public protected private");
+			if (visibility != "public" && visibility != "protected" && visibility != "private" && visibility != "internal")
+				throw new ArgumentException(name + " can be one of: public protected private internal");
 
 			return true;
 		}

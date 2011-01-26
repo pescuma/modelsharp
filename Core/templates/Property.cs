@@ -492,181 +492,160 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(") \r\n\t\t{\r\n");
             
             #line 61 "X:\c#\modelsharp\Core\templates\Property.tt"
- if (it.AssertNotNull) { 
+ Include("NotNullIfRequired", it); 
             
             #line default
             #line hidden
             this.Write("\t\t\tif (");
             
             #line 62 "X:\c#\modelsharp\Core\templates\Property.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
-            
-            #line default
-            #line hidden
-            this.Write(" == null)\r\n\t\t\t\tthrow new ArgumentException(\"");
-            
-            #line 63 "X:\c#\modelsharp\Core\templates\Property.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" can\'t be null\");\r\n");
-            
-            #line 64 "X:\c#\modelsharp\Core\templates\Property.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tif (");
-            
-            #line 65 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" == ");
             
-            #line 65 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 62 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t\treturn false;\r\n\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 68 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 65 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 69 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 66 "X:\c#\modelsharp\Core\templates\Property.tt"
  foreach (var prop in it.DependentProperties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 70 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 67 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 71 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 68 "X:\c#\modelsharp\Core\templates\Property.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 73 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 70 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tRemove");
             
-            #line 74 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 71 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 74 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 71 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(");\r\n\r\n");
             
-            #line 76 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 73 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 77 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 74 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 77 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 74 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 79 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 76 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 80 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 77 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 80 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 77 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(");\r\n\r\n");
             
-            #line 82 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 79 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 83 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 80 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 84 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 81 "X:\c#\modelsharp\Core\templates\Property.tt"
  foreach (var prop in it.DependentProperties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 85 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 82 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 86 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 83 "X:\c#\modelsharp\Core\templates\Property.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\treturn true;\r\n\t\t}\r\n\r\n");
             
-            #line 91 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 88 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate void Remove");
             
-            #line 92 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 89 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -675,7 +654,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "PropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyChang" +
                     "ing != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging -= ");
             
-            #line 99 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 96 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -684,7 +663,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "otifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanging.ChildPropertyChanging -= ");
             
-            #line 103 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 100 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -693,7 +672,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPropertyC" +
                     "hanged.PropertyChanged -= ");
             
-            #line 107 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 104 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -702,33 +681,33 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "ifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tnotify" +
                     "ChildPropertyChanged.ChildPropertyChanged -= ");
             
-            #line 111 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 108 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n");
             
-            #line 114 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 111 "X:\c#\modelsharp\Core\templates\Property.tt"
  } // if (it.CanListenTo) 
             
             #line default
             #line hidden
             
-            #line 115 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 112 "X:\c#\modelsharp\Core\templates\Property.tt"
  } // if (it.Setter) 
             
             #line default
             #line hidden
             
-            #line 116 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 113 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate void Add");
             
-            #line 117 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 114 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -737,7 +716,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "PropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyChang" +
                     "ing != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging += ");
             
-            #line 124 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 121 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -746,7 +725,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "otifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanging.ChildPropertyChanging += ");
             
-            #line 128 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 125 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -755,7 +734,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPropertyC" +
                     "hanged.PropertyChanged += ");
             
-            #line 132 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 129 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -764,14 +743,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "ifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tnotify" +
                     "ChildPropertyChanged.ChildPropertyChanged += ");
             
-            #line 136 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 133 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 139 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 136 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -779,14 +758,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{\r\n\t\t" +
                     "\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 141 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 138 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 144 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 141 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -794,14 +773,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e" +
                     ")\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 146 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 143 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 149 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 146 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -809,14 +788,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n\t\t\tN" +
                     "otifyChildPropertyChanged(PROPERTIES.");
             
-            #line 151 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 148 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 154 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 151 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -824,20 +803,20 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)\r" +
                     "\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 156 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 153 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n");
             
-            #line 159 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 156 "X:\c#\modelsharp\Core\templates\Property.tt"
  } // if (it.CanListenTo) 
             
             #line default
             #line hidden
             
-            #line 160 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 157 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (it.IsCollection) { 
 	var col = (CollectionInfo) it;
 	
@@ -846,7 +825,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\tprivate void Add");
             
-            #line 163 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 160 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -855,7 +834,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
                     "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging += ");
             
-            #line 170 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 167 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -864,14 +843,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "ifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPropertyCh" +
                     "anged.PropertyChanged += ");
             
-            #line 174 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 171 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write("ListPropertyChangedEventHandler;\r\n");
             
-            #line 175 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 172 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (col.ContentsType.CanListenTo) { 
             
             #line default
@@ -880,21 +859,21 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "notifyChildPropertyChanged != null)\r\n\t\t\t\tnotifyChildPropertyChanged.CollectionCh" +
                     "anged += ");
             
-            #line 179 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 176 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write("ListChangedEventHandler;\r\n");
             
-            #line 180 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 177 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 183 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 180 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -902,42 +881,42 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tif (e.PropertyName != ");
             
-            #line 185 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 182 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 188 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 185 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 189 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 186 "X:\c#\modelsharp\Core\templates\Property.tt"
  foreach (var prop in it.DependentProperties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 190 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 187 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 191 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 188 "X:\c#\modelsharp\Core\templates\Property.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 194 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 191 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -945,49 +924,49 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tif (e.PropertyName != ");
             
-            #line 196 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 193 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 199 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 196 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 200 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 197 "X:\c#\modelsharp\Core\templates\Property.tt"
  foreach (var prop in it.DependentProperties) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 201 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 198 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 202 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 199 "X:\c#\modelsharp\Core\templates\Property.tt"
 } 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n");
             
-            #line 205 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 202 "X:\c#\modelsharp\Core\templates\Property.tt"
  if (col.ContentsType.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate void ");
             
-            #line 206 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 203 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1008,7 +987,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 						foreach (var item in e.OldItems)
 							Remove");
             
-            #line 220 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 217 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1016,7 +995,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemListeners(item);\r\n\r\n\t\t\t\t\tif (e.NewItems != null)\r\n\t\t\t\t\t\tforeach (var item in " +
                     "e.NewItems)\r\n\t\t\t\t\t\t\tAdd");
             
-            #line 224 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 221 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1036,7 +1015,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 		private void Remove");
             
-            #line 237 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 234 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1045,7 +1024,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
                     "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging -= ");
             
-            #line 244 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 241 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1054,7 +1033,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "s INotifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t" +
                     "\t\tnotifyChildPropertyChanging.ChildPropertyChanging -= ");
             
-            #line 248 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 245 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1063,7 +1042,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     " INotifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPrope" +
                     "rtyChanged.PropertyChanged -= ");
             
-            #line 252 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 249 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1072,14 +1051,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "INotifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanged.ChildPropertyChanged -= ");
             
-            #line 256 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 253 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void Add");
             
-            #line 259 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 256 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1088,7 +1067,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
                     "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging += ");
             
-            #line 266 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 263 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1097,7 +1076,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "s INotifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t" +
                     "\t\tnotifyChildPropertyChanging.ChildPropertyChanging += ");
             
-            #line 270 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 267 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1106,7 +1085,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     " INotifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPrope" +
                     "rtyChanged.PropertyChanged += ");
             
-            #line 274 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 271 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1115,14 +1094,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "INotifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanged.ChildPropertyChanged += ");
             
-            #line 278 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 275 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 281 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 278 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1130,14 +1109,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 283 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 280 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 286 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 283 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1145,14 +1124,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventAr" +
                     "gs e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 288 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 285 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 291 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 288 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1160,14 +1139,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 293 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 290 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 296 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 293 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
@@ -1175,33 +1154,33 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs" +
                     " e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 298 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 295 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n");
             
-            #line 301 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 298 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 302 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 299 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 303 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 300 "X:\c#\modelsharp\Core\templates\Property.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t#endregion Property ");
             
-            #line 304 "X:\c#\modelsharp\Core\templates\Property.tt"
+            #line 301 "X:\c#\modelsharp\Core\templates\Property.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default

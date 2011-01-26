@@ -58,10 +58,7 @@
 <# ForEach("Annotation", it.Setter.Annotations); #>
 		protected virtual <#= it.Setter.TypeName #> <#= it.Setter.Name #>(<#= it.Setter.Parameters[0] #> <#= it.VarName #>) 
 		{
-<# if (it.AssertNotNull) { #>
-			if (<#= it.VarName #> == null)
-				throw new ArgumentException("<#= it.Name #> can't be null");
-<# } #>
+<# Include("NotNullIfRequired", it); #>
 			if (<#= it.FieldName #> == <#= it.VarName #>)
 				return false;
 

@@ -12,7 +12,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class NotNullIfRequired : TemplateUtils
     {
@@ -76,28 +76,28 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
+            #line 3 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
  if (it.AssertNotNull) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tif (");
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
-            this.Write(" == null)\r\n\t\t\t\tthrow new ArgumentException(\"");
+            this.Write(" == null)\r\n\t\t\t\tthrow new ArgumentNullException(\"");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            #line 5 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
-            this.Write(" can\'t be null\");\r\n");
+            this.Write("\");\r\n");
             
-            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
  } 
             
             #line default
@@ -105,7 +105,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\NotNullIfRequired.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

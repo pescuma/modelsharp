@@ -34,9 +34,9 @@ namespace examples.required
 		public BaseType1(Type2 prop2, int prop4, string prop5)
 		{
 			if (prop2 == null)
-				throw new ArgumentException("Prop2 can't be null");
+				throw new ArgumentNullException("prop2");
 			if (prop5 == null)
-				throw new ArgumentException("Prop5 can't be null");
+				throw new ArgumentNullException("prop5");
 			AddProp1Listeners(_prop1);
 			AddProp2Listeners(_prop2);
 			_comp = new Type2();
@@ -200,7 +200,7 @@ namespace examples.required
 		protected virtual bool SetProp2(Type2 prop2)
 		{
 			if (prop2 == null)
-				throw new ArgumentException("Prop2 can't be null");
+				throw new ArgumentNullException("prop2");
 			if (_prop2 == prop2)
 				return false;
 				
@@ -387,7 +387,7 @@ namespace examples.required
 		protected virtual bool SetProp5(string prop5)
 		{
 			if (prop5 == null)
-				throw new ArgumentException("Prop5 can't be null");
+				throw new ArgumentNullException("prop5");
 			if (_prop5 == prop5)
 				return false;
 				

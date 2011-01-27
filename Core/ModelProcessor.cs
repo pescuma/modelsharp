@@ -212,6 +212,8 @@ namespace org.pescuma.ModelSharp.Core
 
 					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
 					                           type.serializable);
+					if (!string.IsNullOrEmpty(type.doc))
+						ti.Documentation = type.doc;
 
 					if (!string.IsNullOrEmpty(type.implements))
 					{
@@ -233,6 +235,9 @@ namespace org.pescuma.ModelSharp.Core
 							PropertyInfo prop = new PropertyInfo(ti, property.name, property.type, property.required,
 							                                     false);
 
+							if (!string.IsNullOrEmpty(property.doc))
+								prop.Documentation = property.doc;
+
 							if (!string.IsNullOrEmpty(property.@default))
 								prop.DefaultValue = property.@default;
 
@@ -248,15 +253,23 @@ namespace org.pescuma.ModelSharp.Core
 							var component = (component) item;
 
 							ComponentInfo comp = new ComponentInfo(ti, component.name, component.type, component.lazy);
+
+							if (!string.IsNullOrEmpty(component.doc))
+								comp.Documentation = component.doc;
+
 							ti.Properties.Add(comp);
 						}
 						else if (item is collection)
 						{
 							var collection = (collection) item;
 
-							CollectionInfo prop = new CollectionInfo(ti, collection.name, collection.contents,
+							CollectionInfo col = new CollectionInfo(ti, collection.name, collection.contents,
 							                                         collection.lazy);
-							ti.Properties.Add(prop);
+
+							if (!string.IsNullOrEmpty(collection.doc))
+								col.Documentation = collection.doc;
+
+							ti.Properties.Add(col);
 						}
 						else if (item is computedproperty)
 						{
@@ -268,6 +281,10 @@ namespace org.pescuma.ModelSharp.Core
 
 							var prop = new ComputedPropertyInfo(ti, computedProperty.name, computedProperty.type, deps,
 							                                    computedProperty.formula);
+							
+							if (!string.IsNullOrEmpty(computedProperty.doc))
+								prop.Documentation = computedProperty.doc;
+
 							ti.Properties.Add(prop);
 						}
 					}

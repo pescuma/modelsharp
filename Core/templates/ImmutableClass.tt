@@ -12,6 +12,11 @@ namespace <#= it.Package #>
 {
 
 <# } #>
+<# if (it.Documentation != null) { #>
+	/// <summary>
+	/// <#= it.Documentation #>
+	/// </summary>
+<# } #>
 <# ForEach("Annotation", it.Annotations); #>
 <# ForEach("Annotation", it.BaseOnlyAnnotations); #>
 	public abstract class <#= it.ImplementationName #><# if(it.Implements != null) { #> : <# ForEach(it.Implements, separator:", "); #><# } #> 

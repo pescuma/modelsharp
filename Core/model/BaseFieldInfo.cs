@@ -36,6 +36,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public string DefineName;
 		public bool ReadOnly;
 		public readonly List<string> Annotations = new List<string>();
+		public string Documentation;
 
 		private string defaultValue;
 

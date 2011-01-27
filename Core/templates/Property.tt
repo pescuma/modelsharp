@@ -9,6 +9,11 @@
 <# ForEach("Annotation", it.FieldAnnotations); #>
 		private <# if (it.ReadOnly) { #>readonly <# } #><#= it.TypeName #> <#= it.FieldName #>;
 
+<# if (it.Documentation != null) { #>
+		/// <summary>
+		/// <#= it.Documentation #>
+		/// </summary>
+<# } #>
 <# ForEach("Annotation", it.Annotations); #>
 		public <#= it.TypeName #> <#= it.Name #> 
 		{

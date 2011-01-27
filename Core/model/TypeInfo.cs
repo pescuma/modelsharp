@@ -35,6 +35,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool Immutable;
 		public readonly bool Cloneable;
 		public readonly bool Serializable;
+		public string Documentation;
 
 		public string Extends;
 		public readonly List<string> Implements = new List<string>();

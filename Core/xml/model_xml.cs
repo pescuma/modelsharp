@@ -93,6 +93,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private bool cloneableFieldSpecified;
         
+        private string docField;
+        
         private bool immutableField;
         
         private bool immutableFieldSpecified;
@@ -138,6 +140,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.cloneableFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string doc {
+            get {
+                return this.docField;
+            }
+            set {
+                this.docField = value;
             }
         }
         
@@ -219,6 +232,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string contentsField;
         
+        private string docField;
+        
         private bool lazyField;
         
         private bool lazyFieldSpecified;
@@ -233,6 +248,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.contentsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string doc {
+            get {
+                return this.docField;
+            }
+            set {
+                this.docField = value;
             }
         }
         
@@ -279,6 +305,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class component {
         
+        private string defaultField;
+        
+        private string docField;
+        
         private bool lazyField;
         
         private bool lazyFieldSpecified;
@@ -286,6 +316,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private string nameField;
         
         private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        public string @default {
+            get {
+                return this.defaultField;
+            }
+            set {
+                this.defaultField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string doc {
+            get {
+                return this.docField;
+            }
+            set {
+                this.docField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -343,6 +395,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string dependsOnField;
         
+        private string docField;
+        
         private string formulaField;
         
         private string nameField;
@@ -357,6 +411,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.dependsOnField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string doc {
+            get {
+                return this.docField;
+            }
+            set {
+                this.docField = value;
             }
         }
         
@@ -405,6 +470,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string defaultField;
         
+        private string docField;
+        
         private string getterField;
         
         private string nameField;
@@ -425,6 +492,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.defaultField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string doc {
+            get {
+                return this.docField;
+            }
+            set {
+                this.docField = value;
             }
         }
         

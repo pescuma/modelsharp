@@ -83,33 +83,53 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+ if (it.Documentation != null) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t/// <summary>\r\n\t\t/// ");
+            
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Documentation));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\t/// </summary>\r\n");
+            
+            #line 8 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
  ForEach("Annotation", it.FieldAnnotations); 
             
             #line default
             #line hidden
             
-            #line 4 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
  ForEach("Annotation", it.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tpublic readonly ");
             
-            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\ImmutableField.tt"
 	} 
             
             #line default

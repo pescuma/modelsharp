@@ -144,37 +144,50 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic ");
+            this.Write(")\r\n\t\t{\r\n\t\t}\r\n\r\n");
             
             #line 20 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+ if (it.Cloneable) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\tpublic ");
+            
+            #line 21 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 20 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" other)\r\n\t\t\t: base(other)\r\n\t\t{\r\n\t\t}\r\n\r\n");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 27 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
  ForEach("PropertyExtended", it.Properties); 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+            #line 29 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 30 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
+            #line 32 "X:\c#\modelsharp\Core\templates\ImmutableClassExtended.tt"
  } 
             
             #line default

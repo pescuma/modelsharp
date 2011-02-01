@@ -17,11 +17,13 @@ namespace <#= it.Package #>
 		{
 		}
 
+<# if (it.Cloneable) { #>
 		public <#= it.Name #>(<#= it.Name #> other)
 			: base(other)
 		{
 		}
 
+<# } #>
 <# ForEach("PropertyExtended", it.Properties); #>
 	}
 <# if (it.Package != null) { #>

@@ -15,11 +15,6 @@ namespace examples.noncloneable
 		{
 		}
 		
-		public Point(Point other)
-		: base(other)
-		{
-		}
-		
 	}
 	
 }

@@ -40,11 +40,13 @@ namespace <#= it.Package #>
 <# ForEach("MutableParamToField", it.ContructorArguments); #>
 		}
 
+<# if (it.Cloneable) { #>
 		public <#= it.ImplementationName #>(<#= it.ImplementationName #> other)
 		{
 <# ForEach("MutableOtherToField", it.NonComputedProperties); #>
 		}
 
+<# } #>
 		#endregion
 
 <# ForEach("Property", it.Properties); #>

@@ -34,14 +34,6 @@ namespace examples.noncloneable
 			AddAListeners(_a);
 		}
 		
-		public BasePoint(BasePoint other)
-		{
-			_x = other.X;
-			_y = other.Y;
-			_a = other.A;
-			AddAListeners(_a);
-		}
-		
 		#endregion
 		
 		#region Property X

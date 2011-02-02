@@ -257,6 +257,9 @@ namespace org.pescuma.ModelSharp.Core
 							if (!string.IsNullOrEmpty(component.doc))
 								comp.Documentation = component.doc;
 
+							if (!string.IsNullOrEmpty(component.@default))
+								comp.DefaultValue = component.@default;
+
 							ti.Properties.Add(comp);
 						}
 						else if (item is collection)

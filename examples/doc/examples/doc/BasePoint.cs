@@ -33,7 +33,7 @@ namespace examples.doc
 		
 		public BasePoint()
 		{
-			_y = new double();
+			_y = 2;
 			_ws = new ObservableList<double>();
 			AddWsListListeners(_ws);
 		}

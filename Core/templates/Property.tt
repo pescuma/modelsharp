@@ -68,9 +68,6 @@
 				return false;
 
 			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
-<# foreach (var prop in it.DependentProperties) { #>
-			NotifyPropertyChanging(PROPERTIES.<#= prop.DefineName #>);
-<#} #>
 
 <# if (it.CanListenTo) { #>
 			Remove<#= it.Name #>Listeners(<#= it.VarName #>);
@@ -83,9 +80,6 @@
 
 <# } #>
 			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
-<# foreach (var prop in it.DependentProperties) { #>
-			NotifyPropertyChanged(PROPERTIES.<#= prop.DefineName #>);
-<#} #>
 
 			return true;
 		}
@@ -188,9 +182,6 @@
 				return;
 
 			NotifyPropertyChanging(PROPERTIES.<#= col.DefineName #>);
-<# foreach (var prop in it.DependentProperties) { #>
-			NotifyPropertyChanging(PROPERTIES.<#= prop.DefineName #>);
-<#} #>
 		}
 
 		private void <#= col.Name #>ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -199,9 +190,6 @@
 				return;
 
 			NotifyPropertyChanged(PROPERTIES.<#= col.DefineName #>);
-<# foreach (var prop in it.DependentProperties) { #>
-			NotifyPropertyChanged(PROPERTIES.<#= prop.DefineName #>);
-<#} #>
 		}
 
 <# if (col.ContentsType.CanListenTo) { #>

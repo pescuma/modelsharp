@@ -393,6 +393,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute("computed-property", Namespace="", IsNullable=false)]
     public partial class computedproperty {
         
+        private bool cachedField;
+        
+        private bool cachedFieldSpecified;
+        
         private string dependsOnField;
         
         private string docField;
@@ -402,6 +406,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private string nameField;
         
         private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool cached {
+            get {
+                return this.cachedField;
+            }
+            set {
+                this.cachedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool cachedSpecified {
+            get {
+                return this.cachedFieldSpecified;
+            }
+            set {
+                this.cachedFieldSpecified = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]

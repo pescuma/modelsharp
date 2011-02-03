@@ -27,23 +27,56 @@ namespace org.pescuma.ModelSharp.Core.model
 	{
 		public readonly List<string> DependsOn = new List<string>();
 		public readonly string Formula;
+		public readonly bool Cached;
 
-		public ComputedPropertyInfo(TypeInfo owner, string name, string type,
+		public string InvalidFieldName;
+		public readonly List<string> InvalidFieldAnnotations = new List<string>();
+
+		public MethodInfo Cacher;
+		public MethodInfo Invalidate;
+
+		public ComputedPropertyInfo(TypeInfo owner, string name, string type, bool cached,
 		                            IEnumerable<string> dependsOn, string formula)
 			: base(owner, name, type, false, false)
 		{
+			Cached = cached;
 			DependsOn.AddRange(dependsOn);
 			Formula = (formula == "" ? null : formula);
-			string getter = GetGetterName();
-			Getter = new MethodInfo(getter, TypeName);
+
+			Getter = new MethodInfo(GetGetterName(), TypeName);
 
 			Setter = null;
 			LazyInitializer = null;
+
+			if (Cached)
+			{
+				FieldName = FieldName + "Cache";
+				InvalidFieldName = FieldName + "Invalid";
+				Cacher = new MethodInfo(GetCacherName(), TypeName);
+				Invalidate = new MethodInfo(GetInvalidateName());
+			}
+			else
+			{
+				FieldName = null;
+				InvalidFieldName = null;
+				Cacher = Getter;
+				Invalidate = null;
+			}
 		}
 
 		private string GetGetterName()
 		{
 			return "Compute" + Name;
+		}
+
+		private string GetCacherName()
+		{
+			return "ComputeAndCache" + Name;
+		}
+
+		private string GetInvalidateName()
+		{
+			return "Invalidate" + Name + "Cache";
 		}
 
 		public override bool CanListenTo

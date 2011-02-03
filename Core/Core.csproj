@@ -142,6 +142,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ImmutableProperty.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\InvalidateComputedDependenciesCache.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvalidateComputedDependenciesCache.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\MutableClass.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,6 +176,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MutableParamToField.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\NotifyDependenciesChanged.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotifyDependenciesChanged.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\NotifyDependenciesChanging.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotifyDependenciesChanging.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\NotNullIfRequired.cs">
       <AutoGen>True</AutoGen>
@@ -280,6 +295,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ImmutableProperty.cs</LastGenOutput>
     </None>
+    <None Include="templates\InvalidateComputedDependenciesCache.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>InvalidateComputedDependenciesCache.cs</LastGenOutput>
+    </None>
     <None Include="templates\MutableClass.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MutableClass.cs</LastGenOutput>
@@ -303,6 +322,14 @@
     <None Include="templates\MutableParamToField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MutableParamToField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\NotifyDependenciesChanged.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NotifyDependenciesChanged.cs</LastGenOutput>
+    </None>
+    <None Include="templates\NotifyDependenciesChanging.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>NotifyDependenciesChanging.cs</LastGenOutput>
     </None>
     <None Include="templates\NotNullIfRequired.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

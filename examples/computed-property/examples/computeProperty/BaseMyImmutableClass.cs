@@ -20,7 +20,7 @@ namespace examples.computeProperty
 		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		public readonly double Y;
 		
-		[DataMember(Name = "Children", Order = 5, IsRequired = false)]
+		[DataMember(Name = "Children", Order = 2, IsRequired = false)]
 		public readonly ReadOnlyCollection<MyClass> Children;
 		
 		public BaseMyImmutableClass(double x, double y, IEnumerable<MyClass> children)
@@ -39,16 +39,17 @@ namespace examples.computeProperty
 		
 		public virtual MyImmutableClass WithX(double x)
 		{
-			return new MyImmutableClass(x, Y, Length, Dummy, SquaredLength, Children);
+			return new MyImmutableClass(x, Y, Length, Dummy, SquaredLength, SquaredLengthCached, Children);
 		}
 		
 		public virtual MyImmutableClass WithY(double y)
 		{
-			return new MyImmutableClass(X, y, Length, Dummy, SquaredLength, Children);
+			return new MyImmutableClass(X, y, Length, Dummy, SquaredLength, SquaredLengthCached, Children);
 		}
 		
 		public double Length
 		{
+			[DebuggerStepThrough]
 			get {
 				return ComputeLength();
 			}
@@ -61,6 +62,7 @@ namespace examples.computeProperty
 		
 		public string Dummy
 		{
+			[DebuggerStepThrough]
 			get {
 				return ComputeDummy();
 			}
@@ -70,12 +72,44 @@ namespace examples.computeProperty
 		
 		public double SquaredLength
 		{
+			[DebuggerStepThrough]
 			get {
 				return ComputeSquaredLength();
 			}
 		}
 		
 		protected abstract double ComputeSquaredLength();
+		
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private double SquaredLengthCached;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private bool _squaredLengthCachedCacheInvalid;
+		
+		public double SquaredLengthCached
+		{
+			[DebuggerStepThrough]
+			get {
+				return ComputeAndCacheSquaredLengthCached();
+			}
+		}
+		
+		protected virtual void InvalidateSquaredLengthCachedCache()
+		{
+			_squaredLengthCachedCacheInvalid = true;
+		}
+		
+		private double ComputeAndCacheSquaredLengthCached()
+		{
+			if (_squaredLengthCachedCacheInvalid)
+			{
+				SquaredLengthCached = ComputeSquaredLengthCached();
+				_squaredLengthCachedCacheInvalid = false;
+			}
+			
+			return SquaredLengthCached;
+		}
+		
+		protected abstract double ComputeSquaredLengthCached();
 		
 		public MyImmutableClass Clone()
 		{

@@ -96,6 +96,7 @@ namespace <#= it.Package #>
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
 		
 		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
@@ -103,20 +104,25 @@ namespace <#= it.Package #>
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
 
 		protected void NotifyPropertyChanged(string propertyName)
 		{
+<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
 		
 		protected void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
+<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, e));
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
 
 		#endregion

@@ -2,6 +2,13 @@
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <# var computed = (ComputedPropertyInfo) it; #>
+<# if (computed.Cached) { #>
+<# ForEach("Annotation", computed.FieldAnnotations); #>
+		private <#= computed.TypeName #> <#= computed.FieldName #>;
+<# ForEach("Annotation", computed.InvalidFieldAnnotations); #>
+		private bool <#= computed.InvalidFieldName #>;
+
+<# } #>
 <# if (it.Documentation != null) { #>
 		/// <summary>
 		/// <#= it.Documentation #>
@@ -11,9 +18,29 @@
 		public <#= it.TypeName #> <#= it.Name #> 
 		{
 <# ForEach("Annotation", it.PropGetAnnotations); #>
-			<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #> <# } #>get{ return <#= it.Getter.Name #>(); }
+			<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #> <# } #>get{ return <#= computed.Cacher.Name #>(); }
 		}
 
+<#		if (computed.Cached) { #>
+<# ForEach("Annotation", computed.Invalidate.Annotations); #>
+		protected virtual <#= computed.Invalidate.TypeName #> <#= computed.Invalidate.Name #>()
+		{
+			<#= computed.InvalidFieldName #> = true;
+		}
+
+<# ForEach("Annotation", computed.Cacher.Annotations); #>
+		private <#= computed.Cacher.TypeName #> <#= computed.Cacher.Name #>()
+		{
+			if (<#= computed.InvalidFieldName #>)
+			{
+				<#= computed.FieldName #> = <#= computed.Getter.Name #>();
+				<#= computed.InvalidFieldName #> = false;
+			}
+
+			return <#= it.FieldName #>;
+		}
+
+<#		} #>
 <#		if (computed.Formula != null) { #>
 <# ForEach("Annotation", it.Getter.Annotations); #>
 		protected virtual <#= it.Getter.TypeName #> <#= it.Getter.Name #>()

@@ -24,6 +24,7 @@ namespace examples.computeProperty
 			public const string LENGTH = "Length";
 			public const string DUMMY = "Dummy";
 			public const string SQUARED_LENGTH = "SquaredLength";
+			public const string SQUARED_LENGTH_CACHED = "SquaredLengthCached";
 			public const string CHILDREN = "Children";
 		}
 		
@@ -77,14 +78,10 @@ namespace examples.computeProperty
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
-			NotifyPropertyChanging(PROPERTIES.LENGTH);
-			NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
 			
 			_x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
-			NotifyPropertyChanged(PROPERTIES.LENGTH);
-			NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
 			
 			return true;
 		}
@@ -120,14 +117,10 @@ namespace examples.computeProperty
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
-			NotifyPropertyChanging(PROPERTIES.LENGTH);
-			NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
 			
 			_y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
-			NotifyPropertyChanged(PROPERTIES.LENGTH);
-			NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
 			
 			return true;
 		}
@@ -179,9 +172,44 @@ namespace examples.computeProperty
 		
 		#endregion Property SquaredLength
 		
+		#region Property SquaredLengthCached
+		
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private double _squaredLengthCachedCache;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private bool _squaredLengthCachedCacheInvalid;
+		
+		public double SquaredLengthCached
+		{
+			[DebuggerStepThrough]
+			get {
+				return ComputeAndCacheSquaredLengthCached();
+			}
+		}
+		
+		protected virtual void InvalidateSquaredLengthCachedCache()
+		{
+			_squaredLengthCachedCacheInvalid = true;
+		}
+		
+		private double ComputeAndCacheSquaredLengthCached()
+		{
+			if (_squaredLengthCachedCacheInvalid)
+			{
+				_squaredLengthCachedCache = ComputeSquaredLengthCached();
+				_squaredLengthCachedCacheInvalid = false;
+			}
+			
+			return _squaredLengthCachedCache;
+		}
+		
+		protected abstract double ComputeSquaredLengthCached();
+		
+		#endregion Property SquaredLengthCached
+		
 		#region Property Children
 		
-		[DataMember(Name = "Children", Order = 5, IsRequired = false)]
+		[DataMember(Name = "Children", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private readonly ObservableList<MyClass> _children;
 		
@@ -222,7 +250,6 @@ namespace examples.computeProperty
 				return;
 				
 			NotifyPropertyChanging(PROPERTIES.CHILDREN);
-			NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
 		}
 		
 		private void ChildrenListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -231,7 +258,6 @@ namespace examples.computeProperty
 				return;
 				
 			NotifyPropertyChanged(PROPERTIES.CHILDREN);
-			NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
 		}
 		
 		private void ChildrenListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -347,6 +373,8 @@ namespace examples.computeProperty
 					return ComputeDummy();
 				case PROPERTIES.SQUARED_LENGTH:
 					return ComputeSquaredLength();
+				case PROPERTIES.SQUARED_LENGTH_CACHED:
+					return ComputeSquaredLengthCached();
 				case PROPERTIES.CHILDREN:
 					return GetChildren();
 			}
@@ -402,6 +430,23 @@ namespace examples.computeProperty
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
+				
+			if (propertyName == PROPERTIES.X)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.CHILDREN)
+			{
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+			}
 		}
 		
 		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
@@ -409,20 +454,87 @@ namespace examples.computeProperty
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
+				
+			if (propertyName == PROPERTIES.X)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.CHILDREN)
+			{
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+			}
 		}
 		
 		protected void NotifyPropertyChanged(string propertyName)
 		{
+			if (propertyName == PROPERTIES.X)
+			{
+				InvalidateSquaredLengthCachedCache();
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				InvalidateSquaredLengthCachedCache();
+			}
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
+				
+			if (propertyName == PROPERTIES.X)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.CHILDREN)
+			{
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+			}
 		}
 		
 		protected void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
+			if (propertyName == PROPERTIES.X)
+			{
+				InvalidateSquaredLengthCachedCache();
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				InvalidateSquaredLengthCachedCache();
+			}
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, e));
+				
+			if (propertyName == PROPERTIES.X)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.Y)
+			{
+				NotifyPropertyChanging(PROPERTIES.LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+			}
+			else if (propertyName == PROPERTIES.CHILDREN)
+			{
+				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+			}
 		}
 		
 		#endregion

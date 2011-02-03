@@ -4,7 +4,8 @@
 		<property name="Y" type="double" default="2" />
 		<computed-property name="Length" type="double" formula="Math.Sqrt(X * X + Y * Y)" dependsOn="X,Y" />
 		<computed-property name="Dummy" type="string" />
-		<computed-property name="SquaredLength" type="double" dependsOn="X,Y,Children" />
+		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
+		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
 		<collection name="Children" contents="MyClass" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
@@ -12,7 +13,8 @@
 		<property name="Y" type="double" default="2" />
 		<computed-property name="Length" type="double" formula="Math.Sqrt(X * X + Y * Y)" dependsOn="X,Y" />
 		<computed-property name="Dummy" type="string" />
-		<computed-property name="SquaredLength" type="double" dependsOn="X,Y,Children" />
+		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
+		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
 		<collection name="Children" contents="MyClass" />
 	</type>
 

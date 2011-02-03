@@ -166,7 +166,7 @@ namespace org.pescuma.ModelSharp.Core
 						}
 						else if (item is computedproperty)
 						{
-							var computed = (computedproperty)item;
+							var computed = (computedproperty) item;
 
 							computed.name = StringUtils.FirstUpper(computed.name);
 
@@ -175,6 +175,9 @@ namespace org.pescuma.ModelSharp.Core
 
 							if (computed.formula == null)
 								computed.formula = "";
+
+							if (!computed.cachedSpecified)
+								computed.cached = false;
 						}
 					}
 				}
@@ -267,7 +270,7 @@ namespace org.pescuma.ModelSharp.Core
 							var collection = (collection) item;
 
 							CollectionInfo col = new CollectionInfo(ti, collection.name, collection.contents,
-							                                         collection.lazy);
+							                                        collection.lazy);
 
 							if (!string.IsNullOrEmpty(collection.doc))
 								col.Documentation = collection.doc;
@@ -276,17 +279,17 @@ namespace org.pescuma.ModelSharp.Core
 						}
 						else if (item is computedproperty)
 						{
-							var computedProperty = (computedproperty) item;
+							var computed = (computedproperty) item;
 
-							var deps = (from d in computedProperty.dependsOn.Split(',')
+							var deps = (from d in computed.dependsOn.Split(',')
 							            where d.Trim() != ""
-							            select d.Trim());
+							            select StringUtils.FirstUpper(d.Trim()));
 
-							var prop = new ComputedPropertyInfo(ti, computedProperty.name, computedProperty.type, deps,
-							                                    computedProperty.formula);
-							
-							if (!string.IsNullOrEmpty(computedProperty.doc))
-								prop.Documentation = computedProperty.doc;
+							var prop = new ComputedPropertyInfo(ti, computed.name, computed.type, computed.cached, deps,
+							                                    computed.formula);
+
+							if (!string.IsNullOrEmpty(computed.doc))
+								prop.Documentation = computed.doc;
 
 							ti.Properties.Add(prop);
 						}
@@ -306,7 +309,8 @@ namespace org.pescuma.ModelSharp.Core
 
 		private bool ValidateVisibility(string visibility, string name)
 		{
-			if (visibility != "public" && visibility != "protected" && visibility != "private" && visibility != "internal")
+			if (visibility != "public" && visibility != "protected" && visibility != "private"
+			    && visibility != "internal")
 				throw new ArgumentException(name + " can be one of: public protected private internal");
 
 			return true;
@@ -409,10 +413,14 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
-				for (int i = 0; i < type.Properties.Count; i++)
+				int index = 0;
+
+				foreach (var prop in type.Properties)
 				{
-					var prop = type.Properties[i];
-					prop.Order = i;
+					if (prop is ComputedPropertyInfo)
+						continue;
+
+					prop.Order = index++;
 				}
 			}
 		}
@@ -448,6 +456,9 @@ namespace org.pescuma.ModelSharp.Core
 
 				foreach (var prop in type.Properties)
 				{
+					if (prop is ComputedPropertyInfo)
+						continue;
+
 					prop.FieldAnnotations.Add(
 						string.Format("DataMember(Name = \"{0}\", Order = {1}, IsRequired = {2})", prop.Name,
 						              prop.Order, prop.Required ? "true" : "false"));
@@ -463,14 +474,22 @@ namespace org.pescuma.ModelSharp.Core
 
 				type.BaseOnlyAnnotations.Add(CreateDebugDisplay(type));
 
-				if (!type.Immutable)
+				foreach (var prop in type.Properties)
 				{
-					foreach (var prop in type.Properties)
+					if (prop is ComputedPropertyInfo)
+					{
+						var computed = (ComputedPropertyInfo) prop;
+
+						computed.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
+						computed.InvalidFieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
+					}
+					else if (!type.Immutable)
 					{
 						prop.FieldAnnotations.Add("DebuggerBrowsable(DebuggerBrowsableState.Never)");
-						prop.PropGetAnnotations.Add("DebuggerStepThrough");
-						prop.PropSetAnnotations.Add("DebuggerStepThrough");
 					}
+
+					prop.PropGetAnnotations.Add("DebuggerStepThrough");
+					prop.PropSetAnnotations.Add("DebuggerStepThrough");
 				}
 			}
 		}
@@ -484,7 +503,7 @@ namespace org.pescuma.ModelSharp.Core
 			int count = 0;
 			foreach (var prop in type.NonComputedProperties)
 			{
-				if (prop.IsComponent)
+				if (prop.IsComponent || prop.IsComputed)
 					continue;
 
 				if (count > 0)

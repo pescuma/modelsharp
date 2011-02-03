@@ -15,6 +15,10 @@ if (it.LazyInitializer == null) {
 	} else if (it.IsComponent) { #>
 			<#= it.FieldName #> = new <#= it.TypeName #>();
 <#
+	} else if (it.IsComputedAndCached) { 
+		var computed = (ComputedPropertyInfo) it; #>
+			<#= computed.InvalidFieldName #> = true;
+<#
 	}
 
 	if(it.CanListenTo) { #>

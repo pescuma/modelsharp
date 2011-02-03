@@ -32,7 +32,7 @@ namespace examples.doc
 		/// <summary>
 		/// All the ws you can find
 		/// </summary>
-		[DataMember(Name = "Ws", Order = 3, IsRequired = false)]
+		[DataMember(Name = "Ws", Order = 2, IsRequired = false)]
 		public readonly ReadOnlyCollection<double> Ws;
 		
 		public BaseImmutablePoint(double x, double y, IEnumerable<double> ws)
@@ -59,6 +59,7 @@ namespace examples.doc
 		/// </summary>
 		public double Len
 		{
+			[DebuggerStepThrough]
 			get {
 				return ComputeLen();
 			}

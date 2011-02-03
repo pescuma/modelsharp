@@ -33,6 +33,12 @@ namespace examples.computeProperty
 			throw new NotImplementedException();
 		}
 		
+		protected override double ComputeSquaredLengthCached()
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
+		
 	}
 	
 }

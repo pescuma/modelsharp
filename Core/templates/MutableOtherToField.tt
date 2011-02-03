@@ -10,6 +10,10 @@
 			Add<#= it.Name #>ListListeners(<#= it.FieldName #>);
 <# } else if (it.IsComponent) { #>
 			<#= it.FieldName #> = new <#= it.TypeName #>(other.<#= it.Name #>);
+<# } else if (it.IsComputedAndCached) {
+		var computed = (ComputedPropertyInfo) it; #>
+			<#= computed.InvalidFieldName #> = other.<#= computed.InvalidFieldName #>;
+			<#= it.FieldName #> = other.<#= it.FieldName #>;
 <# } else { #>
 			<#= it.FieldName #> = other.<#= it.Name #>;
 <# } #>

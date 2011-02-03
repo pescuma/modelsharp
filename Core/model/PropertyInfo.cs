@@ -20,6 +20,7 @@
 //  THE SOFTWARE.
 //  
 using System.Collections.Generic;
+using System.Linq;
 
 namespace org.pescuma.ModelSharp.Core.model
 {
@@ -142,14 +143,14 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return this is ComputedPropertyInfo; }
 		}
 
+		public bool IsComputedAndCached
+		{
+			get { return this is ComputedPropertyInfo && ((ComputedPropertyInfo) this).Cached; }
+		}
+
 		public bool AssertNotNull
 		{
 			get { return !IsPrimitive && Required; }
-		}
-
-		public override string ToString()
-		{
-			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);
 		}
 
 		public virtual void MakeImmutable()
@@ -158,6 +159,21 @@ namespace org.pescuma.ModelSharp.Core.model
 			Getter = null;
 			Setter = null;
 			LazyInitializer = null;
+		}
+
+		public IList<ComputedPropertyInfo> CachedComputedDependentProperties
+		{
+			get
+			{
+				return (from prop in DependentProperties
+				        where prop.IsComputedAndCached
+				        select prop).Cast<ComputedPropertyInfo>().ToList();
+			}
+		}
+
+		public override string ToString()
+		{
+			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);
 		}
 	}
 }

@@ -105,5 +105,25 @@ namespace org.pescuma.ModelSharp.Core.model
 				        select prop);
 			}
 		}
+
+		public IEnumerable<PropertyInfo> PropertiesWithDependencies
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.DependentProperties.Count > 0
+				        select prop);
+			}
+		}
+
+		public IEnumerable<PropertyInfo> PropertiesWithCachedComputedDependencies
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.CachedComputedDependentProperties.Count > 0
+				        select prop);
+			}
+		}
 	}
 }

@@ -32,6 +32,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 			template.StartSession();
 
 			template.SetAttribute("it", item);
+			template.SetAttribute("index", 0);
 			if (args != null)
 				foreach (var prop in args.GetType().GetProperties())
 					template.SetAttribute(prop.Name, prop.GetValue(args, null));
@@ -44,14 +45,15 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 		protected void ForEach(IEnumerable items, string separator = "")
 		{
-			bool first = true;
+			int index = 0;
 			foreach (var item in items)
 			{
-				if (!first)
+				if (index > 0)
 					Write(separator);
-				first = false;
 
 				Write(item == null ? "null" : item.ToString());
+
+				index++;
 			}
 		}
 
@@ -60,16 +62,16 @@ namespace org.pescuma.ModelSharp.Core.templates
 		{
 			TemplateWrapper template = new TemplateWrapper(templateName);
 
-			bool first = true;
+			int index = 0;
 			foreach (var item in items)
 			{
-				if (!first)
+				if (index > 0)
 					Write(separator);
-				first = false;
 
 				template.StartSession();
 
 				template.SetAttribute("it", item);
+				template.SetAttribute("index", index);
 				if (args != null)
 					foreach (var prop in args.GetType().GetProperties())
 						template.SetAttribute(prop.Name, prop.GetValue(args, null));
@@ -78,6 +80,8 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 				if (txt != null)
 					Write(txt);
+
+				index++;
 			}
 		}
 	}

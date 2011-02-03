@@ -133,7 +133,7 @@ namespace examples.doc
 		
 		#region Property Ws
 		
-		[DataMember(Name = "Ws", Order = 3, IsRequired = false)]
+		[DataMember(Name = "Ws", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private readonly ObservableList<double> _ws;
 		

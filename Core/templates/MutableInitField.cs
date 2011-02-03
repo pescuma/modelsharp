@@ -162,6 +162,22 @@ if (it.LazyInitializer == null) {
             
             #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
+	} else if (it.IsComputedAndCached) { 
+		var computed = (ComputedPropertyInfo) it; 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t");
+            
+            #line 20 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            
+            #line default
+            #line hidden
+            this.Write(" = true;\r\n");
+            
+            #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+
 	}
 
 	if(it.CanListenTo) { 
@@ -170,21 +186,21 @@ if (it.LazyInitializer == null) {
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 
 	} 
 } 

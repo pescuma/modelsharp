@@ -10,6 +10,10 @@
 			<#= it.Name #>.AddRange(other.<#= it.Name #>);
 <# } else if (it.IsComponent) { #>
 			<#= it.Name #>.CopyFrom(other.<#= it.Name #>);
+<# } else if (it.IsComputedAndCached) {
+		var computed = (ComputedPropertyInfo) it; #>
+			<#= computed.InvalidFieldName #> = other.<#= computed.InvalidFieldName #>;
+			<#= it.FieldName #> = other.<#= it.FieldName #>;
 <# } else { #>
 			<#= it.Name #> = other.<#= it.Name #>;
 <# } #>

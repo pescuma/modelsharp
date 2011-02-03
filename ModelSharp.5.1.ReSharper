@@ -12,7 +12,8 @@
               <CaseSensitive>false</CaseSensitive>
               <UserWords>cloneable
 serializable
-pescuma</UserWords>
+pescuma
+Browsable</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

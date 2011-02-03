@@ -260,9 +260,9 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 		switch (fieldName)
 		{
 			case PROPERTIES.P1:
-				return GetP1();
+				return P1;
 			case PROPERTIES.P2:
-				return GetP2();
+				return P2;
 		}
 		
 		throw new ArgumentException("No gettable field named " + fieldName);
@@ -276,14 +276,14 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 				if (!(value is Point))
 					throw new ArgumentException(fieldName + " must be of type Point");
 					
-				SetP1((Point) value);
+				P1 = (Point) value;
 				
 				return;
 			case PROPERTIES.P2:
 				if (!(value is Point))
 					throw new ArgumentException(fieldName + " must be of type Point");
 					
-				SetP2((Point) value);
+				P2 = (Point) value;
 				
 				return;
 		}

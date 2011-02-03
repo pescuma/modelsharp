@@ -82,7 +82,7 @@ namespace examples.lazy
 			switch (fieldName)
 			{
 				case PROPERTIES.NAME:
-					return GetName();
+					return Name;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -96,7 +96,7 @@ namespace examples.lazy
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetName((string) value);
+					Name = (string) value;
 					
 					return;
 			}

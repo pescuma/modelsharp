@@ -398,11 +398,11 @@ namespace examples.lazy
 			switch (fieldName)
 			{
 				case PROPERTIES.PROP1:
-					return GetProp1();
+					return Prop1;
 				case PROPERTIES.COMP1:
-					return GetComp1();
+					return Comp1;
 				case PROPERTIES.COL1:
-					return GetCol1();
+					return Col1;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -416,7 +416,7 @@ namespace examples.lazy
 					if (!(value is Type2))
 						throw new ArgumentException(fieldName + " must be of type Type2");
 						
-					SetProp1((Type2) value);
+					Prop1 = (Type2) value;
 					
 					return;
 			}

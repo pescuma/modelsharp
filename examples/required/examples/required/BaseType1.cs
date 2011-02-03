@@ -545,19 +545,19 @@ namespace examples.required
 			switch (fieldName)
 			{
 				case PROPERTIES.PROP1:
-					return GetProp1();
+					return Prop1;
 				case PROPERTIES.PROP2:
-					return GetProp2();
+					return Prop2;
 				case PROPERTIES.PROP3:
-					return GetProp3();
+					return Prop3;
 				case PROPERTIES.PROP4:
-					return GetProp4();
+					return Prop4;
 				case PROPERTIES.PROP5:
-					return GetProp5();
+					return Prop5;
 				case PROPERTIES.COMP_LAZY:
-					return GetCompLazy();
+					return CompLazy;
 				case PROPERTIES.COMP:
-					return GetComp();
+					return Comp;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -571,35 +571,35 @@ namespace examples.required
 					if (!(value is Type2))
 						throw new ArgumentException(fieldName + " must be of type Type2");
 						
-					SetProp1((Type2) value);
+					Prop1 = (Type2) value;
 					
 					return;
 				case PROPERTIES.PROP2:
 					if (!(value is Type2))
 						throw new ArgumentException(fieldName + " must be of type Type2");
 						
-					SetProp2((Type2) value);
+					Prop2 = (Type2) value;
 					
 					return;
 				case PROPERTIES.PROP3:
 					if (!(value is int))
 						throw new ArgumentException(fieldName + " must be of type int");
 						
-					SetProp3((int) value);
+					Prop3 = (int) value;
 					
 					return;
 				case PROPERTIES.PROP4:
 					if (!(value is int))
 						throw new ArgumentException(fieldName + " must be of type int");
 						
-					SetProp4((int) value);
+					Prop4 = (int) value;
 					
 					return;
 				case PROPERTIES.PROP5:
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetProp5((string) value);
+					Prop5 = (string) value;
 					
 					return;
 			}

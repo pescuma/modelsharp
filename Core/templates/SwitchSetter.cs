@@ -105,18 +105,18 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\");\r\n\t\t\t\t\t\r\n\t\t\t\t\t");
             
             #line 8 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Setter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("((");
+            this.Write(" = (");
             
             #line 8 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
-            this.Write(") value);\r\n\t\t\t\t\t\r\n\t\t\t\t\treturn;\r\n");
+            this.Write(") value;\r\n\t\t\t\t\t\r\n\t\t\t\t\treturn;\r\n");
             
             #line 11 "X:\c#\modelsharp\Core\templates\SwitchSetter.tt"
  } 

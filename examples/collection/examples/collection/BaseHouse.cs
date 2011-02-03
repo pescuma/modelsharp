@@ -82,7 +82,7 @@ namespace examples.collection
 			switch (fieldName)
 			{
 				case PROPERTIES.ADDRESS:
-					return GetAddress();
+					return Address;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -96,7 +96,7 @@ namespace examples.collection
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetAddress((string) value);
+					Address = (string) value;
 					
 					return;
 			}

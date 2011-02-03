@@ -192,13 +192,13 @@ namespace examples.doc
 			switch (fieldName)
 			{
 				case PROPERTIES.X:
-					return GetX();
+					return X;
 				case PROPERTIES.Y:
-					return GetY();
+					return Y;
 				case PROPERTIES.LEN:
-					return ComputeLen();
+					return Len;
 				case PROPERTIES.WS:
-					return GetWs();
+					return Ws;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -212,7 +212,7 @@ namespace examples.doc
 					if (!(value is double))
 						throw new ArgumentException(fieldName + " must be of type double");
 						
-					SetX((double) value);
+					X = (double) value;
 					
 					return;
 			}

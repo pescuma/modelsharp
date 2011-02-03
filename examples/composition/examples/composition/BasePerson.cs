@@ -177,9 +177,9 @@ namespace examples.composition
 			switch (fieldName)
 			{
 				case PROPERTIES.HOME_ADDRESS:
-					return GetHomeAddress();
+					return HomeAddress;
 				case PROPERTIES.WORK_ADDRESS:
-					return GetWorkAddress();
+					return WorkAddress;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);

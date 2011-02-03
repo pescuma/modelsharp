@@ -294,11 +294,11 @@ namespace examples.collection
 			switch (fieldName)
 			{
 				case PROPERTIES.CARS:
-					return GetCars();
+					return Cars;
 				case PROPERTIES.NAME:
-					return GetName();
+					return Name;
 				case PROPERTIES.HOUSES:
-					return GetHouses();
+					return Houses;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -312,7 +312,7 @@ namespace examples.collection
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetName((string) value);
+					Name = (string) value;
 					
 					return;
 			}

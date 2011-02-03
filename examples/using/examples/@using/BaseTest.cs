@@ -153,7 +153,7 @@ namespace examples.@using
 			switch (fieldName)
 			{
 				case PROPERTIES.DATE:
-					return GetDate();
+					return Date;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -167,7 +167,7 @@ namespace examples.@using
 					if (!(value is DateTime))
 						throw new ArgumentException(fieldName + " must be of type DateTime");
 						
-					SetDate((DateTime) value);
+					Date = (DateTime) value;
 					
 					return;
 			}

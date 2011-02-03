@@ -231,11 +231,11 @@ namespace examples.nonserializable
 			switch (fieldName)
 			{
 				case PROPERTIES.X:
-					return GetX();
+					return X;
 				case PROPERTIES.Y:
-					return GetY();
+					return Y;
 				case PROPERTIES.A:
-					return GetA();
+					return A;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -249,21 +249,21 @@ namespace examples.nonserializable
 					if (!(value is double))
 						throw new ArgumentException(fieldName + " must be of type double");
 						
-					SetX((double) value);
+					X = (double) value;
 					
 					return;
 				case PROPERTIES.Y:
 					if (!(value is double))
 						throw new ArgumentException(fieldName + " must be of type double");
 						
-					SetY((double) value);
+					Y = (double) value;
 					
 					return;
 				case PROPERTIES.A:
 					if (!(value is Point))
 						throw new ArgumentException(fieldName + " must be of type Point");
 						
-					SetA((Point) value);
+					A = (Point) value;
 					
 					return;
 			}

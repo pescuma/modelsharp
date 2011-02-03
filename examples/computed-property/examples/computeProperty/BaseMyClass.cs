@@ -364,19 +364,19 @@ namespace examples.computeProperty
 			switch (fieldName)
 			{
 				case PROPERTIES.X:
-					return GetX();
+					return X;
 				case PROPERTIES.Y:
-					return GetY();
+					return Y;
 				case PROPERTIES.LENGTH:
-					return ComputeLength();
+					return Length;
 				case PROPERTIES.DUMMY:
-					return ComputeDummy();
+					return Dummy;
 				case PROPERTIES.SQUARED_LENGTH:
-					return ComputeSquaredLength();
+					return SquaredLength;
 				case PROPERTIES.SQUARED_LENGTH_CACHED:
-					return ComputeSquaredLengthCached();
+					return SquaredLengthCached;
 				case PROPERTIES.CHILDREN:
-					return GetChildren();
+					return Children;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -390,14 +390,14 @@ namespace examples.computeProperty
 					if (!(value is double))
 						throw new ArgumentException(fieldName + " must be of type double");
 						
-					SetX((double) value);
+					X = (double) value;
 					
 					return;
 				case PROPERTIES.Y:
 					if (!(value is double))
 						throw new ArgumentException(fieldName + " must be of type double");
 						
-					SetY((double) value);
+					Y = (double) value;
 					
 					return;
 			}

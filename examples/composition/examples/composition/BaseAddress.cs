@@ -164,11 +164,11 @@ namespace examples.composition
 			switch (fieldName)
 			{
 				case PROPERTIES.STREET:
-					return GetStreet();
+					return Street;
 				case PROPERTIES.CITY:
-					return GetCity();
+					return City;
 				case PROPERTIES.ZIP_CODE:
-					return GetZipCode();
+					return ZipCode;
 			}
 			
 			throw new ArgumentException("No gettable field named " + fieldName);
@@ -182,21 +182,21 @@ namespace examples.composition
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetStreet((string) value);
+					Street = (string) value;
 					
 					return;
 				case PROPERTIES.CITY:
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetCity((string) value);
+					City = (string) value;
 					
 					return;
 				case PROPERTIES.ZIP_CODE:
 					if (!(value is string))
 						throw new ArgumentException(fieldName + " must be of type string");
 						
-					SetZipCode((string) value);
+					ZipCode = (string) value;
 					
 					return;
 			}

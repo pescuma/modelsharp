@@ -91,11 +91,11 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(":\r\n\t\t\t\t\treturn ");
             
             #line 5 "X:\c#\modelsharp\Core\templates\SwitchGetter.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("();\r\n");
+            this.Write(";\r\n");
             
             #line 6 "X:\c#\modelsharp\Core\templates\SwitchGetter.tt"
  } 

@@ -139,7 +139,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line 9 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 	
 bool first = true;
-foreach(var prop in it.Owner.Properties)
+foreach(var prop in it.Owner.NonComputedProperties)
 {
 	if (!first)
 		Write(", ");

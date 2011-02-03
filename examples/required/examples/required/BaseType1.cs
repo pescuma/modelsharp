@@ -538,75 +538,6 @@ namespace examples.required
 		
 		#endregion Property Comp
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.PROP1:
-					return Prop1;
-				case PROPERTIES.PROP2:
-					return Prop2;
-				case PROPERTIES.PROP3:
-					return Prop3;
-				case PROPERTIES.PROP4:
-					return Prop4;
-				case PROPERTIES.PROP5:
-					return Prop5;
-				case PROPERTIES.COMP_LAZY:
-					return CompLazy;
-				case PROPERTIES.COMP:
-					return Comp;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.PROP1:
-					if (!(value is Type2))
-						throw new ArgumentException(fieldName + " must be of type Type2");
-						
-					Prop1 = (Type2) value;
-					
-					return;
-				case PROPERTIES.PROP2:
-					if (!(value is Type2))
-						throw new ArgumentException(fieldName + " must be of type Type2");
-						
-					Prop2 = (Type2) value;
-					
-					return;
-				case PROPERTIES.PROP3:
-					if (!(value is int))
-						throw new ArgumentException(fieldName + " must be of type int");
-						
-					Prop3 = (int) value;
-					
-					return;
-				case PROPERTIES.PROP4:
-					if (!(value is int))
-						throw new ArgumentException(fieldName + " must be of type int");
-						
-					Prop4 = (int) value;
-					
-					return;
-				case PROPERTIES.PROP5:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					Prop5 = (string) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Type1 other)
 		{
 			Prop1 = other.Prop1;
@@ -625,8 +556,6 @@ namespace examples.required
 			}
 			Comp.CopyFrom(other.Comp);
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

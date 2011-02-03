@@ -75,41 +75,10 @@ namespace examples.projectNamespace
 		
 		#endregion Property Name
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.NAME:
-					return Name;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.NAME:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					Name = (string) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Person other)
 		{
 			Name = other.Name;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

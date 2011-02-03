@@ -224,61 +224,12 @@ namespace examples.nonserializable
 		
 		#endregion Property A
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.X:
-					return X;
-				case PROPERTIES.Y:
-					return Y;
-				case PROPERTIES.A:
-					return A;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.X:
-					if (!(value is double))
-						throw new ArgumentException(fieldName + " must be of type double");
-						
-					X = (double) value;
-					
-					return;
-				case PROPERTIES.Y:
-					if (!(value is double))
-						throw new ArgumentException(fieldName + " must be of type double");
-						
-					Y = (double) value;
-					
-					return;
-				case PROPERTIES.A:
-					if (!(value is Point))
-						throw new ArgumentException(fieldName + " must be of type Point");
-						
-					A = (Point) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Point other)
 		{
 			X = other.X;
 			Y = other.Y;
 			A = other.A;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

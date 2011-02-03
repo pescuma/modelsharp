@@ -287,39 +287,6 @@ namespace examples.collection
 		
 		#endregion Property Houses
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.CARS:
-					return Cars;
-				case PROPERTIES.NAME:
-					return Name;
-				case PROPERTIES.HOUSES:
-					return Houses;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.NAME:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					Name = (string) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Person other)
 		{
 			Cars.Clear();
@@ -328,8 +295,6 @@ namespace examples.collection
 			Houses.Clear();
 			Houses.AddRange(other.Houses);
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

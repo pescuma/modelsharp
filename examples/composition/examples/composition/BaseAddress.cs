@@ -157,61 +157,12 @@ namespace examples.composition
 		
 		#endregion Property ZipCode
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.STREET:
-					return Street;
-				case PROPERTIES.CITY:
-					return City;
-				case PROPERTIES.ZIP_CODE:
-					return ZipCode;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.STREET:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					Street = (string) value;
-					
-					return;
-				case PROPERTIES.CITY:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					City = (string) value;
-					
-					return;
-				case PROPERTIES.ZIP_CODE:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					ZipCode = (string) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Address other)
 		{
 			Street = other.Street;
 			City = other.City;
 			ZipCode = other.ZipCode;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

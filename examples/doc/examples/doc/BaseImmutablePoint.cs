@@ -51,7 +51,7 @@ namespace examples.doc
 		
 		public virtual ImmutablePoint WithX(double x)
 		{
-			return new ImmutablePoint(x, Y, Len, Ws);
+			return new ImmutablePoint(x, Y, Ws);
 		}
 		
 		/// <summary>

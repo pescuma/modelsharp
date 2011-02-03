@@ -146,41 +146,10 @@ namespace examples.@using
 		
 		#endregion Property Date
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.DATE:
-					return Date;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.DATE:
-					if (!(value is DateTime))
-						throw new ArgumentException(fieldName + " must be of type DateTime");
-						
-					Date = (DateTime) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Test other)
 		{
 			Date = other.Date;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

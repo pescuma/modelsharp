@@ -186,7 +186,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(")\r\n\t\t{\r\n");
             
             #line 27 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
- ForEach("ImmutableParamToField", it.NonComputedProperties); 
+ ForEach("ImmutableParamToField", it.Properties); 
             
             #line default
             #line hidden
@@ -214,7 +214,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(" other)\r\n\t\t{\r\n");
             
             #line 33 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
- ForEach("ImmutableOtherToField", it.NonComputedProperties); 
+ ForEach("ImmutableOtherToField", it.Properties); 
             
             #line default
             #line hidden

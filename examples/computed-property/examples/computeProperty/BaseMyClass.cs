@@ -357,54 +357,6 @@ namespace examples.computeProperty
 		
 		#endregion Property Children
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.X:
-					return X;
-				case PROPERTIES.Y:
-					return Y;
-				case PROPERTIES.LENGTH:
-					return Length;
-				case PROPERTIES.DUMMY:
-					return Dummy;
-				case PROPERTIES.SQUARED_LENGTH:
-					return SquaredLength;
-				case PROPERTIES.SQUARED_LENGTH_CACHED:
-					return SquaredLengthCached;
-				case PROPERTIES.CHILDREN:
-					return Children;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.X:
-					if (!(value is double))
-						throw new ArgumentException(fieldName + " must be of type double");
-						
-					X = (double) value;
-					
-					return;
-				case PROPERTIES.Y:
-					if (!(value is double))
-						throw new ArgumentException(fieldName + " must be of type double");
-						
-					Y = (double) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(MyClass other)
 		{
 			X = other.X;
@@ -412,8 +364,6 @@ namespace examples.computeProperty
 			Children.Clear();
 			Children.AddRange(other.Children);
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

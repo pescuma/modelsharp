@@ -24,13 +24,13 @@ namespace <#= it.Package #>
 <# ForEach("ImmutableField", it.Properties); #>
 		public <#= it.ImplementationName #>(<# ForEach("Param", it.NonComputedProperties, separator: ", "); #>)
 		{
-<# ForEach("ImmutableParamToField", it.NonComputedProperties); #>
+<# ForEach("ImmutableParamToField", it.Properties); #>
 		}
 
 <# if (it.Cloneable) { #>
 		public <#= it.ImplementationName #>(<#= it.ImplementationName #> other)
 		{
-<# ForEach("ImmutableOtherToField", it.NonComputedProperties); #>
+<# ForEach("ImmutableOtherToField", it.Properties); #>
 		}
 
 <# } #>

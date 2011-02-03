@@ -1,15 +1,12 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
-<# 
-if (it is CollectionInfo) 
-{ 
-	CollectionInfo col = (CollectionInfo) it;  
-	#>
+<# if (it is CollectionInfo)  { 
+	var col = (CollectionInfo) it; #>
 			<#= col.Name #> = new ReadOnlyCollection<<#= col.Contents #>>(new List<<#= col.Contents #>>(<#= col.VarName #>));
-<# }
-else
-{ #>
+<# } else if (it.IsComputedAndCached) {
+	var computed = (ComputedPropertyInfo) it; #>
+			<#= computed.InvalidFieldName #> = true;
+<# } else if (!it.IsComputed) { #>
 			<#= it.Name#> = <#= it.VarName #>;
-<# } 
-#>
+<# } #>

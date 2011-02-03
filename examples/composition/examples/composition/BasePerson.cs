@@ -170,33 +170,11 @@ namespace examples.composition
 		
 		#endregion Property WorkAddress
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.HOME_ADDRESS:
-					return HomeAddress;
-				case PROPERTIES.WORK_ADDRESS:
-					return WorkAddress;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Person other)
 		{
 			HomeAddress.CopyFrom(other.HomeAddress);
 			WorkAddress.CopyFrom(other.WorkAddress);
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

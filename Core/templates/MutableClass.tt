@@ -50,36 +50,10 @@ namespace <#= it.Package #>
 		#endregion
 
 <# ForEach("Property", it.Properties); #>
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-<# ForEach("SwitchGetter", it.Properties); #>
-			}
-
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-
-		public void SetField(string fieldName, object value)
-		{
-<# if (it.HasSettableProperties) { #>
-			switch (fieldName)
-			{
-<# ForEach("SwitchSetter", it.Properties); #>
-			}
-
-<# } #>
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-
 		public void CopyFrom(<#= it.Name #> other)
 		{
 <# ForEach("MutableOtherCopyToField", it.NonComputedProperties); #>
 		}
-
-		#endregion
 
 		#region Property Notification
 

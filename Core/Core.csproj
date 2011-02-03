@@ -212,16 +212,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PropertyExtended.tt</DependentUpon>
     </Compile>
-    <Compile Include="templates\SwitchGetter.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SwitchGetter.tt</DependentUpon>
-    </Compile>
-    <Compile Include="templates\SwitchSetter.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SwitchSetter.tt</DependentUpon>
-    </Compile>
     <Compile Include="templates\TemplateUtils.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -350,14 +340,6 @@
     <None Include="templates\PropertyExtended.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PropertyExtended.cs</LastGenOutput>
-    </None>
-    <None Include="templates\SwitchGetter.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SwitchGetter.cs</LastGenOutput>
-    </None>
-    <None Include="templates\SwitchSetter.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SwitchSetter.cs</LastGenOutput>
     </None>
     <None Include="templates\TemplateUtils.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -75,41 +75,10 @@ namespace examples.collection
 		
 		#endregion Property Address
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.ADDRESS:
-					return Address;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.ADDRESS:
-					if (!(value is string))
-						throw new ArgumentException(fieldName + " must be of type string");
-						
-					Address = (string) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(House other)
 		{
 			Address = other.Address;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

@@ -86,7 +86,6 @@ namespace org.pescuma.ModelSharp.Core.model
 
 		public override void MakeImmutable()
 		{
-			FieldName = Name;
 		}
 	}
 }

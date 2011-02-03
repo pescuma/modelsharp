@@ -78,70 +78,79 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             
             #line 4 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
- 
-if (it is CollectionInfo) 
-{ 
-	CollectionInfo col = (CollectionInfo) it;  
-	
+ if (it is CollectionInfo)  { 
+	var col = (CollectionInfo) it; 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
             
             #line default
             #line hidden
             this.Write(" = new ReadOnlyCollection<");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write(">(new List<");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write(">(");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.VarName));
             
             #line default
             #line hidden
             this.Write("));\r\n");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
- }
-else
-{ 
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+ } else if (it.IsComputedAndCached) {
+	var computed = (ComputedPropertyInfo) it; 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 13 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            
+            #line default
+            #line hidden
+            this.Write(" = true;\r\n");
+            
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+ } else if (!it.IsComputed) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 13 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 14 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
  } 
-
             
             #line default
             #line hidden

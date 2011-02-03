@@ -256,51 +256,11 @@ namespace examples.simple
 		
 		#endregion Property P2
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.P1:
-					return P1;
-				case PROPERTIES.P2:
-					return P2;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.P1:
-					if (!(value is Point))
-						throw new ArgumentException(fieldName + " must be of type Point");
-						
-					P1 = (Point) value;
-					
-					return;
-				case PROPERTIES.P2:
-					if (!(value is Point))
-						throw new ArgumentException(fieldName + " must be of type Point");
-						
-					P2 = (Point) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Line other)
 		{
 			P1 = other.P1;
 			P2 = other.P2;
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

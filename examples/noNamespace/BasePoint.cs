@@ -114,51 +114,11 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	
 	#endregion Property Y
 	
-	#region Get/Set by name and CopyFrom
-	
-	public object GetField(string fieldName)
-	{
-		switch (fieldName)
-		{
-			case PROPERTIES.X:
-				return X;
-			case PROPERTIES.Y:
-				return Y;
-		}
-		
-		throw new ArgumentException("No gettable field named " + fieldName);
-	}
-	
-	public void SetField(string fieldName, object value)
-	{
-		switch (fieldName)
-		{
-			case PROPERTIES.X:
-				if (!(value is double))
-					throw new ArgumentException(fieldName + " must be of type double");
-					
-				X = (double) value;
-				
-				return;
-			case PROPERTIES.Y:
-				if (!(value is double))
-					throw new ArgumentException(fieldName + " must be of type double");
-					
-				Y = (double) value;
-				
-				return;
-		}
-		
-		throw new ArgumentException("No settable field named " + fieldName);
-	}
-	
 	public void CopyFrom(Point other)
 	{
 		X = other.X;
 		Y = other.Y;
 	}
-	
-	#endregion
 	
 	#region Property Notification
 	

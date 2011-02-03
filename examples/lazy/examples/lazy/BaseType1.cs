@@ -391,39 +391,6 @@ namespace examples.lazy
 		
 		#endregion Property Col1
 		
-		#region Get/Set by name and CopyFrom
-		
-		public object GetField(string fieldName)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.PROP1:
-					return Prop1;
-				case PROPERTIES.COMP1:
-					return Comp1;
-				case PROPERTIES.COL1:
-					return Col1;
-			}
-			
-			throw new ArgumentException("No gettable field named " + fieldName);
-		}
-		
-		public void SetField(string fieldName, object value)
-		{
-			switch (fieldName)
-			{
-				case PROPERTIES.PROP1:
-					if (!(value is Type2))
-						throw new ArgumentException(fieldName + " must be of type Type2");
-						
-					Prop1 = (Type2) value;
-					
-					return;
-			}
-			
-			throw new ArgumentException("No settable field named " + fieldName);
-		}
-		
 		public void CopyFrom(Type1 other)
 		{
 			Prop1 = other.Prop1;
@@ -447,8 +414,6 @@ namespace examples.lazy
 					Col1.Clear();
 			}
 		}
-		
-		#endregion
 		
 		#region Property Notification
 		

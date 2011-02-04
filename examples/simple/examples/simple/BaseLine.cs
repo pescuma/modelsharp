@@ -256,7 +256,7 @@ namespace examples.simple
 		
 		#endregion Property P2
 		
-		public void CopyFrom(Line other)
+		public virtual void CopyFrom(Line other)
 		{
 			P1 = other.P1;
 			P2 = other.P2;
@@ -272,28 +272,28 @@ namespace examples.simple
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
 		}
 		
-		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
 		}
 		
-		protected void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
 		
-		protected void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)

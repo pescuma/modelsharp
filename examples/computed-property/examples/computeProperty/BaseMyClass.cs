@@ -357,7 +357,7 @@ namespace examples.computeProperty
 		
 		#endregion Property Children
 		
-		public void CopyFrom(MyClass other)
+		public virtual void CopyFrom(MyClass other)
 		{
 			X = other.X;
 			Y = other.Y;
@@ -375,7 +375,7 @@ namespace examples.computeProperty
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
@@ -399,7 +399,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
@@ -423,7 +423,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 			if (propertyName == PROPERTIES.X)
 			{
@@ -455,7 +455,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
 			if (propertyName == PROPERTIES.X)
 			{

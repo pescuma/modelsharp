@@ -246,7 +246,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tpublic void CopyFrom(");
+            this.Write("\t\tpublic virtual void CopyFrom(");
             
             #line 53 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
@@ -272,7 +272,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 
-		protected void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
@@ -286,7 +286,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write(@"		}
 		
-		protected void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
@@ -298,7 +298,8 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t}\r\n\r\n\t\tprotected void NotifyPropertyChanged(string propertyName)\r\n\t\t{\r\n");
+            this.Write("\t\t}\r\n\r\n\t\tprotected virtual void NotifyPropertyChanged(string propertyName)\r\n\t\t{\r\n" +
+                    "");
             
             #line 86 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
@@ -313,8 +314,8 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t}\r\n\t\t\r\n\t\tprotected void NotifyChildPropertyChanged(string propertyName, object " +
-                    "sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n");
+            this.Write("\t\t}\r\n\t\t\r\n\t\tprotected virtual void NotifyChildPropertyChanged(string propertyName," +
+                    " object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n");
             
             #line 95 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 

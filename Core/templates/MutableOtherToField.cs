@@ -176,14 +176,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\t\t");
             
             #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = other.");
             
             #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden

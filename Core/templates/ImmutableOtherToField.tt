@@ -9,7 +9,7 @@
 			<#= comp.Name #> = new <#= comp.TypeName #>(other.<#= comp.Name #>);
 <# } else if (it.IsComputedAndCached) {
 	var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.InvalidFieldName #> = other.<#= computed.InvalidFieldName #>;
+			<#= computed.ValidFieldName #> = other.<#= computed.ValidFieldName #>;
 			<#= it.FieldName #> = other.<#= it.FieldName #>;
 <# } else if (!it.IsComputed) { #>
 			<#= it.Name#> = other.<#= it.Name #>;

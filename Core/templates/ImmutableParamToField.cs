@@ -122,11 +122,11 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\t\t");
             
             #line 9 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
-            this.Write(" = true;\r\n");
+            this.Write(" = false;\r\n");
             
             #line 10 "X:\c#\modelsharp\Core\templates\ImmutableParamToField.tt"
  } else if (!it.IsComputed) { 

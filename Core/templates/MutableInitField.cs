@@ -170,11 +170,11 @@ if (it.LazyInitializer == null) {
             this.Write("\t\t\t");
             
             #line 20 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
-            this.Write(" = true;\r\n");
+            this.Write(" = false;\r\n");
             
             #line 21 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 

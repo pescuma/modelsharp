@@ -118,7 +118,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\tprivate bool ");
             
             #line 9 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
@@ -233,11 +233,11 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("()\r\n\t\t{\r\n\t\t\t");
             
             #line 28 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
-            this.Write(" = true;\r\n\t\t}\r\n\r\n");
+            this.Write(" = false;\r\n\t\t}\r\n\r\n");
             
             #line 31 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", computed.Cacher.Annotations); 
@@ -258,10 +258,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("()\r\n\t\t{\r\n\t\t\tif (");
+            this.Write("()\r\n\t\t{\r\n\t\t\tif (!");
             
             #line 34 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
@@ -282,11 +282,11 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("();\r\n\t\t\t\t");
             
             #line 37 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.InvalidFieldName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
-            this.Write(" = false;\r\n\t\t\t}\r\n\r\n\t\t\treturn ");
+            this.Write(" = true;\r\n\t\t\t}\r\n\r\n\t\t\treturn ");
             
             #line 40 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));

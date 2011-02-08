@@ -29,7 +29,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string Formula;
 		public readonly bool Cached;
 
-		public string InvalidFieldName;
+		public string ValidFieldName;
 		public readonly List<string> InvalidFieldAnnotations = new List<string>();
 
 		public MethodInfo Cacher;
@@ -51,14 +51,14 @@ namespace org.pescuma.ModelSharp.Core.model
 			if (Cached)
 			{
 				FieldName = FieldName + "Cache";
-				InvalidFieldName = FieldName + "Invalid";
+				ValidFieldName = FieldName + "Valid";
 				Cacher = new MethodInfo(GetCacherName(), TypeName);
 				Invalidate = new MethodInfo(GetInvalidateName());
 			}
 			else
 			{
 				FieldName = null;
-				InvalidFieldName = null;
+				ValidFieldName = null;
 				Cacher = Getter;
 				Invalidate = null;
 			}

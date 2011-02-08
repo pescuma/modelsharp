@@ -6,7 +6,7 @@
 			<#= col.Name #> = new ReadOnlyCollection<<#= col.Contents #>>(new List<<#= col.Contents #>>(<#= col.VarName #>));
 <# } else if (it.IsComputedAndCached) {
 	var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.InvalidFieldName #> = true;
+			<#= computed.ValidFieldName #> = false;
 <# } else if (!it.IsComputed) { #>
 			<#= it.Name#> = <#= it.VarName #>;
 <# } #>

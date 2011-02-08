@@ -177,7 +177,7 @@ namespace examples.computeProperty
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private double _squaredLengthCachedCache;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private bool _squaredLengthCachedCacheInvalid;
+		private bool _squaredLengthCachedCacheValid;
 		
 		public double SquaredLengthCached
 		{
@@ -189,15 +189,15 @@ namespace examples.computeProperty
 		
 		protected virtual void InvalidateSquaredLengthCachedCache()
 		{
-			_squaredLengthCachedCacheInvalid = true;
+			_squaredLengthCachedCacheValid = false;
 		}
 		
 		private double ComputeAndCacheSquaredLengthCached()
 		{
-			if (_squaredLengthCachedCacheInvalid)
+			if (!_squaredLengthCachedCacheValid)
 			{
 				_squaredLengthCachedCache = ComputeSquaredLengthCached();
-				_squaredLengthCachedCacheInvalid = false;
+				_squaredLengthCachedCacheValid = true;
 			}
 			
 			return _squaredLengthCachedCache;

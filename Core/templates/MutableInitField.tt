@@ -17,7 +17,7 @@ if (it.LazyInitializer == null) {
 <#
 	} else if (it.IsComputedAndCached) { 
 		var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.InvalidFieldName #> = true;
+			<#= computed.ValidFieldName #> = false;
 <#
 	}
 

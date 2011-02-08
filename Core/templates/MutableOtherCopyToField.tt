@@ -12,7 +12,7 @@
 			<#= it.Name #>.CopyFrom(other.<#= it.Name #>);
 <# } else if (it.IsComputedAndCached) {
 		var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.InvalidFieldName #> = other.<#= computed.InvalidFieldName #>;
+			<#= computed.ValidFieldName #> = other.<#= computed.ValidFieldName #>;
 			<#= it.FieldName #> = other.<#= it.FieldName #>;
 <# } else { #>
 			<#= it.Name #> = other.<#= it.Name #>;

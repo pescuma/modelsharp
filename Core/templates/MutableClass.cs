@@ -453,7 +453,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 128 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (!it.BaseClass.HasPropertyChanged) { 
+ if (!it.BaseClass.HasChildPropertyChanged) { 
             
             #line default
             #line hidden

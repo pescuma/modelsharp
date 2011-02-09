@@ -125,7 +125,7 @@ namespace <#= it.Package #>
 		}
 
 <# } #>
-<# if (!it.BaseClass.HasPropertyChanged) { #>
+<# if (!it.BaseClass.HasChildPropertyChanged) { #>
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)

@@ -229,14 +229,31 @@ namespace org.pescuma.ModelSharp.Core
 						}
 					}
 
+					if (type.extends != null && type.extends.Trim() != "")
+						ti.Extends = type.extends.Trim();
+
 					foreach (var item in type.Items)
 					{
-						if (item is property)
+						if (item is baseClass)
+						{
+							var bc = (baseClass) item;
+
+							if (bc.hasChildPropertyChangedSpecified)
+								ti.BaseClass.HasChildPropertyChanged = bc.hasChildPropertyChanged;
+							if (bc.hasPropertyChangedSpecified)
+								ti.BaseClass.HasPropertyChanged = bc.hasPropertyChanged;
+							if (bc.hasChildPropertyChangingSpecified)
+								ti.BaseClass.HasChildPropertyChanging = bc.hasChildPropertyChanging;
+							if (bc.hasPropertyChangingSpecified)
+								ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
+							if (bc.hasCopyFromSpecified)
+								ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
+						}
+						else if (item is property)
 						{
 							var property = (property) item;
 
-							PropertyInfo prop = new PropertyInfo(ti, property.name, property.type, property.required,
-							                                     false);
+							var prop = new PropertyInfo(ti, property.name, property.type, property.required, false);
 
 							if (!string.IsNullOrEmpty(property.doc))
 								prop.Documentation = property.doc;
@@ -255,7 +272,7 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var component = (component) item;
 
-							ComponentInfo comp = new ComponentInfo(ti, component.name, component.type, component.lazy);
+							var comp = new ComponentInfo(ti, component.name, component.type, component.lazy);
 
 							if (!string.IsNullOrEmpty(component.doc))
 								comp.Documentation = component.doc;
@@ -269,8 +286,7 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var collection = (collection) item;
 
-							CollectionInfo col = new CollectionInfo(ti, collection.name, collection.contents,
-							                                        collection.lazy);
+							var col = new CollectionInfo(ti, collection.name, collection.contents, collection.lazy);
 
 							if (!string.IsNullOrEmpty(collection.doc))
 								col.Documentation = collection.doc;
@@ -318,6 +334,7 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void ProcessModel(ModelInfo model)
 		{
+			UpdateExtendsProperties(model);
 			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
@@ -327,6 +344,25 @@ namespace org.pescuma.ModelSharp.Core
 			AddDataContracts(model);
 			AddDebugAttributes(model);
 			AddClonable(model);
+		}
+
+		private void UpdateExtendsProperties(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				if (type.Extends == null)
+					continue;
+
+				if (model.GetType(type.Extends) == null)
+					continue;
+
+				type.BaseClass.IsGenerated = true;
+				type.BaseClass.HasChildPropertyChanged = true;
+				type.BaseClass.HasChildPropertyChanging = true;
+				type.BaseClass.HasPropertyChanged = true;
+				type.BaseClass.HasPropertyChanging = true;
+				type.BaseClass.HasCopyFrom = true;
+			}
 		}
 
 		private void ComputeDependentProperties(ModelInfo model)

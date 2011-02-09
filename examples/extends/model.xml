@@ -1,0 +1,21 @@
+<model namespace="examples.extends">
+	<type name="A">
+		<property name="date" type="DateTime" />
+	</type>
+	<type name="B" extends="A">
+		<property name="date2" type="DateTime" />
+	</type>
+	<type name="C" extends="B">
+		<baseClass />
+		<property name="date2" type="DateTime" />
+	</type>
+	<type name="S2" extends="String">
+		<baseClass hasPropertyChanging="false" 
+				hasChildPropertyChanging="false" 
+				hasPropertyChanged="false" 
+				hasChildPropertyChanged="false"
+				hasCopyFrom="false" />
+		
+		<property name="date2" type="DateTime" />
+	</type>
+</model>

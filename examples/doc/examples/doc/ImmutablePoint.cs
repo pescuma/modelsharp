@@ -10,7 +10,7 @@ namespace examples.doc
 	[DataContract]
 	public class ImmutablePoint : BaseImmutablePoint
 	{
-		public ImmutablePoint(double x, double y, IEnumerable<double> ws)
+		public ImmutablePoint(double x, Point y, IEnumerable<double> ws)
 		: base(x, y, ws)
 		{
 		}

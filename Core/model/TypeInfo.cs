@@ -38,6 +38,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public string Documentation;
 
 		public string Extends;
+		public readonly BaseClassInfo BaseClass = new BaseClassInfo();
 		public readonly List<string> Implements = new List<string>();
 		public readonly List<PropertyInfo> Properties = new List<PropertyInfo>();
 		public readonly List<MethodInfo> Methods = new List<MethodInfo>();
@@ -106,13 +107,13 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
-		public IEnumerable<PropertyInfo> PropertiesWithDependencies
+		public List<PropertyInfo> PropertiesWithDependencies
 		{
 			get
 			{
 				return (from prop in Properties
 				        where prop.DependentProperties.Count > 0
-				        select prop);
+				        select prop).ToList();
 			}
 		}
 
@@ -125,5 +126,27 @@ namespace org.pescuma.ModelSharp.Core.model
 				        select prop);
 			}
 		}
+
+		public List<string> ExtendsOrImplements
+		{
+			get
+			{
+				var ret = new List<string>();
+				if (Extends != null)
+					ret.Add(Extends);
+				ret.AddRange(Implements);
+				return ret;
+			}
+		}
+	}
+
+	public class BaseClassInfo
+	{
+		public bool HasPropertyChanging;
+		public bool HasChildPropertyChanging;
+		public bool HasPropertyChanged;
+		public bool HasChildPropertyChanged;
+		public bool HasCopyFrom;
+		public bool IsGenerated;
 	}
 }

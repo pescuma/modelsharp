@@ -87,6 +87,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class type {
         
+        private baseClass baseClassField;
+        
         private object[] itemsField;
         
         private bool cloneableField;
@@ -94,6 +96,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private bool cloneableFieldSpecified;
         
         private string docField;
+        
+        private string extendsField;
         
         private bool immutableField;
         
@@ -106,6 +110,16 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private bool serializableField;
         
         private bool serializableFieldSpecified;
+        
+        /// <remarks/>
+        public baseClass baseClass {
+            get {
+                return this.baseClassField;
+            }
+            set {
+                this.baseClassField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("collection", typeof(collection))]
@@ -151,6 +165,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.docField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string extends {
+            get {
+                return this.extendsField;
+            }
+            set {
+                this.extendsField = value;
             }
         }
         
@@ -217,6 +242,146 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.serializableFieldSpecified = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class baseClass {
+        
+        private bool hasChildPropertyChangedField;
+        
+        private bool hasChildPropertyChangedFieldSpecified;
+        
+        private bool hasChildPropertyChangingField;
+        
+        private bool hasChildPropertyChangingFieldSpecified;
+        
+        private bool hasCopyFromField;
+        
+        private bool hasCopyFromFieldSpecified;
+        
+        private bool hasPropertyChangedField;
+        
+        private bool hasPropertyChangedFieldSpecified;
+        
+        private bool hasPropertyChangingField;
+        
+        private bool hasPropertyChangingFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasChildPropertyChanged {
+            get {
+                return this.hasChildPropertyChangedField;
+            }
+            set {
+                this.hasChildPropertyChangedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasChildPropertyChangedSpecified {
+            get {
+                return this.hasChildPropertyChangedFieldSpecified;
+            }
+            set {
+                this.hasChildPropertyChangedFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasChildPropertyChanging {
+            get {
+                return this.hasChildPropertyChangingField;
+            }
+            set {
+                this.hasChildPropertyChangingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasChildPropertyChangingSpecified {
+            get {
+                return this.hasChildPropertyChangingFieldSpecified;
+            }
+            set {
+                this.hasChildPropertyChangingFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasCopyFrom {
+            get {
+                return this.hasCopyFromField;
+            }
+            set {
+                this.hasCopyFromField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasCopyFromSpecified {
+            get {
+                return this.hasCopyFromFieldSpecified;
+            }
+            set {
+                this.hasCopyFromFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasPropertyChanged {
+            get {
+                return this.hasPropertyChangedField;
+            }
+            set {
+                this.hasPropertyChangedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasPropertyChangedSpecified {
+            get {
+                return this.hasPropertyChangedFieldSpecified;
+            }
+            set {
+                this.hasPropertyChangedFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasPropertyChanging {
+            get {
+                return this.hasPropertyChangingField;
+            }
+            set {
+                this.hasPropertyChangingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasPropertyChangingSpecified {
+            get {
+                return this.hasPropertyChangingFieldSpecified;
+            }
+            set {
+                this.hasPropertyChangingFieldSpecified = value;
             }
         }
     }

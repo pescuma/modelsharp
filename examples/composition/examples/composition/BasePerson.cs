@@ -180,18 +180,14 @@ namespace examples.composition
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
 		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
 		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
 		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
@@ -200,12 +196,16 @@ namespace examples.composition
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
 		}
 		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
 		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
@@ -218,7 +218,7 @@ namespace examples.composition
 		
 		#region Clone
 		
-		public Person Clone()
+		public new Person Clone()
 		{
 			return (Person) ((ICloneable) this).Clone();
 		}

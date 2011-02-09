@@ -13,7 +13,7 @@ namespace examples.doc
 	public class ImmutablePointBuilder
 	{
 		private double _x;
-		private double _y;
+		private Point _y;
 		private readonly List<double> _ws = new List<double>();
 		
 		public virtual ImmutablePointBuilder Set(ImmutablePoint other)
@@ -31,7 +31,7 @@ namespace examples.doc
 			return this;
 		}
 		
-		public virtual ImmutablePointBuilder SetY(double y)
+		public virtual ImmutablePointBuilder SetY(Point y)
 		{
 			_y = y;
 			return this;

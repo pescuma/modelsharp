@@ -369,12 +369,6 @@ namespace examples.computeProperty
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
 		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
@@ -398,6 +392,8 @@ namespace examples.computeProperty
 				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
 			}
 		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
 		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
@@ -423,6 +419,8 @@ namespace examples.computeProperty
 			}
 		}
 		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
 		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 			if (propertyName == PROPERTIES.X)
@@ -439,21 +437,23 @@ namespace examples.computeProperty
 				
 			if (propertyName == PROPERTIES.X)
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(PROPERTIES.LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
 			}
 			else if (propertyName == PROPERTIES.Y)
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(PROPERTIES.LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
 			}
 			else if (propertyName == PROPERTIES.CHILDREN)
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
 			}
 		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
@@ -471,19 +471,19 @@ namespace examples.computeProperty
 				
 			if (propertyName == PROPERTIES.X)
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(PROPERTIES.LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
 			}
 			else if (propertyName == PROPERTIES.Y)
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(PROPERTIES.LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
 			}
 			else if (propertyName == PROPERTIES.CHILDREN)
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
 			}
 		}
 		
@@ -491,7 +491,7 @@ namespace examples.computeProperty
 		
 		#region Clone
 		
-		public MyClass Clone()
+		public new MyClass Clone()
 		{
 			return (MyClass) ((ICloneable) this).Clone();
 		}

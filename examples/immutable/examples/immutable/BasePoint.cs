@@ -40,7 +40,7 @@ namespace examples.immutable
 			return new Point(X, y);
 		}
 		
-		public Point Clone()
+		public new Point Clone()
 		{
 			return (Point) ((ICloneable) this).Clone();
 		}

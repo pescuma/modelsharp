@@ -33,7 +33,8 @@ namespace examples.doc
 		
 		public BasePoint()
 		{
-			_y = 2;
+			_y = new Point();
+			AddYListeners(_y);
 			_ws = new ObservableList<double>();
 			AddWsListListeners(_ws);
 		}
@@ -41,7 +42,8 @@ namespace examples.doc
 		public BasePoint(BasePoint other)
 		{
 			_x = other.X;
-			_y = new double(other.Y);
+			_y = new Point(other.Y);
+			AddYListeners(_y);
 			_ws = new ObservableList<double>(other.Ws);
 			AddWsListListeners(_ws);
 		}
@@ -94,12 +96,12 @@ namespace examples.doc
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly double _y;
+		private readonly Point _y;
 		
 		/// <summary>
 		/// Y, oh Y
 		/// </summary>
-		public double Y
+		public Point Y
 		{
 			[DebuggerStepThrough]
 			get {
@@ -107,9 +109,51 @@ namespace examples.doc
 			}
 		}
 		
-		protected virtual double GetY()
+		protected virtual Point GetY()
 		{
 			return _y;
+		}
+		
+		private void AddYListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += YPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += YChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += YPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += YChildPropertyChangedEventHandler;
+		}
+		
+		private void YPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.Y, sender, e);
+		}
+		
+		private void YChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.Y, sender, e);
+		}
+		
+		private void YPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.Y, sender, e);
+		}
+		
+		private void YChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.Y, sender, e);
 		}
 		
 		#endregion Property Y
@@ -197,18 +241,14 @@ namespace examples.doc
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
 		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
 		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
 		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
@@ -217,12 +257,16 @@ namespace examples.doc
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
 		}
 		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
 		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
@@ -235,7 +279,7 @@ namespace examples.doc
 		
 		#region Clone
 		
-		public Point Clone()
+		public new Point Clone()
 		{
 			return (Point) ((ICloneable) this).Clone();
 		}

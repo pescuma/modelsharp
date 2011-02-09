@@ -263,18 +263,14 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
-	public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-	
 	protected virtual void NotifyPropertyChanging(string propertyName)
 	{
 		PropertyChangingEventHandler handler = PropertyChanging;
 		if (handler != null)
 			handler(this, new PropertyChangingEventArgs(propertyName));
 	}
+	
+	public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 	
 	protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 	{
@@ -283,12 +279,16 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 			handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
 	}
 	
+	public event PropertyChangedEventHandler PropertyChanged;
+	
 	protected virtual void NotifyPropertyChanged(string propertyName)
 	{
 		PropertyChangedEventHandler handler = PropertyChanged;
 		if (handler != null)
 			handler(this, new PropertyChangedEventArgs(propertyName));
 	}
+	
+	public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 	
 	protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 	{
@@ -301,7 +301,7 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	#region Clone
 	
-	public Line Clone()
+	public new Line Clone()
 	{
 		return (Line) ((ICloneable) this).Clone();
 	}

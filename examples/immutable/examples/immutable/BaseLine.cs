@@ -52,7 +52,7 @@ namespace examples.immutable
 			return new Line(P1, p2, Dir, Border);
 		}
 		
-		public Line Clone()
+		public new Line Clone()
 		{
 			return (Line) ((ICloneable) this).Clone();
 		}

@@ -19,12 +19,15 @@ namespace <#= it.Package #>
 <# } #>
 <# ForEach("Annotation", it.Annotations); #>
 <# ForEach("Annotation", it.BaseOnlyAnnotations); #>
-	public abstract class <#= it.ImplementationName #> <# if (it.Implements.Count > 0) { #>: <# ForEach(it.Implements, separator: ", "); #> <# } #>
-
+	public abstract class <#= it.ImplementationName #> <# if (it.ExtendsOrImplements.Count > 0) { #>: <# ForEach(it.ExtendsOrImplements, separator: ", "); #> <# } #> 
 	{
 		#region Field Name Defines
 
+<# if (it.BaseClass.IsGenerated) { #>
+		public new class PROPERTIES : <#= it.Extends #>.PROPERTIES
+<# } else { #>
 		public class PROPERTIES
+<# } #>
 		{
 <# ForEach("Define", it.Properties); #>
 		}
@@ -42,6 +45,9 @@ namespace <#= it.Package #>
 
 <# if (it.Cloneable) { #>
 		public <#= it.ImplementationName #>(<#= it.ImplementationName #> other)
+<#		if (it.Extends != null) { #>
+			: base(other)
+<#		} #>
 		{
 <# ForEach("MutableOtherToField", it.NonComputedProperties); #>
 		}
@@ -52,18 +58,16 @@ namespace <#= it.Package #>
 <# ForEach("Property", it.Properties); #>
 		public virtual void CopyFrom(<#= it.Name #> other)
 		{
+<# if (it.BaseClass.HasCopyFrom) { #>
+			base.CopyFrom(other);
+<# } #>
 <# ForEach("MutableOtherCopyToField", it.NonComputedProperties); #>
 		}
 
 		#region Property Notification
 
+<# if (!it.BaseClass.HasPropertyChanging) { #>
 		public event PropertyChangingEventHandler PropertyChanging;
-
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 
 		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
@@ -72,6 +76,17 @@ namespace <#= it.Package #>
 				handler(this, new PropertyChangingEventArgs(propertyName));
 <# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
+
+<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyPropertyChanging(string propertyName)
+		{
+			base.NotifyPropertyChanging(propertyName);
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
+		}
+
+<# } #>
+<# if (!it.BaseClass.HasChildPropertyChanging) { #>
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
 		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
@@ -81,14 +96,37 @@ namespace <#= it.Package #>
 <# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
 		}
 
+<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		{
+			base.NotifyChildPropertyChanging(propertyName, sender, e);
+<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
+		}
+
+<# } #>
+<# if (!it.BaseClass.HasPropertyChanged) { #>
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
 <# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
+<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
 		}
+
+<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyPropertyChanged(string propertyName)
+		{
+<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
+			base.NotifyPropertyChanged(propertyName);
+<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
+		}
+
+<# } #>
+<# if (!it.BaseClass.HasPropertyChanged) { #>
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
@@ -96,15 +134,24 @@ namespace <#= it.Package #>
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, e));
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
+<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
 		}
 
+<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		{
+<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
+			base.NotifyChildPropertyChanged(propertyName, sender, e);
+<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
+		}
+
+<# } #>
 		#endregion
 <# if (it.Cloneable) { #>
 		
 		#region Clone
 
-		public <#= it.Name #> Clone()
+		public new <#= it.Name #> Clone()
 		{
 			return (<#= it.Name #>) ((ICloneable) this).Clone();
 		}

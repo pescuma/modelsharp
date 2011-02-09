@@ -114,7 +114,7 @@ namespace examples.computeProperty
 		
 		protected abstract double ComputeSquaredLengthCached();
 		
-		public MyImmutableClass Clone()
+		public new MyImmutableClass Clone()
 		{
 			return (MyImmutableClass) ((ICloneable) this).Clone();
 		}

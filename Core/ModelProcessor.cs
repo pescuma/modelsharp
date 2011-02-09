@@ -211,10 +211,10 @@ namespace org.pescuma.ModelSharp.Core
 			{
 				if (modelItem is type)
 				{
-					type type = (type) modelItem;
+					var type = (type) modelItem;
 
-					TypeInfo ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
-					                           type.serializable);
+					var ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
+					                      type.serializable);
 					if (!string.IsNullOrEmpty(type.doc))
 						ti.Documentation = type.doc;
 
@@ -232,24 +232,25 @@ namespace org.pescuma.ModelSharp.Core
 					if (type.extends != null && type.extends.Trim() != "")
 						ti.Extends = type.extends.Trim();
 
+					if (type.baseClass != null)
+					{
+						var bc = type.baseClass;
+
+						if (bc.hasChildPropertyChangedSpecified)
+							ti.BaseClass.HasChildPropertyChanged = bc.hasChildPropertyChanged;
+						if (bc.hasPropertyChangedSpecified)
+							ti.BaseClass.HasPropertyChanged = bc.hasPropertyChanged;
+						if (bc.hasChildPropertyChangingSpecified)
+							ti.BaseClass.HasChildPropertyChanging = bc.hasChildPropertyChanging;
+						if (bc.hasPropertyChangingSpecified)
+							ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
+						if (bc.hasCopyFromSpecified)
+							ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
+					}
+
 					foreach (var item in type.Items)
 					{
-						if (item is baseClass)
-						{
-							var bc = (baseClass) item;
-
-							if (bc.hasChildPropertyChangedSpecified)
-								ti.BaseClass.HasChildPropertyChanged = bc.hasChildPropertyChanged;
-							if (bc.hasPropertyChangedSpecified)
-								ti.BaseClass.HasPropertyChanged = bc.hasPropertyChanged;
-							if (bc.hasChildPropertyChangingSpecified)
-								ti.BaseClass.HasChildPropertyChanging = bc.hasChildPropertyChanging;
-							if (bc.hasPropertyChangingSpecified)
-								ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
-							if (bc.hasCopyFromSpecified)
-								ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
-						}
-						else if (item is property)
+						if (item is property)
 						{
 							var property = (property) item;
 

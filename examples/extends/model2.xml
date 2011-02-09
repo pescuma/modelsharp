@@ -1,0 +1,11 @@
+<model namespace="examples.extends">
+	<type name="D" extends="B">
+		<baseClass hasPropertyChanging="true" 
+				hasChildPropertyChanging="true" 
+				hasPropertyChanged="true" 
+				hasChildPropertyChanged="true"
+				hasCopyFrom="true" />
+		
+		<property name="x" type="double" />
+	</type>
+</model>

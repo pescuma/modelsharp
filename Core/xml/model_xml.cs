@@ -483,7 +483,7 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private string typeField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string @default {
             get {
                 return this.defaultField;

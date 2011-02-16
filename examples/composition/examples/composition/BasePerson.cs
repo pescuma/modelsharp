@@ -218,7 +218,9 @@ namespace examples.composition
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Person Clone()
+#pragma warning restore 109
 		{
 			return (Person) ((ICloneable) this).Clone();
 		}

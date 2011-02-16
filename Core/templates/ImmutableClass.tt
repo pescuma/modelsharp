@@ -39,7 +39,9 @@ namespace <#= it.Package #>
 <# } #>
 <# ForEach("ImmutableProperty", it.Properties); #>
 <# if (it.Cloneable) { #>
+#pragma warning disable 109
 		public new <#= it.Name #> Clone()
+#pragma warning restore 109
 		{
 			return (<#= it.Name #>) ((ICloneable) this).Clone();
 		}

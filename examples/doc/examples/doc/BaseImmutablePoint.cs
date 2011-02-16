@@ -67,7 +67,9 @@ namespace examples.doc
 		
 		protected abstract double ComputeLen();
 		
+#pragma warning disable 109
 		public new ImmutablePoint Clone()
+#pragma warning restore 109
 		{
 			return (ImmutablePoint) ((ICloneable) this).Clone();
 		}

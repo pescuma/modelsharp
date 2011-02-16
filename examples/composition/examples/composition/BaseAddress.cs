@@ -206,7 +206,9 @@ namespace examples.composition
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Address Clone()
+#pragma warning restore 109
 		{
 			return (Address) ((ICloneable) this).Clone();
 		}

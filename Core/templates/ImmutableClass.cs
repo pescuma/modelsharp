@@ -251,16 +251,16 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tpublic new ");
+            this.Write("#pragma warning disable 109\r\n\t\tpublic new ");
             
-            #line 42 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 43 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" Clone()\r\n\t\t{\r\n\t\t\treturn (");
+            this.Write(" Clone()\r\n#pragma warning restore 109\r\n\t\t{\r\n\t\t\treturn (");
             
-            #line 44 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 46 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -268,35 +268,35 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(") ((ICloneable) this).Clone();\r\n\t\t}\r\n\r\n\t\tobject ICloneable.Clone()\r\n\t\t{\r\n\t\t\tretur" +
                     "n new ");
             
-            #line 49 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 51 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("((");
             
-            #line 49 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 51 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(") this);\r\n\t\t}\r\n");
             
-            #line 51 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 53 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 53 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 55 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 56 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 58 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
  } 
             
             #line default

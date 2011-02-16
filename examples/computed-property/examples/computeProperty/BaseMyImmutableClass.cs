@@ -114,7 +114,9 @@ namespace examples.computeProperty
 		
 		protected abstract double ComputeSquaredLengthCached();
 		
+#pragma warning disable 109
 		public new MyImmutableClass Clone()
+#pragma warning restore 109
 		{
 			return (MyImmutableClass) ((ICloneable) this).Clone();
 		}

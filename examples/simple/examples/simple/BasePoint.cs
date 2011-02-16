@@ -165,7 +165,9 @@ namespace examples.simple
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Point Clone()
+#pragma warning restore 109
 		{
 			return (Point) ((ICloneable) this).Clone();
 		}

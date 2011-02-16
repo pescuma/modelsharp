@@ -122,7 +122,9 @@ namespace examples.collection
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new House Clone()
+#pragma warning restore 109
 		{
 			return (House) ((ICloneable) this).Clone();
 		}

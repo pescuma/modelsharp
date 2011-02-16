@@ -304,7 +304,9 @@ namespace examples.simple
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Line Clone()
+#pragma warning restore 109
 		{
 			return (Line) ((ICloneable) this).Clone();
 		}

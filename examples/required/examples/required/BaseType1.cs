@@ -33,9 +33,13 @@ namespace examples.required
 		
 		public BaseType1(Type2 prop2, int prop4, string prop5)
 		{
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (prop2 == null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop2");
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (prop5 == null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
 			AddProp1Listeners(_prop1);
 			AddProp2Listeners(_prop2);
@@ -199,7 +203,9 @@ namespace examples.required
 		
 		protected virtual bool SetProp2(Type2 prop2)
 		{
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (prop2 == null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop2");
 			if (_prop2 == prop2)
 				return false;
@@ -386,7 +392,9 @@ namespace examples.required
 		
 		protected virtual bool SetProp5(string prop5)
 		{
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (prop5 == null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
 			if (_prop5 == prop5)
 				return false;
@@ -599,7 +607,9 @@ namespace examples.required
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Type1 Clone()
+#pragma warning restore 109
 		{
 			return (Type1) ((ICloneable) this).Clone();
 		}

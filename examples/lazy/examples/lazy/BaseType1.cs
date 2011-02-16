@@ -457,7 +457,9 @@ namespace examples.lazy
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Type1 Clone()
+#pragma warning restore 109
 		{
 			return (Type1) ((ICloneable) this).Clone();
 		}

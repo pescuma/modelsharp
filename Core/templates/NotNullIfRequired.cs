@@ -81,23 +81,24 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\tif (");
-            
-            #line 4 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
-            
-            #line default
-            #line hidden
-            this.Write(" == null)\r\n\t\t\t\tthrow new ArgumentNullException(\"");
+            this.Write("// ReSharper disable ConditionIsAlwaysTrueOrFalse\r\n\t\t\tif (");
             
             #line 5 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
+            this.Write(" == null)\r\n// ReSharper restore ConditionIsAlwaysTrueOrFalse\r\n\t\t\t\tthrow new Argum" +
+                    "entNullException(\"");
+            
+            #line 7 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
+            
+            #line default
+            #line hidden
             this.Write("\");\r\n");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\NotNullIfRequired.tt"
  } 
             
             #line default

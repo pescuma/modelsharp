@@ -151,7 +151,9 @@ namespace <#= it.Package #>
 		
 		#region Clone
 
+#pragma warning disable 109
 		public new <#= it.Name #> Clone()
+#pragma warning restore 109
 		{
 			return (<#= it.Name #>) ((ICloneable) this).Clone();
 		}

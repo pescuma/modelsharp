@@ -112,13 +112,18 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			if (TypeName == "bool" || TypeName == "Boolean")
 				return "Is" + Name;
-			else
+			else if (Name != "Type")
 				return "Get" + Name;
+			else
+				return "GetProperty" + Name;
 		}
 
 		private string GetSetterName()
 		{
-			return "Set" + Name;
+			if (Name != "Type")
+				return "Set" + Name;
+			else
+				return "SetProperty" + Name;
 		}
 
 		private string GetWithSetterName()

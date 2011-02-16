@@ -511,16 +511,16 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\r\n\t\t#region Clone\r\n\r\n\t\tpublic new ");
+            this.Write("\t\t\r\n\t\t#region Clone\r\n\r\n#pragma warning disable 109\r\n\t\tpublic new ");
             
-            #line 154 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 155 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" Clone()\r\n\t\t{\r\n\t\t\treturn (");
+            this.Write(" Clone()\r\n#pragma warning restore 109\r\n\t\t{\r\n\t\t\treturn (");
             
-            #line 156 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 158 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -528,35 +528,35 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(") ((ICloneable) this).Clone();\r\n\t\t}\r\n\r\n\t\tobject ICloneable.Clone()\r\n\t\t{\r\n\t\t\tretur" +
                     "n new ");
             
-            #line 161 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 163 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("((");
             
-            #line 161 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 163 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(") this);\r\n\t\t}\r\n\r\n\t\t#endregion\r\n");
             
-            #line 165 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 167 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 167 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 169 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 170 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 172 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default

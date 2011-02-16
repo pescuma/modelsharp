@@ -1,6 +1,8 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <# if (it.AssertNotNull) { #>
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (<#= it.VarName #> == null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("<#= it.VarName #>");
 <# } #>

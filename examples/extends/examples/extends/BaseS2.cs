@@ -193,7 +193,9 @@ namespace examples.extends
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new S2 Clone()
+#pragma warning restore 109
 		{
 			return (S2) ((ICloneable) this).Clone();
 		}

@@ -158,7 +158,9 @@ namespace examples.extends
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new C Clone()
+#pragma warning restore 109
 		{
 			return (C) ((ICloneable) this).Clone();
 		}

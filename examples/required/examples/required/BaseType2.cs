@@ -122,7 +122,9 @@ namespace examples.required
 		
 		#region Clone
 		
+#pragma warning disable 109
 		public new Type2 Clone()
+#pragma warning restore 109
 		{
 			return (Type2) ((ICloneable) this).Clone();
 		}

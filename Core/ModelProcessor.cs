@@ -592,7 +592,7 @@ namespace org.pescuma.ModelSharp.Core
 			return CreateFile(type, templateName, className);
 		}
 
-		private bool IsMarkedToOverride(string fullname)
+		public static bool IsMarkedToOverride(string fullname)
 		{
 			using (var file = new StreamReader(fullname))
 			{

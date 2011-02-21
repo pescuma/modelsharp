@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.CollectionInfo" #>
+<#@ parameter name="target" type="System.String" #>
+<# if (!it.DeepCopy) { #>
+			<#= target #>.AddRange(other.<#= it.Name #>);
+<# } else if (it.ContentsType.IsPrimitive) { #>
+			<#= target #>.AddRange(other.<#= it.Name #>);
+<# } else if (it.ContentsType.HasCopyConstructor) { #>
+			foreach (<#= it.Contents #> otherItem in other.<#= it.Name #>)
+			{
+				if (otherItem == null)
+					<#= target #>.Add(null);
+				else
+					<#= target #>.Add(new <#= it.Contents #>(otherItem));
+			}
+<# } else if (it.ContentsType.CreateExternalCopyMethod("otherItem") != null) { #>
+			foreach (<#= it.Contents #> otherItem in other.<#= it.Name #>)
+			{
+				if (otherItem == null)
+					<#= target #>.Add(null);
+				else
+					<#= target #>.Add(<#= it.ContentsType.CreateExternalCopyMethod("otherItem") #>);
+			}
+<# } else  { #>
+			???;
+<# } #>

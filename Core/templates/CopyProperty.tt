@@ -1,0 +1,25 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#@ parameter name="target" type="System.String" #>
+<#	if (!it.DeepCopy) { #>
+			<#= target #> = other.<#= it.Name #>;
+<#	} else if (it.IsPrimitive) { #>
+			<#= target #> = other.<#= it.Name #>;
+<#	} else if (it.HasCopyConstructor) { #>
+<#		if (!it.Required && it.LazyInitializer == null) { #>
+			if (other.<#= it.Name #> == null)
+				<#= target #> = null;
+			else
+<#		} #>
+				<#= target #> = new <#= it.TypeName #>(other.<#= it.Name #>);
+<#	} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
+<#		if (!it.Required) { #>
+			if (other.<#= it.Name #> == null)
+				<#= target #> = null;
+			else
+<#		} #>
+				<#= target #> = <#= it.CreateExternalCopyMethod("other." + it.Name) #>;
+<#	} else  { #>
+			???;
+<#	} #>

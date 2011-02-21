@@ -1,0 +1,34 @@
+<model namespace="examples.deepCopy">
+	<type name="Person" deepCopy="true">
+		<collection name="homeAddressCol" contents="Address" deepCopy="true" />
+    <collection name="workAddressCol" contents="Address" deepCopy="false" />
+    <collection name="lazyAddressCol" contents="Address" deepCopy="true" lazy="true" />
+    <collection name="stringCol" contents="string" deepCopy="true" />
+    <collection name="stringCol2" contents="string" deepCopy="false" />
+    <collection name="doubleCol" contents="double" deepCopy="true" />
+    <collection name="doubleCol2" contents="double" deepCopy="false" />
+    <property name="homeAddressProp" type="Address" deepCopy="true" />
+		<property name="workAddressProp" type="Address" deepCopy="false" />
+  </type>
+	<type name="Address" deepCopy="false">
+		<property name="street" type="string" />
+		<property name="city" type="string" deepCopy="true" />
+		<property name="zipCode" type="string" />
+  </type>
+  
+  <type name="ImmutablePerson" deepCopy="true" immutable="true">
+    <collection name="homeAddressCol" contents="ImmutableAddress" deepCopy="true" />
+    <collection name="workAddressCol" contents="ImmutableAddress" deepCopy="false" />
+    <collection name="stringCol" contents="string" deepCopy="true" />
+    <collection name="stringCol2" contents="string" deepCopy="false" />
+    <collection name="doubleCol" contents="double" deepCopy="true" />
+    <collection name="doubleCol2" contents="double" deepCopy="false" />
+    <property name="homeAddressProp" type="Address" deepCopy="true" />
+    <property name="workAddressProp" type="Address" deepCopy="false" />
+  </type>
+  <type name="ImmutableAddress" deepCopy="false" immutable="true">
+    <property name="street" type="string" />
+    <property name="city" type="string" deepCopy="true" />
+    <property name="zipCode" type="string" />
+  </type>
+</model>

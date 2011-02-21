@@ -215,6 +215,10 @@ namespace org.pescuma.ModelSharp.Core
 
 					var ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
 					                      type.serializable);
+
+					if (type.deepCopySpecified)
+						ti.DeepCopy = type.deepCopy;
+
 					if (!string.IsNullOrEmpty(type.doc))
 						ti.Documentation = type.doc;
 
@@ -256,6 +260,9 @@ namespace org.pescuma.ModelSharp.Core
 
 							var prop = new PropertyInfo(ti, property.name, property.type, property.required, false);
 
+							if (property.deepCopySpecified)
+								prop.DeepCopy = property.deepCopy;
+
 							if (!string.IsNullOrEmpty(property.doc))
 								prop.Documentation = property.doc;
 
@@ -288,6 +295,9 @@ namespace org.pescuma.ModelSharp.Core
 							var collection = (collection) item;
 
 							var col = new CollectionInfo(ti, collection.name, collection.contents, collection.lazy);
+
+							if (collection.deepCopySpecified)
+								col.DeepCopy = collection.deepCopy;
 
 							if (!string.IsNullOrEmpty(collection.doc))
 								col.Documentation = collection.doc;
@@ -345,6 +355,25 @@ namespace org.pescuma.ModelSharp.Core
 			AddDataContracts(model);
 			AddDebugAttributes(model);
 			AddClonable(model);
+			CheckIfCanCloneAllNeededFields(model);
+		}
+
+		private void CheckIfCanCloneAllNeededFields(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				if (!type.Cloneable)
+					continue;;
+
+				foreach (var prop in type.Properties)
+				{
+					if (!prop.DeepCopy)
+						continue;
+
+					if (!prop.HasCopyConstructor && prop.CreateExternalCopyMethod("a") == null)
+						log.Error("Can't deep copy field " + type.Name + "." + prop.Name);
+				}
+			}
 		}
 
 		private void UpdateExtendsProperties(ModelInfo model)

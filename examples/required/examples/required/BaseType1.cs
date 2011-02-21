@@ -53,9 +53,9 @@ namespace examples.required
 		
 		public BaseType1(BaseType1 other)
 		{
-			_prop1 = other.Prop1;
+			_prop1 = new Type2(other.Prop1);
 			AddProp1Listeners(_prop1);
-			_prop2 = other.Prop2;
+			_prop2 = new Type2(other.Prop2);
 			AddProp2Listeners(_prop2);
 			_prop3 = other.Prop3;
 			_prop4 = other.Prop4;
@@ -548,8 +548,8 @@ namespace examples.required
 		
 		public virtual void CopyFrom(Type1 other)
 		{
-			Prop1 = other.Prop1;
-			Prop2 = other.Prop2;
+			Prop1 = new Type2(other.Prop1);
+			Prop2 = new Type2(other.Prop2);
 			Prop3 = other.Prop3;
 			Prop4 = other.Prop4;
 			Prop5 = other.Prop5;

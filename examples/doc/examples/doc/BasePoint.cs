@@ -44,8 +44,9 @@ namespace examples.doc
 			_x = other.X;
 			_y = new Point(other.Y);
 			AddYListeners(_y);
-			_ws = new ObservableList<double>(other.Ws);
+			_ws = new ObservableList<double>();
 			AddWsListListeners(_ws);
+			_ws.AddRange(other.Ws);
 		}
 		
 		#endregion

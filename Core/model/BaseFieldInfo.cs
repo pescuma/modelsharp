@@ -105,16 +105,43 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
+		public bool IsPrimitiveOrString
+		{
+			get
+			{
+				var stringNames = new HashSet<string>();
+				stringNames.Add("string");
+				stringNames.Add("String");
+
+				return IsPrimitive || stringNames.Contains(TypeName);
+			}
+		}
+
 		public virtual bool CanListenTo
 		{
 			get
 			{
-				HashSet<string> notListenTo = new HashSet<string>();
-				notListenTo.Add("string");
-				notListenTo.Add("String");
-
-				return !IsPrimitive && !notListenTo.Contains(TypeName);
+				return !IsPrimitiveOrString;
 			}
+		}
+
+		public virtual bool HasCopyConstructor
+		{
+			get
+			{
+				return !IsPrimitiveOrString;
+			}
+		}
+
+		public virtual string CreateExternalCopyMethod(string varName)
+		{
+			if (IsPrimitive)
+				return varName;
+
+			if (TypeName == "string" || TypeName == "string")
+				return "string.Copy(" + varName + ")";
+
+			return null;
 		}
 	}
 }

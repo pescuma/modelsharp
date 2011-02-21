@@ -57,6 +57,16 @@
     <Compile Include="computed-property\examples\computeProperty\MyClass.cs" />
     <Compile Include="computed-property\examples\computeProperty\MyImmutableClass.cs" />
     <Compile Include="computed-property\examples\computeProperty\MyImmutableClassBuilder.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\Address.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\BaseAddress.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\BaseImmutableAddress.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\BaseImmutablePerson.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\BasePerson.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\ImmutableAddress.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\ImmutableAddressBuilder.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\ImmutablePerson.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\ImmutablePersonBuilder.cs" />
+    <Compile Include="deepCopy\examples\deepCopy\Person.cs" />
     <Compile Include="doc\examples\doc\BaseImmutablePoint.cs" />
     <Compile Include="doc\examples\doc\BasePoint.cs" />
     <Compile Include="doc\examples\doc\ImmutablePoint.cs" />
@@ -110,6 +120,7 @@
     <Content Include="collection\model.xml" />
     <Content Include="composition\model.xml" />
     <Content Include="computed-property\model.xml" />
+    <Content Include="deepCopy\model.xml" />
     <Content Include="doc\model.xml" />
     <Content Include="extends\model.xml" />
     <Content Include="immutable\model.xml" />

@@ -30,11 +30,31 @@ namespace org.pescuma.ModelSharp.Core.model
 		public bool Required;
 		public bool Lazy;
 		public int Order = -1;
+		protected bool? deepCopy;
 
 		public MethodInfo Getter;
 		public MethodInfo Setter;
 		public MethodInfo WithSetter;
 		public MethodInfo LazyInitializer;
+
+		public virtual bool DeepCopy
+		{
+			get
+			{
+				if (deepCopy == null)
+				{
+					if (IsPrimitiveOrString)
+						return false;
+					else
+						return Owner.DeepCopy;
+				}
+				else
+				{
+					return (bool) deepCopy;
+				}
+			}
+			set { deepCopy = value; }
+		}
 
 		public string GetterVisibility
 		{

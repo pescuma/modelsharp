@@ -38,11 +38,14 @@ namespace examples.collection
 		
 		public BasePerson(BasePerson other)
 		{
-			_cars = new ObservableList<string>(other.Cars);
+			_cars = new ObservableList<string>();
 			AddCarsListListeners(_cars);
+			_cars.AddRange(other.Cars);
 			_name = other.Name;
-			_houses = new ObservableList<House>(other.Houses);
+			_houses = new ObservableList<House>();
 			AddHousesListListeners(_houses);
+			foreach (House otherItem in other.Houses)
+				_houses.Add(new House(otherItem));
 		}
 		
 		#endregion
@@ -293,7 +296,8 @@ namespace examples.collection
 			Cars.AddRange(other.Cars);
 			Name = other.Name;
 			Houses.Clear();
-			Houses.AddRange(other.Houses);
+			foreach (House otherItem in other.Houses)
+				Houses.Add(new House(otherItem));
 		}
 		
 		#region Property Notification

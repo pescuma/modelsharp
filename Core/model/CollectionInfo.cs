@@ -46,6 +46,25 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return false; }
 		}
 
+		public override bool DeepCopy
+		{
+			get
+			{
+				if (deepCopy == null)
+				{
+					if (ContentsType.IsPrimitiveOrString)
+						return false;
+					else
+						return Owner.DeepCopy;
+				}
+				else
+				{
+					return (bool) deepCopy;
+				}
+			}
+			set { base.DeepCopy = value; }
+		}
+
 		public override void MakeImmutable()
 		{
 			base.MakeImmutable();

@@ -46,7 +46,9 @@ namespace examples.doc
 		{
 			X = other.X;
 			Y = new Point(other.Y);
-			Ws = new ReadOnlyCollection<double>(new List<double>(other.Ws));
+			var ws = new List<double>();
+			ws.AddRange(other.Ws);
+			Ws = new ReadOnlyCollection<double>(ws);
 		}
 		
 		public virtual ImmutablePoint WithX(double x)

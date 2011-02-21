@@ -35,9 +35,11 @@ namespace examples.computeProperty
 		{
 			X = other.X;
 			Y = other.Y;
-			_squaredLengthCachedCacheValid = other._squaredLengthCachedCacheValid;
-			_squaredLengthCachedCache = other._squaredLengthCachedCache;
-			Children = new ReadOnlyCollection<MyClass>(new List<MyClass>(other.Children));
+			_squaredLengthCachedCacheValid = false;
+			var children = new List<MyClass>();
+			foreach (MyClass otherItem in other.Children)
+				children.Add(new MyClass(otherItem));
+			Children = new ReadOnlyCollection<MyClass>(children);
 		}
 		
 		public virtual MyImmutableClass WithX(double x)

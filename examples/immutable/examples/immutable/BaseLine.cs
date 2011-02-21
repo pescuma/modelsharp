@@ -36,10 +36,13 @@ namespace examples.immutable
 		
 		public BaseLine(BaseLine other)
 		{
-			P1 = other.P1;
-			P2 = other.P2;
+			P1 = new Point(other.P1);
+			P2 = new Point(other.P2);
 			Dir = new Point(other.Dir);
-			Border = new ReadOnlyCollection<Point>(new List<Point>(other.Border));
+			var border = new List<Point>();
+			foreach (Point otherItem in other.Border)
+				border.Add(new Point(otherItem));
+			Border = new ReadOnlyCollection<Point>(border);
 		}
 		
 		public virtual Line WithP1(Point p1)

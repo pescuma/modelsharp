@@ -34,9 +34,9 @@ namespace examples.simple
 		
 		public BaseLine(BaseLine other)
 		{
-			_p1 = other.P1;
+			_p1 = new Point(other.P1);
 			AddP1Listeners(_p1);
-			_p2 = other.P2;
+			_p2 = new Point(other.P2);
 			AddP2Listeners(_p2);
 		}
 		
@@ -258,8 +258,8 @@ namespace examples.simple
 		
 		public virtual void CopyFrom(Line other)
 		{
-			P1 = other.P1;
-			P2 = other.P2;
+			P1 = new Point(other.P1);
+			P2 = new Point(other.P2);
 		}
 		
 		#region Property Notification

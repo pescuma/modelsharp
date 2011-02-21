@@ -33,7 +33,7 @@ namespace examples.extends
 		public BaseC(BaseC other)
 		: base(other)
 		{
-			_date2 = other.Date2;
+			_date2 = new DateTime(other.Date2);
 			AddDate2Listeners(_date2);
 		}
 		
@@ -149,7 +149,7 @@ namespace examples.extends
 		public virtual void CopyFrom(C other)
 		{
 			base.CopyFrom(other);
-			Date2 = other.Date2;
+			Date2 = new DateTime(other.Date2);
 		}
 		
 		#region Property Notification

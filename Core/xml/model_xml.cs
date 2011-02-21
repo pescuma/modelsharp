@@ -95,6 +95,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private bool cloneableFieldSpecified;
         
+        private bool deepCopyField;
+        
+        private bool deepCopyFieldSpecified;
+        
         private string docField;
         
         private string extendsField;
@@ -154,6 +158,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.cloneableFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool deepCopy {
+            get {
+                return this.deepCopyField;
+            }
+            set {
+                this.deepCopyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deepCopySpecified {
+            get {
+                return this.deepCopyFieldSpecified;
+            }
+            set {
+                this.deepCopyFieldSpecified = value;
             }
         }
         
@@ -397,6 +423,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string contentsField;
         
+        private bool deepCopyField;
+        
+        private bool deepCopyFieldSpecified;
+        
         private string docField;
         
         private bool lazyField;
@@ -413,6 +443,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.contentsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool deepCopy {
+            get {
+                return this.deepCopyField;
+            }
+            set {
+                this.deepCopyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deepCopySpecified {
+            get {
+                return this.deepCopyFieldSpecified;
+            }
+            set {
+                this.deepCopyFieldSpecified = value;
             }
         }
         
@@ -659,6 +711,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class property {
         
+        private bool deepCopyField;
+        
+        private bool deepCopyFieldSpecified;
+        
         private string defaultField;
         
         private string docField;
@@ -674,6 +730,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         private string setterField;
         
         private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool deepCopy {
+            get {
+                return this.deepCopyField;
+            }
+            set {
+                this.deepCopyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool deepCopySpecified {
+            get {
+                return this.deepCopyFieldSpecified;
+            }
+            set {
+                this.deepCopyFieldSpecified = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]

@@ -3,14 +3,38 @@
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <# if (it is CollectionInfo) { 
 	var col = (CollectionInfo) it; #>
-			<#= col.Name #> = new ReadOnlyCollection<<#= col.Contents #>>(new List<<#= col.Contents #>>(other.<#= col.Name #>));
-<# } else if (it is ComponentInfo)  { 
-	var comp = (ComponentInfo) it; #>
-			<#= comp.Name #> = new <#= comp.TypeName #>(other.<#= comp.Name #>);
+			var <#= col.VarName #> = new List<<#= col.Contents #>>();
+<#		if (!col.DeepCopy) { #>
+			<#= col.VarName #>.AddRange(other.<#= col.Name #>);
+<#		} else if (col.ContentsType.HasCopyConstructor) { #>
+			foreach (<#= col.Contents #> otherItem in other.<#= col.Name #>)
+				<#= col.VarName #>.Add(new <#= col.Contents #>(otherItem));
+<#		} else if (col.ContentsType.CreateExternalCopyMethod("otherItem") != null) { #>
+			foreach (<#= col.Contents #> otherItem in other.<#= col.Name #>)
+				<#= col.VarName #>.Add(<#= col.ContentsType.CreateExternalCopyMethod("otherItem") #>);
+<#		} else  { #>
+			???;
+<#		} #>
+			<#= col.Name #> = new ReadOnlyCollection<<#= col.Contents #>>(<#= col.VarName #>);
+<# } else if (it is ComponentInfo)  { #>
+<#		if (it.HasCopyConstructor) { #>
+			<#= it.FieldName #> = new <#= it.TypeName #>(other.<#= it.Name #>);
+<#		} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
+			<#= it.FieldName #>.Add(<#= it.CreateExternalCopyMethod("other." + it.Name) #>);
+<#		} else  { #>
+			???;
+<#		} #>
 <# } else if (it.IsComputedAndCached) {
 	var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.ValidFieldName #> = other.<#= computed.ValidFieldName #>;
-			<#= it.FieldName #> = other.<#= it.FieldName #>;
+			<#= computed.ValidFieldName #> = false;
 <# } else if (!it.IsComputed) { #>
-			<#= it.Name#> = other.<#= it.Name #>;
+<#		if (!it.DeepCopy) { #>
+			<#= it.FieldName #> = other.<#= it.Name #>;
+<#		} else if (it.HasCopyConstructor) { #>
+			<#= it.FieldName #> = new <#= it.TypeName #>(other.<#= it.Name #>);
+<#		} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
+			<#= it.FieldName #> = <#= it.CreateExternalCopyMethod("other." + it.Name) #>;
+<#		} else  { #>
+			???;
+<#		} #>
 <# } #>

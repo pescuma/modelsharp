@@ -32,7 +32,7 @@ namespace examples.privateSetter
 		
 		public BaseTest(BaseTest other)
 		{
-			_date = other.Date;
+			_date = new DateTime(other.Date);
 			AddDateListeners(_date);
 		}
 		
@@ -147,7 +147,7 @@ namespace examples.privateSetter
 		
 		public virtual void CopyFrom(Test other)
 		{
-			Date = other.Date;
+			Date = new DateTime(other.Date);
 		}
 		
 		#region Property Notification

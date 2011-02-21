@@ -36,7 +36,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool Cloneable;
 		public readonly bool Serializable;
 		public string Documentation;
-		public bool DeepCopy = true;
+		public bool DeepCopy = false;
 
 		public string Extends;
 		public readonly BaseClassInfo BaseClass = new BaseClassInfo();

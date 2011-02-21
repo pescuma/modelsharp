@@ -36,10 +36,7 @@ namespace examples.nonserializable
 		{
 			_x = other.X;
 			_y = other.Y;
-			if (other.A == null)
-				_a = null;
-			else
-				_a = new Point(other.A);
+			_a = other.A;
 			AddAListeners(_a);
 		}
 		
@@ -231,10 +228,7 @@ namespace examples.nonserializable
 		{
 			X = other.X;
 			Y = other.Y;
-			if (other.A == null)
-				A = null;
-			else
-				A = new Point(other.A);
+			A = other.A;
 		}
 		
 		#region Property Notification

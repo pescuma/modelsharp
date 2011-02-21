@@ -35,7 +35,10 @@ namespace examples.lazy
 		
 		public BaseType1(BaseType1 other)
 		{
-			_prop1 = new Type2(other.Prop1);
+			if (other.Prop1 == null)
+				_prop1 = null;
+			else
+				_prop1 = new Type2(other.Prop1);
 			AddProp1Listeners(_prop1);
 			if (other._comp1 != null)
 			{
@@ -47,7 +50,12 @@ namespace examples.lazy
 				_col1 = new ObservableList<Type2>();
 				AddCol1ListListeners(_col1);
 				foreach (Type2 otherItem in other.Col1)
-					_col1.Add(new Type2(otherItem));
+				{
+					if (otherItem == null)
+						_col1.Add(null);
+					else
+						_col1.Add(new Type2(otherItem));
+				}
 			}
 		}
 		
@@ -395,7 +403,10 @@ namespace examples.lazy
 		
 		public virtual void CopyFrom(Type1 other)
 		{
-			Prop1 = new Type2(other.Prop1);
+			if (other.Prop1 == null)
+				Prop1 = null;
+			else
+				Prop1 = new Type2(other.Prop1);
 			if (other._comp1 != null)
 			{
 				Comp1.CopyFrom(other.Comp1);
@@ -409,7 +420,12 @@ namespace examples.lazy
 			{
 				Col1.Clear();
 				foreach (Type2 otherItem in other.Col1)
-					Col1.Add(new Type2(otherItem));
+				{
+					if (otherItem == null)
+						Col1.Add(null);
+					else
+						Col1.Add(new Type2(otherItem));
+				}
 			}
 			else
 			{

@@ -38,7 +38,12 @@ namespace examples.computeProperty
 			_squaredLengthCachedCacheValid = false;
 			var children = new List<MyClass>();
 			foreach (MyClass otherItem in other.Children)
-				children.Add(new MyClass(otherItem));
+			{
+				if (otherItem == null)
+					children.Add(null);
+				else
+					children.Add(new MyClass(otherItem));
+			}
 			Children = new ReadOnlyCollection<MyClass>(children);
 		}
 		

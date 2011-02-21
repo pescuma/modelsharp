@@ -33,7 +33,10 @@ namespace examples.@using
 		
 		public BaseTest(BaseTest other)
 		{
-			_date = new DateTime(other.Date);
+			if (other.Date == null)
+				_date = null;
+			else
+				_date = new DateTime(other.Date);
 			AddDateListeners(_date);
 		}
 		
@@ -148,7 +151,10 @@ namespace examples.@using
 		
 		public virtual void CopyFrom(Test other)
 		{
-			Date = new DateTime(other.Date);
+			if (other.Date == null)
+				Date = null;
+			else
+				Date = new DateTime(other.Date);
 		}
 		
 		#region Property Notification

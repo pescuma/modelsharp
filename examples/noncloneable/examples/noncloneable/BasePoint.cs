@@ -225,7 +225,10 @@ namespace examples.noncloneable
 		{
 			X = other.X;
 			Y = other.Y;
-			A = new Point(other.A);
+			if (other.A == null)
+				A = null;
+			else
+				A = new Point(other.A);
 		}
 		
 		#region Property Notification

@@ -45,7 +45,12 @@ namespace examples.collection
 			_houses = new ObservableList<House>();
 			AddHousesListListeners(_houses);
 			foreach (House otherItem in other.Houses)
-				_houses.Add(new House(otherItem));
+			{
+				if (otherItem == null)
+					_houses.Add(null);
+				else
+					_houses.Add(new House(otherItem));
+			}
 		}
 		
 		#endregion
@@ -297,7 +302,12 @@ namespace examples.collection
 			Name = other.Name;
 			Houses.Clear();
 			foreach (House otherItem in other.Houses)
-				Houses.Add(new House(otherItem));
+			{
+				if (otherItem == null)
+					Houses.Add(null);
+				else
+					Houses.Add(new House(otherItem));
+			}
 		}
 		
 		#region Property Notification

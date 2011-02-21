@@ -33,7 +33,10 @@ namespace examples.extends
 		public BaseS2(BaseS2 other)
 		: base(other)
 		{
-			_date2 = new DateTime(other.Date2);
+			if (other.Date2 == null)
+				_date2 = null;
+			else
+				_date2 = new DateTime(other.Date2);
 			AddDate2Listeners(_date2);
 		}
 		
@@ -148,7 +151,10 @@ namespace examples.extends
 		
 		public virtual void CopyFrom(S2 other)
 		{
-			Date2 = new DateTime(other.Date2);
+			if (other.Date2 == null)
+				Date2 = null;
+			else
+				Date2 = new DateTime(other.Date2);
 		}
 		
 		#region Property Notification

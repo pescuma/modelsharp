@@ -99,7 +99,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line 8 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it is CollectionInfo) { 
-	var col = (CollectionInfo) it; 
+		var col = (CollectionInfo) it; 
             
             #line default
             #line hidden
@@ -134,322 +134,79 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		if (!col.DeepCopy) { 
+		Include("CopyList", col, "target", col.FieldName); 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
             
             #line 13 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(".AddRange(other.");
-            
-            #line 13 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else if (col.ContentsType.HasCopyConstructor) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tforeach (");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(" otherItem in other.");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n\t\t\t\t");
-            
-            #line 16 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(".Add(new ");
-            
-            #line 16 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write("(otherItem));\r\n");
-            
-            #line 17 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else if (col.ContentsType.CreateExternalCopyMethod("otherItem") != null) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tforeach (");
-            
-            #line 18 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(" otherItem in other.");
-            
-            #line 18 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Name));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n\t\t\t\t");
-            
-            #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(".Add(");
-            
-            #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.ContentsType.CreateExternalCopyMethod("otherItem")));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 20 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else  { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t???;\r\n");
-            
-            #line 22 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} 
-            
-            #line default
-            #line hidden
-            
-            #line 23 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
- } else if (it is ComponentInfo)  { 
-            
-            #line default
-            #line hidden
-            
-            #line 24 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		if (it.HasCopyConstructor) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 25 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 25 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("(other.");
-            
-            #line 25 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 26 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 27 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 27 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.CreateExternalCopyMethod("other." + it.Name)));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 28 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else  { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t???;\r\n");
-            
-            #line 30 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} 
-            
-            #line default
-            #line hidden
-            
-            #line 31 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } else if (it.IsComputedAndCached) {
-	var computed = (ComputedPropertyInfo) it; 
+		var computed = (ComputedPropertyInfo) it; 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 33 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = false;\r\n");
             
-            #line 34 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } else if (!it.IsComputed) { 
             
             #line default
             #line hidden
             
-            #line 35 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		if (!it.DeepCopy) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 36 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = other.");
-            
-            #line 36 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 37 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else if (it.HasCopyConstructor) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 38 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 38 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("(other.");
-            
-            #line 38 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 39 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 40 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 40 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.CreateExternalCopyMethod("other." + it.Name)));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 41 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} else  { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t???;\r\n");
-            
-            #line 43 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		} 
+            #line 17 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+		Include("CopyProperty", it, "target", it.FieldName); 
             
             #line default
             #line hidden
             
-            #line 44 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 18 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 44 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 18 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 45 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(");
             
-            #line 45 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 46 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 20 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 47 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t}\r\n");
             
-            #line 49 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default

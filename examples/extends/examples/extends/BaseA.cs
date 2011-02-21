@@ -32,7 +32,10 @@ namespace examples.extends
 		
 		public BaseA(BaseA other)
 		{
-			_date = new DateTime(other.Date);
+			if (other.Date == null)
+				_date = null;
+			else
+				_date = new DateTime(other.Date);
 			AddDateListeners(_date);
 		}
 		
@@ -147,7 +150,10 @@ namespace examples.extends
 		
 		public virtual void CopyFrom(A other)
 		{
-			Date = new DateTime(other.Date);
+			if (other.Date == null)
+				Date = null;
+			else
+				Date = new DateTime(other.Date);
 		}
 		
 		#region Property Notification

@@ -97,6 +97,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ComputedProperty.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\CopyList.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CopyList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\CopyProperty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CopyProperty.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\Define.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -248,6 +258,14 @@
     <None Include="templates\ComputedProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ComputedProperty.cs</LastGenOutput>
+    </None>
+    <None Include="templates\CopyList.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CopyList.cs</LastGenOutput>
+    </None>
+    <None Include="templates\CopyProperty.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CopyProperty.cs</LastGenOutput>
     </None>
     <None Include="templates\Define.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

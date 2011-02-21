@@ -46,7 +46,12 @@ namespace examples.computeProperty
 			_children = new ObservableList<MyClass>();
 			AddChildrenListListeners(_children);
 			foreach (MyClass otherItem in other.Children)
-				_children.Add(new MyClass(otherItem));
+			{
+				if (otherItem == null)
+					_children.Add(null);
+				else
+					_children.Add(new MyClass(otherItem));
+			}
 		}
 		
 		#endregion
@@ -365,7 +370,12 @@ namespace examples.computeProperty
 			Y = other.Y;
 			Children.Clear();
 			foreach (MyClass otherItem in other.Children)
-				Children.Add(new MyClass(otherItem));
+			{
+				if (otherItem == null)
+					Children.Add(null);
+				else
+					Children.Add(new MyClass(otherItem));
+			}
 		}
 		
 		#region Property Notification

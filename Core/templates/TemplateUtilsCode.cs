@@ -25,7 +25,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 {
 	partial class TemplateUtils
 	{
-		protected void Include(string templateName, object item, object args = null)
+		protected void Include(string templateName, object item, params object[] args)
 		{
 			TemplateWrapper template = new TemplateWrapper(templateName);
 
@@ -33,9 +33,8 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 			template.SetAttribute("it", item);
 			template.SetAttribute("index", 0);
-			if (args != null)
-				foreach (var prop in args.GetType().GetProperties())
-					template.SetAttribute(prop.Name, prop.GetValue(args, null));
+			for (int i = 0; i < args.Length; i += 2)
+				template.SetAttribute((string) args[i], args[i + 1]);
 
 			string txt = template.Render();
 
@@ -57,8 +56,8 @@ namespace org.pescuma.ModelSharp.Core.templates
 			}
 		}
 
-		protected void ForEach(string templateName, IEnumerable items, object args = null,
-		                       string separator = "")
+		protected void ForEach(string templateName, IEnumerable items, string separator = "",
+		                       params object[] args)
 		{
 			TemplateWrapper template = new TemplateWrapper(templateName);
 
@@ -72,9 +71,8 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 				template.SetAttribute("it", item);
 				template.SetAttribute("index", index);
-				if (args != null)
-					foreach (var prop in args.GetType().GetProperties())
-						template.SetAttribute(prop.Name, prop.GetValue(args, null));
+				for (int i = 0; i < args.Length; i += 2)
+					template.SetAttribute((string) args[i], args[i + 1]);
 
 				string txt = template.Render();
 

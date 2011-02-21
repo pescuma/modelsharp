@@ -36,12 +36,23 @@ namespace examples.immutable
 		
 		public BaseLine(BaseLine other)
 		{
-			P1 = new Point(other.P1);
-			P2 = new Point(other.P2);
+			if (other.P1 == null)
+				P1 = null;
+			else
+				P1 = new Point(other.P1);
+			if (other.P2 == null)
+				P2 = null;
+			else
+				P2 = new Point(other.P2);
 			Dir = new Point(other.Dir);
 			var border = new List<Point>();
 			foreach (Point otherItem in other.Border)
-				border.Add(new Point(otherItem));
+			{
+				if (otherItem == null)
+					border.Add(null);
+				else
+					border.Add(new Point(otherItem));
+			}
 			Border = new ReadOnlyCollection<Point>(border);
 		}
 		

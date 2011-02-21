@@ -8,32 +8,14 @@
 <# if (it is CollectionInfo) { 
 	var col = (CollectionInfo) it; #>
 			<#= col.Name #>.Clear();
-<#		if (!col.DeepCopy) { #>
-			<#= col.Name #>.AddRange(other.<#= col.Name #>);
-<#		} else if (col.ContentsType.HasCopyConstructor) { #>
-			foreach (<#= col.Contents #> otherItem in other.<#= col.Name #>)
-				<#= col.Name #>.Add(new <#= col.Contents #>(otherItem));
-<#		} else if (col.ContentsType.CreateExternalCopyMethod("otherItem") != null) { #>
-			foreach (<#= col.Contents #> otherItem in other.<#= col.Name #>)
-				<#= col.Name #>.Add(<#= col.ContentsType.CreateExternalCopyMethod("otherItem") #>);
-<#		} else  { #>
-			???;
-<#		} #>
+<#	Include("CopyList", col, "target", col.Name); #>
 <# } else if (it.IsComponent) { #>
 			<#= it.Name #>.CopyFrom(other.<#= it.Name #>);
 <# } else if (it.IsComputedAndCached) {
 		var computed = (ComputedPropertyInfo) it; #>
 			<#= computed.ValidFieldName #> = false;
 <# } else { #>
-<#		if (!it.DeepCopy) { #>
-			<#= it.Name #> = other.<#= it.Name #>;
-<#		} else if (it.HasCopyConstructor) { #>
-			<#= it.Name #> = new <#= it.TypeName #>(other.<#= it.Name #>);
-<#		} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
-			<#= it.Name #> = <#= it.CreateExternalCopyMethod("other." + it.Name) #>;
-<#		} else  { #>
-			???;
-<#		} #>
+<#	Include("CopyProperty", it, "target", it.Name); #>
 <# } #>
 <# if (it.LazyInitializer != null) { #>
 			}

@@ -4,4 +4,12 @@
 	<type name="Test">
 		<property name="date" type="DateTime" />
 	</type>
+	
+	<type name="Test2">
+		<using namespace="System.Collections" />
+	
+		<property name="date" type="DateTime" />
+
+		<using namespace="System.IO" />
+	</type>
 </model>

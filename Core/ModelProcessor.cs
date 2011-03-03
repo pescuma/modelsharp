@@ -202,7 +202,7 @@ namespace org.pescuma.ModelSharp.Core
 
 		private ModelInfo CreateModel(xml.model model)
 		{
-			ModelInfo ret = new ModelInfo();
+			ModelInfo result = new ModelInfo();
 
 			if (model.projectNamespace != "")
 				ProjectNamespace = model.projectNamespace;
@@ -320,18 +320,23 @@ namespace org.pescuma.ModelSharp.Core
 
 							ti.Properties.Add(prop);
 						}
+						else if (item is @using)
+						{
+							var us = item as @using;
+							ti.Using.Add(us.@namespace);
+						}
 					}
 
-					ret.AddType(ti);
+					result.AddType(ti);
 				}
 				else if (modelItem is @using)
 				{
-					@using us = modelItem as @using;
-					ret.Using.Add(us.@namespace);
+					var us = modelItem as @using;
+					result.Using.Add(us.@namespace);
 				}
 			}
 
-			return ret;
+			return result;
 		}
 
 		private bool ValidateVisibility(string visibility, string name)
@@ -363,7 +368,7 @@ namespace org.pescuma.ModelSharp.Core
 			foreach (var type in model.Types)
 			{
 				if (!type.Cloneable)
-					continue;;
+					continue;
 
 				foreach (var prop in type.Properties)
 				{

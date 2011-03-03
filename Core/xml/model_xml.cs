@@ -130,6 +130,7 @@ namespace org.pescuma.ModelSharp.Core.xml {
         [System.Xml.Serialization.XmlElementAttribute("component", typeof(component))]
         [System.Xml.Serialization.XmlElementAttribute("computed-property", typeof(computedproperty))]
         [System.Xml.Serialization.XmlElementAttribute("property", typeof(property))]
+        [System.Xml.Serialization.XmlElementAttribute("using", typeof(@using))]
         public object[] Items {
             get {
                 return this.itemsField;

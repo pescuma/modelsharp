@@ -1,7 +1,7 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
-			<#= it.FieldName #> = <#= it.VarName #>;
+			this.<#= it.FieldName #> = <#= it.VarName #>;
 <# if (it.CanListenTo) { #>
-			Add<#= it.Name #>Listeners(<#= it.FieldName #>);
+			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
 <# } #>

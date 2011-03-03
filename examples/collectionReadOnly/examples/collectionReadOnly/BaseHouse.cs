@@ -31,7 +31,7 @@ namespace examples.collectionReadOnly
 		
 		public BaseHouse(BaseHouse other)
 		{
-			_address = other.Address;
+			this._address = other.Address;
 		}
 		
 		#endregion
@@ -56,17 +56,17 @@ namespace examples.collectionReadOnly
 		
 		protected virtual string GetAddress()
 		{
-			return _address;
+			return this._address;
 		}
 		
 		protected virtual bool SetAddress(string address)
 		{
-			if (_address == address)
+			if (this._address == address)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.ADDRESS);
 			
-			_address = address;
+			this._address = address;
 			
 			NotifyPropertyChanged(PROPERTIES.ADDRESS);
 			

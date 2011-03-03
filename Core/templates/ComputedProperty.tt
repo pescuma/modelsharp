@@ -33,11 +33,11 @@
 		{
 			if (!<#= computed.ValidFieldName #>)
 			{
-				<#= computed.FieldName #> = <#= computed.Getter.Name #>();
-				<#= computed.ValidFieldName #> = true;
+				this.<#= computed.FieldName #> = <#= computed.Getter.Name #>();
+				this.<#= computed.ValidFieldName #> = true;
 			}
 
-			return <#= it.FieldName #>;
+			return this.<#= it.FieldName #>;
 		}
 <# } #>
 <# if (computed.Formula != null) { #>

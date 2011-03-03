@@ -28,18 +28,18 @@ namespace examples.composition
 		
 		public BasePerson()
 		{
-			_homeAddress = new Address();
-			AddHomeAddressListeners(_homeAddress);
-			_workAddress = new Address();
-			AddWorkAddressListeners(_workAddress);
+			this._homeAddress = new Address();
+			AddHomeAddressListeners(this._homeAddress);
+			this._workAddress = new Address();
+			AddWorkAddressListeners(this._workAddress);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			_homeAddress = new Address(other.HomeAddress);
-			AddHomeAddressListeners(_homeAddress);
-			_workAddress = new Address(other.WorkAddress);
-			AddWorkAddressListeners(_workAddress);
+			this._homeAddress = new Address(other.HomeAddress);
+			AddHomeAddressListeners(this._homeAddress);
+			this._workAddress = new Address(other.WorkAddress);
+			AddWorkAddressListeners(this._workAddress);
 		}
 		
 		#endregion
@@ -60,7 +60,7 @@ namespace examples.composition
 		
 		protected virtual Address GetHomeAddress()
 		{
-			return _homeAddress;
+			return this._homeAddress;
 		}
 		
 		private void AddHomeAddressListeners(object child)
@@ -123,7 +123,7 @@ namespace examples.composition
 		
 		protected virtual Address GetWorkAddress()
 		{
-			return _workAddress;
+			return this._workAddress;
 		}
 		
 		private void AddWorkAddressListeners(object child)

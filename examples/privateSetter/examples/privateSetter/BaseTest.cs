@@ -27,13 +27,13 @@ namespace examples.privateSetter
 		
 		public BaseTest()
 		{
-			AddDateListeners(_date);
+			AddDateListeners(this._date);
 		}
 		
 		public BaseTest(BaseTest other)
 		{
-			_date = other.Date;
-			AddDateListeners(_date);
+			this._date = other.Date;
+			AddDateListeners(this._date);
 		}
 		
 		#endregion
@@ -44,10 +44,10 @@ namespace examples.privateSetter
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private DateTime _date;
 		
-		public DateTime Date
+		protected DateTime Date
 		{
 			[DebuggerStepThrough]
-			protected get {
+			get {
 				return GetDate();
 			}
 			[DebuggerStepThrough]
@@ -58,19 +58,19 @@ namespace examples.privateSetter
 		
 		protected virtual DateTime GetDate()
 		{
-			return _date;
+			return this._date;
 		}
 		
 		protected virtual bool SetDate(DateTime date)
 		{
-			if (_date == date)
+			if (this._date == date)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.DATE);
 			
 			RemoveDateListeners(date);
 			
-			_date = date;
+			this._date = date;
 			
 			AddDateListeners(date);
 			

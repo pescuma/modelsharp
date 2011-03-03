@@ -36,9 +36,9 @@ namespace examples.immutable
 		
 		public BaseLine(BaseLine other)
 		{
-			P1 = other.P1;
-			P2 = other.P2;
-			Dir = new Point(other.Dir);
+			this.P1 = other.P1;
+			this.P2 = other.P2;
+			this.Dir = new Point(other.Dir);
 			var border = new List<Point>();
 			border.AddRange(other.Border);
 			Border = new ReadOnlyCollection<Point>(border);

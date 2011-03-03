@@ -41,32 +41,32 @@ namespace examples.required
 			if (prop5 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
-			AddProp1Listeners(_prop1);
-			AddProp2Listeners(_prop2);
-			_comp = new Type2();
-			AddCompListeners(_comp);
-			_prop2 = prop2;
-			AddProp2Listeners(_prop2);
-			_prop4 = prop4;
-			_prop5 = prop5;
+			AddProp1Listeners(this._prop1);
+			AddProp2Listeners(this._prop2);
+			this._comp = new Type2();
+			AddCompListeners(this._comp);
+			this._prop2 = prop2;
+			AddProp2Listeners(this._prop2);
+			this._prop4 = prop4;
+			this._prop5 = prop5;
 		}
 		
 		public BaseType1(BaseType1 other)
 		{
-			_prop1 = other.Prop1;
-			AddProp1Listeners(_prop1);
-			_prop2 = other.Prop2;
-			AddProp2Listeners(_prop2);
-			_prop3 = other.Prop3;
-			_prop4 = other.Prop4;
-			_prop5 = other.Prop5;
+			this._prop1 = other.Prop1;
+			AddProp1Listeners(this._prop1);
+			this._prop2 = other.Prop2;
+			AddProp2Listeners(this._prop2);
+			this._prop3 = other.Prop3;
+			this._prop4 = other.Prop4;
+			this._prop5 = other.Prop5;
 			if (other._compLazy != null)
 			{
-				_compLazy = new Type2(other.CompLazy);
-				AddCompLazyListeners(_compLazy);
+				this._compLazy = new Type2(other.CompLazy);
+				AddCompLazyListeners(this._compLazy);
 			}
-			_comp = new Type2(other.Comp);
-			AddCompListeners(_comp);
+			this._comp = new Type2(other.Comp);
+			AddCompListeners(this._comp);
 		}
 		
 		#endregion
@@ -91,19 +91,19 @@ namespace examples.required
 		
 		protected virtual Type2 GetProp1()
 		{
-			return _prop1;
+			return this._prop1;
 		}
 		
 		protected virtual bool SetProp1(Type2 prop1)
 		{
-			if (_prop1 == prop1)
+			if (this._prop1 == prop1)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
-			_prop1 = prop1;
+			this._prop1 = prop1;
 			
 			AddProp1Listeners(prop1);
 			
@@ -198,7 +198,7 @@ namespace examples.required
 		
 		protected virtual Type2 GetProp2()
 		{
-			return _prop2;
+			return this._prop2;
 		}
 		
 		protected virtual bool SetProp2(Type2 prop2)
@@ -207,14 +207,14 @@ namespace examples.required
 			if (prop2 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop2");
-			if (_prop2 == prop2)
+			if (this._prop2 == prop2)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP2);
 			
 			RemoveProp2Listeners(prop2);
 			
-			_prop2 = prop2;
+			this._prop2 = prop2;
 			
 			AddProp2Listeners(prop2);
 			
@@ -309,17 +309,17 @@ namespace examples.required
 		
 		protected virtual int GetProp3()
 		{
-			return _prop3;
+			return this._prop3;
 		}
 		
 		protected virtual bool SetProp3(int prop3)
 		{
-			if (_prop3 == prop3)
+			if (this._prop3 == prop3)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP3);
 			
-			_prop3 = prop3;
+			this._prop3 = prop3;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP3);
 			
@@ -348,17 +348,17 @@ namespace examples.required
 		
 		protected virtual int GetProp4()
 		{
-			return _prop4;
+			return this._prop4;
 		}
 		
 		protected virtual bool SetProp4(int prop4)
 		{
-			if (_prop4 == prop4)
+			if (this._prop4 == prop4)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP4);
 			
-			_prop4 = prop4;
+			this._prop4 = prop4;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP4);
 			
@@ -387,7 +387,7 @@ namespace examples.required
 		
 		protected virtual string GetProp5()
 		{
-			return _prop5;
+			return this._prop5;
 		}
 		
 		protected virtual bool SetProp5(string prop5)
@@ -396,12 +396,12 @@ namespace examples.required
 			if (prop5 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
-			if (_prop5 == prop5)
+			if (this._prop5 == prop5)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP5);
 			
-			_prop5 = prop5;
+			this._prop5 = prop5;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP5);
 			
@@ -426,17 +426,17 @@ namespace examples.required
 		
 		protected virtual void LazyInitCompLazy()
 		{
-			if (_compLazy != null)
+			if (this._compLazy != null)
 				return;
 				
-			_compLazy = new Type2();
-			AddCompLazyListeners(_compLazy);
+			this._compLazy = new Type2();
+			AddCompLazyListeners(this._compLazy);
 		}
 		
 		protected virtual Type2 GetCompLazy()
 		{
 			LazyInitCompLazy();
-			return _compLazy;
+			return this._compLazy;
 		}
 		
 		private void AddCompLazyListeners(object child)
@@ -499,7 +499,7 @@ namespace examples.required
 		
 		protected virtual Type2 GetComp()
 		{
-			return _comp;
+			return this._comp;
 		}
 		
 		private void AddCompListeners(object child)
@@ -559,8 +559,8 @@ namespace examples.required
 			}
 			else
 			{
-				if (_compLazy != null)
-					_compLazy.CopyFrom(new Type2());
+				if (this._compLazy != null)
+					this._compLazy.CopyFrom(new Type2());
 			}
 			Comp.CopyFrom(other.Comp);
 		}

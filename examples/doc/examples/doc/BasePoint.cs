@@ -33,20 +33,20 @@ namespace examples.doc
 		
 		public BasePoint()
 		{
-			_y = new Point();
-			AddYListeners(_y);
-			_ws = new ObservableList<double>();
-			AddWsListListeners(_ws);
+			this._y = new Point();
+			AddYListeners(this._y);
+			this._ws = new ObservableList<double>();
+			AddWsListListeners(this._ws);
 		}
 		
 		public BasePoint(BasePoint other)
 		{
-			_x = other.X;
-			_y = new Point(other.Y);
-			AddYListeners(_y);
-			_ws = new ObservableList<double>();
-			AddWsListListeners(_ws);
-			_ws.AddRange(other.Ws);
+			this._x = other.X;
+			this._y = new Point(other.Y);
+			AddYListeners(this._y);
+			this._ws = new ObservableList<double>();
+			AddWsListListeners(this._ws);
+			this._ws.AddRange(other.Ws);
 		}
 		
 		#endregion
@@ -74,17 +74,17 @@ namespace examples.doc
 		
 		protected virtual double GetX()
 		{
-			return _x;
+			return this._x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (_x == x)
+			if (this._x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			_x = x;
+			this._x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -112,7 +112,7 @@ namespace examples.doc
 		
 		protected virtual Point GetY()
 		{
-			return _y;
+			return this._y;
 		}
 		
 		private void AddYListeners(object child)
@@ -195,7 +195,7 @@ namespace examples.doc
 		
 		protected virtual ObservableList<double> GetWs()
 		{
-			return _ws;
+			return this._ws;
 		}
 		
 		private void AddWsListListeners(object child)

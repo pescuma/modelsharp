@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class MutableParamToField : TemplateUtils
     {
@@ -76,44 +76,44 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\t\t\t");
+            this.Write("\t\t\tthis.");
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("Listeners(");
+            this.Write("Listeners(this.");
             
-            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
  } 
             
             #line default
@@ -121,7 +121,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\MutableParamToField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

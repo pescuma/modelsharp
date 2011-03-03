@@ -149,7 +149,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 13 "X:\c#\modelsharp\Core\templates\ImmutableOtherToField.tt"
-		Include("CopyProperty", it, "target", it.FieldName); 
+		Include("CopyProperty", it, "target", "this." + it.FieldName); 
             
             #line default
             #line hidden

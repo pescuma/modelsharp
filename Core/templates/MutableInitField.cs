@@ -85,7 +85,7 @@ if (it.LazyInitializer == null) {
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tthis.");
             
             #line 8 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
@@ -108,7 +108,7 @@ if (it.LazyInitializer == null) {
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tthis.");
             
             #line 12 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
@@ -129,7 +129,7 @@ if (it.LazyInitializer == null) {
             
             #line default
             #line hidden
-            this.Write("ListListeners(");
+            this.Write("ListListeners(this.");
             
             #line 13 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
@@ -144,7 +144,7 @@ if (it.LazyInitializer == null) {
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tthis.");
             
             #line 16 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
@@ -191,7 +191,7 @@ if (it.LazyInitializer == null) {
             
             #line default
             #line hidden
-            this.Write("Listeners(");
+            this.Write("Listeners(this.");
             
             #line 25 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));

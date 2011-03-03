@@ -7,16 +7,16 @@
 <# } #>
 <# if (it is CollectionInfo) { 
 		var col = (CollectionInfo) it; #>
-			<#= col.FieldName #> = new <#= col.TypeName #>();
-			Add<#= it.Name #>ListListeners(<#= it.FieldName #>);
-<#		Include("CopyList", col, "target", col.FieldName); #>
+			this.<#= col.FieldName #> = new <#= col.TypeName #>();
+			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
+<#		Include("CopyList", col, "target", "this." + col.FieldName); #>
 <# } else if (it.IsComputedAndCached) {
 		var computed = (ComputedPropertyInfo) it; #>
 			<#= computed.ValidFieldName #> = false;
 <# } else if (!it.IsComputed) { #>
-<#		Include("CopyProperty", it, "target", it.FieldName); #>
+<#		Include("CopyProperty", it, "target", "this." + it.FieldName); #>
 <# } #><# if (it.CanListenTo) { #>
-			Add<#= it.Name #>Listeners(<#= it.FieldName #>);
+			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
 <# } #>
 <# if (it.LazyInitializer != null) { #>
 			}

@@ -32,7 +32,7 @@ namespace examples.extends
 		public BaseD(BaseD other)
 		: base(other)
 		{
-			_x = other.X;
+			this._x = other.X;
 		}
 		
 		#endregion
@@ -57,17 +57,17 @@ namespace examples.extends
 		
 		protected virtual double GetX()
 		{
-			return _x;
+			return this._x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (_x == x)
+			if (this._x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			_x = x;
+			this._x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			

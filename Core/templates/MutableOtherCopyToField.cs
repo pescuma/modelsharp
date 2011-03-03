@@ -100,7 +100,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line 8 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
  if (it is CollectionInfo) { 
 	var col = (CollectionInfo) it; 
-	var target = (col.ExposeAsReadOnly ? col.FieldName : col.Name);
+	var target = (col.ExposeAsReadOnly ? "this." + col.FieldName : col.Name);
 	
             
             #line default
@@ -186,7 +186,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\t\tif (");
+            this.Write("\t\t\t\tif (this.");
             
             #line 27 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
@@ -207,14 +207,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\t\tif (");
+            this.Write("\t\t\t\tif (this.");
             
             #line 30 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(" != null)\r\n\t\t\t\t\t");
+            this.Write(" != null)\r\n\t\t\t\t\tthis.");
             
             #line 31 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));

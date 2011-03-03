@@ -30,21 +30,21 @@ namespace examples.collection
 		
 		public BasePerson()
 		{
-			_cars = new ObservableList<string>();
-			AddCarsListListeners(_cars);
-			_houses = new ObservableList<House>();
-			AddHousesListListeners(_houses);
+			this._cars = new ObservableList<string>();
+			AddCarsListListeners(this._cars);
+			this._houses = new ObservableList<House>();
+			AddHousesListListeners(this._houses);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			_cars = new ObservableList<string>();
-			AddCarsListListeners(_cars);
-			_cars.AddRange(other.Cars);
-			_name = other.Name;
-			_houses = new ObservableList<House>();
-			AddHousesListListeners(_houses);
-			_houses.AddRange(other.Houses);
+			this._cars = new ObservableList<string>();
+			AddCarsListListeners(this._cars);
+			this._cars.AddRange(other.Cars);
+			this._name = other.Name;
+			this._houses = new ObservableList<House>();
+			AddHousesListListeners(this._houses);
+			this._houses.AddRange(other.Houses);
 		}
 		
 		#endregion
@@ -65,7 +65,7 @@ namespace examples.collection
 		
 		protected virtual ObservableList<string> GetCars()
 		{
-			return _cars;
+			return this._cars;
 		}
 		
 		private void AddCarsListListeners(object child)
@@ -120,17 +120,17 @@ namespace examples.collection
 		
 		protected virtual string GetName()
 		{
-			return _name;
+			return this._name;
 		}
 		
 		protected virtual bool SetName(string name)
 		{
-			if (_name == name)
+			if (this._name == name)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.NAME);
 			
-			_name = name;
+			this._name = name;
 			
 			NotifyPropertyChanged(PROPERTIES.NAME);
 			
@@ -155,7 +155,7 @@ namespace examples.collection
 		
 		protected virtual ObservableList<House> GetHouses()
 		{
-			return _houses;
+			return this._houses;
 		}
 		
 		private void AddHousesListListeners(object child)

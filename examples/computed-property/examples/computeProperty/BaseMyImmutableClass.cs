@@ -33,8 +33,8 @@ namespace examples.computeProperty
 		
 		public BaseMyImmutableClass(BaseMyImmutableClass other)
 		{
-			X = other.X;
-			Y = other.Y;
+			this.X = other.X;
+			this.Y = other.Y;
 			_squaredLengthCachedCacheValid = false;
 			var children = new List<MyClass>();
 			children.AddRange(other.Children);
@@ -106,11 +106,11 @@ namespace examples.computeProperty
 		{
 			if (!_squaredLengthCachedCacheValid)
 			{
-				_squaredLengthCachedCache = ComputeSquaredLengthCached();
-				_squaredLengthCachedCacheValid = true;
+				this._squaredLengthCachedCache = ComputeSquaredLengthCached();
+				this._squaredLengthCachedCacheValid = true;
 			}
 			
-			return _squaredLengthCachedCache;
+			return this._squaredLengthCachedCache;
 		}
 		
 		protected abstract double ComputeSquaredLengthCached();

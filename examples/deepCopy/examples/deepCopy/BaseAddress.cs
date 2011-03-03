@@ -33,12 +33,12 @@ namespace examples.deepCopy
 		
 		public BaseAddress(BaseAddress other)
 		{
-			_street = other.Street;
+			this._street = other.Street;
 			if (other.City == null)
-				_city = null;
+				this._city = null;
 			else
-				_city = string.Copy(other.City);
-			_zipCode = other.ZipCode;
+				this._city = string.Copy(other.City);
+			this._zipCode = other.ZipCode;
 		}
 		
 		#endregion
@@ -63,17 +63,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetStreet()
 		{
-			return _street;
+			return this._street;
 		}
 		
 		protected virtual bool SetStreet(string street)
 		{
-			if (_street == street)
+			if (this._street == street)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.STREET);
 			
-			_street = street;
+			this._street = street;
 			
 			NotifyPropertyChanged(PROPERTIES.STREET);
 			
@@ -102,17 +102,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetCity()
 		{
-			return _city;
+			return this._city;
 		}
 		
 		protected virtual bool SetCity(string city)
 		{
-			if (_city == city)
+			if (this._city == city)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.CITY);
 			
-			_city = city;
+			this._city = city;
 			
 			NotifyPropertyChanged(PROPERTIES.CITY);
 			
@@ -141,17 +141,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetZipCode()
 		{
-			return _zipCode;
+			return this._zipCode;
 		}
 		
 		protected virtual bool SetZipCode(string zipCode)
 		{
-			if (_zipCode == zipCode)
+			if (this._zipCode == zipCode)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.ZIP_CODE);
 			
-			_zipCode = zipCode;
+			this._zipCode = zipCode;
 			
 			NotifyPropertyChanged(PROPERTIES.ZIP_CODE);
 			

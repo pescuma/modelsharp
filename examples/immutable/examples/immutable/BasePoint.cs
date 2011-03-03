@@ -26,8 +26,8 @@ namespace examples.immutable
 		
 		public BasePoint(BasePoint other)
 		{
-			X = other.X;
-			Y = other.Y;
+			this.X = other.X;
+			this.Y = other.Y;
 		}
 		
 		public virtual Point WithX(double x)

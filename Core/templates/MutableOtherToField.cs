@@ -103,7 +103,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
+            this.Write("\t\t\tthis.");
             
             #line 10 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
@@ -124,7 +124,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("ListListeners(");
+            this.Write("ListListeners(this.");
             
             #line 11 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
@@ -134,7 +134,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		Include("CopyList", col, "target", col.FieldName); 
+		Include("CopyList", col, "target", "this." + col.FieldName); 
             
             #line default
             #line hidden
@@ -161,7 +161,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 17 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		Include("CopyProperty", it, "target", it.FieldName); 
+		Include("CopyProperty", it, "target", "this." + it.FieldName); 
             
             #line default
             #line hidden
@@ -184,7 +184,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("Listeners(");
+            this.Write("Listeners(this.");
             
             #line 19 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));

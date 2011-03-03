@@ -10,5 +10,5 @@
 		var computed = (ComputedPropertyInfo) it; #>
 			<#= computed.ValidFieldName #> = false;
 <# } else if (!it.IsComputed) { #>
-<#		Include("CopyProperty", it, "target", it.FieldName); #>
+<#		Include("CopyProperty", it, "target", "this." + it.FieldName); #>
 <# } #>

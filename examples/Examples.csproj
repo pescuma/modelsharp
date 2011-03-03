@@ -131,6 +131,7 @@
     <Content Include="doc\model.xml" />
     <Content Include="emptyType\model.xml" />
     <Content Include="extends\model.xml" />
+    <Content Include="extends\model2.xml" />
     <Content Include="immutable\model.xml" />
     <Content Include="implements\model.xml" />
     <Content Include="lazy\model.xml" />

@@ -25,16 +25,16 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public BaseLine()
 	{
-		AddP1Listeners(_p1);
-		AddP2Listeners(_p2);
+		AddP1Listeners(this._p1);
+		AddP2Listeners(this._p2);
 	}
 	
 	public BaseLine(BaseLine other)
 	{
-		_p1 = other.P1;
-		AddP1Listeners(_p1);
-		_p2 = other.P2;
-		AddP2Listeners(_p2);
+		this._p1 = other.P1;
+		AddP1Listeners(this._p1);
+		this._p2 = other.P2;
+		AddP2Listeners(this._p2);
 	}
 	
 	#endregion
@@ -59,19 +59,19 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	protected virtual Point GetP1()
 	{
-		return _p1;
+		return this._p1;
 	}
 	
 	protected virtual bool SetP1(Point p1)
 	{
-		if (_p1 == p1)
+		if (this._p1 == p1)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.P1);
 		
 		RemoveP1Listeners(p1);
 		
-		_p1 = p1;
+		this._p1 = p1;
 		
 		AddP1Listeners(p1);
 		
@@ -166,19 +166,19 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	protected virtual Point GetP2()
 	{
-		return _p2;
+		return this._p2;
 	}
 	
 	protected virtual bool SetP2(Point p2)
 	{
-		if (_p2 == p2)
+		if (this._p2 == p2)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.P2);
 		
 		RemoveP2Listeners(p2);
 		
-		_p2 = p2;
+		this._p2 = p2;
 		
 		AddP2Listeners(p2);
 		

@@ -34,18 +34,18 @@ namespace examples.computeProperty
 		
 		public BaseMyClass()
 		{
-			_y = 2;
-			_children = new ObservableList<MyClass>();
-			AddChildrenListListeners(_children);
+			this._y = 2;
+			this._children = new ObservableList<MyClass>();
+			AddChildrenListListeners(this._children);
 		}
 		
 		public BaseMyClass(BaseMyClass other)
 		{
-			_x = other.X;
-			_y = other.Y;
-			_children = new ObservableList<MyClass>();
-			AddChildrenListListeners(_children);
-			_children.AddRange(other.Children);
+			this._x = other.X;
+			this._y = other.Y;
+			this._children = new ObservableList<MyClass>();
+			AddChildrenListListeners(this._children);
+			this._children.AddRange(other.Children);
 		}
 		
 		#endregion
@@ -70,17 +70,17 @@ namespace examples.computeProperty
 		
 		protected virtual double GetX()
 		{
-			return _x;
+			return this._x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (_x == x)
+			if (this._x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			_x = x;
+			this._x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -109,17 +109,17 @@ namespace examples.computeProperty
 		
 		protected virtual double GetY()
 		{
-			return _y;
+			return this._y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (_y == y)
+			if (this._y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			_y = y;
+			this._y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			
@@ -197,11 +197,11 @@ namespace examples.computeProperty
 		{
 			if (!_squaredLengthCachedCacheValid)
 			{
-				_squaredLengthCachedCache = ComputeSquaredLengthCached();
-				_squaredLengthCachedCacheValid = true;
+				this._squaredLengthCachedCache = ComputeSquaredLengthCached();
+				this._squaredLengthCachedCacheValid = true;
 			}
 			
-			return _squaredLengthCachedCache;
+			return this._squaredLengthCachedCache;
 		}
 		
 		protected abstract double ComputeSquaredLengthCached();
@@ -224,7 +224,7 @@ namespace examples.computeProperty
 		
 		protected virtual ObservableList<MyClass> GetChildren()
 		{
-			return _children;
+			return this._children;
 		}
 		
 		private void AddChildrenListListeners(object child)

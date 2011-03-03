@@ -30,12 +30,12 @@ namespace examples.deepCopy
 		
 		public BaseImmutableAddress(BaseImmutableAddress other)
 		{
-			Street = other.Street;
+			this.Street = other.Street;
 			if (other.City == null)
-				City = null;
+				this.City = null;
 			else
-				City = string.Copy(other.City);
-			ZipCode = other.ZipCode;
+				this.City = string.Copy(other.City);
+			this.ZipCode = other.ZipCode;
 		}
 		
 		public virtual ImmutableAddress WithStreet(string street)

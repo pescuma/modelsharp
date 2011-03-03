@@ -30,23 +30,23 @@ namespace examples.lazy
 		
 		public BaseType1()
 		{
-			AddProp1Listeners(_prop1);
+			AddProp1Listeners(this._prop1);
 		}
 		
 		public BaseType1(BaseType1 other)
 		{
-			_prop1 = other.Prop1;
-			AddProp1Listeners(_prop1);
+			this._prop1 = other.Prop1;
+			AddProp1Listeners(this._prop1);
 			if (other._comp1 != null)
 			{
-				_comp1 = new Type2(other.Comp1);
-				AddComp1Listeners(_comp1);
+				this._comp1 = new Type2(other.Comp1);
+				AddComp1Listeners(this._comp1);
 			}
 			if (other._col1 != null)
 			{
-				_col1 = new ObservableList<Type2>();
-				AddCol1ListListeners(_col1);
-				_col1.AddRange(other.Col1);
+				this._col1 = new ObservableList<Type2>();
+				AddCol1ListListeners(this._col1);
+				this._col1.AddRange(other.Col1);
 			}
 		}
 		
@@ -72,19 +72,19 @@ namespace examples.lazy
 		
 		protected virtual Type2 GetProp1()
 		{
-			return _prop1;
+			return this._prop1;
 		}
 		
 		protected virtual bool SetProp1(Type2 prop1)
 		{
-			if (_prop1 == prop1)
+			if (this._prop1 == prop1)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
-			_prop1 = prop1;
+			this._prop1 = prop1;
 			
 			AddProp1Listeners(prop1);
 			
@@ -175,17 +175,17 @@ namespace examples.lazy
 		
 		protected virtual void LazyInitComp1()
 		{
-			if (_comp1 != null)
+			if (this._comp1 != null)
 				return;
 				
-			_comp1 = new Type2();
-			AddComp1Listeners(_comp1);
+			this._comp1 = new Type2();
+			AddComp1Listeners(this._comp1);
 		}
 		
 		protected virtual Type2 GetComp1()
 		{
 			LazyInitComp1();
-			return _comp1;
+			return this._comp1;
 		}
 		
 		private void AddComp1Listeners(object child)
@@ -248,17 +248,17 @@ namespace examples.lazy
 		
 		protected virtual void LazyInitCol1()
 		{
-			if (_col1 != null)
+			if (this._col1 != null)
 				return;
 				
-			_col1 = new ObservableList<Type2>();
-			AddCol1ListListeners(_col1);
+			this._col1 = new ObservableList<Type2>();
+			AddCol1ListListeners(this._col1);
 		}
 		
 		protected virtual ObservableList<Type2> GetCol1()
 		{
 			LazyInitCol1();
-			return _col1;
+			return this._col1;
 		}
 		
 		private void AddCol1ListListeners(object child)
@@ -401,8 +401,8 @@ namespace examples.lazy
 			}
 			else
 			{
-				if (_comp1 != null)
-					_comp1.CopyFrom(new Type2());
+				if (this._comp1 != null)
+					this._comp1.CopyFrom(new Type2());
 			}
 			if (other._col1 != null)
 			{
@@ -411,7 +411,7 @@ namespace examples.lazy
 			}
 			else
 			{
-				if (_col1 != null)
+				if (this._col1 != null)
 					Col1.Clear();
 			}
 		}

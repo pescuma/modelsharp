@@ -83,10 +83,10 @@ namespace examples.deepCopy
 			doubleCol2.AddRange(other.DoubleCol2);
 			DoubleCol2 = new ReadOnlyCollection<double>(doubleCol2);
 			if (other.HomeAddressProp == null)
-				HomeAddressProp = null;
+				this.HomeAddressProp = null;
 			else
-				HomeAddressProp = new Address(other.HomeAddressProp);
-			WorkAddressProp = other.WorkAddressProp;
+				this.HomeAddressProp = new Address(other.HomeAddressProp);
+			this.WorkAddressProp = other.WorkAddressProp;
 		}
 		
 		public virtual ImmutablePerson WithHomeAddressProp(Address homeAddressProp)

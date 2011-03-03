@@ -27,17 +27,17 @@ namespace examples.nonserializable
 		
 		public BasePoint()
 		{
-			_y = 2;
-			_a = new Point(2, 3);
-			AddAListeners(_a);
+			this._y = 2;
+			this._a = new Point(2, 3);
+			AddAListeners(this._a);
 		}
 		
 		public BasePoint(BasePoint other)
 		{
-			_x = other.X;
-			_y = other.Y;
-			_a = other.A;
-			AddAListeners(_a);
+			this._x = other.X;
+			this._y = other.Y;
+			this._a = other.A;
+			AddAListeners(this._a);
 		}
 		
 		#endregion
@@ -61,17 +61,17 @@ namespace examples.nonserializable
 		
 		protected virtual double GetX()
 		{
-			return _x;
+			return this._x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (_x == x)
+			if (this._x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			_x = x;
+			this._x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -99,17 +99,17 @@ namespace examples.nonserializable
 		
 		protected virtual double GetY()
 		{
-			return _y;
+			return this._y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (_y == y)
+			if (this._y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			_y = y;
+			this._y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			
@@ -137,19 +137,19 @@ namespace examples.nonserializable
 		
 		protected virtual Point GetA()
 		{
-			return _a;
+			return this._a;
 		}
 		
 		protected virtual bool SetA(Point a)
 		{
-			if (_a == a)
+			if (this._a == a)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.A);
 			
 			RemoveAListeners(a);
 			
-			_a = a;
+			this._a = a;
 			
 			AddAListeners(a);
 			

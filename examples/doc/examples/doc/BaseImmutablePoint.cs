@@ -44,8 +44,8 @@ namespace examples.doc
 		
 		public BaseImmutablePoint(BaseImmutablePoint other)
 		{
-			X = other.X;
-			Y = new Point(other.Y);
+			this.X = other.X;
+			this.Y = new Point(other.Y);
 			var ws = new List<double>();
 			ws.AddRange(other.Ws);
 			Ws = new ReadOnlyCollection<double>(ws);

@@ -31,7 +31,7 @@ namespace examples.lazy
 		
 		public BaseType2(BaseType2 other)
 		{
-			_name = other.Name;
+			this._name = other.Name;
 		}
 		
 		#endregion
@@ -56,17 +56,17 @@ namespace examples.lazy
 		
 		protected virtual string GetName()
 		{
-			return _name;
+			return this._name;
 		}
 		
 		protected virtual bool SetName(string name)
 		{
-			if (_name == name)
+			if (this._name == name)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.NAME);
 			
-			_name = name;
+			this._name = name;
 			
 			NotifyPropertyChanged(PROPERTIES.NAME);
 			

@@ -266,7 +266,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n\t\t\t\t");
+            this.Write(")\r\n\t\t\t{\r\n\t\t\t\tthis.");
             
             #line 36 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.FieldName));
@@ -280,14 +280,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("();\r\n\t\t\t\t");
+            this.Write("();\r\n\t\t\t\tthis.");
             
             #line 37 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
-            this.Write(" = true;\r\n\t\t\t}\r\n\r\n\t\t\treturn ");
+            this.Write(" = true;\r\n\t\t\t}\r\n\r\n\t\t\treturn this.");
             
             #line 40 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));

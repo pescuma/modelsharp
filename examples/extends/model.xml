@@ -1,4 +1,6 @@
 <model namespace="examples.extends">
+  <using namespace="System.Collections.Generic" />
+  
 	<type name="A">
 		<property name="date" type="DateTime" />
 	</type>
@@ -9,7 +11,7 @@
 		<baseClass />
 		<property name="date2" type="DateTime" />
 	</type>
-	<type name="S2" extends="String">
+	<type name="S2" extends="List&lt;string&gt;">
 		<baseClass hasPropertyChanging="false" 
 				hasChildPropertyChanging="false" 
 				hasPropertyChanged="false" 

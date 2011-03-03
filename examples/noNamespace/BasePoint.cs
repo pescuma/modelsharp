@@ -25,13 +25,13 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	
 	public BasePoint()
 	{
-		_y = 2;
+		this._y = 2;
 	}
 	
 	public BasePoint(BasePoint other)
 	{
-		_x = other.X;
-		_y = other.Y;
+		this._x = other.X;
+		this._y = other.Y;
 	}
 	
 	#endregion
@@ -56,17 +56,17 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	
 	protected virtual double GetX()
 	{
-		return _x;
+		return this._x;
 	}
 	
 	protected virtual bool SetX(double x)
 	{
-		if (_x == x)
+		if (this._x == x)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.X);
 		
-		_x = x;
+		this._x = x;
 		
 		NotifyPropertyChanged(PROPERTIES.X);
 		
@@ -95,17 +95,17 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	
 	protected virtual double GetY()
 	{
-		return _y;
+		return this._y;
 	}
 	
 	protected virtual bool SetY(double y)
 	{
-		if (_y == y)
+		if (this._y == y)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.Y);
 		
-		_y = y;
+		this._y = y;
 		
 		NotifyPropertyChanged(PROPERTIES.Y);
 		

@@ -468,7 +468,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\t\tChildPropertyChangedEventHandler handler = ChildPropertyChanged;\r\n\t\t\tif (handl" +
                     "er != null)\r\n\t\t\t\thandler(sender, new ChildPropertyChangedEventArgs(this, propert" +
-                    "yName, e));\r\n");
+                    "yName, sender, e));\r\n");
             
             #line 137 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); 

@@ -1069,7 +1069,7 @@ namespace examples.deepCopy
 		{
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
 		#endregion

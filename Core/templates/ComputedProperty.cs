@@ -203,13 +203,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("(); }\r\n\t\t}\r\n\r\n");
+            this.Write("(); }\r\n\t\t}\r\n");
             
-            #line 24 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-		if (computed.Cached) { 
+            #line 23 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ if (computed.Cached) { 
             
             #line default
             #line hidden
+            this.Write("\t\t\r\n");
             
             #line 25 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", computed.Invalidate.Annotations); 
@@ -293,19 +294,20 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(";\r\n\t\t}\r\n\r\n");
+            this.Write(";\r\n\t\t}\r\n");
+            
+            #line 42 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
             
             #line 43 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-		} 
+ if (computed.Formula != null) { 
             
             #line default
             #line hidden
-            
-            #line 44 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-		if (computed.Formula != null) { 
-            
-            #line default
-            #line hidden
+            this.Write("\t\t\r\n");
             
             #line 45 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", it.Getter.Annotations); 
@@ -333,13 +335,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(";\r\n\t\t}\r\n\r\n");
+            this.Write(";\r\n\t\t}\r\n");
             
-            #line 51 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-		} else { 
+            #line 50 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } else { 
             
             #line default
             #line hidden
+            this.Write("\t\t\r\n");
             
             #line 52 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", it.Getter.Annotations); 
@@ -360,10 +363,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("();\r\n\r\n");
+            this.Write("();\r\n");
             
-            #line 55 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-		} 
+            #line 54 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } 
             
             #line default
             #line hidden

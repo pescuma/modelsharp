@@ -422,8 +422,6 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class collection {
         
-        private string collectionTypeField;
-        
         private bool deepCopyField;
         
         private bool deepCopyFieldSpecified;
@@ -436,18 +434,11 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string nameField;
         
-        private string typeField;
+        private bool readOnlyField;
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
-        public string collectionType {
-            get {
-                return this.collectionTypeField;
-            }
-            set {
-                this.collectionTypeField = value;
-            }
-        }
+        private bool readOnlyFieldSpecified;
+        
+        private string typeField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -512,6 +503,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool readOnly {
+            get {
+                return this.readOnlyField;
+            }
+            set {
+                this.readOnlyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool readOnlySpecified {
+            get {
+                return this.readOnlyFieldSpecified;
+            }
+            set {
+                this.readOnlyFieldSpecified = value;
             }
         }
         

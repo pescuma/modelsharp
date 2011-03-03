@@ -92,6 +92,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BuilderSetFromOther.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\CollectionProperty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionProperty.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\ComputedProperty.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -222,6 +227,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PropertyExtended.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\SimpleProperty.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleProperty.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\TemplateUtils.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -254,6 +264,10 @@
     <None Include="templates\BuilderSetFromOther.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BuilderSetFromOther.cs</LastGenOutput>
+    </None>
+    <None Include="templates\CollectionProperty.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CollectionProperty.cs</LastGenOutput>
     </None>
     <None Include="templates\ComputedProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -358,6 +372,10 @@
     <None Include="templates\PropertyExtended.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PropertyExtended.cs</LastGenOutput>
+    </None>
+    <None Include="templates\SimpleProperty.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SimpleProperty.cs</LastGenOutput>
     </None>
     <None Include="templates\TemplateUtils.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

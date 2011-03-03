@@ -27,18 +27,33 @@ namespace org.pescuma.ModelSharp.Core.model
 	{
 		public readonly string Contents;
 		public readonly BaseFieldInfo ContentsType;
+		public readonly bool ExposeAsReadOnly;
+		public MethodInfo ExposedLazyInitializer;
 
-		public CollectionInfo(TypeInfo owner, string name, string contents, bool lazy,
-		                      string collectionType)
-			: base(owner, name, collectionType + "<" + contents + ">", false, lazy)
+		public CollectionInfo(TypeInfo owner, string name, string contents, bool lazy, bool readOnly)
+			: base(owner, name, "ObservableList<" + contents + ">", false, lazy)
 		{
 			Contract.Requires(!string.IsNullOrEmpty(contents));
 
 			ContentsType = new BaseFieldInfo("Items", contents);
 			Contents = contents;
+			ReadOnly = !lazy;
+			ExposeAsReadOnly = readOnly;
+
 			Setter = null;
 			WithSetter = null;
-			ReadOnly = !lazy;
+			Getter.TypeName = ExposedTypeName;
+
+			string exposedLazyIntializer = GetExposedLazyInitializerName();
+			if (exposedLazyIntializer != null)
+				ExposedLazyInitializer = new MethodInfo(exposedLazyIntializer);
+		}
+
+		private string GetExposedLazyInitializerName()
+		{
+			if (!ExposeAsReadOnly)
+				return null;
+			return "LazyInit" + Name + "ReadOnly";
 		}
 
 		public override bool CanListenTo
@@ -74,6 +89,27 @@ namespace org.pescuma.ModelSharp.Core.model
 
 			Owner.Using.Add("System.Collections.ObjectModel");
 			Owner.Using.Add("System.Collections.Generic");
+		}
+
+		public string ExposedTypeName
+		{
+			get {
+				if (ExposeAsReadOnly)
+					return "ReadOnlyObservableList<" + Contents + ">";
+				else
+					return TypeName;
+			}
+		}
+
+		public string ExposedFieldName
+		{
+			get
+			{
+				if (ExposeAsReadOnly)
+					return FieldName + "ReadOnly";
+				else
+					return FieldName;
+			}
 		}
 	}
 }

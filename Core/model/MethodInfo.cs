@@ -29,8 +29,8 @@ namespace org.pescuma.ModelSharp.Core.model
 	public class MethodInfo
 	{
 		public readonly string Name;
-		public readonly string TypeName;
-		public string[] Parameters;
+		public string TypeName;
+		public readonly string[] Parameters;
 		private string visibility;
 
 		public string Visibility

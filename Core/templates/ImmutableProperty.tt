@@ -2,6 +2,7 @@
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#	if (it.IsComputed) { #>
 <#		Include ("ComputedProperty", it); #>
+
 <#	} else if (it.WithSetter != null) { #>
 <#		ForEach("Annotation", it.WithSetter.Annotations); #>
 		public virtual <#= it.WithSetter.TypeName #> <#= it.WithSetter.Name #>(<#= it.WithSetter.Parameters[0] #> <#= it.VarName #>) 

@@ -87,56 +87,57 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
+            this.Write("\r\n");
             
-            #line 5 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 	} else if (it.WithSetter != null) { 
             
             #line default
             #line hidden
             
-            #line 6 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 		ForEach("Annotation", it.WithSetter.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tpublic virtual ");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.WithSetter.Parameters[0]));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(") \r\n\t\t{\r\n\t\t\treturn new ");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Owner.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 	
 bool first = true;
 foreach(var prop in it.Owner.NonComputedProperties)
@@ -157,7 +158,7 @@ foreach(var prop in it.Owner.NonComputedProperties)
             #line hidden
             this.Write(");\r\n\t\t}\r\n\r\n");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\ImmutableProperty.tt"
 	} 
             
             #line default

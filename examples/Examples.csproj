@@ -44,6 +44,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="collectionReadOnly\examples\collectionReadOnly\BaseHouse.cs" />
+    <Compile Include="collectionReadOnly\examples\collectionReadOnly\BasePerson.cs" />
+    <Compile Include="collectionReadOnly\examples\collectionReadOnly\House.cs" />
+    <Compile Include="collectionReadOnly\examples\collectionReadOnly\Person.cs" />
     <Compile Include="collection\examples\collection\BaseHouse.cs" />
     <Compile Include="collection\examples\collection\BasePerson.cs" />
     <Compile Include="collection\examples\collection\House.cs" />
@@ -119,6 +123,7 @@
     <Compile Include="using\examples\%40using\Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="collectionReadOnly\model.xml" />
     <Content Include="collection\model.xml" />
     <Content Include="composition\model.xml" />
     <Content Include="computed-property\model.xml" />

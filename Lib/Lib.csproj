@@ -51,6 +51,8 @@
     <Compile Include="ChildPropertyChangedEventHandler.cs" />
     <Compile Include="ChildPropertyChangingEventArgs.cs" />
     <Compile Include="ChildPropertyChangingEventHandler.cs" />
+    <Compile Include="INotifyCollectionChangedConfiguration.cs" />
+    <Compile Include="ReadOnlyObservableList.cs" />
     <Compile Include="INotifyChildPropertyChanged.cs" />
     <Compile Include="INotifyChildPropertyChanging.cs" />
     <Compile Include="ObservableList.cs" />

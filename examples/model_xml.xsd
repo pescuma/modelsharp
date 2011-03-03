@@ -43,11 +43,11 @@
   </xs:element>
   <xs:element name="collection">
     <xs:complexType>
-      <xs:attribute name="collectionType" type="xs:NCName"/>
       <xs:attribute name="deepCopy" type="xs:boolean"/>
       <xs:attribute name="doc"/>
       <xs:attribute name="lazy" type="xs:boolean"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="readOnly" type="xs:boolean"/>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>

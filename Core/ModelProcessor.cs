@@ -164,8 +164,8 @@ namespace org.pescuma.ModelSharp.Core
 
 							collection.name = StringUtils.FirstUpper(collection.name);
 
-							if (string.IsNullOrEmpty(collection.collectionType))
-								collection.collectionType = "ObservableList";
+							if (!collection.readOnlySpecified)
+								collection.readOnly = false;
 
 							if (!collection.lazySpecified)
 								collection.lazy = false;
@@ -300,8 +300,11 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var collection = (collection) item;
 
+							if (collection.lazy && collection.readOnly)
+								throw new ArgumentException("A collection can't be both lazy and readOnly");
+
 							var col = new CollectionInfo(ti, collection.name, collection.type, collection.lazy,
-							                             collection.collectionType);
+							                             collection.readOnly);
 
 							if (collection.deepCopySpecified)
 								col.DeepCopy = collection.deepCopy;

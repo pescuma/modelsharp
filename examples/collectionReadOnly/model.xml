@@ -1,0 +1,8 @@
+<model namespace="examples.collectionReadOnly">
+	<type name="Person">
+    <collection name="houses" type="House" readOnly="true" />
+  </type>
+	<type name="House">
+		<property name="address" type="string" />
+	</type>
+</model>

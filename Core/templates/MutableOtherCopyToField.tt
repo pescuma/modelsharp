@@ -6,9 +6,11 @@
 			{
 <# } #>
 <# if (it is CollectionInfo) { 
-	var col = (CollectionInfo) it; #>
-			<#= col.Name #>.Clear();
-<#	Include("CopyList", col, "target", col.Name); #>
+	var col = (CollectionInfo) it; 
+	var target = (col.ExposeAsReadOnly ? col.FieldName : col.Name);
+	#>
+			<#= target #>.Clear();
+<#	Include("CopyList", col, "target", target); #>
 <# } else if (it.IsComponent) { #>
 			<#= it.Name #>.CopyFrom(other.<#= it.Name #>);
 <# } else if (it.IsComputedAndCached) {

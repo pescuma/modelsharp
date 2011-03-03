@@ -72,6 +72,8 @@
     <Compile Include="doc\examples\doc\ImmutablePoint.cs" />
     <Compile Include="doc\examples\doc\ImmutablePointBuilder.cs" />
     <Compile Include="doc\examples\doc\Point.cs" />
+    <Compile Include="emptyType\examples\emptyType\BasePoint.cs" />
+    <Compile Include="emptyType\examples\emptyType\Point.cs" />
     <Compile Include="extends\examples\extends\A.cs" />
     <Compile Include="extends\examples\extends\B.cs" />
     <Compile Include="extends\examples\extends\BaseA.cs" />
@@ -122,6 +124,7 @@
     <Content Include="computed-property\model.xml" />
     <Content Include="deepCopy\model.xml" />
     <Content Include="doc\model.xml" />
+    <Content Include="emptyType\model.xml" />
     <Content Include="extends\model.xml" />
     <Content Include="immutable\model.xml" />
     <Content Include="implements\model.xml" />

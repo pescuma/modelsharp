@@ -135,6 +135,9 @@ namespace org.pescuma.ModelSharp.Core
 					if (!type.serializableSpecified)
 						type.serializable = true;
 
+					if (type.Items == null)
+						type.Items = new object[0];
+
 					foreach (var item in type.Items)
 					{
 						if (item is property)

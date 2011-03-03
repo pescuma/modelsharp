@@ -1,0 +1,3 @@
+<model namespace="examples.emptyType">
+	<type name="Point" />
+</model>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="model">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="using"/>
+        <xs:element ref="type"/>
+      </xs:choice>
+      <xs:attribute name="namespace"/>
+      <xs:attribute name="projectNamespace" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="baseClass"/>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element ref="using"/>
+          <xs:element ref="collection"/>
+          <xs:element ref="component"/>
+          <xs:element ref="computed-property"/>
+          <xs:element ref="property"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="cloneable" type="xs:boolean"/>
+      <xs:attribute name="deepCopy" type="xs:boolean"/>
+      <xs:attribute name="doc"/>
+      <xs:attribute name="extends" type="xs:NCName"/>
+      <xs:attribute name="immutable" type="xs:boolean"/>
+      <xs:attribute name="implements"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="serializable" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="baseClass">
+    <xs:complexType>
+      <xs:attribute name="hasChildPropertyChanged" type="xs:boolean"/>
+      <xs:attribute name="hasChildPropertyChanging" type="xs:boolean"/>
+      <xs:attribute name="hasCopyFrom" type="xs:boolean"/>
+      <xs:attribute name="hasPropertyChanged" type="xs:boolean"/>
+      <xs:attribute name="hasPropertyChanging" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="collection">
+    <xs:complexType>
+      <xs:attribute name="collectionType" type="xs:NCName"/>
+      <xs:attribute name="deepCopy" type="xs:boolean"/>
+      <xs:attribute name="doc"/>
+      <xs:attribute name="lazy" type="xs:boolean"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="component">
+    <xs:complexType>
+      <xs:attribute name="default"/>
+      <xs:attribute name="doc"/>
+      <xs:attribute name="lazy" type="xs:boolean"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="computed-property">
+    <xs:complexType>
+      <xs:attribute name="cached" type="xs:boolean"/>
+      <xs:attribute name="dependsOn"/>
+      <xs:attribute name="doc"/>
+      <xs:attribute name="formula"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="property">
+    <xs:complexType>
+      <xs:attribute name="deepCopy" type="xs:boolean"/>
+      <xs:attribute name="default"/>
+      <xs:attribute name="doc"/>
+      <xs:attribute name="getter" type="xs:NCName"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="required" type="xs:boolean"/>
+      <xs:attribute name="setter" type="xs:NCName"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="using">
+    <xs:complexType>
+      <xs:attribute name="namespace" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

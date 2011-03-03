@@ -7,7 +7,7 @@
 		<property type="Point" name="p1" />
 		<property type="Point" name="p2" />
 		<component type="Point" name="dir" />
-		<collection contents="Point" name="Border" />
+		<collection type="Point" name="Border" />
 	</type>
 
 </model>

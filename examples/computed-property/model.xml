@@ -6,7 +6,7 @@
 		<computed-property name="Dummy" type="string" />
 		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
-		<collection name="Children" contents="MyClass" />
+		<collection name="Children" type="MyClass" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
 		<property name="X" type="double" />
@@ -15,7 +15,7 @@
 		<computed-property name="Dummy" type="string" />
 		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
-		<collection name="Children" contents="MyClass" />
+		<collection name="Children" type="MyClass" />
 	</type>
 
 </model>

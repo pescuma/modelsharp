@@ -3,12 +3,12 @@
 		<property name="x" type="double" doc="The X cartesian coord" />
 		<component name="y" type="Point" default="new Point()" doc="Y, oh Y" />
 		<computed-property name="len" type="double" doc="x*x + y*Y sqrt" />
-		<collection name="Ws" contents="double" doc="All the ws you can find" />
+		<collection name="Ws" type="double" doc="All the ws you can find" />
 	</type>
 	<type name="ImmutablePoint" doc="A point, man!" immutable="true">
 		<property name="x" type="double" doc="The X cartesian coord" />
 		<component name="y" type="Point" default="new Point()" doc="Y, oh Y" />
 		<computed-property name="len" type="double" doc="x*x + y*Y sqrt" />
-		<collection name="Ws" contents="double" doc="All the ws you can find" />
+		<collection name="Ws" type="double" doc="All the ws you can find" />
 	</type>
 </model>

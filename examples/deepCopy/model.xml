@@ -1,12 +1,12 @@
 <model namespace="examples.deepCopy">
 	<type name="Person" deepCopy="true">
-		<collection name="homeAddressCol" contents="Address" deepCopy="true" />
-    <collection name="workAddressCol" contents="Address" deepCopy="false" />
-    <collection name="lazyAddressCol" contents="Address" deepCopy="true" lazy="true" />
-    <collection name="stringCol" contents="string" deepCopy="true" />
-    <collection name="stringCol2" contents="string" deepCopy="false" />
-    <collection name="doubleCol" contents="double" deepCopy="true" />
-    <collection name="doubleCol2" contents="double" deepCopy="false" />
+		<collection name="homeAddressCol" type="Address" deepCopy="true" />
+    <collection name="workAddressCol" type="Address" deepCopy="false" />
+    <collection name="lazyAddressCol" type="Address" deepCopy="true" lazy="true" />
+    <collection name="stringCol" type="string" deepCopy="true" />
+    <collection name="stringCol2" type="string" deepCopy="false" />
+    <collection name="doubleCol" type="double" deepCopy="true" />
+    <collection name="doubleCol2" type="double" deepCopy="false" />
     <property name="homeAddressProp" type="Address" deepCopy="true" />
 		<property name="workAddressProp" type="Address" deepCopy="false" />
   </type>
@@ -17,12 +17,12 @@
   </type>
   
   <type name="ImmutablePerson" deepCopy="true" immutable="true">
-    <collection name="homeAddressCol" contents="ImmutableAddress" deepCopy="true" />
-    <collection name="workAddressCol" contents="ImmutableAddress" deepCopy="false" />
-    <collection name="stringCol" contents="string" deepCopy="true" />
-    <collection name="stringCol2" contents="string" deepCopy="false" />
-    <collection name="doubleCol" contents="double" deepCopy="true" />
-    <collection name="doubleCol2" contents="double" deepCopy="false" />
+    <collection name="homeAddressCol" type="ImmutableAddress" deepCopy="true" />
+    <collection name="workAddressCol" type="ImmutableAddress" deepCopy="false" />
+    <collection name="stringCol" type="string" deepCopy="true" />
+    <collection name="stringCol2" type="string" deepCopy="false" />
+    <collection name="doubleCol" type="double" deepCopy="true" />
+    <collection name="doubleCol2" type="double" deepCopy="false" />
     <property name="homeAddressProp" type="Address" deepCopy="true" />
     <property name="workAddressProp" type="Address" deepCopy="false" />
   </type>

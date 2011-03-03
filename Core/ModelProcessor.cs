@@ -161,6 +161,9 @@ namespace org.pescuma.ModelSharp.Core
 
 							collection.name = StringUtils.FirstUpper(collection.name);
 
+							if (string.IsNullOrEmpty(collection.collectionType))
+								collection.collectionType = "ObservableList";
+
 							if (!collection.lazySpecified)
 								collection.lazy = false;
 						}
@@ -294,7 +297,8 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var collection = (collection) item;
 
-							var col = new CollectionInfo(ti, collection.name, collection.contents, collection.lazy);
+							var col = new CollectionInfo(ti, collection.name, collection.type, collection.lazy,
+							                             collection.collectionType);
 
 							if (collection.deepCopySpecified)
 								col.DeepCopy = collection.deepCopy;

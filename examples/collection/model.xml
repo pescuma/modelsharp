@@ -1,8 +1,8 @@
 <model namespace="examples.collection">
 	<type name="Person">
-		<collection name="cars" contents="string" />
+		<collection name="cars" type="string" />
 		<property name="name" type="string" />
-		<collection name="houses" contents="House" />
+		<collection name="houses" type="House" collectionType="ObservableList" />
 	</type>
 	<type name="House">
 		<property name="address" type="string" />

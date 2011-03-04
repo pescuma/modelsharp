@@ -183,6 +183,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MutableListenToField.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\MutableOnDeserialization.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableOnDeserialization.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\MutableOtherCopyToField.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -342,6 +347,10 @@
     <None Include="templates\MutableInitField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MutableInitField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableOnDeserialization.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableOnDeserialization.cs</LastGenOutput>
     </None>
     <None Include="templates\MutableOtherCopyToField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

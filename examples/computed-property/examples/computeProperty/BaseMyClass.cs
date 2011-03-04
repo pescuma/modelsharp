@@ -44,8 +44,8 @@ namespace examples.computeProperty
 			this.x = other.X;
 			this.y = other.Y;
 			this.children = new ObservableList<MyClass>();
-			AddChildrenListListeners(this.children);
 			this.children.AddRange(other.Children);
+			AddChildrenListListeners(this.children);
 		}
 		
 		#endregion

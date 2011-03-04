@@ -560,7 +560,7 @@ namespace examples.required
 			else
 			{
 				if (this.compLazy != null)
-					this.compLazy.CopyFrom(new Type2());
+					CompLazy.CopyFrom(new Type2());
 			}
 			Comp.CopyFrom(other.Comp);
 		}

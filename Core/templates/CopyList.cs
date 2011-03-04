@@ -138,79 +138,65 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n\t\t\t\tif (otherItem == null)\r\n\t\t\t\t\t");
+            this.Write(")\r\n\t\t\t\t");
             
-            #line 13 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(".Add(null);\r\n\t\t\t\telse\r\n\t\t\t\t\t");
+            this.Write(".Add(otherItem == null ? null : new ");
             
-            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(target));
-            
-            #line default
-            #line hidden
-            this.Write(".Add(new ");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
             
             #line default
             #line hidden
-            this.Write("(otherItem));\r\n\t\t\t}\r\n");
+            this.Write("(otherItem));\r\n");
             
-            #line 17 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  } else if (it.ContentsType.CreateExternalCopyMethod("otherItem") != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tforeach (");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
             
             #line default
             #line hidden
             this.Write(" otherItem in other.");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n\t\t\t\tif (otherItem == null)\r\n\t\t\t\t\t");
+            this.Write(")\r\n\t\t\t\t");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(".Add(null);\r\n\t\t\t\telse\r\n\t\t\t\t\t");
+            this.Write(".Add(otherItem == null ? null : ");
             
-            #line 23 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(target));
-            
-            #line default
-            #line hidden
-            this.Write(".Add(");
-            
-            #line 23 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 14 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.CreateExternalCopyMethod("otherItem")));
             
             #line default
             #line hidden
-            this.Write(");\r\n\t\t\t}\r\n");
+            this.Write(");\r\n");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  } else  { 
             
             #line default
             #line hidden
             this.Write("\t\t\t???;\r\n");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 17 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  } 
             
             #line default

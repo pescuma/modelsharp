@@ -586,7 +586,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 183 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
-		ForEach("MutableListenToField", it.NonComputedProperties); 
+		ForEach("MutableOnDeserialization", it.Properties); 
             
             #line default
             #line hidden

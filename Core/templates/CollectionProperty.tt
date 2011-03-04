@@ -32,17 +32,10 @@
 
 			this.<#= it.FieldName #> = new <#= it.TypeName #>();
 			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
-		}
-<# } #>
-<# if (it.ExposedLazyInitializer != null) { #>
-
-<# ForEach("Annotation", it.ExposedLazyInitializer.Annotations); #>
-		protected virtual <#= it.ExposedLazyInitializer.TypeName #> <#= it.ExposedLazyInitializer.Name #>() 
-		{
-			if (this.<#= it.ExposedFieldName #> != null)
-				return;
-
+<#		if (it.ExposeAsReadOnly) { #>
+			
 			this.<#= it.ExposedFieldName #> = new <#= it.ExposedTypeName #>(this.<#= it.FieldName #>);
+<#		} #>
 		}
 <# } #>
 
@@ -51,9 +44,6 @@
 		{
 <# if (it.LazyInitializer != null) { #>
 			<#= it.LazyInitializer.Name #>();
-<# } #>
-<# if (it.ExposedLazyInitializer != null) { #>
-			<#= it.ExposedLazyInitializer.Name #>();
 <# } #>
 			return this.<#= it.ExposedFieldName #>;
 		}

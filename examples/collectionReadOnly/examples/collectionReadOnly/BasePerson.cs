@@ -12,7 +12,7 @@ namespace examples.collectionReadOnly
 {
 
 	[DataContract]
-	[DebuggerDisplay("Person[Houses={Houses.Count}items]")]
+	[DebuggerDisplay("Person[Houses={Houses.Count}items HousesLazy={HousesLazy.Count}items]")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
@@ -20,6 +20,7 @@ namespace examples.collectionReadOnly
 		public class PROPERTIES
 		{
 			public const string HOUSES = "Houses";
+			public const string HOUSES_LAZY = "HousesLazy";
 		}
 		
 		#endregion
@@ -29,14 +30,23 @@ namespace examples.collectionReadOnly
 		public BasePerson()
 		{
 			this.houses = new ObservableList<House>();
+			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
 			AddHousesListListeners(this.houses);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
 			this.houses = new ObservableList<House>();
-			AddHousesListListeners(this.houses);
 			this.houses.AddRange(other.Houses);
+			AddHousesListListeners(this.houses);
+			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
+			if (other.housesLazy != null)
+			{
+				this.housesLazy = new ObservableList<House>();
+				this.housesLazy.AddRange(other.HousesLazy);
+				AddHousesLazyListListeners(this.housesLazy);
+				this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
+			}
 		}
 		
 		#endregion
@@ -58,17 +68,8 @@ namespace examples.collectionReadOnly
 			}
 		}
 		
-		protected virtual void LazyInitHousesReadOnly()
-		{
-			if (this.housesReadOnly != null)
-				return;
-				
-			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
-		}
-		
 		protected virtual ReadOnlyObservableList<House> GetHouses()
 		{
-			LazyInitHousesReadOnly();
 			return this.housesReadOnly;
 		}
 		
@@ -206,10 +207,190 @@ namespace examples.collectionReadOnly
 		
 		#endregion Property Houses
 		
+		#region Property HousesLazy
+		
+		[DataMember(Name = "HousesLazy", Order = 1, IsRequired = false)]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		protected readonly ObservableList<House> housesLazy;
+		
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private ReadOnlyObservableList<House> housesLazyReadOnly;
+		
+		public ReadOnlyObservableList<House> HousesLazy
+		{
+			[DebuggerStepThrough]
+			get {
+				return GetHousesLazy();
+			}
+		}
+		
+		protected virtual void LazyInitHousesLazy()
+		{
+			if (this.housesLazy != null)
+				return;
+				
+			this.housesLazy = new ObservableList<House>();
+			AddHousesLazyListListeners(this.housesLazy);
+			
+			this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
+		}
+		
+		protected virtual ReadOnlyObservableList<House> GetHousesLazy()
+		{
+			LazyInitHousesLazy();
+			return this.housesLazyReadOnly;
+		}
+		
+		private void AddHousesLazyListListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += HousesLazyListPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += HousesLazyListPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.CollectionChanged += HousesLazyListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddHousesLazyItemListeners(item);
+		}
+		
+		private void HousesLazyListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanging(PROPERTIES.HOUSES_LAZY);
+		}
+		
+		private void HousesLazyListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanged(PROPERTIES.HOUSES_LAZY);
+		}
+		
+		private void HousesLazyListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+				case NotifyCollectionChangedAction.Remove:
+				case NotifyCollectionChangedAction.Replace:
+				
+					if ((e.OldItems == null || e.OldItems.Count == 0)
+					        && (e.NewItems == null || e.NewItems.Count == 0))
+						throw new InvalidOperationException();
+						
+					if (e.OldItems != null)
+						foreach (var item in e.OldItems)
+							RemoveHousesLazyItemListeners(item);
+							
+					if (e.NewItems != null)
+						foreach (var item in e.NewItems)
+							AddHousesLazyItemListeners(item);
+							
+					break;
+				case NotifyCollectionChangedAction.Move:
+					// Do nothing
+					break;
+				default:
+					// NotifyCollectionChangedAction.Reset: The list should not fire this or
+					// we can't control the items
+					throw new InvalidOperationException();
+			}
+		}
+		
+		private void RemoveHousesLazyItemListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging -= HousesLazyItemPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging -= HousesLazyItemChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged -= HousesLazyItemPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged -= HousesLazyItemChildPropertyChangedEventHandler;
+		}
+		
+		private void AddHousesLazyItemListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += HousesLazyItemPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += HousesLazyItemChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += HousesLazyItemPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += HousesLazyItemChildPropertyChangedEventHandler;
+		}
+		
+		private void HousesLazyItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
+		}
+		
+		private void HousesLazyItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
+		}
+		
+		private void HousesLazyItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
+		}
+		
+		private void HousesLazyItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
+		}
+		
+		#endregion Property HousesLazy
+		
 		public virtual void CopyFrom(Person other)
 		{
 			this.houses.Clear();
 			this.houses.AddRange(other.Houses);
+			if (other.housesLazy != null)
+			{
+				if (this.housesLazy == null)
+					LazyInitHousesLazy();
+				this.housesLazy.Clear();
+				this.housesLazy.AddRange(other.HousesLazy);
+			}
+			else
+			{
+				if (this.housesLazy != null)
+					HousesLazy.Clear();
+			}
 		}
 		
 		#region Property Notification
@@ -273,6 +454,10 @@ namespace examples.collectionReadOnly
 		void IDeserializationCallback.OnDeserialization(object sender)
 		{
 			AddHousesListListeners(this.houses);
+			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
+			AddHousesLazyListListeners(this.housesLazy);
+			if (this.housesLazy != null)
+				this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
 		}
 		
 		#endregion

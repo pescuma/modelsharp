@@ -7,6 +7,9 @@
 <#		} else if (it.IsCollection) {
 			var col = (CollectionInfo) it; #>
 			this.<#= col.FieldName #> = new <#= col.TypeName #>();
+<#			if (col.ExposeAsReadOnly) { #>
+			this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= col.FieldName #>);
+<#			} #>
 <#		} else if (it.IsComponent) { #>
 			this.<#= it.FieldName #> = new <#= it.TypeName #>();
 <#		} else if (it.IsComputedAndCached) { 

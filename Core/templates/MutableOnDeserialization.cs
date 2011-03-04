@@ -13,9 +13,9 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class MutableInitField : TemplateUtils
+    public partial class MutableOnDeserialization : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,138 +77,74 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-	if (it.LazyInitializer == null) { 
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+	Include("MutableListenToField", it); 
             
             #line default
             #line hidden
             
-            #line 5 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		if (it.DefaultValue != null) { 
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+	if (it.IsCollection) {
+		var col = (CollectionInfo) it; 
             
             #line default
             #line hidden
-            this.Write("\t\t\tthis.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+		if (col.ExposeAsReadOnly) { 
+            
+            #line default
+            #line hidden
+            
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+			if (it.Lazy) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tif (this.");
+            
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(" = ");
+            this.Write(" != null)\r\n");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 7 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsCollection) {
-			var col = (CollectionInfo) it; 
+            #line 10 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+			} 
             
             #line default
             #line hidden
-            this.Write("\t\t\tthis.");
+            this.Write("\t\t\t\tthis.");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("();\r\n");
-            
-            #line 10 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-			if (col.ExposeAsReadOnly) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tthis.");
-            
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.ExposedFieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.ExposedTypeName));
             
             #line default
             #line hidden
             this.Write("(this.");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-			} 
-            
-            #line default
-            #line hidden
-            
-            #line 13 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsComponent) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tthis.");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("();\r\n");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsComputedAndCached) { 
-			var computed = (ComputedPropertyInfo) it; 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = false;\r\n");
-            
-            #line 18 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 19 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		Include("MutableListenToField", it); 
-            
-            #line default
-            #line hidden
-            
-            #line 20 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
 	} 
             
             #line default
@@ -216,7 +152,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableOnDeserialization.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

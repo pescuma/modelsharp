@@ -1,7 +1,8 @@
 <model namespace="examples.collectionReadOnly">
 	<type name="Person">
-    <collection name="houses" type="House" readOnly="true" />
-  </type>
+		<collection name="houses" type="House" readOnly="true" />
+		<collection name="housesLazy" type="House" readOnly="true" lazy="true" />
+	</type>
 	<type name="House">
 		<property name="address" type="string" />
 	</type>

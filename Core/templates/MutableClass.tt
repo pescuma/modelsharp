@@ -180,7 +180,7 @@ namespace <#= it.Package #>
 			}
 
 <#		} #>
-<#		ForEach("MutableListenToField", it.NonComputedProperties); #>
+<#		ForEach("MutableOnDeserialization", it.Properties); #>
 		}
 
 		#endregion

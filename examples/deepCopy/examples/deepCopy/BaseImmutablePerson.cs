@@ -54,24 +54,14 @@ namespace examples.deepCopy
 		{
 			var homeAddressCol = new List<ImmutableAddress>();
 			foreach (ImmutableAddress otherItem in other.HomeAddressCol)
-			{
-				if (otherItem == null)
-					homeAddressCol.Add(null);
-				else
-					homeAddressCol.Add(new ImmutableAddress(otherItem));
-			}
+				homeAddressCol.Add(otherItem == null ? null : new ImmutableAddress(otherItem));
 			HomeAddressCol = new ReadOnlyCollection<ImmutableAddress>(homeAddressCol);
 			var workAddressCol = new List<ImmutableAddress>();
 			workAddressCol.AddRange(other.WorkAddressCol);
 			WorkAddressCol = new ReadOnlyCollection<ImmutableAddress>(workAddressCol);
 			var stringCol = new List<string>();
 			foreach (string otherItem in other.StringCol)
-			{
-				if (otherItem == null)
-					stringCol.Add(null);
-				else
-					stringCol.Add(string.Copy(otherItem));
-			}
+				stringCol.Add(otherItem == null ? null : string.Copy(otherItem));
 			StringCol = new ReadOnlyCollection<string>(stringCol);
 			var stringCol2 = new List<string>();
 			stringCol2.AddRange(other.StringCol2);

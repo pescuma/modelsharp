@@ -8,8 +8,11 @@
 <# if (it is CollectionInfo) { 
 		var col = (CollectionInfo) it; #>
 			this.<#= col.FieldName #> = new <#= col.TypeName #>();
-			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
 <#		Include("CopyList", col, "target", "this." + col.FieldName); #>
+			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
+<#		if (col.ExposeAsReadOnly) { #>
+			this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= col.FieldName #>);
+<#		} #>
 <# } else if (it.IsComputedAndCached) {
 		var computed = (ComputedPropertyInfo) it; #>
 			<#= computed.ValidFieldName #> = false;

@@ -39,12 +39,12 @@ namespace examples.collection
 		public BasePerson(BasePerson other)
 		{
 			this.cars = new ObservableList<string>();
-			AddCarsListListeners(this.cars);
 			this.cars.AddRange(other.Cars);
+			AddCarsListListeners(this.cars);
 			this.name = other.Name;
 			this.houses = new ObservableList<House>();
-			AddHousesListListeners(this.houses);
 			this.houses.AddRange(other.Houses);
+			AddHousesListListeners(this.houses);
 		}
 		
 		#endregion

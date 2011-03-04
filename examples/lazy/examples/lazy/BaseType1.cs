@@ -45,8 +45,8 @@ namespace examples.lazy
 			if (other.col1 != null)
 			{
 				this.col1 = new ObservableList<Type2>();
-				AddCol1ListListeners(this.col1);
 				this.col1.AddRange(other.Col1);
+				AddCol1ListListeners(this.col1);
 			}
 		}
 		
@@ -405,7 +405,7 @@ namespace examples.lazy
 			else
 			{
 				if (this.comp1 != null)
-					this.comp1.CopyFrom(new Type2());
+					Comp1.CopyFrom(new Type2());
 			}
 			if (other.col1 != null)
 			{

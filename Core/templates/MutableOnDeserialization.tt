@@ -1,0 +1,13 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#	Include("MutableListenToField", it); #>
+<#	if (it.IsCollection) {
+		var col = (CollectionInfo) it; #>
+<#		if (col.ExposeAsReadOnly) { #>
+<#			if (it.Lazy) { #>
+			if (this.<#= it.FieldName #> != null)
+<#			} #>
+				this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= it.FieldName #>);
+<#		} #>
+<#	} #>

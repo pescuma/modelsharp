@@ -28,7 +28,6 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string Contents;
 		public readonly BaseFieldInfo ContentsType;
 		public readonly bool ExposeAsReadOnly;
-		public MethodInfo ExposedLazyInitializer;
 
 		public CollectionInfo(NamingConventions conventions, TypeInfo owner, string name, string contents,
 		                      bool lazy, bool readOnly)
@@ -44,17 +43,6 @@ namespace org.pescuma.ModelSharp.Core.model
 			Setter = null;
 			WithSetter = null;
 			Getter.TypeName = ExposedTypeName;
-
-			string exposedLazyIntializer = GetExposedLazyInitializerName();
-			if (exposedLazyIntializer != null)
-				ExposedLazyInitializer = new MethodInfo(exposedLazyIntializer);
-		}
-
-		private string GetExposedLazyInitializerName()
-		{
-			if (!ExposeAsReadOnly)
-				return null;
-			return "LazyInit" + Name + "ReadOnly";
 		}
 
 		public override bool CanListenTo

@@ -45,8 +45,8 @@ namespace examples.doc
 			this.y = new Point(other.Y);
 			AddYListeners(this.y);
 			this.ws = new ObservableList<double>();
-			AddWsListListeners(this.ws);
 			this.ws.AddRange(other.Ws);
+			AddWsListListeners(this.ws);
 		}
 		
 		#endregion

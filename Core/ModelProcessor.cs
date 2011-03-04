@@ -303,9 +303,6 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var collection = (collection) item;
 
-							if (collection.lazy && collection.readOnly)
-								throw new ArgumentException("A collection can't be both lazy and readOnly");
-
 							var col = new CollectionInfo(conventions, ti, collection.name, collection.type,
 							                             collection.lazy, collection.readOnly);
 

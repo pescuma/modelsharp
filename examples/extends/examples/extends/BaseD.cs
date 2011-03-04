@@ -32,7 +32,7 @@ namespace examples.extends
 		public BaseD(BaseD other)
 		: base(other)
 		{
-			this._x = other.X;
+			this.x = other.X;
 		}
 		
 		#endregion
@@ -41,7 +41,7 @@ namespace examples.extends
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		public double X
 		{
@@ -57,17 +57,17 @@ namespace examples.extends
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			

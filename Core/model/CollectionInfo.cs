@@ -30,12 +30,13 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool ExposeAsReadOnly;
 		public MethodInfo ExposedLazyInitializer;
 
-		public CollectionInfo(TypeInfo owner, string name, string contents, bool lazy, bool readOnly)
-			: base(owner, name, "ObservableList<" + contents + ">", false, lazy)
+		public CollectionInfo(NamingConventions conventions, TypeInfo owner, string name, string contents,
+		                      bool lazy, bool readOnly)
+			: base(conventions, owner, name, "ObservableList<" + contents + ">", false, lazy)
 		{
 			Contract.Requires(!string.IsNullOrEmpty(contents));
 
-			ContentsType = new BaseFieldInfo("Items", contents);
+			ContentsType = new BaseFieldInfo(conventions, "Items", contents);
 			Contents = contents;
 			ReadOnly = !lazy;
 			ExposeAsReadOnly = readOnly;
@@ -93,7 +94,8 @@ namespace org.pescuma.ModelSharp.Core.model
 
 		public string ExposedTypeName
 		{
-			get {
+			get
+			{
 				if (ExposeAsReadOnly)
 					return "ReadOnlyObservableList<" + Contents + ">";
 				else

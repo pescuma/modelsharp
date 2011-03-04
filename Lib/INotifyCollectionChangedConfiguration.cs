@@ -19,30 +19,16 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
-namespace org.pescuma.ModelSharp.Core.model
+namespace org.pescuma.ModelSharp.Lib
 {
-	public class ComponentInfo : PropertyInfo
+	public interface INotifyCollectionChangedConfiguration
 	{
-		public ComponentInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
-		                     bool lazy)
-			: base(conventions, owner, name, type, !lazy, lazy)
-		{
-			Setter = null;
-			WithSetter = null;
-			ReadOnly = !lazy;
-		}
-
-		public override void MakeImmutable()
-		{
-			base.MakeImmutable();
-
-			DefaultValue = "";
-		}
-
-		public override bool DeepCopy
-		{
-			get { return true; }
-			set { base.DeepCopy = value; }
-		}
+		/// <summary>
+		///   When true the behavior of methods that work on ranges, such as AddRange(), Clear(), etc. will
+		///   do its work for all affected objects in one step. If false, it will be done once per element.
+		/// 
+		///   This interface was created because WPF only works when this is 'false'.
+		/// </summary>
+		bool BatchMode { get; set; }
 	}
 }

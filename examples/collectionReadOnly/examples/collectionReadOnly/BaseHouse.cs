@@ -31,7 +31,7 @@ namespace examples.collectionReadOnly
 		
 		public BaseHouse(BaseHouse other)
 		{
-			this._address = other.Address;
+			this.address = other.Address;
 		}
 		
 		#endregion
@@ -40,7 +40,7 @@ namespace examples.collectionReadOnly
 		
 		[DataMember(Name = "Address", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _address;
+		private string address;
 		
 		public string Address
 		{
@@ -56,17 +56,17 @@ namespace examples.collectionReadOnly
 		
 		protected virtual string GetAddress()
 		{
-			return this._address;
+			return this.address;
 		}
 		
 		protected virtual bool SetAddress(string address)
 		{
-			if (this._address == address)
+			if (this.address == address)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.ADDRESS);
 			
-			this._address = address;
+			this.address = address;
 			
 			NotifyPropertyChanged(PROPERTIES.ADDRESS);
 			

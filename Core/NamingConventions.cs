@@ -19,30 +19,29 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
-namespace org.pescuma.ModelSharp.Core.model
+namespace org.pescuma.ModelSharp.Core
 {
-	public class ComponentInfo : PropertyInfo
+	public class NamingConventions
 	{
-		public ComponentInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
-		                     bool lazy)
-			: base(conventions, owner, name, type, !lazy, lazy)
+		public string ToPublicName(string name)
 		{
-			Setter = null;
-			WithSetter = null;
-			ReadOnly = !lazy;
+			return StringUtils.FirstUpper(name);
 		}
 
-		public override void MakeImmutable()
+		public string ToFieldName(string name)
 		{
-			base.MakeImmutable();
-
-			DefaultValue = "";
+			//return "_" + StringUtils.FirstLower(name);
+			return StringUtils.FirstLower(name);
 		}
 
-		public override bool DeepCopy
+		public string ToVarName(string name)
 		{
-			get { return true; }
-			set { base.DeepCopy = value; }
+			return StringUtils.FirstLower(name);
+		}
+
+		public string ToDefineName(string name)
+		{
+			return StringUtils.ToDefineName(name);
 		}
 	}
 }

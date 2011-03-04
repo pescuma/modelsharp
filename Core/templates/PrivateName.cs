@@ -12,7 +12,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\PrivateName.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\PrivateName.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class PrivateName : TemplateUtils
     {
@@ -75,8 +75,9 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
+            this.Write("this.");
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\PrivateName.tt"
+            #line 3 "X:\c#\modelsharp\Core\templates\PrivateName.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.PrivateName));
             
             #line default
@@ -84,7 +85,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\PrivateName.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\PrivateName.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

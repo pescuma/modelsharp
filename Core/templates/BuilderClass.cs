@@ -163,7 +163,7 @@ foreach(var prop in it.NonComputedProperties) {
             
             #line default
             #line hidden
-            this.Write("() \r\n\t\t{\r\n\t\t\t");
+            this.Write("() \r\n\t\t{\r\n\t\t\tthis.");
             
             #line 31 "X:\c#\modelsharp\Core\templates\BuilderClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.PrivateName));
@@ -198,7 +198,7 @@ foreach(var prop in it.NonComputedProperties) {
             
             #line default
             #line hidden
-            this.Write(") \r\n\t\t{\r\n\t\t\t");
+            this.Write(") \r\n\t\t{\r\n\t\t\tthis.");
             
             #line 36 "X:\c#\modelsharp\Core\templates\BuilderClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.PrivateName));
@@ -240,7 +240,7 @@ foreach(var prop in it.NonComputedProperties) {
             
             #line default
             #line hidden
-            this.Write(") \r\n\t\t{\r\n\t\t\t");
+            this.Write(") \r\n\t\t{\r\n\t\t\tthis.");
             
             #line 41 "X:\c#\modelsharp\Core\templates\BuilderClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.PrivateName));
@@ -289,7 +289,7 @@ foreach(var prop in it.NonComputedProperties) {
             
             #line default
             #line hidden
-            this.Write(") \r\n\t\t{\r\n\t\t\t");
+            this.Write(") \r\n\t\t{\r\n\t\t\tthis.");
             
             #line 48 "X:\c#\modelsharp\Core\templates\BuilderClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.PrivateName));

@@ -12,9 +12,9 @@ namespace examples.computeProperty
 
 	public class MyImmutableClassBuilder
 	{
-		private double _x;
-		private double _y = 2;
-		private readonly List<MyClass> _children = new List<MyClass>();
+		private double x;
+		private double y = 2;
+		private readonly List<MyClass> children = new List<MyClass>();
 		
 		public virtual MyImmutableClassBuilder Set(MyImmutableClass other)
 		{
@@ -27,35 +27,35 @@ namespace examples.computeProperty
 		
 		public virtual MyImmutableClassBuilder SetX(double x)
 		{
-			_x = x;
+			this.x = x;
 			return this;
 		}
 		
 		public virtual MyImmutableClassBuilder SetY(double y)
 		{
-			_y = y;
+			this.y = y;
 			return this;
 		}
 		
 		public virtual MyImmutableClassBuilder ClearChildren()
 		{
-			_children.Clear();
+			this.children.Clear();
 			return this;
 		}
 		public virtual MyImmutableClassBuilder AddToChildren(MyClass children)
 		{
-			_children.Add(children);
+			this.children.Add(children);
 			return this;
 		}
 		public virtual MyImmutableClassBuilder AddToChildren(IEnumerable<MyClass> children)
 		{
-			_children.AddRange(children);
+			this.children.AddRange(children);
 			return this;
 		}
 		
 		public virtual MyImmutableClass Build()
 		{
-			return new MyImmutableClass(_x, _y, _children);
+			return new MyImmutableClass(this.x, this.y, this.children);
 		}
 	}
 	

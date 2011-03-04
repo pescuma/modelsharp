@@ -41,32 +41,32 @@ namespace examples.required
 			if (prop5 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
-			AddProp1Listeners(this._prop1);
-			AddProp2Listeners(this._prop2);
-			this._comp = new Type2();
-			AddCompListeners(this._comp);
-			this._prop2 = prop2;
-			AddProp2Listeners(this._prop2);
-			this._prop4 = prop4;
-			this._prop5 = prop5;
+			AddProp1Listeners(this.prop1);
+			AddProp2Listeners(this.prop2);
+			this.comp = new Type2();
+			AddCompListeners(this.comp);
+			this.prop2 = prop2;
+			AddProp2Listeners(this.prop2);
+			this.prop4 = prop4;
+			this.prop5 = prop5;
 		}
 		
 		public BaseType1(BaseType1 other)
 		{
-			this._prop1 = other.Prop1;
-			AddProp1Listeners(this._prop1);
-			this._prop2 = other.Prop2;
-			AddProp2Listeners(this._prop2);
-			this._prop3 = other.Prop3;
-			this._prop4 = other.Prop4;
-			this._prop5 = other.Prop5;
-			if (other._compLazy != null)
+			this.prop1 = other.Prop1;
+			AddProp1Listeners(this.prop1);
+			this.prop2 = other.Prop2;
+			AddProp2Listeners(this.prop2);
+			this.prop3 = other.Prop3;
+			this.prop4 = other.Prop4;
+			this.prop5 = other.Prop5;
+			if (other.compLazy != null)
 			{
-				this._compLazy = new Type2(other.CompLazy);
-				AddCompLazyListeners(this._compLazy);
+				this.compLazy = new Type2(other.CompLazy);
+				AddCompLazyListeners(this.compLazy);
 			}
-			this._comp = new Type2(other.Comp);
-			AddCompListeners(this._comp);
+			this.comp = new Type2(other.Comp);
+			AddCompListeners(this.comp);
 		}
 		
 		#endregion
@@ -75,7 +75,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Prop1", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Type2 _prop1;
+		private Type2 prop1;
 		
 		public Type2 Prop1
 		{
@@ -91,19 +91,19 @@ namespace examples.required
 		
 		protected virtual Type2 GetProp1()
 		{
-			return this._prop1;
+			return this.prop1;
 		}
 		
 		protected virtual bool SetProp1(Type2 prop1)
 		{
-			if (this._prop1 == prop1)
+			if (this.prop1 == prop1)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
-			this._prop1 = prop1;
+			this.prop1 = prop1;
 			
 			AddProp1Listeners(prop1);
 			
@@ -182,7 +182,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Prop2", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Type2 _prop2;
+		private Type2 prop2;
 		
 		public Type2 Prop2
 		{
@@ -198,7 +198,7 @@ namespace examples.required
 		
 		protected virtual Type2 GetProp2()
 		{
-			return this._prop2;
+			return this.prop2;
 		}
 		
 		protected virtual bool SetProp2(Type2 prop2)
@@ -207,14 +207,14 @@ namespace examples.required
 			if (prop2 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop2");
-			if (this._prop2 == prop2)
+			if (this.prop2 == prop2)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP2);
 			
 			RemoveProp2Listeners(prop2);
 			
-			this._prop2 = prop2;
+			this.prop2 = prop2;
 			
 			AddProp2Listeners(prop2);
 			
@@ -293,7 +293,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Prop3", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private int _prop3;
+		private int prop3;
 		
 		public int Prop3
 		{
@@ -309,17 +309,17 @@ namespace examples.required
 		
 		protected virtual int GetProp3()
 		{
-			return this._prop3;
+			return this.prop3;
 		}
 		
 		protected virtual bool SetProp3(int prop3)
 		{
-			if (this._prop3 == prop3)
+			if (this.prop3 == prop3)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP3);
 			
-			this._prop3 = prop3;
+			this.prop3 = prop3;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP3);
 			
@@ -332,7 +332,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Prop4", Order = 3, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private int _prop4;
+		private int prop4;
 		
 		public int Prop4
 		{
@@ -348,17 +348,17 @@ namespace examples.required
 		
 		protected virtual int GetProp4()
 		{
-			return this._prop4;
+			return this.prop4;
 		}
 		
 		protected virtual bool SetProp4(int prop4)
 		{
-			if (this._prop4 == prop4)
+			if (this.prop4 == prop4)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP4);
 			
-			this._prop4 = prop4;
+			this.prop4 = prop4;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP4);
 			
@@ -371,7 +371,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Prop5", Order = 4, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _prop5;
+		private string prop5;
 		
 		public string Prop5
 		{
@@ -387,7 +387,7 @@ namespace examples.required
 		
 		protected virtual string GetProp5()
 		{
-			return this._prop5;
+			return this.prop5;
 		}
 		
 		protected virtual bool SetProp5(string prop5)
@@ -396,12 +396,12 @@ namespace examples.required
 			if (prop5 == null)
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				throw new ArgumentNullException("prop5");
-			if (this._prop5 == prop5)
+			if (this.prop5 == prop5)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP5);
 			
-			this._prop5 = prop5;
+			this.prop5 = prop5;
 			
 			NotifyPropertyChanged(PROPERTIES.PROP5);
 			
@@ -414,7 +414,7 @@ namespace examples.required
 		
 		[DataMember(Name = "CompLazy", Order = 5, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Type2 _compLazy;
+		private Type2 compLazy;
 		
 		public Type2 CompLazy
 		{
@@ -426,17 +426,17 @@ namespace examples.required
 		
 		protected virtual void LazyInitCompLazy()
 		{
-			if (this._compLazy != null)
+			if (this.compLazy != null)
 				return;
 				
-			this._compLazy = new Type2();
-			AddCompLazyListeners(this._compLazy);
+			this.compLazy = new Type2();
+			AddCompLazyListeners(this.compLazy);
 		}
 		
 		protected virtual Type2 GetCompLazy()
 		{
 			LazyInitCompLazy();
-			return this._compLazy;
+			return this.compLazy;
 		}
 		
 		private void AddCompLazyListeners(object child)
@@ -487,7 +487,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Comp", Order = 6, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Type2 _comp;
+		private readonly Type2 comp;
 		
 		public Type2 Comp
 		{
@@ -499,7 +499,7 @@ namespace examples.required
 		
 		protected virtual Type2 GetComp()
 		{
-			return this._comp;
+			return this.comp;
 		}
 		
 		private void AddCompListeners(object child)
@@ -553,14 +553,14 @@ namespace examples.required
 			Prop3 = other.Prop3;
 			Prop4 = other.Prop4;
 			Prop5 = other.Prop5;
-			if (other._compLazy != null)
+			if (other.compLazy != null)
 			{
 				CompLazy.CopyFrom(other.CompLazy);
 			}
 			else
 			{
-				if (this._compLazy != null)
-					this._compLazy.CopyFrom(new Type2());
+				if (this.compLazy != null)
+					this.compLazy.CopyFrom(new Type2());
 			}
 			Comp.CopyFrom(other.Comp);
 		}

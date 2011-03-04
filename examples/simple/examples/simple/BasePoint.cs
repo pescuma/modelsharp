@@ -28,13 +28,13 @@ namespace examples.simple
 		
 		public BasePoint()
 		{
-			this._y = 2;
+			this.y = 2;
 		}
 		
 		public BasePoint(BasePoint other)
 		{
-			this._x = other.X;
-			this._y = other.Y;
+			this.x = other.X;
+			this.y = other.Y;
 		}
 		
 		#endregion
@@ -43,7 +43,7 @@ namespace examples.simple
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		public double X
 		{
@@ -59,17 +59,17 @@ namespace examples.simple
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -82,7 +82,7 @@ namespace examples.simple
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _y;
+		private double y;
 		
 		public double Y
 		{
@@ -98,17 +98,17 @@ namespace examples.simple
 		
 		protected virtual double GetY()
 		{
-			return this._y;
+			return this.y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (this._y == y)
+			if (this.y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this._y = y;
+			this.y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			

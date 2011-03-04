@@ -28,14 +28,14 @@ namespace examples.extends
 		
 		public BaseB()
 		{
-			AddDate2Listeners(this._date2);
+			AddDate2Listeners(this.date2);
 		}
 		
 		public BaseB(BaseB other)
 		: base(other)
 		{
-			this._date2 = other.Date2;
-			AddDate2Listeners(this._date2);
+			this.date2 = other.Date2;
+			AddDate2Listeners(this.date2);
 		}
 		
 		#endregion
@@ -44,7 +44,7 @@ namespace examples.extends
 		
 		[DataMember(Name = "Date2", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private DateTime _date2;
+		private DateTime date2;
 		
 		public DateTime Date2
 		{
@@ -60,19 +60,19 @@ namespace examples.extends
 		
 		protected virtual DateTime GetDate2()
 		{
-			return this._date2;
+			return this.date2;
 		}
 		
 		protected virtual bool SetDate2(DateTime date2)
 		{
-			if (this._date2 == date2)
+			if (this.date2 == date2)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.DATE2);
 			
 			RemoveDate2Listeners(date2);
 			
-			this._date2 = date2;
+			this.date2 = date2;
 			
 			AddDate2Listeners(date2);
 			

@@ -1,0 +1,146 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# ForEach("Annotation", it.FieldAnnotations); #>
+		private <# if (it.ReadOnly) { #>readonly <# } #><#= it.TypeName #> <#= it.FieldName #>;
+
+<# if (it.Documentation != null) { #>
+		/// <summary>
+		/// <#= it.Documentation #>
+		/// </summary>
+<# } #>
+<# ForEach("Annotation", it.Annotations); #>
+		<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #><# } else { #>public<# } #> <#= it.TypeName #> <#= it.Name #> 
+		{
+<# if (it.Getter != null) { #>
+<#		ForEach("Annotation", it.PropGetAnnotations); #>
+			get{ return <#= it.Getter.Name #>(); }
+<# } #>
+<# if (it.Setter != null) { #>
+<#		ForEach("Annotation", it.PropSetAnnotations); #>
+			<# if (it.SetterVisibility != null) { #><#= it.SetterVisibility #> <# } #>set{ <#= it.Setter.Name #>(value); }
+<# } #>
+		}
+<# if (it.LazyInitializer != null) { #>
+
+<#		ForEach("Annotation", it.LazyInitializer.Annotations); #>
+		protected virtual <#= it.LazyInitializer.TypeName #> <#= it.LazyInitializer.Name #>() 
+		{
+			if (this.<#= it.FieldName #> != null)
+				return;
+
+<#		if (it.DefaultValue != null) { #>
+			this.<#= it.FieldName #> = <#= it.DefaultValue #>;
+<#		} else { #>
+			this.<#= it.FieldName #> = new <#= it.TypeName #>();
+<#		} #>
+<#		if (it.CanListenTo) { #>
+			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
+<#		} #>
+		}
+<# } #>
+<# if (it.Getter != null) { #>
+
+<#		ForEach("Annotation", it.Getter.Annotations); #>
+		protected virtual <#= it.Getter.TypeName #> <#= it.Getter.Name #>()
+		{
+<#		if (it.LazyInitializer != null) { #>
+			<#= it.LazyInitializer.Name #>();
+<#		} #>
+			return this.<#= it.FieldName #>;
+		}
+<# } #>
+<# if (it.Setter != null) { #>
+
+<#		ForEach("Annotation", it.Setter.Annotations); #>
+		protected virtual <#= it.Setter.TypeName #> <#= it.Setter.Name #>(<#= it.Setter.Parameters[0] #> <#= it.VarName #>) 
+		{
+<#		Include("NotNullIfRequired", it); #>
+			if (this.<#= it.FieldName #> == <#= it.VarName #>)
+				return false;
+
+			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
+
+<#		if (it.CanListenTo) { #>
+			Remove<#= it.Name #>Listeners(<#= it.VarName #>);
+
+<#		} #>
+			this.<#= it.FieldName #> = <#= it.VarName #>;
+
+<#		if (it.CanListenTo) { #>
+			Add<#= it.Name #>Listeners(<#= it.VarName #>);
+
+<#		} #>
+			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
+
+			return true;
+		}
+<#		if (it.CanListenTo) { #>
+
+		private void Remove<#= it.Name #>Listeners(object child)
+		{
+			if (child == null)
+				return;
+
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging -= <#= it.Name #>PropertyChangingEventHandler;
+
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging -= <#= it.Name #>ChildPropertyChangingEventHandler;
+
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged -= <#= it.Name #>PropertyChangedEventHandler;
+
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged -= <#= it.Name #>ChildPropertyChangedEventHandler;
+		}
+<#		} // if (it.CanListenTo) #>
+<# } // if (it.Setter) #>
+<# if (it.CanListenTo) { #>
+
+		private void Add<#= it.Name #>Listeners(object child)
+		{
+			if (child == null)
+				return;
+
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += <#= it.Name #>PropertyChangingEventHandler;
+
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += <#= it.Name #>ChildPropertyChangingEventHandler;
+
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += <#= it.Name #>PropertyChangedEventHandler;
+
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += <#= it.Name #>ChildPropertyChangedEventHandler;
+		}
+
+		private void <#= it.Name #>PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
+		}
+
+		private void <#= it.Name #>ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
+		}
+
+		private void <#= it.Name #>PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
+		}
+
+		private void <#= it.Name #>ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
+		}
+<# } // if (it.CanListenTo) #>

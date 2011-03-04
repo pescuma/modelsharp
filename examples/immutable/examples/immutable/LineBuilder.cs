@@ -12,10 +12,10 @@ namespace examples.immutable
 
 	public class LineBuilder
 	{
-		private Point _p1;
-		private Point _p2;
-		private Point _dir;
-		private readonly List<Point> _border = new List<Point>();
+		private Point p1;
+		private Point p2;
+		private Point dir;
+		private readonly List<Point> border = new List<Point>();
 		
 		public virtual LineBuilder Set(Line other)
 		{
@@ -29,41 +29,41 @@ namespace examples.immutable
 		
 		public virtual LineBuilder SetP1(Point p1)
 		{
-			_p1 = p1;
+			this.p1 = p1;
 			return this;
 		}
 		
 		public virtual LineBuilder SetP2(Point p2)
 		{
-			_p2 = p2;
+			this.p2 = p2;
 			return this;
 		}
 		
 		public virtual LineBuilder SetDir(Point dir)
 		{
-			_dir = dir;
+			this.dir = dir;
 			return this;
 		}
 		
 		public virtual LineBuilder ClearBorder()
 		{
-			_border.Clear();
+			this.border.Clear();
 			return this;
 		}
 		public virtual LineBuilder AddToBorder(Point border)
 		{
-			_border.Add(border);
+			this.border.Add(border);
 			return this;
 		}
 		public virtual LineBuilder AddToBorder(IEnumerable<Point> border)
 		{
-			_border.AddRange(border);
+			this.border.AddRange(border);
 			return this;
 		}
 		
 		public virtual Line Build()
 		{
-			return new Line(_p1, _p2, _dir, _border);
+			return new Line(this.p1, this.p2, this.dir, this.border);
 		}
 	}
 	

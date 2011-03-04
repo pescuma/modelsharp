@@ -28,24 +28,24 @@ foreach(var prop in it.NonComputedProperties) {
 		var col = (CollectionInfo) prop; #>
 		public virtual <#= class #> Clear<#= col.Name #>() 
 		{
-			<#= col.PrivateName #>.Clear();
+			this.<#= col.PrivateName #>.Clear();
 			return this;
 		}
 		public virtual <#= class #> AddTo<#= col.Name #>(<#= col.Contents #> <#= col.VarName #>) 
 		{
-			<#= col.PrivateName #>.Add(<#= col.VarName #>);
+			this.<#= col.PrivateName #>.Add(<#= col.VarName #>);
 			return this;
 		}
 		public virtual <#= class #> AddTo<#= col.Name #>(IEnumerable<<#= col.Contents #>> <#= col.VarName #>) 
 		{
-			<#= col.PrivateName #>.AddRange(<#= col.VarName #>);
+			this.<#= col.PrivateName #>.AddRange(<#= col.VarName #>);
 			return this;
 		}
 
 <#	} else { #>
 		public virtual <#= class #> Set<#= prop.Name #>(<#= prop.TypeName #> <#= prop.VarName #>) 
 		{
-			<#= prop.PrivateName #> = <#= prop.VarName #>;
+			this.<#= prop.PrivateName #> = <#= prop.VarName #>;
 			return this;
 		}
 

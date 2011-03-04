@@ -12,14 +12,14 @@ namespace examples.deepCopy
 
 	public class ImmutablePersonBuilder
 	{
-		private readonly List<ImmutableAddress> _homeAddressCol = new List<ImmutableAddress>();
-		private readonly List<ImmutableAddress> _workAddressCol = new List<ImmutableAddress>();
-		private readonly List<string> _stringCol = new List<string>();
-		private readonly List<string> _stringCol2 = new List<string>();
-		private readonly List<double> _doubleCol = new List<double>();
-		private readonly List<double> _doubleCol2 = new List<double>();
-		private Address _homeAddressProp;
-		private Address _workAddressProp;
+		private readonly List<ImmutableAddress> homeAddressCol = new List<ImmutableAddress>();
+		private readonly List<ImmutableAddress> workAddressCol = new List<ImmutableAddress>();
+		private readonly List<string> stringCol = new List<string>();
+		private readonly List<string> stringCol2 = new List<string>();
+		private readonly List<double> doubleCol = new List<double>();
+		private readonly List<double> doubleCol2 = new List<double>();
+		private Address homeAddressProp;
+		private Address workAddressProp;
 		
 		public virtual ImmutablePersonBuilder Set(ImmutablePerson other)
 		{
@@ -42,115 +42,115 @@ namespace examples.deepCopy
 		
 		public virtual ImmutablePersonBuilder ClearHomeAddressCol()
 		{
-			_homeAddressCol.Clear();
+			this.homeAddressCol.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToHomeAddressCol(ImmutableAddress homeAddressCol)
 		{
-			_homeAddressCol.Add(homeAddressCol);
+			this.homeAddressCol.Add(homeAddressCol);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToHomeAddressCol(IEnumerable<ImmutableAddress> homeAddressCol)
 		{
-			_homeAddressCol.AddRange(homeAddressCol);
+			this.homeAddressCol.AddRange(homeAddressCol);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder ClearWorkAddressCol()
 		{
-			_workAddressCol.Clear();
+			this.workAddressCol.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToWorkAddressCol(ImmutableAddress workAddressCol)
 		{
-			_workAddressCol.Add(workAddressCol);
+			this.workAddressCol.Add(workAddressCol);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToWorkAddressCol(IEnumerable<ImmutableAddress> workAddressCol)
 		{
-			_workAddressCol.AddRange(workAddressCol);
+			this.workAddressCol.AddRange(workAddressCol);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder ClearStringCol()
 		{
-			_stringCol.Clear();
+			this.stringCol.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToStringCol(string stringCol)
 		{
-			_stringCol.Add(stringCol);
+			this.stringCol.Add(stringCol);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToStringCol(IEnumerable<string> stringCol)
 		{
-			_stringCol.AddRange(stringCol);
+			this.stringCol.AddRange(stringCol);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder ClearStringCol2()
 		{
-			_stringCol2.Clear();
+			this.stringCol2.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToStringCol2(string stringCol2)
 		{
-			_stringCol2.Add(stringCol2);
+			this.stringCol2.Add(stringCol2);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToStringCol2(IEnumerable<string> stringCol2)
 		{
-			_stringCol2.AddRange(stringCol2);
+			this.stringCol2.AddRange(stringCol2);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder ClearDoubleCol()
 		{
-			_doubleCol.Clear();
+			this.doubleCol.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToDoubleCol(double doubleCol)
 		{
-			_doubleCol.Add(doubleCol);
+			this.doubleCol.Add(doubleCol);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToDoubleCol(IEnumerable<double> doubleCol)
 		{
-			_doubleCol.AddRange(doubleCol);
+			this.doubleCol.AddRange(doubleCol);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder ClearDoubleCol2()
 		{
-			_doubleCol2.Clear();
+			this.doubleCol2.Clear();
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToDoubleCol2(double doubleCol2)
 		{
-			_doubleCol2.Add(doubleCol2);
+			this.doubleCol2.Add(doubleCol2);
 			return this;
 		}
 		public virtual ImmutablePersonBuilder AddToDoubleCol2(IEnumerable<double> doubleCol2)
 		{
-			_doubleCol2.AddRange(doubleCol2);
+			this.doubleCol2.AddRange(doubleCol2);
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder SetHomeAddressProp(Address homeAddressProp)
 		{
-			_homeAddressProp = homeAddressProp;
+			this.homeAddressProp = homeAddressProp;
 			return this;
 		}
 		
 		public virtual ImmutablePersonBuilder SetWorkAddressProp(Address workAddressProp)
 		{
-			_workAddressProp = workAddressProp;
+			this.workAddressProp = workAddressProp;
 			return this;
 		}
 		
 		public virtual ImmutablePerson Build()
 		{
-			return new ImmutablePerson(_homeAddressCol, _workAddressCol, _stringCol, _stringCol2, _doubleCol, _doubleCol2, _homeAddressProp, _workAddressProp);
+			return new ImmutablePerson(this.homeAddressCol, this.workAddressCol, this.stringCol, this.stringCol2, this.doubleCol, this.doubleCol2, this.homeAddressProp, this.workAddressProp);
 		}
 	}
 	

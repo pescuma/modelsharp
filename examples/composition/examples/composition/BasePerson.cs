@@ -28,18 +28,18 @@ namespace examples.composition
 		
 		public BasePerson()
 		{
-			this._homeAddress = new Address();
-			AddHomeAddressListeners(this._homeAddress);
-			this._workAddress = new Address();
-			AddWorkAddressListeners(this._workAddress);
+			this.homeAddress = new Address();
+			AddHomeAddressListeners(this.homeAddress);
+			this.workAddress = new Address();
+			AddWorkAddressListeners(this.workAddress);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			this._homeAddress = new Address(other.HomeAddress);
-			AddHomeAddressListeners(this._homeAddress);
-			this._workAddress = new Address(other.WorkAddress);
-			AddWorkAddressListeners(this._workAddress);
+			this.homeAddress = new Address(other.HomeAddress);
+			AddHomeAddressListeners(this.homeAddress);
+			this.workAddress = new Address(other.WorkAddress);
+			AddWorkAddressListeners(this.workAddress);
 		}
 		
 		#endregion
@@ -48,7 +48,7 @@ namespace examples.composition
 		
 		[DataMember(Name = "HomeAddress", Order = 0, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Address _homeAddress;
+		private readonly Address homeAddress;
 		
 		public Address HomeAddress
 		{
@@ -60,7 +60,7 @@ namespace examples.composition
 		
 		protected virtual Address GetHomeAddress()
 		{
-			return this._homeAddress;
+			return this.homeAddress;
 		}
 		
 		private void AddHomeAddressListeners(object child)
@@ -111,7 +111,7 @@ namespace examples.composition
 		
 		[DataMember(Name = "WorkAddress", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Address _workAddress;
+		private readonly Address workAddress;
 		
 		public Address WorkAddress
 		{
@@ -123,7 +123,7 @@ namespace examples.composition
 		
 		protected virtual Address GetWorkAddress()
 		{
-			return this._workAddress;
+			return this.workAddress;
 		}
 		
 		private void AddWorkAddressListeners(object child)

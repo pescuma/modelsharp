@@ -33,12 +33,12 @@ namespace examples.deepCopy
 		
 		public BaseAddress(BaseAddress other)
 		{
-			this._street = other.Street;
+			this.street = other.Street;
 			if (other.City == null)
-				this._city = null;
+				this.city = null;
 			else
-				this._city = string.Copy(other.City);
-			this._zipCode = other.ZipCode;
+				this.city = string.Copy(other.City);
+			this.zipCode = other.ZipCode;
 		}
 		
 		#endregion
@@ -47,7 +47,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "Street", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _street;
+		private string street;
 		
 		public string Street
 		{
@@ -63,17 +63,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetStreet()
 		{
-			return this._street;
+			return this.street;
 		}
 		
 		protected virtual bool SetStreet(string street)
 		{
-			if (this._street == street)
+			if (this.street == street)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.STREET);
 			
-			this._street = street;
+			this.street = street;
 			
 			NotifyPropertyChanged(PROPERTIES.STREET);
 			
@@ -86,7 +86,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "City", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _city;
+		private string city;
 		
 		public string City
 		{
@@ -102,17 +102,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetCity()
 		{
-			return this._city;
+			return this.city;
 		}
 		
 		protected virtual bool SetCity(string city)
 		{
-			if (this._city == city)
+			if (this.city == city)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.CITY);
 			
-			this._city = city;
+			this.city = city;
 			
 			NotifyPropertyChanged(PROPERTIES.CITY);
 			
@@ -125,7 +125,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "ZipCode", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _zipCode;
+		private string zipCode;
 		
 		public string ZipCode
 		{
@@ -141,17 +141,17 @@ namespace examples.deepCopy
 		
 		protected virtual string GetZipCode()
 		{
-			return this._zipCode;
+			return this.zipCode;
 		}
 		
 		protected virtual bool SetZipCode(string zipCode)
 		{
-			if (this._zipCode == zipCode)
+			if (this.zipCode == zipCode)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.ZIP_CODE);
 			
-			this._zipCode = zipCode;
+			this.zipCode = zipCode;
 			
 			NotifyPropertyChanged(PROPERTIES.ZIP_CODE);
 			

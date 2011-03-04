@@ -30,21 +30,21 @@ namespace examples.collection
 		
 		public BasePerson()
 		{
-			this._cars = new ObservableList<string>();
-			AddCarsListListeners(this._cars);
-			this._houses = new ObservableList<House>();
-			AddHousesListListeners(this._houses);
+			this.cars = new ObservableList<string>();
+			AddCarsListListeners(this.cars);
+			this.houses = new ObservableList<House>();
+			AddHousesListListeners(this.houses);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			this._cars = new ObservableList<string>();
-			AddCarsListListeners(this._cars);
-			this._cars.AddRange(other.Cars);
-			this._name = other.Name;
-			this._houses = new ObservableList<House>();
-			AddHousesListListeners(this._houses);
-			this._houses.AddRange(other.Houses);
+			this.cars = new ObservableList<string>();
+			AddCarsListListeners(this.cars);
+			this.cars.AddRange(other.Cars);
+			this.name = other.Name;
+			this.houses = new ObservableList<House>();
+			AddHousesListListeners(this.houses);
+			this.houses.AddRange(other.Houses);
 		}
 		
 		#endregion
@@ -53,7 +53,7 @@ namespace examples.collection
 		
 		[DataMember(Name = "Cars", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> _cars;
+		private readonly ObservableList<string> cars;
 		
 		public ObservableList<string> Cars
 		{
@@ -65,7 +65,7 @@ namespace examples.collection
 		
 		protected virtual ObservableList<string> GetCars()
 		{
-			return this._cars;
+			return this.cars;
 		}
 		
 		private void AddCarsListListeners(object child)
@@ -104,7 +104,7 @@ namespace examples.collection
 		
 		[DataMember(Name = "Name", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _name;
+		private string name;
 		
 		public string Name
 		{
@@ -120,17 +120,17 @@ namespace examples.collection
 		
 		protected virtual string GetName()
 		{
-			return this._name;
+			return this.name;
 		}
 		
 		protected virtual bool SetName(string name)
 		{
-			if (this._name == name)
+			if (this.name == name)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.NAME);
 			
-			this._name = name;
+			this.name = name;
 			
 			NotifyPropertyChanged(PROPERTIES.NAME);
 			
@@ -143,7 +143,7 @@ namespace examples.collection
 		
 		[DataMember(Name = "Houses", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<House> _houses;
+		private readonly ObservableList<House> houses;
 		
 		public ObservableList<House> Houses
 		{
@@ -155,7 +155,7 @@ namespace examples.collection
 		
 		protected virtual ObservableList<House> GetHouses()
 		{
-			return this._houses;
+			return this.houses;
 		}
 		
 		private void AddHousesListListeners(object child)

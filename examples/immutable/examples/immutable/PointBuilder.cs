@@ -10,8 +10,8 @@ namespace examples.immutable
 
 	public class PointBuilder
 	{
-		private double _x;
-		private double _y = 2;
+		private double x;
+		private double y = 2;
 		
 		public virtual PointBuilder Set(Point other)
 		{
@@ -22,19 +22,19 @@ namespace examples.immutable
 		
 		public virtual PointBuilder SetX(double x)
 		{
-			_x = x;
+			this.x = x;
 			return this;
 		}
 		
 		public virtual PointBuilder SetY(double y)
 		{
-			_y = y;
+			this.y = y;
 			return this;
 		}
 		
 		public virtual Point Build()
 		{
-			return new Point(_x, _y);
+			return new Point(this.x, this.y);
 		}
 	}
 	

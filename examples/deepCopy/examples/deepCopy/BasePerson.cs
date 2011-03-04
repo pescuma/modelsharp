@@ -36,73 +36,73 @@ namespace examples.deepCopy
 		
 		public BasePerson()
 		{
-			this._homeAddressCol = new ObservableList<Address>();
-			AddHomeAddressColListListeners(this._homeAddressCol);
-			this._workAddressCol = new ObservableList<Address>();
-			AddWorkAddressColListListeners(this._workAddressCol);
-			this._stringCol = new ObservableList<string>();
-			AddStringColListListeners(this._stringCol);
-			this._stringCol2 = new ObservableList<string>();
-			AddStringCol2ListListeners(this._stringCol2);
-			this._doubleCol = new ObservableList<double>();
-			AddDoubleColListListeners(this._doubleCol);
-			this._doubleCol2 = new ObservableList<double>();
-			AddDoubleCol2ListListeners(this._doubleCol2);
-			AddHomeAddressPropListeners(this._homeAddressProp);
-			AddWorkAddressPropListeners(this._workAddressProp);
+			this.homeAddressCol = new ObservableList<Address>();
+			AddHomeAddressColListListeners(this.homeAddressCol);
+			this.workAddressCol = new ObservableList<Address>();
+			AddWorkAddressColListListeners(this.workAddressCol);
+			this.stringCol = new ObservableList<string>();
+			AddStringColListListeners(this.stringCol);
+			this.stringCol2 = new ObservableList<string>();
+			AddStringCol2ListListeners(this.stringCol2);
+			this.doubleCol = new ObservableList<double>();
+			AddDoubleColListListeners(this.doubleCol);
+			this.doubleCol2 = new ObservableList<double>();
+			AddDoubleCol2ListListeners(this.doubleCol2);
+			AddHomeAddressPropListeners(this.homeAddressProp);
+			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			this._homeAddressCol = new ObservableList<Address>();
-			AddHomeAddressColListListeners(this._homeAddressCol);
+			this.homeAddressCol = new ObservableList<Address>();
+			AddHomeAddressColListListeners(this.homeAddressCol);
 			foreach (Address otherItem in other.HomeAddressCol)
 			{
 				if (otherItem == null)
-					this._homeAddressCol.Add(null);
+					this.homeAddressCol.Add(null);
 				else
-					this._homeAddressCol.Add(new Address(otherItem));
+					this.homeAddressCol.Add(new Address(otherItem));
 			}
-			this._workAddressCol = new ObservableList<Address>();
-			AddWorkAddressColListListeners(this._workAddressCol);
-			this._workAddressCol.AddRange(other.WorkAddressCol);
-			if (other._lazyAddressCol != null)
+			this.workAddressCol = new ObservableList<Address>();
+			AddWorkAddressColListListeners(this.workAddressCol);
+			this.workAddressCol.AddRange(other.WorkAddressCol);
+			if (other.lazyAddressCol != null)
 			{
-				this._lazyAddressCol = new ObservableList<Address>();
-				AddLazyAddressColListListeners(this._lazyAddressCol);
+				this.lazyAddressCol = new ObservableList<Address>();
+				AddLazyAddressColListListeners(this.lazyAddressCol);
 				foreach (Address otherItem in other.LazyAddressCol)
 				{
 					if (otherItem == null)
-						this._lazyAddressCol.Add(null);
+						this.lazyAddressCol.Add(null);
 					else
-						this._lazyAddressCol.Add(new Address(otherItem));
+						this.lazyAddressCol.Add(new Address(otherItem));
 				}
 			}
-			this._stringCol = new ObservableList<string>();
-			AddStringColListListeners(this._stringCol);
+			this.stringCol = new ObservableList<string>();
+			AddStringColListListeners(this.stringCol);
 			foreach (string otherItem in other.StringCol)
 			{
 				if (otherItem == null)
-					this._stringCol.Add(null);
+					this.stringCol.Add(null);
 				else
-					this._stringCol.Add(string.Copy(otherItem));
+					this.stringCol.Add(string.Copy(otherItem));
 			}
-			this._stringCol2 = new ObservableList<string>();
-			AddStringCol2ListListeners(this._stringCol2);
-			this._stringCol2.AddRange(other.StringCol2);
-			this._doubleCol = new ObservableList<double>();
-			AddDoubleColListListeners(this._doubleCol);
-			this._doubleCol.AddRange(other.DoubleCol);
-			this._doubleCol2 = new ObservableList<double>();
-			AddDoubleCol2ListListeners(this._doubleCol2);
-			this._doubleCol2.AddRange(other.DoubleCol2);
+			this.stringCol2 = new ObservableList<string>();
+			AddStringCol2ListListeners(this.stringCol2);
+			this.stringCol2.AddRange(other.StringCol2);
+			this.doubleCol = new ObservableList<double>();
+			AddDoubleColListListeners(this.doubleCol);
+			this.doubleCol.AddRange(other.DoubleCol);
+			this.doubleCol2 = new ObservableList<double>();
+			AddDoubleCol2ListListeners(this.doubleCol2);
+			this.doubleCol2.AddRange(other.DoubleCol2);
 			if (other.HomeAddressProp == null)
-				this._homeAddressProp = null;
+				this.homeAddressProp = null;
 			else
-				this._homeAddressProp = new Address(other.HomeAddressProp);
-			AddHomeAddressPropListeners(this._homeAddressProp);
-			this._workAddressProp = other.WorkAddressProp;
-			AddWorkAddressPropListeners(this._workAddressProp);
+				this.homeAddressProp = new Address(other.HomeAddressProp);
+			AddHomeAddressPropListeners(this.homeAddressProp);
+			this.workAddressProp = other.WorkAddressProp;
+			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
 		#endregion
@@ -111,7 +111,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "HomeAddressCol", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Address> _homeAddressCol;
+		private readonly ObservableList<Address> homeAddressCol;
 		
 		public ObservableList<Address> HomeAddressCol
 		{
@@ -123,7 +123,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<Address> GetHomeAddressCol()
 		{
-			return this._homeAddressCol;
+			return this.homeAddressCol;
 		}
 		
 		private void AddHomeAddressColListListeners(object child)
@@ -261,7 +261,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "WorkAddressCol", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Address> _workAddressCol;
+		private readonly ObservableList<Address> workAddressCol;
 		
 		public ObservableList<Address> WorkAddressCol
 		{
@@ -273,7 +273,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<Address> GetWorkAddressCol()
 		{
-			return this._workAddressCol;
+			return this.workAddressCol;
 		}
 		
 		private void AddWorkAddressColListListeners(object child)
@@ -411,7 +411,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "LazyAddressCol", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private ObservableList<Address> _lazyAddressCol;
+		private ObservableList<Address> lazyAddressCol;
 		
 		public ObservableList<Address> LazyAddressCol
 		{
@@ -423,17 +423,17 @@ namespace examples.deepCopy
 		
 		protected virtual void LazyInitLazyAddressCol()
 		{
-			if (this._lazyAddressCol != null)
+			if (this.lazyAddressCol != null)
 				return;
 				
-			this._lazyAddressCol = new ObservableList<Address>();
-			AddLazyAddressColListListeners(this._lazyAddressCol);
+			this.lazyAddressCol = new ObservableList<Address>();
+			AddLazyAddressColListListeners(this.lazyAddressCol);
 		}
 		
 		protected virtual ObservableList<Address> GetLazyAddressCol()
 		{
 			LazyInitLazyAddressCol();
-			return this._lazyAddressCol;
+			return this.lazyAddressCol;
 		}
 		
 		private void AddLazyAddressColListListeners(object child)
@@ -571,7 +571,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "StringCol", Order = 3, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> _stringCol;
+		private readonly ObservableList<string> stringCol;
 		
 		public ObservableList<string> StringCol
 		{
@@ -583,7 +583,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<string> GetStringCol()
 		{
-			return this._stringCol;
+			return this.stringCol;
 		}
 		
 		private void AddStringColListListeners(object child)
@@ -622,7 +622,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "StringCol2", Order = 4, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> _stringCol2;
+		private readonly ObservableList<string> stringCol2;
 		
 		public ObservableList<string> StringCol2
 		{
@@ -634,7 +634,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<string> GetStringCol2()
 		{
-			return this._stringCol2;
+			return this.stringCol2;
 		}
 		
 		private void AddStringCol2ListListeners(object child)
@@ -673,7 +673,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "DoubleCol", Order = 5, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> _doubleCol;
+		private readonly ObservableList<double> doubleCol;
 		
 		public ObservableList<double> DoubleCol
 		{
@@ -685,7 +685,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<double> GetDoubleCol()
 		{
-			return this._doubleCol;
+			return this.doubleCol;
 		}
 		
 		private void AddDoubleColListListeners(object child)
@@ -724,7 +724,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "DoubleCol2", Order = 6, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> _doubleCol2;
+		private readonly ObservableList<double> doubleCol2;
 		
 		public ObservableList<double> DoubleCol2
 		{
@@ -736,7 +736,7 @@ namespace examples.deepCopy
 		
 		protected virtual ObservableList<double> GetDoubleCol2()
 		{
-			return this._doubleCol2;
+			return this.doubleCol2;
 		}
 		
 		private void AddDoubleCol2ListListeners(object child)
@@ -775,7 +775,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "HomeAddressProp", Order = 7, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Address _homeAddressProp;
+		private Address homeAddressProp;
 		
 		public Address HomeAddressProp
 		{
@@ -791,19 +791,19 @@ namespace examples.deepCopy
 		
 		protected virtual Address GetHomeAddressProp()
 		{
-			return this._homeAddressProp;
+			return this.homeAddressProp;
 		}
 		
 		protected virtual bool SetHomeAddressProp(Address homeAddressProp)
 		{
-			if (this._homeAddressProp == homeAddressProp)
+			if (this.homeAddressProp == homeAddressProp)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP);
 			
 			RemoveHomeAddressPropListeners(homeAddressProp);
 			
-			this._homeAddressProp = homeAddressProp;
+			this.homeAddressProp = homeAddressProp;
 			
 			AddHomeAddressPropListeners(homeAddressProp);
 			
@@ -882,7 +882,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "WorkAddressProp", Order = 8, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Address _workAddressProp;
+		private Address workAddressProp;
 		
 		public Address WorkAddressProp
 		{
@@ -898,19 +898,19 @@ namespace examples.deepCopy
 		
 		protected virtual Address GetWorkAddressProp()
 		{
-			return this._workAddressProp;
+			return this.workAddressProp;
 		}
 		
 		protected virtual bool SetWorkAddressProp(Address workAddressProp)
 		{
-			if (this._workAddressProp == workAddressProp)
+			if (this.workAddressProp == workAddressProp)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP);
 			
 			RemoveWorkAddressPropListeners(workAddressProp);
 			
-			this._workAddressProp = workAddressProp;
+			this.workAddressProp = workAddressProp;
 			
 			AddWorkAddressPropListeners(workAddressProp);
 			
@@ -997,7 +997,7 @@ namespace examples.deepCopy
 			}
 			WorkAddressCol.Clear();
 			WorkAddressCol.AddRange(other.WorkAddressCol);
-			if (other._lazyAddressCol != null)
+			if (other.lazyAddressCol != null)
 			{
 				LazyAddressCol.Clear();
 				foreach (Address otherItem in other.LazyAddressCol)
@@ -1010,7 +1010,7 @@ namespace examples.deepCopy
 			}
 			else
 			{
-				if (this._lazyAddressCol != null)
+				if (this.lazyAddressCol != null)
 					LazyAddressCol.Clear();
 			}
 			StringCol.Clear();

@@ -12,9 +12,9 @@ namespace examples.doc
 
 	public class ImmutablePointBuilder
 	{
-		private double _x;
-		private Point _y;
-		private readonly List<double> _ws = new List<double>();
+		private double x;
+		private Point y;
+		private readonly List<double> ws = new List<double>();
 		
 		public virtual ImmutablePointBuilder Set(ImmutablePoint other)
 		{
@@ -27,35 +27,35 @@ namespace examples.doc
 		
 		public virtual ImmutablePointBuilder SetX(double x)
 		{
-			_x = x;
+			this.x = x;
 			return this;
 		}
 		
 		public virtual ImmutablePointBuilder SetY(Point y)
 		{
-			_y = y;
+			this.y = y;
 			return this;
 		}
 		
 		public virtual ImmutablePointBuilder ClearWs()
 		{
-			_ws.Clear();
+			this.ws.Clear();
 			return this;
 		}
 		public virtual ImmutablePointBuilder AddToWs(double ws)
 		{
-			_ws.Add(ws);
+			this.ws.Add(ws);
 			return this;
 		}
 		public virtual ImmutablePointBuilder AddToWs(IEnumerable<double> ws)
 		{
-			_ws.AddRange(ws);
+			this.ws.AddRange(ws);
 			return this;
 		}
 		
 		public virtual ImmutablePoint Build()
 		{
-			return new ImmutablePoint(_x, _y, _ws);
+			return new ImmutablePoint(this.x, this.y, this.ws);
 		}
 	}
 	

@@ -97,8 +97,9 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> PropGetAnnotations = new List<string>();
 		public readonly HashSet<PropertyInfo> DependentProperties = new HashSet<PropertyInfo>();
 
-		public PropertyInfo(TypeInfo owner, string name, string type, bool required, bool lazy)
-			: base(name, type)
+		public PropertyInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
+		                    bool required, bool lazy)
+			: base(conventions, name, type)
 		{
 			Owner = owner;
 			Required = required;

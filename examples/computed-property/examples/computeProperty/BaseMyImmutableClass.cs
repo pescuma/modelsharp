@@ -27,7 +27,7 @@ namespace examples.computeProperty
 		{
 			X = x;
 			Y = y;
-			_squaredLengthCachedCacheValid = false;
+			squaredLengthCachedCacheValid = false;
 			Children = new ReadOnlyCollection<MyClass>(new List<MyClass>(children));
 		}
 		
@@ -35,7 +35,7 @@ namespace examples.computeProperty
 		{
 			this.X = other.X;
 			this.Y = other.Y;
-			_squaredLengthCachedCacheValid = false;
+			squaredLengthCachedCacheValid = false;
 			var children = new List<MyClass>();
 			children.AddRange(other.Children);
 			Children = new ReadOnlyCollection<MyClass>(children);
@@ -85,9 +85,9 @@ namespace examples.computeProperty
 		protected abstract double ComputeSquaredLength();
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _squaredLengthCachedCache;
+		private double squaredLengthCachedCache;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private bool _squaredLengthCachedCacheValid;
+		private bool squaredLengthCachedCacheValid;
 		
 		public double SquaredLengthCached
 		{
@@ -99,18 +99,18 @@ namespace examples.computeProperty
 		
 		protected virtual void InvalidateSquaredLengthCachedCache()
 		{
-			_squaredLengthCachedCacheValid = false;
+			squaredLengthCachedCacheValid = false;
 		}
 		
 		private double ComputeAndCacheSquaredLengthCached()
 		{
-			if (!_squaredLengthCachedCacheValid)
+			if (!squaredLengthCachedCacheValid)
 			{
-				this._squaredLengthCachedCache = ComputeSquaredLengthCached();
-				this._squaredLengthCachedCacheValid = true;
+				this.squaredLengthCachedCache = ComputeSquaredLengthCached();
+				this.squaredLengthCachedCacheValid = true;
 			}
 			
-			return this._squaredLengthCachedCache;
+			return this.squaredLengthCachedCache;
 		}
 		
 		protected abstract double ComputeSquaredLengthCached();

@@ -208,6 +208,8 @@ namespace org.pescuma.ModelSharp.Core
 
 		private ModelInfo CreateModel(xml.model model)
 		{
+			NamingConventions conventions = new NamingConventions();
+
 			ModelInfo result = new ModelInfo();
 
 			if (model.projectNamespace != "")
@@ -264,7 +266,8 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var property = (property) item;
 
-							var prop = new PropertyInfo(ti, property.name, property.type, property.required, false);
+							var prop = new PropertyInfo(conventions, ti, property.name, property.type, property.required,
+							                            false);
 
 							if (property.deepCopySpecified)
 								prop.DeepCopy = property.deepCopy;
@@ -286,7 +289,7 @@ namespace org.pescuma.ModelSharp.Core
 						{
 							var component = (component) item;
 
-							var comp = new ComponentInfo(ti, component.name, component.type, component.lazy);
+							var comp = new ComponentInfo(conventions, ti, component.name, component.type, component.lazy);
 
 							if (!string.IsNullOrEmpty(component.doc))
 								comp.Documentation = component.doc;
@@ -303,8 +306,8 @@ namespace org.pescuma.ModelSharp.Core
 							if (collection.lazy && collection.readOnly)
 								throw new ArgumentException("A collection can't be both lazy and readOnly");
 
-							var col = new CollectionInfo(ti, collection.name, collection.type, collection.lazy,
-							                             collection.readOnly);
+							var col = new CollectionInfo(conventions, ti, collection.name, collection.type,
+							                             collection.lazy, collection.readOnly);
 
 							if (collection.deepCopySpecified)
 								col.DeepCopy = collection.deepCopy;
@@ -322,8 +325,8 @@ namespace org.pescuma.ModelSharp.Core
 							            where d.Trim() != ""
 							            select StringUtils.FirstUpper(d.Trim()));
 
-							var prop = new ComputedPropertyInfo(ti, computed.name, computed.type, computed.cached, deps,
-							                                    computed.formula);
+							var prop = new ComputedPropertyInfo(conventions, ti, computed.name, computed.type,
+							                                    computed.cached, deps, computed.formula);
 
 							if (!string.IsNullOrEmpty(computed.doc))
 								prop.Documentation = computed.doc;

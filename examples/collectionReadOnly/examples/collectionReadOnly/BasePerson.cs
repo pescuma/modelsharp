@@ -28,15 +28,15 @@ namespace examples.collectionReadOnly
 		
 		public BasePerson()
 		{
-			this._houses = new ObservableList<House>();
-			AddHousesListListeners(this._houses);
+			this.houses = new ObservableList<House>();
+			AddHousesListListeners(this.houses);
 		}
 		
 		public BasePerson(BasePerson other)
 		{
-			this._houses = new ObservableList<House>();
-			AddHousesListListeners(this._houses);
-			this._houses.AddRange(other.Houses);
+			this.houses = new ObservableList<House>();
+			AddHousesListListeners(this.houses);
+			this.houses.AddRange(other.Houses);
 		}
 		
 		#endregion
@@ -45,10 +45,10 @@ namespace examples.collectionReadOnly
 		
 		[DataMember(Name = "Houses", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly ObservableList<House> _houses;
+		protected readonly ObservableList<House> houses;
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private ReadOnlyObservableList<House> _housesReadOnly;
+		private ReadOnlyObservableList<House> housesReadOnly;
 		
 		public ReadOnlyObservableList<House> Houses
 		{
@@ -60,16 +60,16 @@ namespace examples.collectionReadOnly
 		
 		protected virtual void LazyInitHousesReadOnly()
 		{
-			if (this._housesReadOnly != null)
+			if (this.housesReadOnly != null)
 				return;
 				
-			this._housesReadOnly = new ReadOnlyObservableList<House>(this._houses);
+			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
 		}
 		
 		protected virtual ReadOnlyObservableList<House> GetHouses()
 		{
 			LazyInitHousesReadOnly();
-			return this._housesReadOnly;
+			return this.housesReadOnly;
 		}
 		
 		private void AddHousesListListeners(object child)
@@ -205,8 +205,8 @@ namespace examples.collectionReadOnly
 		
 		public virtual void CopyFrom(Person other)
 		{
-			this._houses.Clear();
-			this._houses.AddRange(other.Houses);
+			this.houses.Clear();
+			this.houses.AddRange(other.Houses);
 		}
 		
 		#region Property Notification

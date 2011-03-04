@@ -35,9 +35,10 @@ namespace org.pescuma.ModelSharp.Core.model
 		public MethodInfo Cacher;
 		public MethodInfo Invalidate;
 
-		public ComputedPropertyInfo(TypeInfo owner, string name, string type, bool cached,
-		                            IEnumerable<string> dependsOn, string formula)
-			: base(owner, name, type, false, false)
+		public ComputedPropertyInfo(NamingConventions conventions, TypeInfo owner, string name,
+		                            string type, bool cached, IEnumerable<string> dependsOn,
+		                            string formula)
+			: base(conventions, owner, name, type, false, false)
 		{
 			Cached = cached;
 			DependsOn.AddRange(dependsOn);

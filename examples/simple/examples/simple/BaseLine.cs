@@ -28,16 +28,16 @@ namespace examples.simple
 		
 		public BaseLine()
 		{
-			AddP1Listeners(this._p1);
-			AddP2Listeners(this._p2);
+			AddP1Listeners(this.p1);
+			AddP2Listeners(this.p2);
 		}
 		
 		public BaseLine(BaseLine other)
 		{
-			this._p1 = other.P1;
-			AddP1Listeners(this._p1);
-			this._p2 = other.P2;
-			AddP2Listeners(this._p2);
+			this.p1 = other.P1;
+			AddP1Listeners(this.p1);
+			this.p2 = other.P2;
+			AddP2Listeners(this.p2);
 		}
 		
 		#endregion
@@ -46,7 +46,7 @@ namespace examples.simple
 		
 		[DataMember(Name = "P1", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Point _p1;
+		private Point p1;
 		
 		public Point P1
 		{
@@ -62,19 +62,19 @@ namespace examples.simple
 		
 		protected virtual Point GetP1()
 		{
-			return this._p1;
+			return this.p1;
 		}
 		
 		protected virtual bool SetP1(Point p1)
 		{
-			if (this._p1 == p1)
+			if (this.p1 == p1)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.P1);
 			
 			RemoveP1Listeners(p1);
 			
-			this._p1 = p1;
+			this.p1 = p1;
 			
 			AddP1Listeners(p1);
 			
@@ -153,7 +153,7 @@ namespace examples.simple
 		
 		[DataMember(Name = "P2", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Point _p2;
+		private Point p2;
 		
 		public Point P2
 		{
@@ -169,19 +169,19 @@ namespace examples.simple
 		
 		protected virtual Point GetP2()
 		{
-			return this._p2;
+			return this.p2;
 		}
 		
 		protected virtual bool SetP2(Point p2)
 		{
-			if (this._p2 == p2)
+			if (this.p2 == p2)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.P2);
 			
 			RemoveP2Listeners(p2);
 			
-			this._p2 = p2;
+			this.p2 = p2;
 			
 			AddP2Listeners(p2);
 			

@@ -70,6 +70,7 @@
     <Compile Include="model\ModelInfo.cs" />
     <Compile Include="model\PropertyInfo.cs" />
     <Compile Include="model\TypeInfo.cs" />
+    <Compile Include="NamingConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringUtils.cs" />
     <Compile Include="templates\ArgName.cs">

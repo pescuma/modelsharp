@@ -31,7 +31,7 @@ namespace examples.required
 		
 		public BaseType2(BaseType2 other)
 		{
-			this._name = other.Name;
+			this.name = other.Name;
 		}
 		
 		#endregion
@@ -40,7 +40,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Name", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string _name;
+		private string name;
 		
 		public string Name
 		{
@@ -56,17 +56,17 @@ namespace examples.required
 		
 		protected virtual string GetName()
 		{
-			return this._name;
+			return this.name;
 		}
 		
 		protected virtual bool SetName(string name)
 		{
-			if (this._name == name)
+			if (this.name == name)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.NAME);
 			
-			this._name = name;
+			this.name = name;
 			
 			NotifyPropertyChanged(PROPERTIES.NAME);
 			

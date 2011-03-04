@@ -27,17 +27,17 @@ namespace examples.nonserializable
 		
 		public BasePoint()
 		{
-			this._y = 2;
-			this._a = new Point(2, 3);
-			AddAListeners(this._a);
+			this.y = 2;
+			this.a = new Point(2, 3);
+			AddAListeners(this.a);
 		}
 		
 		public BasePoint(BasePoint other)
 		{
-			this._x = other.X;
-			this._y = other.Y;
-			this._a = other.A;
-			AddAListeners(this._a);
+			this.x = other.X;
+			this.y = other.Y;
+			this.a = other.A;
+			AddAListeners(this.a);
 		}
 		
 		#endregion
@@ -45,7 +45,7 @@ namespace examples.nonserializable
 		#region Property X
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		public double X
 		{
@@ -61,17 +61,17 @@ namespace examples.nonserializable
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -83,7 +83,7 @@ namespace examples.nonserializable
 		#region Property Y
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _y;
+		private double y;
 		
 		public double Y
 		{
@@ -99,17 +99,17 @@ namespace examples.nonserializable
 		
 		protected virtual double GetY()
 		{
-			return this._y;
+			return this.y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (this._y == y)
+			if (this.y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this._y = y;
+			this.y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			
@@ -121,7 +121,7 @@ namespace examples.nonserializable
 		#region Property A
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Point _a;
+		private Point a;
 		
 		public Point A
 		{
@@ -137,19 +137,19 @@ namespace examples.nonserializable
 		
 		protected virtual Point GetA()
 		{
-			return this._a;
+			return this.a;
 		}
 		
 		protected virtual bool SetA(Point a)
 		{
-			if (this._a == a)
+			if (this.a == a)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.A);
 			
 			RemoveAListeners(a);
 			
-			this._a = a;
+			this.a = a;
 			
 			AddAListeners(a);
 			

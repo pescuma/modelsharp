@@ -30,23 +30,23 @@ namespace examples.lazy
 		
 		public BaseType1()
 		{
-			AddProp1Listeners(this._prop1);
+			AddProp1Listeners(this.prop1);
 		}
 		
 		public BaseType1(BaseType1 other)
 		{
-			this._prop1 = other.Prop1;
-			AddProp1Listeners(this._prop1);
-			if (other._comp1 != null)
+			this.prop1 = other.Prop1;
+			AddProp1Listeners(this.prop1);
+			if (other.comp1 != null)
 			{
-				this._comp1 = new Type2(other.Comp1);
-				AddComp1Listeners(this._comp1);
+				this.comp1 = new Type2(other.Comp1);
+				AddComp1Listeners(this.comp1);
 			}
-			if (other._col1 != null)
+			if (other.col1 != null)
 			{
-				this._col1 = new ObservableList<Type2>();
-				AddCol1ListListeners(this._col1);
-				this._col1.AddRange(other.Col1);
+				this.col1 = new ObservableList<Type2>();
+				AddCol1ListListeners(this.col1);
+				this.col1.AddRange(other.Col1);
 			}
 		}
 		
@@ -56,7 +56,7 @@ namespace examples.lazy
 		
 		[DataMember(Name = "Prop1", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Type2 _prop1;
+		private Type2 prop1;
 		
 		public Type2 Prop1
 		{
@@ -72,19 +72,19 @@ namespace examples.lazy
 		
 		protected virtual Type2 GetProp1()
 		{
-			return this._prop1;
+			return this.prop1;
 		}
 		
 		protected virtual bool SetProp1(Type2 prop1)
 		{
-			if (this._prop1 == prop1)
+			if (this.prop1 == prop1)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
-			this._prop1 = prop1;
+			this.prop1 = prop1;
 			
 			AddProp1Listeners(prop1);
 			
@@ -163,7 +163,7 @@ namespace examples.lazy
 		
 		[DataMember(Name = "Comp1", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Type2 _comp1;
+		private Type2 comp1;
 		
 		public Type2 Comp1
 		{
@@ -175,17 +175,17 @@ namespace examples.lazy
 		
 		protected virtual void LazyInitComp1()
 		{
-			if (this._comp1 != null)
+			if (this.comp1 != null)
 				return;
 				
-			this._comp1 = new Type2();
-			AddComp1Listeners(this._comp1);
+			this.comp1 = new Type2();
+			AddComp1Listeners(this.comp1);
 		}
 		
 		protected virtual Type2 GetComp1()
 		{
 			LazyInitComp1();
-			return this._comp1;
+			return this.comp1;
 		}
 		
 		private void AddComp1Listeners(object child)
@@ -236,7 +236,7 @@ namespace examples.lazy
 		
 		[DataMember(Name = "Col1", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private ObservableList<Type2> _col1;
+		private ObservableList<Type2> col1;
 		
 		public ObservableList<Type2> Col1
 		{
@@ -248,17 +248,17 @@ namespace examples.lazy
 		
 		protected virtual void LazyInitCol1()
 		{
-			if (this._col1 != null)
+			if (this.col1 != null)
 				return;
 				
-			this._col1 = new ObservableList<Type2>();
-			AddCol1ListListeners(this._col1);
+			this.col1 = new ObservableList<Type2>();
+			AddCol1ListListeners(this.col1);
 		}
 		
 		protected virtual ObservableList<Type2> GetCol1()
 		{
 			LazyInitCol1();
-			return this._col1;
+			return this.col1;
 		}
 		
 		private void AddCol1ListListeners(object child)
@@ -395,23 +395,23 @@ namespace examples.lazy
 		public virtual void CopyFrom(Type1 other)
 		{
 			Prop1 = other.Prop1;
-			if (other._comp1 != null)
+			if (other.comp1 != null)
 			{
 				Comp1.CopyFrom(other.Comp1);
 			}
 			else
 			{
-				if (this._comp1 != null)
-					this._comp1.CopyFrom(new Type2());
+				if (this.comp1 != null)
+					this.comp1.CopyFrom(new Type2());
 			}
-			if (other._col1 != null)
+			if (other.col1 != null)
 			{
 				Col1.Clear();
 				Col1.AddRange(other.Col1);
 			}
 			else
 			{
-				if (this._col1 != null)
+				if (this.col1 != null)
 					Col1.Clear();
 			}
 		}

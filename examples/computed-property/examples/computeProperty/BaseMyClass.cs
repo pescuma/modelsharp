@@ -34,18 +34,18 @@ namespace examples.computeProperty
 		
 		public BaseMyClass()
 		{
-			this._y = 2;
-			this._children = new ObservableList<MyClass>();
-			AddChildrenListListeners(this._children);
+			this.y = 2;
+			this.children = new ObservableList<MyClass>();
+			AddChildrenListListeners(this.children);
 		}
 		
 		public BaseMyClass(BaseMyClass other)
 		{
-			this._x = other.X;
-			this._y = other.Y;
-			this._children = new ObservableList<MyClass>();
-			AddChildrenListListeners(this._children);
-			this._children.AddRange(other.Children);
+			this.x = other.X;
+			this.y = other.Y;
+			this.children = new ObservableList<MyClass>();
+			AddChildrenListListeners(this.children);
+			this.children.AddRange(other.Children);
 		}
 		
 		#endregion
@@ -54,7 +54,7 @@ namespace examples.computeProperty
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		public double X
 		{
@@ -70,17 +70,17 @@ namespace examples.computeProperty
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -93,7 +93,7 @@ namespace examples.computeProperty
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _y;
+		private double y;
 		
 		public double Y
 		{
@@ -109,17 +109,17 @@ namespace examples.computeProperty
 		
 		protected virtual double GetY()
 		{
-			return this._y;
+			return this.y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (this._y == y)
+			if (this.y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this._y = y;
+			this.y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			
@@ -176,9 +176,9 @@ namespace examples.computeProperty
 		#region Property SquaredLengthCached
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _squaredLengthCachedCache;
+		private double squaredLengthCachedCache;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private bool _squaredLengthCachedCacheValid;
+		private bool squaredLengthCachedCacheValid;
 		
 		public double SquaredLengthCached
 		{
@@ -190,18 +190,18 @@ namespace examples.computeProperty
 		
 		protected virtual void InvalidateSquaredLengthCachedCache()
 		{
-			_squaredLengthCachedCacheValid = false;
+			squaredLengthCachedCacheValid = false;
 		}
 		
 		private double ComputeAndCacheSquaredLengthCached()
 		{
-			if (!_squaredLengthCachedCacheValid)
+			if (!squaredLengthCachedCacheValid)
 			{
-				this._squaredLengthCachedCache = ComputeSquaredLengthCached();
-				this._squaredLengthCachedCacheValid = true;
+				this.squaredLengthCachedCache = ComputeSquaredLengthCached();
+				this.squaredLengthCachedCacheValid = true;
 			}
 			
-			return this._squaredLengthCachedCache;
+			return this.squaredLengthCachedCache;
 		}
 		
 		protected abstract double ComputeSquaredLengthCached();
@@ -212,7 +212,7 @@ namespace examples.computeProperty
 		
 		[DataMember(Name = "Children", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<MyClass> _children;
+		private readonly ObservableList<MyClass> children;
 		
 		public ObservableList<MyClass> Children
 		{
@@ -224,7 +224,7 @@ namespace examples.computeProperty
 		
 		protected virtual ObservableList<MyClass> GetChildren()
 		{
-			return this._children;
+			return this.children;
 		}
 		
 		private void AddChildrenListListeners(object child)

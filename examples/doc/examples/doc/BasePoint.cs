@@ -33,20 +33,20 @@ namespace examples.doc
 		
 		public BasePoint()
 		{
-			this._y = new Point();
-			AddYListeners(this._y);
-			this._ws = new ObservableList<double>();
-			AddWsListListeners(this._ws);
+			this.y = new Point();
+			AddYListeners(this.y);
+			this.ws = new ObservableList<double>();
+			AddWsListListeners(this.ws);
 		}
 		
 		public BasePoint(BasePoint other)
 		{
-			this._x = other.X;
-			this._y = new Point(other.Y);
-			AddYListeners(this._y);
-			this._ws = new ObservableList<double>();
-			AddWsListListeners(this._ws);
-			this._ws.AddRange(other.Ws);
+			this.x = other.X;
+			this.y = new Point(other.Y);
+			AddYListeners(this.y);
+			this.ws = new ObservableList<double>();
+			AddWsListListeners(this.ws);
+			this.ws.AddRange(other.Ws);
 		}
 		
 		#endregion
@@ -55,7 +55,7 @@ namespace examples.doc
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		/// <summary>
 		/// The X cartesian coord
@@ -74,17 +74,17 @@ namespace examples.doc
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -97,7 +97,7 @@ namespace examples.doc
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Point _y;
+		private readonly Point y;
 		
 		/// <summary>
 		/// Y, oh Y
@@ -112,7 +112,7 @@ namespace examples.doc
 		
 		protected virtual Point GetY()
 		{
-			return this._y;
+			return this.y;
 		}
 		
 		private void AddYListeners(object child)
@@ -180,7 +180,7 @@ namespace examples.doc
 		
 		[DataMember(Name = "Ws", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> _ws;
+		private readonly ObservableList<double> ws;
 		
 		/// <summary>
 		/// All the ws you can find
@@ -195,7 +195,7 @@ namespace examples.doc
 		
 		protected virtual ObservableList<double> GetWs()
 		{
-			return this._ws;
+			return this.ws;
 		}
 		
 		private void AddWsListListeners(object child)

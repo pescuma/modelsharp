@@ -29,9 +29,9 @@ namespace examples.noncloneable
 		
 		public BasePoint()
 		{
-			this._y = 2;
-			this._a = new Point(2, 3);
-			AddAListeners(this._a);
+			this.y = 2;
+			this.a = new Point(2, 3);
+			AddAListeners(this.a);
 		}
 		
 		#endregion
@@ -40,7 +40,7 @@ namespace examples.noncloneable
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _x;
+		private double x;
 		
 		public double X
 		{
@@ -56,17 +56,17 @@ namespace examples.noncloneable
 		
 		protected virtual double GetX()
 		{
-			return this._x;
+			return this.x;
 		}
 		
 		protected virtual bool SetX(double x)
 		{
-			if (this._x == x)
+			if (this.x == x)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this._x = x;
+			this.x = x;
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
@@ -79,7 +79,7 @@ namespace examples.noncloneable
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double _y;
+		private double y;
 		
 		public double Y
 		{
@@ -95,17 +95,17 @@ namespace examples.noncloneable
 		
 		protected virtual double GetY()
 		{
-			return this._y;
+			return this.y;
 		}
 		
 		protected virtual bool SetY(double y)
 		{
-			if (this._y == y)
+			if (this.y == y)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this._y = y;
+			this.y = y;
 			
 			NotifyPropertyChanged(PROPERTIES.Y);
 			
@@ -118,7 +118,7 @@ namespace examples.noncloneable
 		
 		[DataMember(Name = "A", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private Point _a;
+		private Point a;
 		
 		public Point A
 		{
@@ -134,19 +134,19 @@ namespace examples.noncloneable
 		
 		protected virtual Point GetA()
 		{
-			return this._a;
+			return this.a;
 		}
 		
 		protected virtual bool SetA(Point a)
 		{
-			if (this._a == a)
+			if (this.a == a)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.A);
 			
 			RemoveAListeners(a);
 			
-			this._a = a;
+			this.a = a;
 			
 			AddAListeners(a);
 			

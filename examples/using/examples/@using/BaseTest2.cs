@@ -30,13 +30,13 @@ namespace examples.@using
 		
 		public BaseTest2()
 		{
-			AddDateListeners(this._date);
+			AddDateListeners(this.date);
 		}
 		
 		public BaseTest2(BaseTest2 other)
 		{
-			this._date = other.Date;
-			AddDateListeners(this._date);
+			this.date = other.Date;
+			AddDateListeners(this.date);
 		}
 		
 		#endregion
@@ -45,7 +45,7 @@ namespace examples.@using
 		
 		[DataMember(Name = "Date", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private DateTime _date;
+		private DateTime date;
 		
 		public DateTime Date
 		{
@@ -61,19 +61,19 @@ namespace examples.@using
 		
 		protected virtual DateTime GetDate()
 		{
-			return this._date;
+			return this.date;
 		}
 		
 		protected virtual bool SetDate(DateTime date)
 		{
-			if (this._date == date)
+			if (this.date == date)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.DATE);
 			
 			RemoveDateListeners(date);
 			
-			this._date = date;
+			this.date = date;
 			
 			AddDateListeners(date);
 			

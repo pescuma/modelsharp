@@ -10,9 +10,9 @@ namespace examples.deepCopy
 
 	public class ImmutableAddressBuilder
 	{
-		private string _street;
-		private string _city;
-		private string _zipCode;
+		private string street;
+		private string city;
+		private string zipCode;
 		
 		public virtual ImmutableAddressBuilder Set(ImmutableAddress other)
 		{
@@ -24,25 +24,25 @@ namespace examples.deepCopy
 		
 		public virtual ImmutableAddressBuilder SetStreet(string street)
 		{
-			_street = street;
+			this.street = street;
 			return this;
 		}
 		
 		public virtual ImmutableAddressBuilder SetCity(string city)
 		{
-			_city = city;
+			this.city = city;
 			return this;
 		}
 		
 		public virtual ImmutableAddressBuilder SetZipCode(string zipCode)
 		{
-			_zipCode = zipCode;
+			this.zipCode = zipCode;
 			return this;
 		}
 		
 		public virtual ImmutableAddress Build()
 		{
-			return new ImmutableAddress(_street, _city, _zipCode);
+			return new ImmutableAddress(this.street, this.city, this.zipCode);
 		}
 	}
 	

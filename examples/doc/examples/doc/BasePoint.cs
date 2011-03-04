@@ -198,7 +198,7 @@ namespace examples.doc
 			return this.ws;
 		}
 		
-		private void AddWsListListeners(object child)
+		private void AddWsListListeners(ObservableList<double> child)
 		{
 			if (child == null)
 				return;

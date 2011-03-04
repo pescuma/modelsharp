@@ -111,7 +111,7 @@ namespace examples.deepCopy
 			return this.homeAddressCol;
 		}
 		
-		private void AddHomeAddressColListListeners(object child)
+		private void AddHomeAddressColListListeners(ObservableList<Address> child)
 		{
 			if (child == null)
 				return;
@@ -264,7 +264,7 @@ namespace examples.deepCopy
 			return this.workAddressCol;
 		}
 		
-		private void AddWorkAddressColListListeners(object child)
+		private void AddWorkAddressColListListeners(ObservableList<Address> child)
 		{
 			if (child == null)
 				return;
@@ -427,7 +427,7 @@ namespace examples.deepCopy
 			return this.lazyAddressCol;
 		}
 		
-		private void AddLazyAddressColListListeners(object child)
+		private void AddLazyAddressColListListeners(ObservableList<Address> child)
 		{
 			if (child == null)
 				return;
@@ -580,7 +580,7 @@ namespace examples.deepCopy
 			return this.stringCol;
 		}
 		
-		private void AddStringColListListeners(object child)
+		private void AddStringColListListeners(ObservableList<string> child)
 		{
 			if (child == null)
 				return;
@@ -631,7 +631,7 @@ namespace examples.deepCopy
 			return this.stringCol2;
 		}
 		
-		private void AddStringCol2ListListeners(object child)
+		private void AddStringCol2ListListeners(ObservableList<string> child)
 		{
 			if (child == null)
 				return;
@@ -682,7 +682,7 @@ namespace examples.deepCopy
 			return this.doubleCol;
 		}
 		
-		private void AddDoubleColListListeners(object child)
+		private void AddDoubleColListListeners(ObservableList<double> child)
 		{
 			if (child == null)
 				return;
@@ -733,7 +733,7 @@ namespace examples.deepCopy
 			return this.doubleCol2;
 		}
 		
-		private void AddDoubleCol2ListListeners(object child)
+		private void AddDoubleCol2ListListeners(ObservableList<double> child)
 		{
 			if (child == null)
 				return;

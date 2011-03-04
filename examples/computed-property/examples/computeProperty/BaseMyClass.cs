@@ -227,7 +227,7 @@ namespace examples.computeProperty
 			return this.children;
 		}
 		
-		private void AddChildrenListListeners(object child)
+		private void AddChildrenListListeners(ObservableList<MyClass> child)
 		{
 			if (child == null)
 				return;

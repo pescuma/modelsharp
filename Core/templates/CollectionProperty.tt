@@ -48,7 +48,7 @@
 			return this.<#= it.ExposedFieldName #>;
 		}
 
-		private void Add<#= it.Name #>ListListeners(object child)
+		private void Add<#= it.Name #>ListListeners(<#= it.TypeName #> child)
 		{
 			if (child == null)
 				return;

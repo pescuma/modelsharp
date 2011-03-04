@@ -261,7 +261,7 @@ namespace examples.lazy
 			return this.col1;
 		}
 		
-		private void AddCol1ListListeners(object child)
+		private void AddCol1ListListeners(ObservableList<Type2> child)
 		{
 			if (child == null)
 				return;

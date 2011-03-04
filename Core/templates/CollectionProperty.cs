@@ -393,9 +393,16 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("ListListeners(object child)\r\n\t\t{\r\n\t\t\tif (child == null)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tvar no" +
-                    "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
-                    "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging += ");
+            this.Write("ListListeners(");
+            
+            #line 51 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write(" child)\r\n\t\t{\r\n\t\t\tif (child == null)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tvar notifyPropertyChanging" +
+                    " = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyChanging != null)\r\n\t\t" +
+                    "\t\tnotifyPropertyChanging.PropertyChanging += ");
             
             #line 58 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));

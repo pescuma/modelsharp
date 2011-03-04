@@ -73,7 +73,7 @@ namespace examples.collectionReadOnly
 			return this.housesReadOnly;
 		}
 		
-		private void AddHousesListListeners(object child)
+		private void AddHousesListListeners(ObservableList<House> child)
 		{
 			if (child == null)
 				return;
@@ -241,7 +241,7 @@ namespace examples.collectionReadOnly
 			return this.housesLazyReadOnly;
 		}
 		
-		private void AddHousesLazyListListeners(object child)
+		private void AddHousesLazyListListeners(ObservableList<House> child)
 		{
 			if (child == null)
 				return;

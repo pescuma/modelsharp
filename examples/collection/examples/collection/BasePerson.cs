@@ -68,7 +68,7 @@ namespace examples.collection
 			return this.cars;
 		}
 		
-		private void AddCarsListListeners(object child)
+		private void AddCarsListListeners(ObservableList<string> child)
 		{
 			if (child == null)
 				return;
@@ -158,7 +158,7 @@ namespace examples.collection
 			return this.houses;
 		}
 		
-		private void AddHousesListListeners(object child)
+		private void AddHousesListListeners(ObservableList<House> child)
 		{
 			if (child == null)
 				return;

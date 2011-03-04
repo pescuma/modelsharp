@@ -13,7 +13,7 @@ namespace examples.@using
 
 	[DataContract]
 	[DebuggerDisplay("Test[Date={Date}]")]
-	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -203,6 +203,15 @@ namespace examples.@using
 		object ICloneable.Clone()
 		{
 			return new Test((Test) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddDateListeners(this.date);
 		}
 		
 		#endregion

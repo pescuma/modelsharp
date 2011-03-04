@@ -1,0 +1,9 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<# if (it.IsCollection) { #>
+			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
+<# } #>
+<# if (it.CanListenTo) { #>
+			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
+<# } #>

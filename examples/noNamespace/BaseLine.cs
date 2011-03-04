@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 [DataContract]
 [DebuggerDisplay("Line[P1={P1} P2={P2}]")]
-public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 {
 	#region Field Name Defines
 	
@@ -311,6 +311,16 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	object ICloneable.Clone()
 	{
 		return new Line((Line) this);
+	}
+	
+	#endregion
+	
+	#region Serialization
+	
+	void IDeserializationCallback.OnDeserialization(object sender)
+	{
+		AddP1Listeners(this.p1);
+		AddP2Listeners(this.p2);
 	}
 	
 	#endregion

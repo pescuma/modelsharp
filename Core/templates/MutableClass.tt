@@ -165,6 +165,26 @@ namespace <#= it.Package #>
 
 		#endregion
 <# } #>
+<# if (it.NeedOnDeserialization) { #>
+		
+		#region Serialization
+
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+<#		if (it.Extends != null) { #>
+			// Call OnDeserialization in base class if it exists
+			if (typeof(<#= it.Extends #>).GetInterface(typeof(IDeserializationCallback).FullName) != null)
+			{
+				var map = typeof(<#= it.Extends #>).GetInterfaceMap(typeof(IDeserializationCallback));
+				map.TargetMethods[0].Invoke(this, new[] { sender });
+			}
+
+<#		} #>
+<#		ForEach("MutableListenToField", it.NonComputedProperties); #>
+		}
+
+		#endregion
+<# } #>
 	}
 <# if (it.Package != null) { #>
 

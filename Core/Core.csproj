@@ -178,6 +178,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MutableInitField.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\MutableListenToField1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableListenToField.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\MutableOtherCopyToField.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -273,6 +278,10 @@
     <None Include="templates\ComputedProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ComputedProperty.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableListenToField.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableListenToField1.cs</LastGenOutput>
     </None>
     <None Include="templates\CopyList.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

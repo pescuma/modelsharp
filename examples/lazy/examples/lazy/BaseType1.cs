@@ -13,7 +13,7 @@ namespace examples.lazy
 
 	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Col1={Col1.Count}items]")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -277,6 +277,9 @@ namespace examples.lazy
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += Col1ListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddCol1ItemListeners(item);
 		}
 		
 		private void Col1ListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -468,6 +471,17 @@ namespace examples.lazy
 		object ICloneable.Clone()
 		{
 			return new Type1((Type1) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddProp1Listeners(this.prop1);
+			AddComp1Listeners(this.comp1);
+			AddCol1ListListeners(this.col1);
 		}
 		
 		#endregion

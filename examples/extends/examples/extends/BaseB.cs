@@ -13,7 +13,7 @@ namespace examples.extends
 
 	[DataContract]
 	[DebuggerDisplay("B[Date2={Date2}]")]
-	public abstract class BaseB : A, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseB : A, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -169,6 +169,22 @@ namespace examples.extends
 		object ICloneable.Clone()
 		{
 			return new B((B) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			// Call OnDeserialization in base class if it exists
+			if (typeof(A).GetInterface(typeof(IDeserializationCallback).FullName) != null)
+			{
+				var map = typeof(A).GetInterfaceMap(typeof(IDeserializationCallback));
+				map.TargetMethods[0].Invoke(this, new[] { sender });
+			}
+			
+			AddDate2Listeners(this.date2);
 		}
 		
 		#endregion

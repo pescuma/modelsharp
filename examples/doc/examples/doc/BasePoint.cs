@@ -15,7 +15,7 @@ namespace examples.doc
 	/// </summary>
 	[DataContract]
 	[DebuggerDisplay("Point[X={X} Ws={Ws.Count}items]")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -290,6 +290,16 @@ namespace examples.doc
 		object ICloneable.Clone()
 		{
 			return new Point((Point) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddYListeners(this.y);
+			AddWsListListeners(this.ws);
 		}
 		
 		#endregion

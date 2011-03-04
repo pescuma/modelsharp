@@ -13,7 +13,7 @@ namespace examples.collection
 
 	[DataContract]
 	[DebuggerDisplay("Person[Cars={Cars.Count}items Name={Name} Houses={Houses.Count}items]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -174,6 +174,9 @@ namespace examples.collection
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += HousesListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddHousesItemListeners(item);
 		}
 		
 		private void HousesListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -350,6 +353,16 @@ namespace examples.collection
 		object ICloneable.Clone()
 		{
 			return new Person((Person) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddCarsListListeners(this.cars);
+			AddHousesListListeners(this.houses);
 		}
 		
 		#endregion

@@ -13,7 +13,7 @@ namespace examples.computeProperty
 
 	[DataContract]
 	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items]")]
-	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -243,6 +243,9 @@ namespace examples.computeProperty
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += ChildrenListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddChildrenItemListeners(item);
 		}
 		
 		private void ChildrenListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -502,6 +505,15 @@ namespace examples.computeProperty
 		object ICloneable.Clone()
 		{
 			return new MyClass((MyClass) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddChildrenListListeners(this.children);
 		}
 		
 		#endregion

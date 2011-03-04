@@ -196,7 +196,7 @@ namespace org.pescuma.ModelSharp.Core.xml {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string extends {
             get {
                 return this.extendsField;

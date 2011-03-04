@@ -36,7 +36,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool Cloneable;
 		public readonly bool Serializable;
 		public string Documentation;
-		public bool DeepCopy = false;
+		public bool DeepCopy;
 
 		public string Extends;
 		public readonly BaseClassInfo BaseClass = new BaseClassInfo();
@@ -137,6 +137,16 @@ namespace org.pescuma.ModelSharp.Core.model
 					ret.Add(Extends);
 				ret.AddRange(Implements);
 				return ret;
+			}
+		}
+
+		public bool NeedOnDeserialization
+		{
+			get
+			{
+				return !Immutable && Serializable && (from p in Properties
+				                                      where p.IsCollection || p.CanListenTo
+				                                      select p).Count() > 0;
 			}
 		}
 	}

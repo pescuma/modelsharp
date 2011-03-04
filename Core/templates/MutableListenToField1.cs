@@ -13,9 +13,9 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class MutableInitField : TemplateUtils
+    public partial class MutableListenToField : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,112 +77,63 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-	if (it.LazyInitializer == null) { 
+            #line 4 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+ if (it.IsCollection) { 
             
             #line default
             #line hidden
+            this.Write("\t\t\tAdd");
             
-            #line 5 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		if (it.DefaultValue != null) { 
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("\t\t\tthis.");
+            this.Write("ListListeners(this.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(" = ");
+            this.Write(");\r\n");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 7 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsCollection) {
-			var col = (CollectionInfo) it; 
+            #line 6 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+ } 
             
             #line default
             #line hidden
-            this.Write("\t\t\tthis.");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+ if (it.CanListenTo) { 
             
             #line default
             #line hidden
-            this.Write("();\r\n");
+            this.Write("\t\t\tAdd");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsComponent) { 
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("\t\t\tthis.");
+            this.Write("Listeners(this.");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
-            this.Write(" = new ");
+            this.Write(");\r\n");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("();\r\n");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsComputedAndCached) { 
-			var computed = (ComputedPropertyInfo) it; 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = false;\r\n");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} 
-            
-            #line default
-            #line hidden
-            
-            #line 16 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		Include("MutableListenToField", it); 
-            
-            #line default
-            #line hidden
-            
-            #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-	} 
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
+ } 
             
             #line default
             #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\MutableListenToField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

@@ -474,16 +474,23 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("ListChangedEventHandler;\r\n");
+            this.Write("ListChangedEventHandler;\r\n\r\n\t\t\tforeach (var item in child)\r\n\t\t\t\tAdd");
             
-            #line 78 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 80 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ItemListeners(item);\r\n");
+            
+            #line 81 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 81 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 84 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -491,21 +498,21 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tif (e.PropertyName != ");
             
-            #line 83 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 86 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 86 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 89 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 89 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 92 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -513,28 +520,28 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tif (e.PropertyName != ");
             
-            #line 91 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 94 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 94 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 97 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t}\r\n");
             
-            #line 96 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 99 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
  if (it.ContentsType.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\r\n\t\tprivate void ");
             
-            #line 98 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 101 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -555,7 +562,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 						foreach (var item in e.OldItems)
 							Remove");
             
-            #line 112 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 115 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -563,7 +570,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemListeners(item);\r\n\r\n\t\t\t\t\tif (e.NewItems != null)\r\n\t\t\t\t\t\tforeach (var item in " +
                     "e.NewItems)\r\n\t\t\t\t\t\t\tAdd");
             
-            #line 116 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 119 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -583,7 +590,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 		private void Remove");
             
-            #line 129 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 132 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -592,7 +599,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
                     "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging -= ");
             
-            #line 136 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 139 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -601,7 +608,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "s INotifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t" +
                     "\t\tnotifyChildPropertyChanging.ChildPropertyChanging -= ");
             
-            #line 140 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 143 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -610,7 +617,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     " INotifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPrope" +
                     "rtyChanged.PropertyChanged -= ");
             
-            #line 144 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 147 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -619,14 +626,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "INotifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanged.ChildPropertyChanged -= ");
             
-            #line 148 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 151 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void Add");
             
-            #line 151 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 154 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -635,7 +642,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "tifyPropertyChanging = child as INotifyPropertyChanging;\r\n\t\t\tif (notifyPropertyC" +
                     "hanging != null)\r\n\t\t\t\tnotifyPropertyChanging.PropertyChanging += ");
             
-            #line 158 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 161 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -644,7 +651,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "s INotifyChildPropertyChanging;\r\n\t\t\tif (notifyChildPropertyChanging != null)\r\n\t\t" +
                     "\t\tnotifyChildPropertyChanging.ChildPropertyChanging += ");
             
-            #line 162 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 165 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -653,7 +660,7 @@ namespace org.pescuma.ModelSharp.Core.templates
                     " INotifyPropertyChanged;\r\n\t\t\tif (notifyPropertyChanged != null)\r\n\t\t\t\tnotifyPrope" +
                     "rtyChanged.PropertyChanged += ");
             
-            #line 166 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 169 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -662,14 +669,14 @@ namespace org.pescuma.ModelSharp.Core.templates
                     "INotifyChildPropertyChanged;\r\n\t\t\tif (notifyChildPropertyChanged != null)\r\n\t\t\t\tno" +
                     "tifyChildPropertyChanged.ChildPropertyChanged += ");
             
-            #line 170 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 173 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 173 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 176 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -677,14 +684,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 175 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 178 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 178 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 181 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -692,14 +699,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventAr" +
                     "gs e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 180 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 183 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 183 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 186 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -707,14 +714,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 185 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 188 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 188 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 191 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -722,14 +729,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs" +
                     " e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 190 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 193 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n");
             
-            #line 192 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 195 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default

@@ -12,7 +12,7 @@ namespace examples.composition
 
 	[DataContract]
 	[DebuggerDisplay("Person[]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -228,6 +228,16 @@ namespace examples.composition
 		object ICloneable.Clone()
 		{
 			return new Person((Person) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddHomeAddressListeners(this.homeAddress);
+			AddWorkAddressListeners(this.workAddress);
 		}
 		
 		#endregion

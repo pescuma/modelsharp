@@ -13,7 +13,7 @@ namespace examples.deepCopy
 
 	[DataContract]
 	[DebuggerDisplay("Person[HomeAddressCol={HomeAddressCol.Count}items WorkAddressCol={WorkAddressCol.Count}items LazyAddressCol={LazyAddressCol.Count}items StringCol={StringCol.Count}items StringCol2={StringCol2.Count}items DoubleCol={DoubleCol.Count}items DoubleCol2={DoubleCol2.Count}items HomeAddressProp={HomeAddressProp} WorkAddressProp={WorkAddressProp}]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -142,6 +142,9 @@ namespace examples.deepCopy
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += HomeAddressColListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddHomeAddressColItemListeners(item);
 		}
 		
 		private void HomeAddressColListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -292,6 +295,9 @@ namespace examples.deepCopy
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += WorkAddressColListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddWorkAddressColItemListeners(item);
 		}
 		
 		private void WorkAddressColListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -452,6 +458,9 @@ namespace examples.deepCopy
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
 			if (notifyChildPropertyChanged != null)
 				notifyChildPropertyChanged.CollectionChanged += LazyAddressColListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddLazyAddressColItemListeners(item);
 		}
 		
 		private void LazyAddressColListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
@@ -1086,6 +1095,23 @@ namespace examples.deepCopy
 		object ICloneable.Clone()
 		{
 			return new Person((Person) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddHomeAddressColListListeners(this.homeAddressCol);
+			AddWorkAddressColListListeners(this.workAddressCol);
+			AddLazyAddressColListListeners(this.lazyAddressCol);
+			AddStringColListListeners(this.stringCol);
+			AddStringCol2ListListeners(this.stringCol2);
+			AddDoubleColListListeners(this.doubleCol);
+			AddDoubleCol2ListListeners(this.doubleCol2);
+			AddHomeAddressPropListeners(this.homeAddressProp);
+			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
 		#endregion

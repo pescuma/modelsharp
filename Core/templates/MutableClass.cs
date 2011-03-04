@@ -547,16 +547,66 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
+            
+            #line 168 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ if (it.NeedOnDeserialization) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\r\n\t\t#region Serialization\r\n\r\n\t\tvoid IDeserializationCallback.OnDeserialization(" +
+                    "object sender)\r\n\t\t{\r\n");
+            
+            #line 174 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+		if (it.Extends != null) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t// Call OnDeserialization in base class if it exists\r\n\t\t\tif (typeof(");
+            
+            #line 176 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
+            
+            #line default
+            #line hidden
+            this.Write(").GetInterface(typeof(IDeserializationCallback).FullName) != null)\r\n\t\t\t{\r\n\t\t\t\tvar" +
+                    " map = typeof(");
+            
+            #line 178 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
+            
+            #line default
+            #line hidden
+            this.Write(").GetInterfaceMap(typeof(IDeserializationCallback));\r\n\t\t\t\tmap.TargetMethods[0].In" +
+                    "voke(this, new[] { sender });\r\n\t\t\t}\r\n\r\n");
+            
+            #line 182 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+		} 
+            
+            #line default
+            #line hidden
+            
+            #line 183 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+		ForEach("MutableListenToField", it.NonComputedProperties); 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t}\r\n\r\n\t\t#endregion\r\n");
+            
+            #line 187 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ } 
+            
+            #line default
+            #line hidden
             this.Write("\t}\r\n");
             
-            #line 169 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 189 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 172 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 192 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default

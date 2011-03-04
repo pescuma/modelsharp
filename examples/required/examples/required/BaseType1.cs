@@ -12,7 +12,7 @@ namespace examples.required
 
 	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Prop2={Prop2} Prop3={Prop3} Prop4={Prop4} Prop5={Prop5}]")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
 		
@@ -617,6 +617,18 @@ namespace examples.required
 		object ICloneable.Clone()
 		{
 			return new Type1((Type1) this);
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddProp1Listeners(this.prop1);
+			AddProp2Listeners(this.prop2);
+			AddCompLazyListeners(this.compLazy);
+			AddCompListeners(this.comp);
 		}
 		
 		#endregion

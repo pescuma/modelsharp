@@ -363,11 +363,11 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void ProcessModel(ModelInfo model)
 		{
-			UpdateExtendsProperties(model);
 			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
 			MakeChangesForImmutable(model);
+			UpdateExtendsProperties(model);
 			ComputePropertyOrder(model);
 			AddNotifcationInformation(model);
 			AddDataContracts(model);
@@ -398,10 +398,7 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			foreach (var type in model.Types)
 			{
-				if (type.Extends == null)
-					continue;
-
-				if (model.GetType(type.Extends) == null)
+				if (!HasParent(model, type))
 					continue;
 
 				type.BaseClass.IsGenerated = true;
@@ -411,6 +408,27 @@ namespace org.pescuma.ModelSharp.Core
 				type.BaseClass.HasPropertyChanging = true;
 				type.BaseClass.HasCopyFrom = true;
 			}
+		}
+
+		private bool HasParent(ModelInfo model, TypeInfo type, Func<TypeInfo, bool> filter = null)
+		{
+			// the max value is just to avoid an infinite loop
+			for (int i = 0; i < 10000; i++)
+			{
+				if (type.Extends == null)
+					return false;
+
+				var baseType = model.GetType(type.Extends);
+				if (baseType == null)
+					return false;
+
+				if (filter == null || filter(baseType))
+					return true;
+
+				type = baseType;
+			}
+
+			throw new InvalidOperationException("Type hierarchy is too deep. Didn't you made a recursion?");
 		}
 
 		private void ComputeDependentProperties(ModelInfo model)
@@ -537,6 +555,9 @@ namespace org.pescuma.ModelSharp.Core
 				type.Using.Add("System.Runtime.Serialization");
 
 				type.Annotations.Add("DataContract");
+
+				if (type.NeedOnDeserialization)
+					type.Implements.Add("IDeserializationCallback");
 
 				foreach (var prop in type.Properties)
 				{

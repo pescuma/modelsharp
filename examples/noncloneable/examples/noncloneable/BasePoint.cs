@@ -12,7 +12,7 @@ namespace examples.noncloneable
 
 	[DataContract]
 	[DebuggerDisplay("Point[X={X} Y={Y} A={A}]")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback
 	{
 		#region Field Name Defines
 		
@@ -264,6 +264,15 @@ namespace examples.noncloneable
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion
+		
+		#region Serialization
+		
+		void IDeserializationCallback.OnDeserialization(object sender)
+		{
+			AddAListeners(this.a);
 		}
 		
 		#endregion

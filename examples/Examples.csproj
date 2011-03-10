@@ -120,7 +120,9 @@
     <Compile Include="simple\examples\simple\Line.cs" />
     <Compile Include="simple\examples\simple\Point.cs" />
     <Compile Include="using\examples\%40using\BaseTest.cs" />
+    <Compile Include="using\examples\%40using\BaseTest2.cs" />
     <Compile Include="using\examples\%40using\Test.cs" />
+    <Compile Include="using\examples\%40using\Test2.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="collectionReadOnly\model.xml" />

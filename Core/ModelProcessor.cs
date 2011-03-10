@@ -438,20 +438,23 @@ namespace org.pescuma.ModelSharp.Core
 					if (computed == null)
 						continue;
 
-					foreach (var dep in computed.DependsOn)
+					foreach (var fullPath in computed.DependsOn)
 					{
-						string dep1 = dep;
+						var dep = fullPath.Split('.').First();
+
 						var other = (from p in type.Properties
-						             where p.Name == dep1
+						             where p.Name == dep
 						             select p).FirstOrDefault();
 
 						if (other == null)
 						{
-							log.Error("Could not find property referenced on dependsOn: " + dep);
+							log.Error("Could not find property referenced on dependsOn: " + fullPath);
 							continue;
 						}
 
-						other.DependentProperties.Add(computed);
+						var path = string.Join(".", fullPath.Split('.').Skip(1).ToArray());
+
+						other.AddDependentProperty(computed, path);
 					}
 				}
 			}

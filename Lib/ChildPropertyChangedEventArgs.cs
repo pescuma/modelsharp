@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 
 namespace org.pescuma.ModelSharp.Lib
 {
@@ -49,6 +50,21 @@ namespace org.pescuma.ModelSharp.Lib
 		}
 
 		public readonly IList<ObjectPathEntry> ObjectPath;
+
+		public string FullPath
+		{
+			get
+			{
+				var result = new StringBuilder();
+				foreach (var obj in ObjectPath)
+				{
+					if (result.Length > 0)
+						result.Append(".");
+					result.Append(obj.Property);
+				}
+				return result.ToString();
+			}
+		}
 
 		public bool IsFrom(object sender, string property)
 		{

@@ -1,0 +1,6 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo" #>
+<#	if (it.Invalidate != null) { #>
+			<#= it.Invalidate.Name #>();
+<#	} #>

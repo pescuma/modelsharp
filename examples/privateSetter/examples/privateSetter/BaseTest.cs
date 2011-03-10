@@ -167,7 +167,7 @@ namespace examples.privateSetter
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;

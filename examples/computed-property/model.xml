@@ -3,10 +3,14 @@
 		<property name="X" type="double" />
 		<property name="Y" type="double" default="2" />
 		<computed-property name="Length" type="double" formula="Math.Sqrt(X * X + Y * Y)" dependsOn="X,Y" />
-		<computed-property name="Dummy" type="string" />
-		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
-		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
+    <computed-property name="Dummy" type="string" />
+    <computed-property name="DummyCached" type="string" cached="true" />
+    <computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
+		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y,P" cached="true" />
 		<collection name="Children" type="MyClass" />
+		<collection name="P" type="Point" />
+		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y" />
+		<computed-property name="CompSubCached" type="double" dependsOn="P.X,p.Y" cached="true" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
 		<property name="X" type="double" />
@@ -17,5 +21,8 @@
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
 		<collection name="Children" type="MyClass" />
 	</type>
-
+	<type name="Point">
+		<property name="X" type="double" />
+		<property name="Y" type="double" default="2" />
+	</type>
 </model>

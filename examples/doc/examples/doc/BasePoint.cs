@@ -247,6 +247,8 @@ namespace examples.doc
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
+				
+			NotifyPropertyChanging(PROPERTIES.LEN);
 		}
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
@@ -255,7 +257,9 @@ namespace examples.doc
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+				
+			NotifyPropertyChanging(PROPERTIES.LEN);
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -265,6 +269,8 @@ namespace examples.doc
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
+				
+			NotifyPropertyChanged(PROPERTIES.LEN);
 		}
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
@@ -274,6 +280,8 @@ namespace examples.doc
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+				
+			NotifyPropertyChanged(PROPERTIES.LEN);
 		}
 		
 		#endregion

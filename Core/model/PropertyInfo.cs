@@ -95,7 +95,8 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> FieldAnnotations = new List<string>();
 		public readonly List<string> PropSetAnnotations = new List<string>();
 		public readonly List<string> PropGetAnnotations = new List<string>();
-		public readonly HashSet<PropertyInfo> DependentProperties = new HashSet<PropertyInfo>();
+		public readonly Dictionary<string, HashSet<PropertyInfo>> DependentPropertiesByPath =
+			new Dictionary<string, HashSet<PropertyInfo>>();
 
 		public PropertyInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
 		                    bool required, bool lazy)
@@ -154,6 +155,14 @@ namespace org.pescuma.ModelSharp.Core.model
 			return "With" + Name;
 		}
 
+		public void AddDependentProperty(PropertyInfo other, string path)
+		{
+			if (!DependentPropertiesByPath.ContainsKey(path))
+				DependentPropertiesByPath.Add(path, new HashSet<PropertyInfo>());
+
+			DependentPropertiesByPath[path].Add(other);
+		}
+
 		public bool IsCollection
 		{
 			get { return this is CollectionInfo; }
@@ -187,12 +196,56 @@ namespace org.pescuma.ModelSharp.Core.model
 			LazyInitializer = null;
 		}
 
+		public Dictionary<string, HashSet<ComputedPropertyInfo>> CachedComputedDependentPropertiesByPath
+		{
+			get
+			{
+				var result = new Dictionary<string, HashSet<ComputedPropertyInfo>>();
+
+				foreach (var dep in DependentPropertiesByPath)
+				{
+					var props = new HashSet<ComputedPropertyInfo>();
+
+					foreach (var prop in dep.Value)
+					{
+						if (prop.IsComputedAndCached)
+							props.Add((ComputedPropertyInfo) prop);
+					}
+
+					if (props.Count > 0)
+						result.Add(dep.Key, props);
+				}
+
+				return result;
+			}
+		}
+
+		public IList<ComputedPropertyInfo> DependentProperties
+		{
+			get
+			{
+				return (from pair in DependentPropertiesByPath
+				        from prop in pair.Value
+				        select prop).Distinct().Cast<ComputedPropertyInfo>().ToList();
+			}
+		}
+
 		public IList<ComputedPropertyInfo> CachedComputedDependentProperties
 		{
 			get
 			{
 				return (from prop in DependentProperties
 				        where prop.IsComputedAndCached
+				        select prop).Cast<ComputedPropertyInfo>().ToList();
+			}
+		}
+
+		public IList<ComputedPropertyInfo> ComputedDependentProperties
+		{
+			get
+			{
+				return (from prop in DependentProperties
+				        where prop.IsComputed
 				        select prop).Cast<ComputedPropertyInfo>().ToList();
 			}
 		}

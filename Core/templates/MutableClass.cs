@@ -318,209 +318,33 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\t}\r\n\r\n\t\t#region Property Notification\r\n\r\n");
             
             #line 69 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (!it.BaseClass.HasPropertyChanging) { 
-            
-            #line default
-            #line hidden
-            this.Write(@"		public event PropertyChangingEventHandler PropertyChanging;
-
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-");
-            
-            #line 77 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 80 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } else if (it.PropertiesWithDependencies.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tprotected virtual void NotifyPropertyChanging(string propertyName)\r\n\t\t{\r\n\t\t\tbas" +
-                    "e.NotifyPropertyChanging(propertyName);\r\n");
-            
-            #line 84 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 87 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } 
+ Include("NotifyPropertyChange", it, "type", "Changing"); 
             
             #line default
             #line hidden
             
-            #line 88 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (!it.BaseClass.HasChildPropertyChanging) { 
-            
-            #line default
-            #line hidden
-            this.Write(@"		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
-");
-            
-            #line 96 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 99 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } else if (it.PropertiesWithDependencies.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tprotected virtual void NotifyChildPropertyChanging(string propertyName, object " +
-                    "sender, PropertyChangingEventArgs e)\r\n\t\t{\r\n\t\t\tbase.NotifyChildPropertyChanging(p" +
-                    "ropertyName, sender, e);\r\n");
-            
-            #line 103 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 106 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 107 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (!it.BaseClass.HasPropertyChanged) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tpublic event PropertyChangedEventHandler PropertyChanged;\r\n\r\n\t\tprotected virtua" +
-                    "l void NotifyPropertyChanged(string propertyName)\r\n\t\t{\r\n");
-            
-            #line 112 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tPropertyChangedEventHandler handler = PropertyChanged;\r\n\t\t\tif (handler != null" +
-                    ")\r\n\t\t\t\thandler(this, new PropertyChangedEventArgs(propertyName));\r\n");
-            
-            #line 116 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 119 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } else if (it.PropertiesWithDependencies.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tprotected virtual void NotifyPropertyChanged(string propertyName)\r\n\t\t{\r\n");
-            
-            #line 122 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tbase.NotifyPropertyChanged(propertyName);\r\n");
-            
-            #line 124 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 127 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } 
-            
-            #line default
-            #line hidden
-            
-            #line 128 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (!it.BaseClass.HasChildPropertyChanged) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tpublic event ChildPropertyChangedEventHandler ChildPropertyChanged;\r\n\t\t\r\n\t\tprot" +
-                    "ected virtual void NotifyChildPropertyChanged(string propertyName, object sender" +
-                    ", PropertyChangedEventArgs e)\r\n\t\t{\r\n");
-            
-            #line 133 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tChildPropertyChangedEventHandler handler = ChildPropertyChanged;\r\n\t\t\tif (handl" +
-                    "er != null)\r\n\t\t\t\thandler(sender, new ChildPropertyChangedEventArgs(this, propert" +
-                    "yName, sender, e));\r\n");
-            
-            #line 137 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 140 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } else if (it.PropertiesWithDependencies.Count > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tprotected virtual void NotifyChildPropertyChanged(string propertyName, object s" +
-                    "ender, PropertyChangedEventArgs e)\r\n\t\t{\r\n");
-            
-            #line 143 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tbase.NotifyChildPropertyChanged(propertyName, sender, e);\r\n");
-            
-            #line 145 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t}\r\n\r\n");
-            
-            #line 148 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- } 
+            #line 70 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ Include("NotifyPropertyChange", it, "type", "Changed"); 
             
             #line default
             #line hidden
             this.Write("\t\t#endregion\r\n");
             
-            #line 150 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 72 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.Cloneable) { 
             
             #line default
             #line hidden
             this.Write("\t\t\r\n\t\t#region Clone\r\n\r\n#pragma warning disable 109\r\n\t\tpublic new ");
             
-            #line 155 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 77 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" Clone()\r\n#pragma warning restore 109\r\n\t\t{\r\n\t\t\treturn (");
             
-            #line 158 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 80 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -528,27 +352,27 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(") ((ICloneable) this).Clone();\r\n\t\t}\r\n\r\n\t\tobject ICloneable.Clone()\r\n\t\t{\r\n\t\t\tretur" +
                     "n new ");
             
-            #line 163 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 85 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("((");
             
-            #line 163 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 85 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(") this);\r\n\t\t}\r\n\r\n\t\t#endregion\r\n");
             
-            #line 167 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 89 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 168 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 90 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.NeedOnDeserialization) { 
             
             #line default
@@ -556,14 +380,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\t\r\n\t\t#region Serialization\r\n\r\n\t\tvoid IDeserializationCallback.OnDeserialization(" +
                     "object sender)\r\n\t\t{\r\n");
             
-            #line 174 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 96 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
 		if (it.Extends != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t// Call OnDeserialization in base class if it exists\r\n\t\t\tif (typeof(");
             
-            #line 176 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 98 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
             
             #line default
@@ -571,7 +395,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(").GetInterface(typeof(IDeserializationCallback).FullName) != null)\r\n\t\t\t{\r\n\t\t\t\tvar" +
                     " map = typeof(");
             
-            #line 178 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 100 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
             
             #line default
@@ -579,34 +403,34 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(").GetInterfaceMap(typeof(IDeserializationCallback));\r\n\t\t\t\tmap.TargetMethods[0].In" +
                     "voke(this, new[] { sender });\r\n\t\t\t}\r\n\r\n");
             
-            #line 182 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 104 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 183 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 105 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
 		ForEach("MutableOnDeserialization", it.Properties); 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n\t\t#endregion\r\n");
             
-            #line 187 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 109 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 189 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 111 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 192 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 114 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  } 
             
             #line default

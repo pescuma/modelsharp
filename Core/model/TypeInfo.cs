@@ -19,6 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -84,6 +85,11 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return Properties.Any(prop => prop.IsComponent); }
 		}
 
+		public bool HasCachedComputedProperties
+		{
+			get { return Properties.Any(prop => prop.IsComputedAndCached); }
+		}
+
 		public IEnumerable<PropertyInfo> ContructorArguments
 		{
 			get
@@ -113,7 +119,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			get
 			{
 				return (from prop in Properties
-				        where prop.DependentProperties.Count > 0
+				        where prop.DependentPropertiesByPath.Count > 0
 				        select prop).ToList();
 			}
 		}
@@ -125,6 +131,26 @@ namespace org.pescuma.ModelSharp.Core.model
 				return (from prop in Properties
 				        where prop.CachedComputedDependentProperties.Count > 0
 				        select prop);
+			}
+		}
+
+		public IEnumerable<ComputedPropertyInfo> CachedComputedPropertiesWithoutDependencies
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.IsComputedAndCached && ((ComputedPropertyInfo) prop).DependsOn.Count < 1
+				        select prop).Cast<ComputedPropertyInfo>();
+			}
+		}
+
+		public IEnumerable<ComputedPropertyInfo> ComputedPropertiesWithoutDependencies
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.IsComputed && ((ComputedPropertyInfo) prop).DependsOn.Count < 1
+				        select prop).Cast<ComputedPropertyInfo>();
 			}
 		}
 
@@ -159,5 +185,25 @@ namespace org.pescuma.ModelSharp.Core.model
 		public bool HasChildPropertyChanged;
 		public bool HasCopyFrom;
 		public bool IsGenerated;
+
+		public bool HasPropertyChange(string type)
+		{
+			if (type == "Changing")
+				return HasPropertyChanging;
+			else if (type == "Changed")
+				return HasPropertyChanged;
+			else
+				throw new ArgumentException();
+		}
+
+		public bool HasChildPropertyChange(string type)
+		{
+			if (type == "Changing")
+				return HasChildPropertyChanging;
+			else if (type == "Changed")
+				return HasChildPropertyChanged;
+			else
+				throw new ArgumentException();
+		}
 	}
 }

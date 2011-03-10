@@ -13,9 +13,9 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\NotifyCachedComputedPropertiesChange.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class NotifyDependenciesChanged : TemplateUtils
+    public partial class NotifyCachedComputedPropertiesChange : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -76,60 +76,32 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\r\n\t\t\t");
+            this.Write("\r\n\t\t\tNotifyProperty");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
- if (index > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("else ");
-            
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
- } 
+            #line 6 "X:\c#\modelsharp\Core\templates\NotifyCachedComputedPropertiesChange.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
-            this.Write("if (propertyName == PROPERTIES.");
+            this.Write("(PROPERTIES.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\NotifyCachedComputedPropertiesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n");
-            
-            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
-	foreach(var dep in it.DependentProperties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\tNotifyPropertyChanged(PROPERTIES.");
-            
-            #line 9 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dep.DefineName));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 10 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
-	} 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t}");
+            this.Write(");");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanged.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\NotifyCachedComputedPropertiesChange.tt"
 
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
+private global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo _itField;
 
 /// <summary>
 /// Access the it parameter of the template.
 /// </summary>
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo it
+private global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo it
 {
     get
     {
@@ -137,16 +109,16 @@ private global::org.pescuma.ModelSharp.Core.model.PropertyInfo it
     }
 }
 
-private int _indexField;
+private string _typeField;
 
 /// <summary>
-/// Access the index parameter of the template.
+/// Access the type parameter of the template.
 /// </summary>
-private int index
+private string type
 {
     get
     {
-        return this._indexField;
+        return this._typeField;
     }
 }
 
@@ -159,14 +131,14 @@ public override void Initialize()
 bool itValueAcquired = false;
 if (this.Session.ContainsKey("it"))
 {
-    if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
+    if ((typeof(global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
     {
-        this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                "id not match the type of the data passed to the template.");
+        this.Error("The type \'org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo\' of the paramete" +
+                "r \'it\' did not match the type of the data passed to the template.");
     }
     else
     {
-        this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(this.Session["it"]));
+        this._itField = ((global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo)(this.Session["it"]));
         itValueAcquired = true;
     }
 }
@@ -175,44 +147,44 @@ if ((itValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("it");
     if ((data != null))
     {
-        if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                    "id not match the type of the data passed to the template.");
+            this.Error("The type \'org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo\' of the paramete" +
+                    "r \'it\' did not match the type of the data passed to the template.");
         }
         else
         {
-            this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(data));
+            this._itField = ((global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo)(data));
         }
     }
 }
-bool indexValueAcquired = false;
-if (this.Session.ContainsKey("index"))
+bool typeValueAcquired = false;
+if (this.Session.ContainsKey("type"))
 {
-    if ((typeof(int).IsAssignableFrom(this.Session["index"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["type"].GetType()) == false))
     {
-        this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
+        this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
                 "ta passed to the template.");
     }
     else
     {
-        this._indexField = ((int)(this.Session["index"]));
-        indexValueAcquired = true;
+        this._typeField = ((string)(this.Session["type"]));
+        typeValueAcquired = true;
     }
 }
-if ((indexValueAcquired == false))
+if ((typeValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("index");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("type");
     if ((data != null))
     {
-        if ((typeof(int).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
+            this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
                     "ta passed to the template.");
         }
         else
         {
-            this._indexField = ((int)(data));
+            this._typeField = ((string)(data));
         }
     }
 }

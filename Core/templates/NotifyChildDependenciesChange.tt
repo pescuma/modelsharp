@@ -1,0 +1,31 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#@ parameter name="index" type="System.Int32" #>
+<#@ parameter name="type" type="System.String" #>
+<#	var deps = it.DependentPropertiesByPath; #>
+
+			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
+			{
+<#	if (deps.ContainsKey("")) { #>
+<#		foreach(var prop in deps[""]) { #>
+				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
+<#		} #>
+<#	} #>
+<#	if (deps.Keys.Any(s => s != "")) { #>
+				string path = (e is ChildProperty<#= type #>EventArgs ? ((ChildProperty<#= type #>EventArgs) e).FullPath : e.PropertyName);
+<#	} #>
+<#	int innerIndex = 0; #>
+<#	foreach(var dep in deps) { #>
+<#		if (dep.Key == "") 
+			continue; #>
+				<# if (innerIndex > 0) { #>else <# } #>if (path == "<#= dep.Key #>")
+				{
+<#		foreach(var prop in dep.Value) { #>
+					NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
+<#		} #>
+				}
+<#		innerIndex++; #>
+<#	} #>
+			}

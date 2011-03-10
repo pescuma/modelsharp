@@ -1,0 +1,75 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.TypeInfo" #>
+<#@ parameter name="type" type="System.String" #>
+<#	if (!it.BaseClass.HasPropertyChange(type)) { #>
+		public event Property<#= type #>EventHandler Property<#= type #>;
+
+		protected virtual void NotifyProperty<#= type #>(string propertyName)
+		{
+<#		if (type == "Changed") { #>
+<#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			if (it.HasCachedComputedProperties) { #>
+
+<#			} #>
+<#		} #>
+			Property<#= type #>EventHandler handler = Property<#= type #>;
+			if (handler != null)
+				handler(this, new Property<#= type #>EventArgs(propertyName));
+<#		ForEach("NotifyDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
+		}
+
+<#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyProperty<#= type #>(string propertyName)
+		{
+<#		if (type == "Changed") { #>
+<#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			if (it.HasCachedComputedProperties) { #>
+
+<#			} #>
+<#		} #>
+			base.NotifyProperty<#= type #>(propertyName);
+<#		ForEach("NotifyDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
+		}
+
+<#	} #>
+<#	if (!it.BaseClass.HasChildPropertyChange(type)) { #>
+		public event ChildProperty<#= type #>EventHandler ChildProperty<#= type #>;
+		
+		protected virtual void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
+		{
+<#		if (type == "Changed") { #>
+<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			if (it.HasCachedComputedProperties) { #>
+
+<#			} #>
+<#		} #>
+			ChildProperty<#= type #>EventHandler handler = ChildProperty<#= type #>;
+			if (handler != null)
+				handler(sender, new ChildProperty<#= type #>EventArgs(this, propertyName, sender, e));
+<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
+		}
+
+<#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
+		protected virtual void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
+		{
+<#		if (type == "Changed") { #>
+<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			if (it.HasCachedComputedProperties) { #>
+
+<#			} #>
+<#		} #>
+			base.NotifyChildProperty<#= type #>(propertyName, sender, e);
+<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
+		}
+
+<#	} #>

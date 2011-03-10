@@ -66,86 +66,8 @@ namespace <#= it.Package #>
 
 		#region Property Notification
 
-<# if (!it.BaseClass.HasPropertyChanging) { #>
-		public event PropertyChangingEventHandler PropertyChanging;
-
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
-		}
-
-<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			base.NotifyPropertyChanging(propertyName);
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
-		}
-
-<# } #>
-<# if (!it.BaseClass.HasChildPropertyChanging) { #>
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
-		}
-
-<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			base.NotifyChildPropertyChanging(propertyName, sender, e);
-<# ForEach("NotifyDependenciesChanging", it.PropertiesWithDependencies); #>
-		}
-
-<# } #>
-<# if (!it.BaseClass.HasPropertyChanged) { #>
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
-		}
-
-<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-			base.NotifyPropertyChanged(propertyName);
-<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
-		}
-
-<# } #>
-<# if (!it.BaseClass.HasChildPropertyChanged) { #>
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
-		}
-
-<# } else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-<# ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-			base.NotifyChildPropertyChanged(propertyName, sender, e);
-<# ForEach("NotifyDependenciesChanged", it.PropertiesWithDependencies); #>
-		}
-
-<# } #>
+<# Include("NotifyPropertyChange", it, "type", "Changing"); #>
+<# Include("NotifyPropertyChange", it, "type", "Changed"); #>
 		#endregion
 <# if (it.Cloneable) { #>
 		

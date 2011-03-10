@@ -211,7 +211,7 @@ namespace examples.collectionReadOnly
 		
 		[DataMember(Name = "HousesLazy", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly ObservableList<House> housesLazy;
+		protected ObservableList<House> housesLazy;
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private ReadOnlyObservableList<House> housesLazyReadOnly;
@@ -410,7 +410,7 @@ namespace examples.collectionReadOnly
 		{
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, e));
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;

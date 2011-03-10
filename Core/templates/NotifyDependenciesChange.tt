@@ -1,11 +1,13 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="System.Linq" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#@ parameter name="index" type="System.Int32" #>
+<#@ parameter name="type" type="System.String" #>
 
 			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
 			{
-<#	foreach(var dep in it.DependentProperties) { #>
-				NotifyPropertyChanged(PROPERTIES.<#= dep.DefineName #>);
-<#	} #>
+<#		foreach(var prop in it.ComputedDependentProperties) { #>
+				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
+<#		} #>
 			}

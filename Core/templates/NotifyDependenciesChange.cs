@@ -9,13 +9,14 @@
 // ------------------------------------------------------------------------------
 namespace org.pescuma.ModelSharp.Core.templates
 {
+    using System.Linq;
     using org.pescuma.ModelSharp.Core.model;
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class NotifyDependenciesChanging : TemplateUtils
+    public partial class NotifyDependenciesChange : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -78,43 +79,50 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             this.Write("\r\n\t\t\t");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
  if (index > 0) { 
             
             #line default
             #line hidden
             this.Write("else ");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
  } 
             
             #line default
             #line hidden
             this.Write("if (propertyName == PROPERTIES.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t{\r\n");
             
-            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
-	foreach(var dep in it.DependentProperties) { 
+            #line 10 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+		foreach(var prop in it.ComputedDependentProperties) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\tNotifyPropertyChanging(PROPERTIES.");
+            this.Write("\t\t\t\tNotifyProperty");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dep.DefineName));
+            #line 11 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(type));
+            
+            #line default
+            #line hidden
+            this.Write("(PROPERTIES.");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
-	} 
+            #line 12 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+		} 
             
             #line default
             #line hidden
@@ -122,7 +130,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChanging.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 
@@ -147,6 +155,19 @@ private int index
     get
     {
         return this._indexField;
+    }
+}
+
+private string _typeField;
+
+/// <summary>
+/// Access the type parameter of the template.
+/// </summary>
+private string type
+{
+    get
+    {
+        return this._typeField;
     }
 }
 
@@ -213,6 +234,36 @@ if ((indexValueAcquired == false))
         else
         {
             this._indexField = ((int)(data));
+        }
+    }
+}
+bool typeValueAcquired = false;
+if (this.Session.ContainsKey("type"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["type"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
+                "ta passed to the template.");
+    }
+    else
+    {
+        this._typeField = ((string)(this.Session["type"]));
+        typeValueAcquired = true;
+    }
+}
+if ((typeValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("type");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
+                    "ta passed to the template.");
+        }
+        else
+        {
+            this._typeField = ((string)(data));
         }
     }
 }

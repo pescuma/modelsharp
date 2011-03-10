@@ -30,6 +30,12 @@ namespace examples.computeProperty
 			throw new NotImplementedException();
 		}
 		
+		protected override string ComputeDummyCached()
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
+		
 		protected override double ComputeSquaredLength()
 		{
 			// TODO
@@ -37,6 +43,18 @@ namespace examples.computeProperty
 		}
 		
 		protected override double ComputeSquaredLengthCached()
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
+		
+		protected override double ComputeCompSub()
+		{
+			// TODO
+			throw new NotImplementedException();
+		}
+		
+		protected override double ComputeCompSubCached()
 		{
 			// TODO
 			throw new NotImplementedException();

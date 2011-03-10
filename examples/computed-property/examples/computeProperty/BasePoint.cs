@@ -7,161 +7,120 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-namespace examples.composition
+namespace examples.computeProperty
 {
 
 	[DataContract]
-	[DebuggerDisplay("Address[Street={Street} City={City} ZipCode={ZipCode}]")]
-	public abstract class BaseAddress : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	[DebuggerDisplay("Point[X={X} Y={Y}]")]
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
 	{
 		#region Field Name Defines
 		
 		public class PROPERTIES
 		{
-			public const string STREET = "Street";
-			public const string CITY = "City";
-			public const string ZIP_CODE = "ZipCode";
+			public const string X = "X";
+			public const string Y = "Y";
 		}
 		
 		#endregion
 		
 		#region Constructors
 		
-		public BaseAddress()
+		public BasePoint()
 		{
+			this.y = 2;
 		}
 		
-		public BaseAddress(BaseAddress other)
+		public BasePoint(BasePoint other)
 		{
-			this.street = other.Street;
-			this.city = other.City;
-			this.zipCode = other.ZipCode;
+			this.x = other.X;
+			this.y = other.Y;
 		}
 		
 		#endregion
 		
-		#region Property Street
+		#region Property X
 		
-		[DataMember(Name = "Street", Order = 0, IsRequired = false)]
+		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string street;
+		private double x;
 		
-		public string Street
+		public double X
 		{
 			[DebuggerStepThrough]
 			get {
-				return GetStreet();
+				return GetX();
 			}
 			[DebuggerStepThrough]
 			set {
-				SetStreet(value);
+				SetX(value);
 			}
 		}
 		
-		protected virtual string GetStreet()
+		protected virtual double GetX()
 		{
-			return this.street;
+			return this.x;
 		}
 		
-		protected virtual bool SetStreet(string street)
+		protected virtual bool SetX(double x)
 		{
-			if (this.street == street)
+			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.STREET);
+			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this.street = street;
+			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.STREET);
+			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
 		}
 		
-		#endregion Property Street
+		#endregion Property X
 		
-		#region Property City
+		#region Property Y
 		
-		[DataMember(Name = "City", Order = 1, IsRequired = false)]
+		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string city;
+		private double y;
 		
-		public string City
+		public double Y
 		{
 			[DebuggerStepThrough]
 			get {
-				return GetCity();
+				return GetY();
 			}
 			[DebuggerStepThrough]
 			set {
-				SetCity(value);
+				SetY(value);
 			}
 		}
 		
-		protected virtual string GetCity()
+		protected virtual double GetY()
 		{
-			return this.city;
+			return this.y;
 		}
 		
-		protected virtual bool SetCity(string city)
+		protected virtual bool SetY(double y)
 		{
-			if (this.city == city)
+			if (this.y == y)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.CITY);
+			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this.city = city;
+			this.y = y;
 			
-			NotifyPropertyChanged(PROPERTIES.CITY);
+			NotifyPropertyChanged(PROPERTIES.Y);
 			
 			return true;
 		}
 		
-		#endregion Property City
+		#endregion Property Y
 		
-		#region Property ZipCode
-		
-		[DataMember(Name = "ZipCode", Order = 2, IsRequired = false)]
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string zipCode;
-		
-		public string ZipCode
+		public virtual void CopyFrom(Point other)
 		{
-			[DebuggerStepThrough]
-			get {
-				return GetZipCode();
-			}
-			[DebuggerStepThrough]
-			set {
-				SetZipCode(value);
-			}
-		}
-		
-		protected virtual string GetZipCode()
-		{
-			return this.zipCode;
-		}
-		
-		protected virtual bool SetZipCode(string zipCode)
-		{
-			if (this.zipCode == zipCode)
-				return false;
-				
-			NotifyPropertyChanging(PROPERTIES.ZIP_CODE);
-			
-			this.zipCode = zipCode;
-			
-			NotifyPropertyChanged(PROPERTIES.ZIP_CODE);
-			
-			return true;
-		}
-		
-		#endregion Property ZipCode
-		
-		public virtual void CopyFrom(Address other)
-		{
-			Street = other.Street;
-			City = other.City;
-			ZipCode = other.ZipCode;
+			X = other.X;
+			Y = other.Y;
 		}
 		
 		#region Property Notification
@@ -207,15 +166,15 @@ namespace examples.composition
 		#region Clone
 		
 #pragma warning disable 109
-		public new Address Clone()
+		public new Point Clone()
 #pragma warning restore 109
 		{
-			return (Address) ((ICloneable) this).Clone();
+			return (Point) ((ICloneable) this).Clone();
 		}
 		
 		object ICloneable.Clone()
 		{
-			return new Address((Address) this);
+			return new Point((Point) this);
 		}
 		
 		#endregion

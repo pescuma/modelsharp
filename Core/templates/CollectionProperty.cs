@@ -88,7 +88,20 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tprotected readonly ");
+            this.Write("\t\tprotected ");
+            
+            #line 6 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+ if (!it.Lazy) { 
+            
+            #line default
+            #line hidden
+            this.Write("readonly ");
+            
+            #line 6 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
             
             #line 6 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));

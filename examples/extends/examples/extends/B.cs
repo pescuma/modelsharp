@@ -2,6 +2,7 @@
 // Remove the above line before editing this file and it won't be changed by Model#
 
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using System.ComponentModel;
 using org.pescuma.ModelSharp.Lib;

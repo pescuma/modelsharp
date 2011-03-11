@@ -407,11 +407,11 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void AddDefaultUsings(ModelInfo model)
 		{
-//			foreach (var type in model.Types)
-//			{
-//				type.Using.Add("System.Collections.Generic");
-//				type.Using.Add("System.Collections");
-//			}
+			foreach (var type in model.Types)
+			{
+				type.Using.Add("System.Collections.Generic");
+				type.Using.Add("System.Collections");
+			}
 		}
 
 		private void CheckIfCanCloneAllNeededFields(ModelInfo model)

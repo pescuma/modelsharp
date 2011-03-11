@@ -995,7 +995,7 @@ namespace examples.deepCopy
 			else
 			{
 				if (this.lazyAddressCol != null)
-					LazyAddressCol.Clear();
+					this.lazyAddressCol.Clear();
 			}
 			StringCol.Clear();
 			foreach (string otherItem in other.StringCol)

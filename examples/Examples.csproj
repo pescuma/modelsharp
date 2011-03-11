@@ -35,6 +35,7 @@
       <HintPath>..\Lib\bin\Debug\ModelSharp.Lib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -123,6 +124,8 @@
     <Compile Include="using\examples\%40using\BaseTest2.cs" />
     <Compile Include="using\examples\%40using\Test.cs" />
     <Compile Include="using\examples\%40using\Test2.cs" />
+    <Compile Include="validation\examples\validation\BasePoint.cs" />
+    <Compile Include="validation\examples\validation\Point.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="collectionReadOnly\model.xml" />
@@ -145,6 +148,7 @@
     <Content Include="required\model.xml" />
     <Content Include="simple\model.xml" />
     <Content Include="using\model.xml" />
+    <Content Include="validation\model.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

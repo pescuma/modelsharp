@@ -405,7 +405,7 @@ namespace examples.lazy
 			else
 			{
 				if (this.comp1 != null)
-					Comp1.CopyFrom(new Type2());
+					this.comp1.CopyFrom(new Type2());
 			}
 			if (other.col1 != null)
 			{
@@ -415,7 +415,7 @@ namespace examples.lazy
 			else
 			{
 				if (this.col1 != null)
-					Col1.Clear();
+					this.col1.Clear();
 			}
 		}
 		

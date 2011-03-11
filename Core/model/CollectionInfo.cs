@@ -42,6 +42,7 @@ namespace org.pescuma.ModelSharp.Core.model
 
 			Setter = null;
 			WithSetter = null;
+			validator = null;
 			Getter.TypeName = ExposedTypeName;
 		}
 

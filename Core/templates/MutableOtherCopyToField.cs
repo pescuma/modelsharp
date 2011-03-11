@@ -214,10 +214,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" != null)\r\n\t\t\t\t\t");
+            this.Write(" != null)\r\n\t\t\t\t\tthis.");
             
             #line 31 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
@@ -235,10 +235,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" != null)\r\n\t\t\t\t\t");
+            this.Write(" != null)\r\n\t\t\t\t\tthis.");
             
             #line 34 "X:\c#\modelsharp\Core\templates\MutableOtherCopyToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden

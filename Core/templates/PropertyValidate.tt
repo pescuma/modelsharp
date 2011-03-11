@@ -1,0 +1,11 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.ValidationInfo" #>
+
+<#	if (it.Prefix != null) { #>
+<#= it.Prefix #>
+<# } #>
+			if (<#= it.Test #>)
+				throw <#= it.Exception #>;
+<#	if (it.Suffix != null) { #>
+<#= it.Suffix #>
+<# } #>

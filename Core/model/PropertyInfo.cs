@@ -27,8 +27,8 @@ namespace org.pescuma.ModelSharp.Core.model
 	public class PropertyInfo : BaseFieldInfo
 	{
 		public readonly TypeInfo Owner;
-		public bool Required;
-		public bool Lazy;
+		public readonly bool Required;
+		public readonly bool Lazy;
 		public int Order = -1;
 		protected bool? deepCopy;
 
@@ -36,6 +36,27 @@ namespace org.pescuma.ModelSharp.Core.model
 		public MethodInfo Setter;
 		public MethodInfo WithSetter;
 		public MethodInfo LazyInitializer;
+		protected MethodInfo validator;
+
+		public readonly List<string> FieldAnnotations = new List<string>();
+		public readonly List<string> PropSetAnnotations = new List<string>();
+		public readonly List<string> PropGetAnnotations = new List<string>();
+
+		public readonly Dictionary<string, HashSet<PropertyInfo>> DependentPropertiesByPath =
+			new Dictionary<string, HashSet<PropertyInfo>>();
+
+		public readonly List<ValidationInfo> Validations = new List<ValidationInfo>();
+
+		public virtual MethodInfo Validator
+		{
+			get
+			{
+				if (Validations.Count > 0)
+					return validator;
+				else
+					return null;
+			}
+		}
 
 		public virtual bool DeepCopy
 		{
@@ -92,12 +113,6 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
-		public readonly List<string> FieldAnnotations = new List<string>();
-		public readonly List<string> PropSetAnnotations = new List<string>();
-		public readonly List<string> PropGetAnnotations = new List<string>();
-		public readonly Dictionary<string, HashSet<PropertyInfo>> DependentPropertiesByPath =
-			new Dictionary<string, HashSet<PropertyInfo>>();
-
 		public PropertyInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
 		                    bool required, bool lazy)
 			: base(conventions, name, type)
@@ -121,6 +136,15 @@ namespace org.pescuma.ModelSharp.Core.model
 			string lazyIntializer = GetLazyInitializerName();
 			if (lazyIntializer != null)
 				LazyInitializer = new MethodInfo(lazyIntializer);
+
+			string validatorName = GetValidatorName();
+			if (validatorName != null)
+				validator = new MethodInfo(validatorName, "void", TypeName);
+		}
+
+		private string GetValidatorName()
+		{
+			return "Validate" + Name;
 		}
 
 		private string GetLazyInitializerName()
@@ -183,11 +207,6 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return this is ComputedPropertyInfo && ((ComputedPropertyInfo) this).Cached; }
 		}
 
-		public bool AssertNotNull
-		{
-			get { return !IsPrimitive && Required; }
-		}
-
 		public virtual void MakeImmutable()
 		{
 			FieldName = Name;
@@ -236,7 +255,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			{
 				return (from prop in DependentProperties
 				        where prop.IsComputedAndCached
-				        select prop).Cast<ComputedPropertyInfo>().ToList();
+				        select prop).ToList();
 			}
 		}
 
@@ -246,13 +265,57 @@ namespace org.pescuma.ModelSharp.Core.model
 			{
 				return (from prop in DependentProperties
 				        where prop.IsComputed
-				        select prop).Cast<ComputedPropertyInfo>().ToList();
+				        select prop).ToList();
 			}
+		}
+
+		public void AddValidation(string test, string exception = null)
+		{
+			if (test == null)
+				return;
+
+			Validations.Add(new ValidationInfo(test, exception ?? "new ArgumentException(property)"));
+		}
+
+		public void AddValidationAttrib(string attrib, string exception = null)
+		{
+			if (attrib == null)
+				return;
+
+			Owner.Using.Add("System.ComponentModel.DataAnnotations");
+			Annotations.Add(attrib);
+
+			var constructor = attrib;
+
+			var start = attrib.IndexOf('(');
+			if (start < 0)
+				constructor += "Attribute()";
+			else
+				constructor = attrib.Substring(0, start) + "Attribute" + attrib.Substring(start);
+
+			Validations.Add(new ValidationInfo("new " + constructor + ".IsValid(value)",
+			                                   exception ?? "new ArgumentException(property)"));
 		}
 
 		public override string ToString()
 		{
 			return string.Format("PropertyInfo[{0} {1}]", TypeName, Name);
+		}
+	}
+
+	public class ValidationInfo
+	{
+		public string Test;
+		public string Exception;
+		public string Prefix;
+		public string Suffix;
+
+		public ValidationInfo(string test, string exception, string prefix = null, string suffix = null)
+		{
+			Test = test;
+			Exception = exception;
+			Prefix = prefix;
+			Suffix = suffix;
 		}
 	}
 }

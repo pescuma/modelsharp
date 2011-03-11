@@ -233,10 +233,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotifyPropertyChange.tt</DependentUpon>
     </Compile>
-    <Compile Include="templates\NotNullIfRequired.cs">
+    <Compile Include="templates\PropertyValidate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NotNullIfRequired.tt</DependentUpon>
+      <DependentUpon>PropertyValidate.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\Param.cs">
       <AutoGen>True</AutoGen>
@@ -269,6 +269,21 @@
       <DependentUpon>TemplateUtils.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\TemplateUtilsCode.cs" />
+    <Compile Include="templates\ValidateIfRequired.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidateIfRequired.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\ValidateIfRequiredInConstructor.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidateIfRequiredInConstructor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\ValidateIfRequiredInCopyFrom.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ValidateIfRequiredInCopyFrom.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\VarName.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -408,9 +423,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>NotifyPropertyChange.cs</LastGenOutput>
     </None>
-    <None Include="templates\NotNullIfRequired.tt">
+    <None Include="templates\PropertyValidate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>NotNullIfRequired.cs</LastGenOutput>
+      <LastGenOutput>PropertyValidate.cs</LastGenOutput>
     </None>
     <None Include="templates\Param.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -435,6 +450,18 @@
     <None Include="templates\TemplateUtils.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>TemplateUtils.cs</LastGenOutput>
+    </None>
+    <None Include="templates\ValidateIfRequired.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ValidateIfRequired.cs</LastGenOutput>
+    </None>
+    <None Include="templates\ValidateIfRequiredInConstructor.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ValidateIfRequiredInConstructor.cs</LastGenOutput>
+    </None>
+    <None Include="templates\ValidateIfRequiredInCopyFrom.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ValidateIfRequiredInCopyFrom.cs</LastGenOutput>
     </None>
     <None Include="templates\VarName.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

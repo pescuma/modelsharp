@@ -38,9 +38,9 @@ namespace <#= it.Package #>
 
 		public <#= it.ImplementationName #>(<# ForEach("Param", it.ContructorArguments, separator: ", "); #>)
 		{
-<# ForEach("NotNullIfRequired", it.ContructorArguments); #>
 <# ForEach("MutableInitField", it.NonComputedProperties); #>
 <# ForEach("MutableParamToField", it.ContructorArguments); #>
+<# ForEach("ValidateIfRequiredInConstructor", it.Properties); #>
 		}
 
 <# if (it.Cloneable) { #>
@@ -50,6 +50,7 @@ namespace <#= it.Package #>
 <#		} #>
 		{
 <# ForEach("MutableOtherToField", it.NonComputedProperties); #>
+<# ForEach("ValidateIfRequiredInConstructor", it.Properties); #>
 		}
 
 <# } #>
@@ -58,6 +59,7 @@ namespace <#= it.Package #>
 <# ForEach("Property", it.Properties); #>
 		public virtual void CopyFrom(<#= it.Name #> other)
 		{
+<# ForEach("ValidateIfRequiredInCopyFrom", it.Properties); #>
 <# if (it.BaseClass.HasCopyFrom) { #>
 			base.CopyFrom(other);
 <# } #>

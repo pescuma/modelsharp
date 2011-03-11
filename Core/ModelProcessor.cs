@@ -283,6 +283,25 @@ namespace org.pescuma.ModelSharp.Core
 							if (!string.IsNullOrEmpty(property.setter) && ValidateVisibility(property.setter, "setter"))
 								prop.SetterVisibility = property.setter;
 
+							if (prop.Required && !prop.IsPrimitive)
+								prop.Validations.Add(new ValidationInfo("value != null",
+								                                        property.requiredException
+								                                        ?? "new ArgumentNullException(property)",
+								                                        "// ReSharper disable ConditionIsAlwaysTrueOrFalse",
+								                                        "// ReSharper restore ConditionIsAlwaysTrueOrFalse"));
+
+							prop.AddValidationAttrib(property.validationAttrib, property.validationException);
+							prop.AddValidation(property.validation1, property.validationException);
+
+							if (property.validation != null)
+							{
+								foreach (var validation in property.validation)
+								{
+									prop.AddValidationAttrib(validation.attrib, validation.exception);
+									prop.AddValidation(validation.test, validation.exception);
+								}
+							}
+
 							ti.Properties.Add(prop);
 						}
 						else if (item is component)
@@ -296,6 +315,18 @@ namespace org.pescuma.ModelSharp.Core
 
 							if (!string.IsNullOrEmpty(component.@default))
 								comp.DefaultValue = component.@default;
+
+							comp.AddValidationAttrib(component.validationAttrib, component.validationException);
+							comp.AddValidation(component.validation1, component.validationException);
+
+							if (component.validation != null)
+							{
+								foreach (var validation in component.validation)
+								{
+									comp.AddValidationAttrib(validation.attrib, validation.exception);
+									comp.AddValidation(validation.test, validation.exception);
+								}
+							}
 
 							ti.Properties.Add(comp);
 						}
@@ -360,6 +391,7 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void ProcessModel(ModelInfo model)
 		{
+			AddDefaultUsings(model);
 			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
@@ -371,6 +403,15 @@ namespace org.pescuma.ModelSharp.Core
 			AddDebugAttributes(model);
 			AddClonable(model);
 			CheckIfCanCloneAllNeededFields(model);
+		}
+
+		private void AddDefaultUsings(ModelInfo model)
+		{
+//			foreach (var type in model.Types)
+//			{
+//				type.Using.Add("System.Collections.Generic");
+//				type.Using.Add("System.Collections");
+//			}
 		}
 
 		private void CheckIfCanCloneAllNeededFields(ModelInfo model)

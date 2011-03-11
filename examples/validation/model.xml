@@ -1,0 +1,24 @@
+<model namespace="examples.validation">
+	<type name="Point">
+		<property name="x" type="double" required="true" requiredException="new ModelRangeException(value, 0, 6)" validation="value &gt; 0" validationException="new Exception()" />
+		<property name="y" type="double" default="2" validationAttrib="Range(5, 7)" />
+		<property name="z" type="double">
+			<validation test="value &gt; 0" />
+			<validation test="value &lt; 100" exception="new Exception()" />
+			<validation attrib="Required" />
+			<validation attrib="Range(1, 6)" exception="new Exception()" />
+		</property>
+		<property name="w" type="double" required="true" validation="value &gt; -10" validationAttrib="StringLength(10)" validationException="new Exception()" >
+			<validation test="value &gt; 0" />
+			<validation test="value &lt; 100" exception="new Exception()" />
+			<validation attrib="Required" />
+			<validation attrib="Range(1, 6)" exception="new Exception()" />
+		</property>
+		<component name="comp" type="Point" required="true" validation="value.X &gt; -10" validationAttrib="StringLength(10)" validationException='new Exception("x")' default='new Point(2,2)'>
+			<validation test="value.X &gt; 0" />
+			<validation test="value.Y &lt; 100" exception="new Exception()" />
+			<validation attrib="Required" />
+			<validation attrib="Range(1, 6)" exception="new Exception()" />
+		</component>
+	</type>
+</model>

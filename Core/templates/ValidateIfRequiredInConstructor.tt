@@ -1,0 +1,7 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#
+if (it.Lazy != null)
+	Include("ValidateIfRequired", it, "param", "this." + it.FieldName);
+#>

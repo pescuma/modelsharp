@@ -549,6 +549,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class component {
         
+        private validation[] validationField;
+        
         private string defaultField;
         
         private string docField;
@@ -559,7 +561,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string nameField;
         
+        private bool requiredField;
+        
+        private bool requiredFieldSpecified;
+        
         private string typeField;
+        
+        private string validation1Field;
+        
+        private string validationAttribField;
+        
+        private string validationExceptionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("validation")]
+        public validation[] validation {
+            get {
+                return this.validationField;
+            }
+            set {
+                this.validationField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -617,6 +640,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool required {
+            get {
+                return this.requiredField;
+            }
+            set {
+                this.requiredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool requiredSpecified {
+            get {
+                return this.requiredFieldSpecified;
+            }
+            set {
+                this.requiredFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
         public string type {
             get {
@@ -624,6 +669,88 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute("validation")]
+        public string validation1 {
+            get {
+                return this.validation1Field;
+            }
+            set {
+                this.validation1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string validationAttrib {
+            get {
+                return this.validationAttribField;
+            }
+            set {
+                this.validationAttribField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string validationException {
+            get {
+                return this.validationExceptionField;
+            }
+            set {
+                this.validationExceptionField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
+    public partial class validation {
+        
+        private string attribField;
+        
+        private string exceptionField;
+        
+        private string testField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string attrib {
+            get {
+                return this.attribField;
+            }
+            set {
+                this.attribField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string exception {
+            get {
+                return this.exceptionField;
+            }
+            set {
+                this.exceptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string test {
+            get {
+                return this.testField;
+            }
+            set {
+                this.testField = value;
             }
         }
     }
@@ -738,6 +865,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class property {
         
+        private validation[] validationField;
+        
         private bool deepCopyField;
         
         private bool deepCopyFieldSpecified;
@@ -754,9 +883,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private bool requiredFieldSpecified;
         
+        private string requiredExceptionField;
+        
         private string setterField;
         
         private string typeField;
+        
+        private string validation1Field;
+        
+        private string validationAttribField;
+        
+        private string validationExceptionField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("validation")]
+        public validation[] validation {
+            get {
+                return this.validationField;
+            }
+            set {
+                this.validationField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -847,6 +995,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
         }
         
         /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string requiredException {
+            get {
+                return this.requiredExceptionField;
+            }
+            set {
+                this.requiredExceptionField = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
         public string setter {
             get {
@@ -865,6 +1024,39 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute("validation")]
+        public string validation1 {
+            get {
+                return this.validation1Field;
+            }
+            set {
+                this.validation1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string validationAttrib {
+            get {
+                return this.validationAttribField;
+            }
+            set {
+                this.validationAttribField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string validationException {
+            get {
+                return this.validationExceptionField;
+            }
+            set {
+                this.validationExceptionField = value;
             }
         }
     }

@@ -389,7 +389,7 @@ namespace examples.collectionReadOnly
 			else
 			{
 				if (this.housesLazy != null)
-					HousesLazy.Clear();
+					this.housesLazy.Clear();
 			}
 		}
 		

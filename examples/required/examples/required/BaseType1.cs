@@ -33,14 +33,6 @@ namespace examples.required
 		
 		public BaseType1(Type2 prop2, int prop4, string prop5)
 		{
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (prop2 == null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				throw new ArgumentNullException("prop2");
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (prop5 == null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				throw new ArgumentNullException("prop5");
 			AddProp1Listeners(this.prop1);
 			AddProp2Listeners(this.prop2);
 			this.comp = new Type2();
@@ -49,6 +41,8 @@ namespace examples.required
 			AddProp2Listeners(this.prop2);
 			this.prop4 = prop4;
 			this.prop5 = prop5;
+			ValidateProp2(this.prop2);
+			ValidateProp5(this.prop5);
 		}
 		
 		public BaseType1(BaseType1 other)
@@ -67,6 +61,8 @@ namespace examples.required
 			}
 			this.comp = new Type2(other.Comp);
 			AddCompListeners(this.comp);
+			ValidateProp2(this.prop2);
+			ValidateProp5(this.prop5);
 		}
 		
 		#endregion
@@ -201,15 +197,22 @@ namespace examples.required
 			return this.prop2;
 		}
 		
+		private void ValidateProp2(Type2 value)
+		{
+			var property = PROPERTIES.PROP2;
+			
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (value != null)
+				throw new ArgumentNullException(property);
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+		}
+		
 		protected virtual bool SetProp2(Type2 prop2)
 		{
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (prop2 == null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				throw new ArgumentNullException("prop2");
 			if (this.prop2 == prop2)
 				return false;
-				
+			ValidateProp2(prop2);
+			
 			NotifyPropertyChanging(PROPERTIES.PROP2);
 			
 			RemoveProp2Listeners(prop2);
@@ -390,15 +393,22 @@ namespace examples.required
 			return this.prop5;
 		}
 		
+		private void ValidateProp5(string value)
+		{
+			var property = PROPERTIES.PROP5;
+			
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (value != null)
+				throw new ArgumentNullException(property);
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+		}
+		
 		protected virtual bool SetProp5(string prop5)
 		{
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (prop5 == null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				throw new ArgumentNullException("prop5");
 			if (this.prop5 == prop5)
 				return false;
-				
+			ValidateProp5(prop5);
+			
 			NotifyPropertyChanging(PROPERTIES.PROP5);
 			
 			this.prop5 = prop5;
@@ -548,6 +558,8 @@ namespace examples.required
 		
 		public virtual void CopyFrom(Type1 other)
 		{
+			ValidateProp2(other.prop2);
+			ValidateProp5(other.prop5);
 			Prop1 = other.Prop1;
 			Prop2 = other.Prop2;
 			Prop3 = other.Prop3;
@@ -560,7 +572,7 @@ namespace examples.required
 			else
 			{
 				if (this.compLazy != null)
-					CompLazy.CopyFrom(new Type2());
+					this.compLazy.CopyFrom(new Type2());
 			}
 			Comp.CopyFrom(other.Comp);
 		}

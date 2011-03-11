@@ -48,6 +48,7 @@ namespace org.pescuma.ModelSharp.Core.model
 
 			Setter = null;
 			LazyInitializer = null;
+			validator = null;
 
 			if (Cached)
 			{

@@ -29,10 +29,13 @@
 			if (this.<#= it.FieldName #> != null)
 				return;
 
-<#		if (it.DefaultValue != null) { #>
-			this.<#= it.FieldName #> = <#= it.DefaultValue #>;
+<#		var val = (it.DefaultValue != null ? it.DefaultValue : "new " + it.TypeName + "()"); #>
+<#		if (it.Validator != null) { #>
+			<#= it.TypeName #> <#= it.VarName #> = <#= val #>;
+			<#= it.Validator.Name #>(<#= it.VarName #>);
+			this.<#= it.FieldName #> = <#= it.VarName #>;
 <#		} else { #>
-			this.<#= it.FieldName #> = new <#= it.TypeName #>();
+			this.<#= it.FieldName #> = <#= val #>;
 <#		} #>
 <#		if (it.CanListenTo) { #>
 			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
@@ -50,14 +53,25 @@
 			return this.<#= it.FieldName #>;
 		}
 <# } #>
+<# if (it.Validator != null) { #>
+
+<#		ForEach("Annotation", it.Validator.Annotations); #>
+		private <#= it.Validator.TypeName #> <#= it.Validator.Name #>(<#= it.Validator.Parameters[0] #> value)
+		{
+<#		if (it.Validations.Count > 0) { #>
+			var property = PROPERTIES.<#= it.DefineName #>;
+<#		} #>
+<#		ForEach("PropertyValidate", it.Validations); #>
+		}
+<# } #>
 <# if (it.Setter != null) { #>
 
 <#		ForEach("Annotation", it.Setter.Annotations); #>
 		protected virtual <#= it.Setter.TypeName #> <#= it.Setter.Name #>(<#= it.Setter.Parameters[0] #> <#= it.VarName #>) 
 		{
-<#		Include("NotNullIfRequired", it); #>
 			if (this.<#= it.FieldName #> == <#= it.VarName #>)
 				return false;
+<#		Include("ValidateIfRequired", it, "param", it.VarName); #>
 
 			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
 

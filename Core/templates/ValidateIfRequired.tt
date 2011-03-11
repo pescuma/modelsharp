@@ -1,0 +1,7 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#@ parameter name="param" type="System.String" #>
+<#	if (it.Validator != null) { #>
+			<#= it.Validator.Name #>(<#= param #>);
+<#	} #>

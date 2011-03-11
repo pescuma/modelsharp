@@ -28,7 +28,7 @@ namespace examples.nonserializable
 		public BasePoint()
 		{
 			this.y = 2;
-			this.a = new Point(2, 3);
+			this.a = new Point();
 			AddAListeners(this.a);
 		}
 		

@@ -28,10 +28,10 @@
 			{
 <#		if (it.IsCollection) { #>
 				if (this.<#= it.FieldName #> != null)
-					<#= it.Name #>.Clear();
+					this.<#= it.FieldName #>.Clear();
 <#		} else if (it.IsComponent) { #>
 				if (this.<#= it.FieldName #> != null)
-					<#= it.Name #>.CopyFrom(new <#= it.TypeName #>());
+					this.<#= it.FieldName #>.CopyFrom(new <#= it.TypeName #>());
 <#		} #>
 			}
 <#	} #>

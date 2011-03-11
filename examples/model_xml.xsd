@@ -53,11 +53,18 @@
   </xs:element>
   <xs:element name="component">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="validation"/>
+      </xs:sequence>
       <xs:attribute name="default"/>
       <xs:attribute name="doc"/>
       <xs:attribute name="lazy" type="xs:boolean"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="validation"/>
+      <xs:attribute name="validationAttrib"/>
+      <xs:attribute name="validationException"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="computed-property">
@@ -72,19 +79,33 @@
   </xs:element>
   <xs:element name="property">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="validation"/>
+      </xs:sequence>
       <xs:attribute name="deepCopy" type="xs:boolean"/>
       <xs:attribute name="default"/>
       <xs:attribute name="doc"/>
       <xs:attribute name="getter" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
       <xs:attribute name="required" type="xs:boolean"/>
+      <xs:attribute name="requiredException"/>
       <xs:attribute name="setter" type="xs:NCName"/>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="validation"/>
+      <xs:attribute name="validationAttrib"/>
+      <xs:attribute name="validationException"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="using">
     <xs:complexType>
       <xs:attribute name="namespace" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="validation">
+    <xs:complexType>
+      <xs:attribute name="attrib"/>
+      <xs:attribute name="exception"/>
+      <xs:attribute name="test"/>
     </xs:complexType>
   </xs:element>
 </xs:schema>

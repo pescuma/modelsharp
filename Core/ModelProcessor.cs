@@ -391,7 +391,6 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void ProcessModel(ModelInfo model)
 		{
-			AddDefaultUsings(model);
 			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
 			AddCollectionUsings(model);
@@ -403,15 +402,30 @@ namespace org.pescuma.ModelSharp.Core
 			AddDebugAttributes(model);
 			AddClonable(model);
 			CheckIfCanCloneAllNeededFields(model);
+			AddUsingsForKnownTypes(model);
 		}
 
-		private void AddDefaultUsings(ModelInfo model)
+		private void AddUsingsForKnownTypes(ModelInfo model)
 		{
 			foreach (var type in model.Types)
 			{
-				type.Using.Add("System.Collections.Generic");
-				type.Using.Add("System.Collections");
+				AddUsingsFromKnownTypes(type, type.Extends);
+
+				foreach (var prop in type.Properties)
+					AddUsingsFromKnownTypes(type, prop.TypeName);
 			}
+		}
+
+		private void AddUsingsFromKnownTypes(TypeInfo type, string text)
+		{
+			if (text == null)
+				return;
+
+			if (text.StartsWith("List<") || text.StartsWith("HashSet<") || text.StartsWith("Dictionary<"))
+				type.Using.Add("System.Collections.Generic");
+
+			else if (text.StartsWith("List") || text.StartsWith("HashSet") || text.StartsWith("Dictionary"))
+				type.Using.Add("System.Collections");
 		}
 
 		private void CheckIfCanCloneAllNeededFields(ModelInfo model)

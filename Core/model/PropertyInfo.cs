@@ -274,7 +274,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			if (test == null)
 				return;
 
-			Validations.Add(new ValidationInfo(test,
+			Validations.Add(new ValidationInfo("!(" + test + ")",
 			                                   exception
 			                                   ??
 			                                   "new ArgumentException(" + FormatCodeToString(test)
@@ -305,7 +305,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			else
 				constructor = attrib.Substring(0, start) + "Attribute" + attrib.Substring(start);
 
-			Validations.Add(new ValidationInfo("new " + constructor + ".IsValid(value)",
+			Validations.Add(new ValidationInfo("!new " + constructor + ".IsValid(value)",
 			                                   exception
 			                                   ??
 			                                   "new ArgumentException(" + FormatCodeToString(attrib)

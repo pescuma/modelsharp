@@ -10,7 +10,7 @@
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); #>
 <#			if (it.HasCachedComputedProperties) { #>
 
 <#			} #>
@@ -19,7 +19,6 @@
 			if (handler != null)
 				handler(this, new Property<#= type #>EventArgs(propertyName));
 <#		ForEach("NotifyDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
-<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
@@ -27,14 +26,13 @@
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
-<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
+<#			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); #>
 <#			if (it.HasCachedComputedProperties) { #>
 
 <#			} #>
 <#		} #>
 			base.NotifyProperty<#= type #>(propertyName);
 <#		ForEach("NotifyDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
-<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
 		}
 
 <#	} #>
@@ -45,16 +43,14 @@
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
-<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
-<#			if (it.HasCachedComputedProperties) { #>
-
+<#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>
+			
 <#			} #>
 <#		} #>
 			ChildProperty<#= type #>EventHandler handler = ChildProperty<#= type #>;
 			if (handler != null)
 				handler(sender, new ChildProperty<#= type #>EventArgs(this, propertyName, sender, e));
 <#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
-<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
@@ -62,14 +58,12 @@
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
-<#			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); #>
-<#			if (it.HasCachedComputedProperties) { #>
+<#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>
 
 <#			} #>
 <#		} #>
 			base.NotifyChildProperty<#= type #>(propertyName, sender, e);
 <#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
-<#		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); #>
 		}
 
 <#	} #>

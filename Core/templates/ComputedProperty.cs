@@ -213,159 +213,201 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("\t\t\r\n");
             
             #line 25 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ if (!it.Owner.Immutable) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPE" +
+                    "RTIES.");
+            
+            #line 26 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n");
+            
+            #line 27 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 28 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", computed.Invalidate.Annotations); 
             
             #line default
             #line hidden
-            this.Write("\t\tprotected virtual ");
+            this.Write("\t\t");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 29 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ if (it.Owner.Immutable) { 
+            
+            #line default
+            #line hidden
+            this.Write("protected virtual");
+            
+            #line 29 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("private");
+            
+            #line 29 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 29 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Invalidate.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 29 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Invalidate.Name));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n\t\t\t");
             
-            #line 28 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 31 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = false;\r\n\t\t}\r\n\r\n");
             
-            #line 31 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 34 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", computed.Cacher.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tprivate ");
             
-            #line 32 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 35 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Cacher.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 32 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 35 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Cacher.Name));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n\t\t\tif (!");
             
-            #line 34 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 37 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t{\r\n\t\t\t\tthis.");
             
-            #line 36 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 39 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 36 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 39 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Getter.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n\t\t\t\tthis.");
             
-            #line 37 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 40 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = true;\r\n\t\t\t}\r\n\r\n\t\t\treturn this.");
             
-            #line 40 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 43 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t}\r\n");
             
-            #line 42 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 45 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 43 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 46 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  if (computed.Formula != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\r\n");
             
-            #line 45 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 48 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", it.Getter.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tprotected virtual ");
             
-            #line 46 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 49 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 46 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 49 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.Name));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n\t\t\treturn ");
             
-            #line 48 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 51 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Formula));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t}\r\n");
             
-            #line 50 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 53 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\t\r\n");
             
-            #line 52 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 55 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  ForEach("Annotation", it.Getter.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tprotected abstract ");
             
-            #line 53 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 56 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 53 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 56 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 54 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            #line 57 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
  } 
             
             #line default

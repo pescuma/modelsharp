@@ -183,7 +183,8 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected virtual void InvalidateDummyCachedCache()
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.DUMMY_CACHED)
+		private void InvalidateDummyCachedCache()
 		{
 			dummyCachedCacheValid = false;
 		}
@@ -232,7 +233,8 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected virtual void InvalidateSquaredLengthCachedCache()
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED)
+		private void InvalidateSquaredLengthCachedCache()
 		{
 			squaredLengthCachedCacheValid = false;
 		}
@@ -587,7 +589,8 @@ namespace examples.computeProperty
 			}
 		}
 		
-		protected virtual void InvalidateCompSubCachedCache()
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED)
+		private void InvalidateCompSubCachedCache()
 		{
 			compSubCachedCacheValid = false;
 		}
@@ -649,8 +652,6 @@ namespace examples.computeProperty
 				NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 				NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 			}
-			NotifyPropertyChanging(PROPERTIES.DUMMY);
-			NotifyPropertyChanging(PROPERTIES.DUMMY_CACHED);
 		}
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
@@ -692,8 +693,6 @@ namespace examples.computeProperty
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
-			NotifyPropertyChanging(PROPERTIES.DUMMY);
-			NotifyPropertyChanging(PROPERTIES.DUMMY_CACHED);
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -713,7 +712,18 @@ namespace examples.computeProperty
 				InvalidateSquaredLengthCachedCache();
 				InvalidateCompSubCachedCache();
 			}
-			InvalidateDummyCachedCache();
+			if (propertyName == PROPERTIES.DUMMY_CACHED)
+			{
+				InvalidateDummyCachedCache();
+			}
+			else if (propertyName == PROPERTIES.SQUARED_LENGTH_CACHED)
+			{
+				InvalidateSquaredLengthCachedCache();
+			}
+			else if (propertyName == PROPERTIES.COMP_SUB_CACHED)
+			{
+				InvalidateCompSubCachedCache();
+			}
 			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
@@ -741,8 +751,6 @@ namespace examples.computeProperty
 				NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 				NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 			}
-			NotifyPropertyChanged(PROPERTIES.DUMMY);
-			NotifyPropertyChanged(PROPERTIES.DUMMY_CACHED);
 		}
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
@@ -770,7 +778,6 @@ namespace examples.computeProperty
 					InvalidateCompSubCachedCache();
 				}
 			}
-			InvalidateDummyCachedCache();
 			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
@@ -807,8 +814,6 @@ namespace examples.computeProperty
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
-			NotifyPropertyChanged(PROPERTIES.DUMMY);
-			NotifyPropertyChanged(PROPERTIES.DUMMY_CACHED);
 		}
 		
 		#endregion

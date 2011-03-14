@@ -202,7 +202,7 @@ namespace examples.required
 			var property = PROPERTIES.PROP2;
 			
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (value != null)
+			if (value == null)
 				throw new ArgumentNullException(property);
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 		}
@@ -398,7 +398,7 @@ namespace examples.required
 			var property = PROPERTIES.PROP5;
 			
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (value != null)
+			if (value == null)
 				throw new ArgumentNullException(property);
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 		}

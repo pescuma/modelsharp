@@ -284,7 +284,7 @@ namespace org.pescuma.ModelSharp.Core
 								prop.SetterVisibility = property.setter;
 
 							if (prop.Required && !prop.IsPrimitive)
-								prop.Validations.Add(new ValidationInfo("value != null",
+								prop.Validations.Add(new ValidationInfo("value == null",
 								                                        property.requiredException
 								                                        ?? "new ArgumentNullException(property)",
 								                                        "// ReSharper disable ConditionIsAlwaysTrueOrFalse",

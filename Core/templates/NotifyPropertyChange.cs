@@ -119,7 +119,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 13 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); 
+			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); 
             
             #line default
             #line hidden
@@ -170,279 +170,243 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            
-            #line 22 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); 
-            
-            #line default
-            #line hidden
             this.Write("\t\t}\r\n\r\n");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 24 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 	} else if (it.PropertiesWithDependencies.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\tprotected virtual void NotifyProperty");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(string propertyName)\r\n\t\t{\r\n");
             
-            #line 28 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		if (type == "Changed") { 
             
             #line default
             #line hidden
             
-            #line 29 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 28 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); 
             
             #line default
             #line hidden
             
-            #line 30 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); 
+            #line 29 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); 
             
             #line default
             #line hidden
             
-            #line 31 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 30 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			if (it.HasCachedComputedProperties) { 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 33 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 32 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			} 
             
             #line default
             #line hidden
             
-            #line 34 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 33 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\tbase.NotifyProperty");
             
-            #line 35 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 34 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(propertyName);\r\n");
             
-            #line 36 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 35 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		ForEach("NotifyDependenciesChange", it.PropertiesWithDependencies, "", "type", type); 
-            
-            #line default
-            #line hidden
-            
-            #line 37 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n");
             
-            #line 40 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 38 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 	} 
             
             #line default
             #line hidden
             
-            #line 41 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 39 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 	if (!it.BaseClass.HasChildPropertyChange(type)) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic event ChildProperty");
             
-            #line 42 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 40 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventHandler ChildProperty");
             
-            #line 42 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 40 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t\r\n\t\tprotected virtual void NotifyChildProperty");
             
-            #line 44 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 42 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(string propertyName, object sender, Property");
             
-            #line 44 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 42 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs e)\r\n\t\t{\r\n");
             
-            #line 46 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 44 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		if (type == "Changed") { 
             
             #line default
             #line hidden
             
-            #line 47 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 45 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); 
             
             #line default
             #line hidden
             
+            #line 46 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\r\n");
+            
             #line 48 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); 
-            
-            #line default
-            #line hidden
-            
-            #line 49 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			if (it.HasCachedComputedProperties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 51 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			} 
             
             #line default
             #line hidden
             
-            #line 52 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 49 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\tChildProperty");
             
-            #line 53 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 50 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventHandler handler = ChildProperty");
             
-            #line 53 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 50 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t\tif (handler != null)\r\n\t\t\t\thandler(sender, new ChildProperty");
             
-            #line 55 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 52 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs(this, propertyName, sender, e));\r\n");
             
-            #line 56 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 53 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); 
-            
-            #line default
-            #line hidden
-            
-            #line 57 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n");
             
-            #line 60 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 56 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 	} else if (it.PropertiesWithDependencies.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\t\tprotected virtual void NotifyChildProperty");
             
-            #line 61 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 57 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(string propertyName, object sender, Property");
             
-            #line 61 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 57 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs e)\r\n\t\t{\r\n");
             
-            #line 63 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 59 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		if (type == "Changed") { 
             
             #line default
             #line hidden
             
-            #line 64 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 60 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); 
             
             #line default
             #line hidden
             
-            #line 65 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateComputedProperty", it.CachedComputedPropertiesWithoutDependencies); 
-            
-            #line default
-            #line hidden
-            
-            #line 66 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			if (it.HasCachedComputedProperties) { 
+            #line 61 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 68 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 63 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 			} 
             
             #line default
             #line hidden
             
-            #line 69 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 64 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\tbase.NotifyChildProperty");
             
-            #line 70 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 65 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(propertyName, sender, e);\r\n");
             
-            #line 71 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 66 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); 
-            
-            #line default
-            #line hidden
-            
-            #line 72 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyCachedComputedPropertiesChange", it.ComputedPropertiesWithoutDependencies, "", "type", type); 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n");
             
-            #line 75 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
+            #line 69 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
 	} 
             
             #line default

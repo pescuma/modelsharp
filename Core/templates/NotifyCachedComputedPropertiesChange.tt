@@ -1,6 +1,0 @@
-﻿<#@ template language="C#" inherits="TemplateUtils" #>
-<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
-<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo" #>
-<#@ parameter name="type" type="System.String" #>
-
-			NotifyProperty<#= type #>(PROPERTIES.<#= it.DefineName #>);

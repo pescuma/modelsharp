@@ -1,6 +1,8 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo" #>
-<#	if (it.Invalidate != null) { #>
-			<#= it.Invalidate.Name #>();
-<#	} #>
+<#@ parameter name="index" type="System.Int32" #>
+			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
+			{
+				<#= it.Invalidate.Name #>();
+			}

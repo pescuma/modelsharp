@@ -274,7 +274,19 @@ namespace org.pescuma.ModelSharp.Core.model
 			if (test == null)
 				return;
 
-			Validations.Add(new ValidationInfo(test, exception ?? "new ArgumentException(property)"));
+			Validations.Add(new ValidationInfo(test,
+			                                   exception
+			                                   ??
+			                                   "new ArgumentException(" + FormatCodeToString(test)
+			                                   + ", property)"));
+		}
+
+		private string FormatCodeToString(string test)
+		{
+			return "\""
+			       +
+			       test.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\r", "").Replace("\n", "").
+			       	Replace("\t", "") + "\"";
 		}
 
 		public void AddValidationAttrib(string attrib, string exception = null)
@@ -294,7 +306,10 @@ namespace org.pescuma.ModelSharp.Core.model
 				constructor = attrib.Substring(0, start) + "Attribute" + attrib.Substring(start);
 
 			Validations.Add(new ValidationInfo("new " + constructor + ".IsValid(value)",
-			                                   exception ?? "new ArgumentException(property)"));
+			                                   exception
+			                                   ??
+			                                   "new ArgumentException(" + FormatCodeToString(attrib)
+			                                   + ", property)"));
 		}
 
 		public override string ToString()

@@ -213,11 +213,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MutableParamToField.tt</DependentUpon>
     </Compile>
-    <Compile Include="templates\NotifyCachedComputedPropertiesChange.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NotifyCachedComputedPropertiesChange.tt</DependentUpon>
-    </Compile>
     <Compile Include="templates\NotifyChildDependenciesChange.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -406,10 +401,6 @@
     <None Include="templates\MutableParamToField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MutableParamToField.cs</LastGenOutput>
-    </None>
-    <None Include="templates\NotifyCachedComputedPropertiesChange.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>NotifyCachedComputedPropertiesChange.cs</LastGenOutput>
     </None>
     <None Include="templates\NotifyChildDependenciesChange.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

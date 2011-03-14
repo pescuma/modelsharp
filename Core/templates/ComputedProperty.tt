@@ -22,8 +22,11 @@
 		}
 <# if (computed.Cached) { #>
 		
+<# if (!it.Owner.Immutable) { #>
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>)
+<# } #>
 <# ForEach("Annotation", computed.Invalidate.Annotations); #>
-		protected virtual <#= computed.Invalidate.TypeName #> <#= computed.Invalidate.Name #>()
+		<# if (it.Owner.Immutable) { #>protected virtual<# } else { #>private<# } #> <#= computed.Invalidate.TypeName #> <#= computed.Invalidate.Name #>()
 		{
 			<#= computed.ValidFieldName #> = false;
 		}

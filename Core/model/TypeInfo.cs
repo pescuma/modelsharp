@@ -154,6 +154,16 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
+		public IEnumerable<ComputedPropertyInfo> CachedComputedProperties
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.IsComputedAndCached
+				        select prop).Cast<ComputedPropertyInfo>();
+			}
+		}
+
 		public List<string> ExtendsOrImplements
 		{
 			get

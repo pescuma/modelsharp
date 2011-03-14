@@ -76,26 +76,35 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            
-            #line 4 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
-	if (it.Invalidate != null) { 
-            
-            #line default
-            #line hidden
             this.Write("\t\t\t");
             
             #line 5 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
+ if (index > 0) { 
+            
+            #line default
+            #line hidden
+            this.Write("else ");
+            
+            #line 5 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("if (propertyName == PROPERTIES.");
+            
+            #line 5 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n\t\t\t{\r\n\t\t\t\t");
+            
+            #line 7 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Invalidate.Name));
             
             #line default
             #line hidden
-            this.Write("();\r\n");
-            
-            #line 6 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
-	} 
-            
-            #line default
-            #line hidden
+            this.Write("();\r\n\t\t\t}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -111,6 +120,19 @@ private global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo it
     get
     {
         return this._itField;
+    }
+}
+
+private int _indexField;
+
+/// <summary>
+/// Access the index parameter of the template.
+/// </summary>
+private int index
+{
+    get
+    {
+        return this._indexField;
     }
 }
 
@@ -147,6 +169,36 @@ if ((itValueAcquired == false))
         else
         {
             this._itField = ((global::org.pescuma.ModelSharp.Core.model.ComputedPropertyInfo)(data));
+        }
+    }
+}
+bool indexValueAcquired = false;
+if (this.Session.ContainsKey("index"))
+{
+    if ((typeof(int).IsAssignableFrom(this.Session["index"].GetType()) == false))
+    {
+        this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
+                "ta passed to the template.");
+    }
+    else
+    {
+        this._indexField = ((int)(this.Session["index"]));
+        indexValueAcquired = true;
+    }
+}
+if ((indexValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("index");
+    if ((data != null))
+    {
+        if ((typeof(int).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
+                    "ta passed to the template.");
+        }
+        else
+        {
+            this._indexField = ((int)(data));
         }
     }
 }

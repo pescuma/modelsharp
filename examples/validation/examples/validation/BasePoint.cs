@@ -138,7 +138,7 @@ namespace examples.validation
 			var property = PROPERTIES.Y;
 			
 			if (new RangeAttribute(5, 7).IsValid(value))
-				throw new ArgumentException(property);
+				throw new ArgumentException("Range(5, 7)", property);
 		}
 		
 		protected virtual bool SetY(double y)
@@ -188,13 +188,13 @@ namespace examples.validation
 			var property = PROPERTIES.Z;
 			
 			if (value > 0)
-				throw new ArgumentException(property);
+				throw new ArgumentException("value > 0", property);
 				
 			if (value < 100)
 				throw new Exception();
 				
 			if (new RequiredAttribute().IsValid(value))
-				throw new ArgumentException(property);
+				throw new ArgumentException("Required", property);
 				
 			if (new RangeAttribute(1, 6).IsValid(value))
 				throw new Exception();
@@ -254,13 +254,13 @@ namespace examples.validation
 				throw new Exception();
 				
 			if (value > 0)
-				throw new ArgumentException(property);
+				throw new ArgumentException("value > 0", property);
 				
 			if (value < 100)
 				throw new Exception();
 				
 			if (new RequiredAttribute().IsValid(value))
-				throw new ArgumentException(property);
+				throw new ArgumentException("Required", property);
 				
 			if (new RangeAttribute(1, 6).IsValid(value))
 				throw new Exception();
@@ -316,13 +316,13 @@ namespace examples.validation
 				throw new Exception("x");
 				
 			if (value.X > 0)
-				throw new ArgumentException(property);
+				throw new ArgumentException("value.X > 0", property);
 				
 			if (value.Y < 100)
 				throw new Exception();
 				
 			if (new RequiredAttribute().IsValid(value))
-				throw new ArgumentException(property);
+				throw new ArgumentException("Required", property);
 				
 			if (new RangeAttribute(1, 6).IsValid(value))
 				throw new Exception();

@@ -374,11 +374,6 @@ namespace examples.validation
 		
 		public virtual void CopyFrom(Point other)
 		{
-			ValidateX(other.x);
-			ValidateY(other.y);
-			ValidateZ(other.z);
-			ValidateW(other.w);
-			ValidateComp(other.comp);
 			X = other.X;
 			Y = other.Y;
 			Z = other.Z;

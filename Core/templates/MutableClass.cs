@@ -304,7 +304,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(" other)\r\n\t\t{\r\n");
             
             #line 62 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("ValidateIfRequiredInCopyFrom", it.Properties); 
+ // ForEach("ValidateIfRequiredInCopyFrom", it.Properties); 
             
             #line default
             #line hidden

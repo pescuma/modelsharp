@@ -59,7 +59,7 @@ namespace <#= it.Package #>
 <# ForEach("Property", it.Properties); #>
 		public virtual void CopyFrom(<#= it.Name #> other)
 		{
-<# ForEach("ValidateIfRequiredInCopyFrom", it.Properties); #>
+<# // ForEach("ValidateIfRequiredInCopyFrom", it.Properties); #>
 <# if (it.BaseClass.HasCopyFrom) { #>
 			base.CopyFrom(other);
 <# } #>

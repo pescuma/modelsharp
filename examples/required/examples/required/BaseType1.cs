@@ -558,8 +558,6 @@ namespace examples.required
 		
 		public virtual void CopyFrom(Type1 other)
 		{
-			ValidateProp2(other.prop2);
-			ValidateProp5(other.prop5);
 			Prop1 = other.Prop1;
 			Prop2 = other.Prop2;
 			Prop3 = other.Prop3;

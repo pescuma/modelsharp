@@ -546,52 +546,158 @@ namespace org.pescuma.ModelSharp.Lib
 
 		public void Reverse()
 		{
-			items.Reverse();
+			if (batchMode)
+			{
+				T[] oldItems = items.ToArray();
+				if (oldItems.Length < 1)
+					return;
+
+				OnItemsChanging();
+
+				items.Reverse();
+
+				OnItemsChanged();
+				OnCollectionReplace(0, oldItems, ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Reverse();
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		public void Reverse(int index, int count)
 		{
-			OnItemsChanging();
+			if (batchMode)
+			{
+				T[] oldItems = items.GetRange(index, count).ToArray();
+				if (oldItems.Length < 1)
+					return;
 
-			items.Reverse(index, count);
+				OnItemsChanging();
 
-			OnItemsChanged();
+				items.Reverse(index, count);
+
+				OnItemsChanged();
+				OnCollectionReplace(index, oldItems, items.GetRange(index, count).ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Reverse(index, count);
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		public void Sort()
 		{
-			OnItemsChanging();
+			if (batchMode)
+			{
+				T[] oldItems = items.ToArray();
+				if (oldItems.Length < 1)
+					return;
 
-			items.Sort();
+				OnItemsChanging();
 
-			OnItemsChanged();
+				items.Sort();
+
+				OnItemsChanged();
+				OnCollectionReplace(0, oldItems, ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Sort();
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		public void Sort(IComparer<T> comparer)
 		{
-			OnItemsChanging();
+			if (batchMode)
+			{
+				T[] oldItems = items.ToArray();
+				if (oldItems.Length < 1)
+					return;
 
-			items.Sort(comparer);
+				OnItemsChanging();
 
-			OnItemsChanged();
+				items.Sort(comparer);
+
+				OnItemsChanged();
+				OnCollectionReplace(0, oldItems, ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Sort(comparer);
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		public void Sort(int index, int count, IComparer<T> comparer)
 		{
-			OnItemsChanging();
+			if (batchMode)
+			{
+				T[] oldItems = items.GetRange(index, count).ToArray();
+				if (oldItems.Length < 1)
+					return;
 
-			items.Sort(index, count, comparer);
+				OnItemsChanging();
 
-			OnItemsChanged();
+				items.Sort(index, count, comparer);
+
+				OnItemsChanged();
+				OnCollectionReplace(0, oldItems, GetRange(index, count).ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Sort(index, count, comparer);
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		public void Sort(Comparison<T> comparison)
 		{
-			OnItemsChanging();
+			if (batchMode)
+			{
+				T[] oldItems = items.ToArray();
+				if (oldItems.Length < 1)
+					return;
 
-			items.Sort(comparison);
+				OnItemsChanging();
 
-			OnItemsChanged();
+				items.Sort(comparison);
+
+				OnItemsChanged();
+				OnCollectionReplace(0, oldItems, ToArray());
+			}
+			else
+			{
+				var tmp = new List<T>(items);
+
+				tmp.Sort(comparison);
+
+				Clear();
+				AddRange(tmp);
+			}
 		}
 
 		#endregion List
@@ -621,9 +727,16 @@ namespace org.pescuma.ModelSharp.Lib
 		{
 			NotifyCollectionChangedEventHandler handler = CollectionChanged;
 			if (handler != null)
-				handler(this,
-				        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItem,
-				                                             newItem, index));
+				handler(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, //
+				                                                   oldItem, newItem, index));
+		}
+
+		private void OnCollectionReplace(int index, T[] oldItems, T[] newItems)
+		{
+			NotifyCollectionChangedEventHandler handler = CollectionChanged;
+			if (handler != null)
+				handler(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, //
+				                                                   oldItems, newItems, index));
 		}
 
 		#endregion INotifyCollectionChanged

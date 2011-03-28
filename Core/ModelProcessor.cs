@@ -287,8 +287,8 @@ namespace org.pescuma.ModelSharp.Core
 								prop.Validations.Add(new ValidationInfo("value == null",
 								                                        property.requiredException
 								                                        ?? "new ArgumentNullException(property)",
-								                                        "// ReSharper disable ConditionIsAlwaysTrueOrFalse",
-								                                        "// ReSharper restore ConditionIsAlwaysTrueOrFalse"));
+																		"#pragma warning disable 472\n// ReSharper disable ConditionIsAlwaysTrueOrFalse",
+																		"// ReSharper restore ConditionIsAlwaysTrueOrFalse\n#pragma warning restore 472"));
 
 							prop.AddValidationAttrib(property.validationAttrib, property.validationException);
 							prop.AddValidation(property.validation1, property.validationException);

@@ -199,12 +199,16 @@ namespace examples.required
 		
 		private void ValidateProp2(Type2 value)
 		{
+#pragma warning disable 168
 			var property = PROPERTIES.PROP2;
+#pragma warning restore 168
 			
+#pragma warning disable 472
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (value == null)
 				throw new ArgumentNullException(property);
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
+#pragma warning restore 472
 		}
 		
 		protected virtual bool SetProp2(Type2 prop2)
@@ -395,12 +399,16 @@ namespace examples.required
 		
 		private void ValidateProp5(string value)
 		{
+#pragma warning disable 168
 			var property = PROPERTIES.PROP5;
+#pragma warning restore 168
 			
+#pragma warning disable 472
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (value == null)
 				throw new ArgumentNullException(property);
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
+#pragma warning restore 472
 		}
 		
 		protected virtual bool SetProp5(string prop5)

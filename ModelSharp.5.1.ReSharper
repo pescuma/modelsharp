@@ -19,7 +19,8 @@ Deserialization
 Init
 bool
 Attrib
-Validator</UserWords>
+Validator
+pragma</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

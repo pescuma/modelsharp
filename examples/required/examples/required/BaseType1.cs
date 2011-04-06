@@ -34,7 +34,6 @@ namespace examples.required
 		public BaseType1(Type2 prop2, int prop4, string prop5)
 		{
 			AddProp1Listeners(this.prop1);
-			AddProp2Listeners(this.prop2);
 			this.comp = new Type2();
 			AddCompListeners(this.comp);
 			this.prop2 = prop2;
@@ -199,9 +198,9 @@ namespace examples.required
 		
 		private void ValidateProp2(Type2 value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.PROP2;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 #pragma warning disable 472
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
@@ -399,9 +398,9 @@ namespace examples.required
 		
 		private void ValidateProp5(string value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.PROP5;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 #pragma warning disable 472
 // ReSharper disable ConditionIsAlwaysTrueOrFalse

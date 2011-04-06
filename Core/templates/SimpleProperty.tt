@@ -58,11 +58,9 @@
 <#		ForEach("Annotation", it.Validator.Annotations); #>
 		private <#= it.Validator.TypeName #> <#= it.Validator.Name #>(<#= it.Validator.Parameters[0] #> value)
 		{
-<#		if (it.Validations.Count > 0) { #>
 #pragma warning disable 219
 			var property = PROPERTIES.<#= it.DefineName #>;
 #pragma warning restore 219
-<#		} #>
 <#		ForEach("PropertyValidate", it.Validations); #>
 		}
 <# } #>

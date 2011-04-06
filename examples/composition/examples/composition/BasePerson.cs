@@ -20,18 +20,21 @@ namespace examples.composition
 		{
 			public const string HOME_ADDRESS = "HomeAddress";
 			public const string WORK_ADDRESS = "WorkAddress";
+			public const string EXTERNAL_ADDRESS = "ExternalAddress";
 		}
 		
 		#endregion
 		
 		#region Constructors
 		
-		public BasePerson()
+		public BasePerson(Address externalAddress)
 		{
 			this.homeAddress = new Address();
 			AddHomeAddressListeners(this.homeAddress);
 			this.workAddress = new Address();
 			AddWorkAddressListeners(this.workAddress);
+			this.externalAddress = externalAddress;
+			AddExternalAddressListeners(this.externalAddress);
 		}
 		
 		public BasePerson(BasePerson other)
@@ -40,6 +43,8 @@ namespace examples.composition
 			AddHomeAddressListeners(this.homeAddress);
 			this.workAddress = new Address(other.WorkAddress);
 			AddWorkAddressListeners(this.workAddress);
+			this.externalAddress = new Address(other.ExternalAddress);
+			AddExternalAddressListeners(this.externalAddress);
 		}
 		
 		#endregion
@@ -170,10 +175,74 @@ namespace examples.composition
 		
 		#endregion Property WorkAddress
 		
+		#region Property ExternalAddress
+		
+		[DataMember(Name = "ExternalAddress", Order = 2, IsRequired = true)]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private readonly Address externalAddress;
+		
+		public Address ExternalAddress
+		{
+			[DebuggerStepThrough]
+			get {
+				return GetExternalAddress();
+			}
+		}
+		
+		protected virtual Address GetExternalAddress()
+		{
+			return this.externalAddress;
+		}
+		
+		private void AddExternalAddressListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += ExternalAddressPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += ExternalAddressChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += ExternalAddressPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += ExternalAddressChildPropertyChangedEventHandler;
+		}
+		
+		private void ExternalAddressPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.EXTERNAL_ADDRESS, sender, e);
+		}
+		
+		private void ExternalAddressChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.EXTERNAL_ADDRESS, sender, e);
+		}
+		
+		private void ExternalAddressPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.EXTERNAL_ADDRESS, sender, e);
+		}
+		
+		private void ExternalAddressChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.EXTERNAL_ADDRESS, sender, e);
+		}
+		
+		#endregion Property ExternalAddress
+		
 		public virtual void CopyFrom(Person other)
 		{
 			HomeAddress.CopyFrom(other.HomeAddress);
 			WorkAddress.CopyFrom(other.WorkAddress);
+			ExternalAddress.CopyFrom(other.ExternalAddress);
 		}
 		
 		#region Property Notification
@@ -238,6 +307,7 @@ namespace examples.composition
 		{
 			AddHomeAddressListeners(this.homeAddress);
 			AddWorkAddressListeners(this.workAddress);
+			AddExternalAddressListeners(this.externalAddress);
 		}
 		
 		#endregion

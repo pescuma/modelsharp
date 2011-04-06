@@ -86,9 +86,9 @@ namespace examples.validation
 		
 		private void ValidateX(double value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.X;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 			if (!(value > 0))
 				throw new Exception();
@@ -137,9 +137,9 @@ namespace examples.validation
 		
 		private void ValidateY(double value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.Y;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 			if (!new RangeAttribute(5, 7).IsValid(value))
 				throw new ArgumentException("Range(5, 7)", property);
@@ -189,9 +189,9 @@ namespace examples.validation
 		
 		private void ValidateZ(double value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.Z;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 			if (!(value > 0))
 				throw new ArgumentException("value > 0", property);
@@ -251,9 +251,9 @@ namespace examples.validation
 		
 		private void ValidateW(double value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.W;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 			if (!new StringLengthAttribute(10).IsValid(value))
 				throw new Exception();
@@ -315,9 +315,9 @@ namespace examples.validation
 		
 		private void ValidateComp(Point value)
 		{
-#pragma warning disable 168
+#pragma warning disable 219
 			var property = PROPERTIES.COMP;
-#pragma warning restore 168
+#pragma warning restore 219
 			
 			if (!new StringLengthAttribute(10).IsValid(value))
 				throw new Exception("x");

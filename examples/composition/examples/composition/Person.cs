@@ -13,8 +13,8 @@ namespace examples.composition
 	[DataContract]
 	public class Person : BasePerson
 	{
-		public Person()
-		: base()
+		public Person(Address externalAddress)
+		: base(externalAddress)
 		{
 		}
 		

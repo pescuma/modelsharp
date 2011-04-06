@@ -561,6 +561,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string nameField;
         
+        private bool receiveInConstructorField;
+        
+        private bool receiveInConstructorFieldSpecified;
+        
         private bool requiredField;
         
         private bool requiredFieldSpecified;
@@ -636,6 +640,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool receiveInConstructor {
+            get {
+                return this.receiveInConstructorField;
+            }
+            set {
+                this.receiveInConstructorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool receiveInConstructorSpecified {
+            get {
+                return this.receiveInConstructorFieldSpecified;
+            }
+            set {
+                this.receiveInConstructorFieldSpecified = value;
             }
         }
         

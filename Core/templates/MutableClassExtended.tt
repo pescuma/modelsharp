@@ -15,8 +15,8 @@ namespace <#= it.Package #>
 <# ForEach("Annotation", it.Annotations); #>
 	public class <#= it.Name #> : <#= it.ImplementationName #>
 	{
-		public <#= it.Name #>(<# ForEach("Param", it.ContructorArguments, separator: ", "); #>)
-			: base(<# ForEach("ArgName", it.ContructorArguments, separator: ", "); #>)
+		public <#= it.Name #>(<# ForEach("Param", it.ConstructorArguments, separator: ", "); #>)
+			: base(<# ForEach("ArgName", it.ConstructorArguments, separator: ", "); #>)
 		{
 		}
 

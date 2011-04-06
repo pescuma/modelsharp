@@ -36,10 +36,10 @@ namespace <#= it.Package #>
 
 		#region Constructors
 
-		public <#= it.ImplementationName #>(<# ForEach("Param", it.ContructorArguments, separator: ", "); #>)
+		public <#= it.ImplementationName #>(<# ForEach("Param", it.ConstructorArguments, separator: ", "); #>)
 		{
-<# ForEach("MutableInitField", it.NonComputedProperties); #>
-<# ForEach("MutableParamToField", it.ContructorArguments); #>
+<# ForEach("MutableInitField", it.NonConstructorArgumentsNorComputedProperties); #>
+<# ForEach("MutableParamToField", it.ConstructorArguments); #>
 <# ForEach("ValidateIfRequiredInConstructor", it.Properties); #>
 		}
 

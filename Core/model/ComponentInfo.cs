@@ -23,6 +23,8 @@ namespace org.pescuma.ModelSharp.Core.model
 {
 	public class ComponentInfo : PropertyInfo
 	{
+		public bool ReceiveInConstructor;
+
 		public ComponentInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
 		                     bool lazy)
 			: base(conventions, owner, name, type, !lazy, lazy)

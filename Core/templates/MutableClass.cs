@@ -209,20 +209,20 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("(");
             
             #line 39 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("Param", it.ContructorArguments, separator: ", "); 
+ ForEach("Param", it.ConstructorArguments, separator: ", "); 
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n");
             
             #line 41 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("MutableInitField", it.NonComputedProperties); 
+ ForEach("MutableInitField", it.NonConstructorArgumentsNorComputedProperties); 
             
             #line default
             #line hidden
             
             #line 42 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- ForEach("MutableParamToField", it.ContructorArguments); 
+ ForEach("MutableParamToField", it.ConstructorArguments); 
             
             #line default
             #line hidden

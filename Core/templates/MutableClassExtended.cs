@@ -135,14 +135,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("(");
             
             #line 18 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
- ForEach("Param", it.ContructorArguments, separator: ", "); 
+ ForEach("Param", it.ConstructorArguments, separator: ", "); 
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t: base(");
             
             #line 19 "X:\c#\modelsharp\Core\templates\MutableClassExtended.tt"
- ForEach("ArgName", it.ContructorArguments, separator: ", "); 
+ ForEach("ArgName", it.ConstructorArguments, separator: ", "); 
             
             #line default
             #line hidden

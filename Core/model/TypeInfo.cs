@@ -90,14 +90,17 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return Properties.Any(prop => prop.IsComputedAndCached); }
 		}
 
-		public IEnumerable<PropertyInfo> ContructorArguments
+		public IEnumerable<PropertyInfo> ConstructorArguments
 		{
 			get
 			{
 				List<PropertyInfo> result = new List<PropertyInfo>();
 				foreach (var prop in Properties)
 				{
-					if (!prop.IsComponent && prop.Required && prop.DefaultValue == null)
+					if (prop.IsComponent && ((ComponentInfo) prop).ReceiveInConstructor)
+						result.Add(prop);
+
+					else if (!prop.IsComponent && prop.Required && prop.DefaultValue == null)
 						result.Add(prop);
 				}
 				return result;
@@ -110,6 +113,17 @@ namespace org.pescuma.ModelSharp.Core.model
 			{
 				return (from prop in Properties
 				        where !prop.IsComputed
+				        select prop);
+			}
+		}
+
+		public IEnumerable<PropertyInfo> NonConstructorArgumentsNorComputedProperties
+		{
+			get
+			{
+				var constructorArguments = new HashSet<PropertyInfo>(ConstructorArguments);
+				return (from prop in NonComputedProperties
+				        where !constructorArguments.Contains(prop)
 				        select prop);
 			}
 		}

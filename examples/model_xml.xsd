@@ -60,6 +60,7 @@
       <xs:attribute name="doc"/>
       <xs:attribute name="lazy" type="xs:boolean"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="receiveInConstructor" type="xs:boolean"/>
       <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
       <xs:attribute name="validation"/>

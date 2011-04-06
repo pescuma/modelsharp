@@ -31,6 +31,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool Lazy;
 		public int Order = -1;
 		protected bool? deepCopy;
+		private bool? receiveInConstructor;
 
 		public MethodInfo Getter;
 		public MethodInfo Setter;
@@ -75,6 +76,22 @@ namespace org.pescuma.ModelSharp.Core.model
 				}
 			}
 			set { deepCopy = value; }
+		}
+
+		public virtual bool ReceiveInConstructor
+		{
+			get
+			{
+				if (receiveInConstructor == null)
+				{
+					return (Required && DefaultValue == null);
+				}
+				else
+				{
+					return (bool) receiveInConstructor;
+				}
+			}
+			set { receiveInConstructor = value; }
 		}
 
 		public string GetterVisibility

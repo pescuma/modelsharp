@@ -1,7 +1,11 @@
 ﻿<#@ template language="C#" inherits="TemplateUtils" #>
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#	if (it.IsComponent) { #>
+			if (<#= it.VarName #> == null)
+				throw new ArgumentNullException("<#= it.VarName #>");
+<#	} #>
 			this.<#= it.FieldName #> = <#= it.VarName #>;
-<# if (it.CanListenTo) { #>
+<#	if (it.CanListenTo) { #>
 			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
-<# } #>
+<#	} #>

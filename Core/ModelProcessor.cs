@@ -283,6 +283,9 @@ namespace org.pescuma.ModelSharp.Core
 							if (!string.IsNullOrEmpty(property.setter) && ValidateVisibility(property.setter, "setter"))
 								prop.SetterVisibility = property.setter;
 
+							if (property.receiveInConstructorSpecified && property.receiveInConstructor)
+								prop.ReceiveInConstructor = property.receiveInConstructor;
+
 							if (prop.Required && !prop.IsPrimitive)
 								prop.Validations.Add(new ValidationInfo("value == null",
 								                                        property.requiredException
@@ -316,7 +319,7 @@ namespace org.pescuma.ModelSharp.Core
 							if (!string.IsNullOrEmpty(component.@default))
 								comp.DefaultValue = component.@default;
 
-							if (component.receiveInConstructorSpecified)
+							if (component.receiveInConstructorSpecified && component.receiveInConstructor)
 								comp.ReceiveInConstructor = component.receiveInConstructor;
 
 							comp.AddValidationAttrib(component.validationAttrib, component.validationException);

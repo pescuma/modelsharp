@@ -7,18 +7,18 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-namespace examples.composition
+namespace examples.receiveInConstructor
 {
 
 	[DataContract]
-	public class Person : BasePerson
+	public class Address : BaseAddress
 	{
-		public Person()
+		public Address()
 		: base()
 		{
 		}
 		
-		public Person(Person other)
+		public Address(Address other)
 		: base(other)
 		{
 		}

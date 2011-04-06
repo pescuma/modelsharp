@@ -23,7 +23,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line 4 "X:\c#\modelsharp\Core\templates\ValidateIfRequiredInConstructor.tt"
 
-if (it.Lazy != null)
+if (it.LazyInitializer == null)
 	Include("ValidateIfRequired", it, "param", "this." + it.FieldName);
 
             

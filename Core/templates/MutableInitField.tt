@@ -10,8 +10,6 @@
 <#			if (col.ExposeAsReadOnly) { #>
 			this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= col.FieldName #>);
 <#			} #>
-<#		} else if (it.IsComponent) { #>
-			this.<#= it.FieldName #> = new <#= it.TypeName #>();
 <#		} else if (it.IsComputedAndCached) { 
 			var computed = (ComputedPropertyInfo) it; #>
 			<#= computed.ValidFieldName #> = false;

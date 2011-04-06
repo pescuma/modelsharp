@@ -1,9 +1,8 @@
 <model namespace="examples.composition">
 	<type name="Person">
 		<component name="homeAddress" type="Address" />
-    <component name="workAddress" type="Address" />
-    <component name="externalAddress" type="Address" receiveInConstructor="true" />
-  </type>
+		<component name="workAddress" type="Address" />
+	</type>
 	<type name="Address">
 		<property name="street" type="string" />
 		<property name="city" type="string" />

@@ -76,45 +76,72 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\t\t\tthis.");
             
             #line 4 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+	if (it.IsComponent) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tif (");
+            
+            #line 5 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
+            
+            #line default
+            #line hidden
+            this.Write(" == null)\r\n\t\t\t\tthrow new ArgumentNullException(\"");
+            
+            #line 6 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n");
+            
+            #line 7 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+	} 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tthis.");
+            
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 4 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 5 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
- if (it.CanListenTo) { 
+            #line 9 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+	if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(this.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
- } 
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableParamToField.tt"
+	} 
             
             #line default
             #line hidden

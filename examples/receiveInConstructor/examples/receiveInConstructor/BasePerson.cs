@@ -7,11 +7,11 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-namespace examples.composition
+namespace examples.receiveInConstructor
 {
 
 	[DataContract]
-	[DebuggerDisplay("Person[]")]
+	[DebuggerDisplay("Person[WorkAddress={WorkAddress}]")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
 	{
 		#region Field Name Defines
@@ -26,11 +26,13 @@ namespace examples.composition
 		
 		#region Constructors
 		
-		public BasePerson()
+		public BasePerson(Address homeAddress, Address workAddress)
 		{
-			this.homeAddress = new Address();
+			if (homeAddress == null)
+				throw new ArgumentNullException("homeAddress");
+			this.homeAddress = homeAddress;
 			AddHomeAddressListeners(this.homeAddress);
-			this.workAddress = new Address();
+			this.workAddress = workAddress;
 			AddWorkAddressListeners(this.workAddress);
 		}
 		
@@ -38,7 +40,7 @@ namespace examples.composition
 		{
 			this.homeAddress = new Address(other.HomeAddress);
 			AddHomeAddressListeners(this.homeAddress);
-			this.workAddress = new Address(other.WorkAddress);
+			this.workAddress = other.WorkAddress;
 			AddWorkAddressListeners(this.workAddress);
 		}
 		
@@ -109,9 +111,9 @@ namespace examples.composition
 		
 		#region Property WorkAddress
 		
-		[DataMember(Name = "WorkAddress", Order = 1, IsRequired = true)]
+		[DataMember(Name = "WorkAddress", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Address workAddress;
+		private Address workAddress;
 		
 		public Address WorkAddress
 		{
@@ -119,11 +121,55 @@ namespace examples.composition
 			get {
 				return GetWorkAddress();
 			}
+			[DebuggerStepThrough]
+			set {
+				SetWorkAddress(value);
+			}
 		}
 		
 		protected virtual Address GetWorkAddress()
 		{
 			return this.workAddress;
+		}
+		
+		protected virtual bool SetWorkAddress(Address workAddress)
+		{
+			if (this.workAddress == workAddress)
+				return false;
+				
+			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS);
+			
+			RemoveWorkAddressListeners(workAddress);
+			
+			this.workAddress = workAddress;
+			
+			AddWorkAddressListeners(workAddress);
+			
+			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS);
+			
+			return true;
+		}
+		
+		private void RemoveWorkAddressListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging -= WorkAddressPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging -= WorkAddressChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged -= WorkAddressPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged -= WorkAddressChildPropertyChangedEventHandler;
 		}
 		
 		private void AddWorkAddressListeners(object child)
@@ -173,7 +219,7 @@ namespace examples.composition
 		public virtual void CopyFrom(Person other)
 		{
 			HomeAddress.CopyFrom(other.HomeAddress);
-			WorkAddress.CopyFrom(other.WorkAddress);
+			WorkAddress = other.WorkAddress;
 		}
 		
 		#region Property Notification

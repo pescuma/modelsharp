@@ -89,5 +89,11 @@ namespace org.pescuma.ModelSharp.Core.model
 		public override void MakeImmutable()
 		{
 		}
+
+		public override bool ReceiveInConstructor
+		{
+			get { return false; }
+			set { base.ReceiveInConstructor = value; }
+		}
 	}
 }

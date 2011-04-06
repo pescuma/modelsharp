@@ -23,8 +23,6 @@ namespace org.pescuma.ModelSharp.Core.model
 {
 	public class ComponentInfo : PropertyInfo
 	{
-		public bool ReceiveInConstructor;
-
 		public ComponentInfo(NamingConventions conventions, TypeInfo owner, string name, string type,
 		                     bool lazy)
 			: base(conventions, owner, name, type, !lazy, lazy)
@@ -32,6 +30,7 @@ namespace org.pescuma.ModelSharp.Core.model
 			Setter = null;
 			WithSetter = null;
 			ReadOnly = !lazy;
+			DefaultValue = "new " + type + "()";
 		}
 
 		public override void MakeImmutable()

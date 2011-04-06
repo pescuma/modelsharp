@@ -161,27 +161,6 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 13 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-		} else if (it.IsComponent) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tthis.");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
-            
-            #line default
-            #line hidden
-            this.Write("();\r\n");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 		} else if (it.IsComputedAndCached) { 
 			var computed = (ComputedPropertyInfo) it; 
             
@@ -189,26 +168,26 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\t\t");
             
-            #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 15 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = false;\r\n");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 19 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 17 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 		Include("MutableListenToField", it); 
             
             #line default
             #line hidden
             
-            #line 20 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
+            #line 18 "X:\c#\modelsharp\Core\templates\MutableInitField.tt"
 	} 
             
             #line default

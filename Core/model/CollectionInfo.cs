@@ -102,5 +102,11 @@ namespace org.pescuma.ModelSharp.Core.model
 					return FieldName;
 			}
 		}
+
+		public override bool ReceiveInConstructor
+		{
+			get { return false; }
+			set { base.ReceiveInConstructor = value; }
+		}
 	}
 }

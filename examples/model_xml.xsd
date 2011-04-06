@@ -88,6 +88,7 @@
       <xs:attribute name="doc"/>
       <xs:attribute name="getter" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="receiveInConstructor" type="xs:boolean"/>
       <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="requiredException"/>
       <xs:attribute name="setter" type="xs:NCName"/>

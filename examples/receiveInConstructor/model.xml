@@ -1,0 +1,11 @@
+<model namespace="examples.receiveInConstructor">
+	<type name="Person">
+		<component name="homeAddress" type="Address" receiveInConstructor="true" />
+		<property name="workAddress" type="Address" receiveInConstructor="true" />
+	</type>
+	<type name="Address">
+		<property name="street" type="string" />
+		<property name="city" type="string" />
+		<property name="zipCode" type="string" />
+	</type>
+</model>

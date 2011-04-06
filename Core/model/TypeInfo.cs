@@ -94,16 +94,9 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			get
 			{
-				List<PropertyInfo> result = new List<PropertyInfo>();
-				foreach (var prop in Properties)
-				{
-					if (prop.IsComponent && ((ComponentInfo) prop).ReceiveInConstructor)
-						result.Add(prop);
-
-					else if (!prop.IsComponent && prop.Required && prop.DefaultValue == null)
-						result.Add(prop);
-				}
-				return result;
+				return (from p in Properties
+				        where p.ReceiveInConstructor
+				        select p);
 			}
 		}
 
@@ -121,10 +114,9 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			get
 			{
-				var constructorArguments = new HashSet<PropertyInfo>(ConstructorArguments);
-				return (from prop in NonComputedProperties
-				        where !constructorArguments.Contains(prop)
-				        select prop);
+				return (from p in Properties
+						where !p.ReceiveInConstructor && !p.IsComputed
+						select p);
 			}
 		}
 

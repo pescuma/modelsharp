@@ -23,7 +23,7 @@ namespace <#= it.Package #>
 	{
 		#region Field Name Defines
 
-<# if (it.BaseClass.IsGenerated) { #>
+<# if (it.BaseClass.HasProperties) { #>
 		public new class PROPERTIES : <#= it.Extends #>.PROPERTIES
 <# } else { #>
 		public class PROPERTIES

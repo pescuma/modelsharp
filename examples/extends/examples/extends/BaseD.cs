@@ -16,7 +16,7 @@ namespace examples.extends
 	{
 		#region Field Name Defines
 		
-		public class PROPERTIES
+		public new class PROPERTIES : B.PROPERTIES
 		{
 			public const string X = "X";
 		}

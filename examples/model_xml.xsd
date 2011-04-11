@@ -37,6 +37,7 @@
       <xs:attribute name="hasChildPropertyChanged" type="xs:boolean"/>
       <xs:attribute name="hasChildPropertyChanging" type="xs:boolean"/>
       <xs:attribute name="hasCopyFrom" type="xs:boolean"/>
+      <xs:attribute name="hasProperties" type="xs:boolean"/>
       <xs:attribute name="hasPropertyChanged" type="xs:boolean"/>
       <xs:attribute name="hasPropertyChanging" type="xs:boolean"/>
     </xs:complexType>

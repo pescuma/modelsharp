@@ -258,6 +258,8 @@ namespace org.pescuma.ModelSharp.Core
 							ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
 						if (bc.hasCopyFromSpecified)
 							ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
+						if (bc.hasPropertiesSpecified)
+							ti.BaseClass.HasProperties = bc.hasProperties;
 					}
 
 					foreach (var item in type.Items)
@@ -465,6 +467,7 @@ namespace org.pescuma.ModelSharp.Core
 				type.BaseClass.HasPropertyChanged = true;
 				type.BaseClass.HasPropertyChanging = true;
 				type.BaseClass.HasCopyFrom = true;
+				type.BaseClass.HasProperties = true;
 			}
 		}
 

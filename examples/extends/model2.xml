@@ -4,7 +4,8 @@
 				hasChildPropertyChanging="true" 
 				hasPropertyChanged="true" 
 				hasChildPropertyChanged="true"
-				hasCopyFrom="true" />
+				hasCopyFrom="true"
+				hasProperties="true" />
 		
 		<property name="x" type="double" />
 	</type>

@@ -155,7 +155,33 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tpublic ");
+            this.Write("\t\t");
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ if (it.GetterVisibility != null) { 
+            
+            #line default
+            #line hidden
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.GetterVisibility));
+            
+            #line default
+            #line hidden
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("public");
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write(" ");
             
             #line 18 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
@@ -176,27 +202,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
-            
-            #line 21 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
- if (it.GetterVisibility != null) { 
-            
-            #line default
-            #line hidden
-            
-            #line 21 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.GetterVisibility));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 21 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("get{ return ");
+            this.Write("\t\t\tget { return ");
             
             #line 21 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.Cacher.Name));

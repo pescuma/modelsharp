@@ -15,10 +15,10 @@
 		/// </summary>
 <# } #>
 <# ForEach("Annotation", it.Annotations); #>
-		public <#= it.TypeName #> <#= it.Name #> 
+		<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #><# } else { #>public<# } #> <#= it.TypeName #> <#= it.Name #> 
 		{
 <# ForEach("Annotation", it.PropGetAnnotations); #>
-			<# if (it.GetterVisibility != null) { #><#= it.GetterVisibility #> <# } #>get{ return <#= computed.Cacher.Name #>(); }
+			get { return <#= computed.Cacher.Name #>(); }
 		}
 <# if (computed.Cached) { #>
 		

@@ -167,7 +167,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(" \r\n\t{\r\n\t\t#region Field Name Defines\r\n\r\n");
             
             #line 26 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- if (it.BaseClass.IsGenerated) { 
+ if (it.BaseClass.HasProperties) { 
             
             #line default
             #line hidden

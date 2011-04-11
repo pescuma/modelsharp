@@ -3,9 +3,9 @@
 		<property name="X" type="double" />
 		<property name="Y" type="double" default="2" />
 		<computed-property name="Length" type="double" formula="Math.Sqrt(X * X + Y * Y)" dependsOn="X,Y" />
-    <computed-property name="Dummy" type="string" />
-    <computed-property name="DummyCached" type="string" cached="true" />
-    <computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
+		<computed-property name="Dummy" type="string" />
+		<computed-property name="DummyCached" type="string" cached="true" />
+		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y,P" cached="true" />
 		<collection name="Children" type="MyClass" />
 		<collection name="P" type="Point" />
@@ -16,7 +16,7 @@
 		<property name="X" type="double" />
 		<property name="Y" type="double" default="2" />
 		<computed-property name="Length" type="double" formula="Math.Sqrt(X * X + Y * Y)" dependsOn="X,Y" />
-		<computed-property name="Dummy" type="string" />
+		<computed-property name="Dummy" type="string" getter="protected" />
 		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y" cached="true" />
 		<collection name="Children" type="MyClass" />

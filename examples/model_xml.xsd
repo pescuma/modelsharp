@@ -75,6 +75,7 @@
       <xs:attribute name="dependsOn"/>
       <xs:attribute name="doc"/>
       <xs:attribute name="formula"/>
+      <xs:attribute name="getter" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
     </xs:complexType>

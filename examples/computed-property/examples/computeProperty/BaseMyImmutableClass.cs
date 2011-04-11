@@ -64,7 +64,7 @@ namespace examples.computeProperty
 			return Math.Sqrt(X * X + Y * Y);
 		}
 		
-		public string Dummy
+		protected string Dummy
 		{
 			[DebuggerStepThrough]
 			get {

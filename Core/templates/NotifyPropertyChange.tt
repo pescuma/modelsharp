@@ -22,7 +22,7 @@
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyProperty<#= type #>(string propertyName)
+		protected override void NotifyProperty<#= type #>(string propertyName)
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
@@ -54,7 +54,7 @@
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected virtual void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
+		protected override void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
 		{
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>

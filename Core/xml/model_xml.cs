@@ -826,6 +826,8 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string formulaField;
         
+        private string getterField;
+        
         private string nameField;
         
         private string typeField;
@@ -882,6 +884,17 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.formulaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType="NCName")]
+        public string getter {
+            get {
+                return this.getterField;
+            }
+            set {
+                this.getterField = value;
             }
         }
         

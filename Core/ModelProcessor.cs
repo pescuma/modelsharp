@@ -364,6 +364,9 @@ namespace org.pescuma.ModelSharp.Core
 							var prop = new ComputedPropertyInfo(conventions, ti, computed.name, computed.type,
 							                                    computed.cached, deps, computed.formula);
 
+							if (!string.IsNullOrEmpty(computed.getter) && ValidateVisibility(computed.getter, "getter"))
+								prop.GetterVisibility = computed.getter;
+
 							if (!string.IsNullOrEmpty(computed.doc))
 								prop.Documentation = computed.doc;
 

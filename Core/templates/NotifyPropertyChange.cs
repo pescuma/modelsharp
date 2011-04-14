@@ -177,7 +177,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tprotected virtual void NotifyProperty");
+            this.Write("\t\tprotected override void NotifyProperty");
             
             #line 25 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
@@ -344,7 +344,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\tprotected virtual void NotifyChildProperty");
+            this.Write("\t\tprotected override void NotifyChildProperty");
             
             #line 57 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));

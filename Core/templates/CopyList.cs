@@ -120,47 +120,47 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 9 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } else if (it.ContentsType.HasCopyConstructor) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tforeach (");
-            
-            #line 10 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
-            
-            #line default
-            #line hidden
-            this.Write(" otherItem in other.");
-            
-            #line 10 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n\t\t\t\t");
-            
-            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(target));
-            
-            #line default
-            #line hidden
-            this.Write(".Add(otherItem == null ? null : new ");
-            
-            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
-            
-            #line default
-            #line hidden
-            this.Write("(otherItem));\r\n");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  } else if (it.ContentsType.CreateExternalCopyMethod("otherItem") != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tforeach (");
             
+            #line 10 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
+            
+            #line default
+            #line hidden
+            this.Write(" otherItem in other.");
+            
+            #line 10 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n\t\t\t\t");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(target));
+            
+            #line default
+            #line hidden
+            this.Write(".Add(otherItem == null ? null : ");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.CreateExternalCopyMethod("otherItem")));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 12 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+ } else  { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tforeach (");
+            
             #line 13 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
             
@@ -173,30 +173,24 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t\t");
+            this.Write(")\r\n\t\t\t{\r\n\t\t\t\tif (otherItem == null)\r\n\t\t\t\t\t");
             
-            #line 14 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 16 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(".Add(otherItem == null ? null : ");
+            this.Write(".Add(null);\r\n\t\t\t\telse if (otherItem is ICloneable)\r\n\t\t\t\t\t");
             
-            #line 14 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.CreateExternalCopyMethod("otherItem")));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } else  { 
+            #line 18 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write("\t\t\t???;\r\n");
+            this.Write(".Add(((ICloneable) otherItem).Clone());\r\n\t\t\t\telse\r\n\t\t\t\t\tthrow new InvalidOperatio" +
+                    "nException();\r\n\t\t\t}\r\n");
             
-            #line 17 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 22 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  } 
             
             #line default

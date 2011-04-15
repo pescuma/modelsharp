@@ -29,7 +29,6 @@ namespace org.pescuma.ModelSharp.Core.model
 		public string Name;
 		public string FieldName;
 		public string PrivateName;
-		public string PublicName;
 		public string VarName;
 		public string TypeName;
 		public string DefineName;
@@ -45,13 +44,11 @@ namespace org.pescuma.ModelSharp.Core.model
 			Contract.Requires(StringUtils.IsValidTypeName(type));
 			Contract.Ensures(StringUtils.IsValidVariableName(Name));
 			Contract.Ensures(StringUtils.IsValidVariableName(PrivateName));
-			Contract.Ensures(StringUtils.IsValidVariableName(PublicName));
 			Contract.Ensures(StringUtils.IsValidVariableName(VarName));
 			Contract.Ensures(StringUtils.IsValidTypeName(TypeName));
 			Contract.Ensures(StringUtils.IsValidVariableName(DefineName));
 
 			Name = name;
-			PublicName = conventions.ToPublicName(name);
 			FieldName = PrivateName = conventions.ToFieldName(name);
 			VarName = conventions.ToVarName(name);
 			TypeName = type;
@@ -117,11 +114,6 @@ namespace org.pescuma.ModelSharp.Core.model
 		}
 
 		public virtual bool CanListenTo
-		{
-			get { return !IsPrimitiveOrString; }
-		}
-
-		public virtual bool HasCopyConstructor
 		{
 			get { return !IsPrimitiveOrString; }
 		}

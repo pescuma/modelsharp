@@ -54,7 +54,14 @@ namespace examples.deepCopy
 		{
 			var homeAddressCol = new List<ImmutableAddress>();
 			foreach (ImmutableAddress otherItem in other.HomeAddressCol)
-				homeAddressCol.Add(otherItem == null ? null : new ImmutableAddress(otherItem));
+			{
+				if (otherItem == null)
+					homeAddressCol.Add(null);
+				else if (otherItem is ICloneable)
+					homeAddressCol.Add(((ICloneable) otherItem).Clone());
+				else
+					throw new InvalidOperationException();
+			}
 			HomeAddressCol = new ReadOnlyCollection<ImmutableAddress>(homeAddressCol);
 			var workAddressCol = new List<ImmutableAddress>();
 			workAddressCol.AddRange(other.WorkAddressCol);
@@ -74,8 +81,10 @@ namespace examples.deepCopy
 			DoubleCol2 = new ReadOnlyCollection<double>(doubleCol2);
 			if (other.HomeAddressProp == null)
 				this.HomeAddressProp = null;
+			else if (other.HomeAddressProp is ICloneable)
+				this.HomeAddressProp = ((ICloneable) otherItem).Clone();
 			else
-				this.HomeAddressProp = new Address(other.HomeAddressProp);
+				throw new InvalidOperationException();
 			this.WorkAddressProp = other.WorkAddressProp;
 		}
 		

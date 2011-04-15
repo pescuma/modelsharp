@@ -120,7 +120,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(";\r\n");
             
             #line 9 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-	} else if (it.HasCopyConstructor) { 
+	} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { 
             
             #line default
             #line hidden
@@ -144,44 +144,37 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" = null;\r\n\t\t\telse\r\n");
+            this.Write(" = null;\r\n\t\t\telse \r\n");
             
             #line 14 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
 		} 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t");
+            this.Write("\t\t\t");
             
             #line 15 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(" = new ");
+            this.Write(" = ");
             
             #line 15 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.CreateExternalCopyMethod("other." + it.Name)));
             
             #line default
             #line hidden
-            this.Write("(other.");
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(");\r\n");
+            this.Write(";\r\n");
             
             #line 16 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-	} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { 
+	} else  { 
             
             #line default
             #line hidden
             
             #line 17 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-		if (!it.Required) { 
+		if (!it.Required && it.LazyInitializer == null) { 
             
             #line default
             #line hidden
@@ -199,37 +192,31 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" = null;\r\n\t\t\telse\r\n");
+            this.Write(" = null;\r\n\t\t\telse \r\n");
             
             #line 21 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
 		} 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t");
+            this.Write("\t\t\tif (other.");
             
             #line 22 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" is ICloneable)\r\n\t\t\t\t");
+            
+            #line 23 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(" = ");
+            this.Write(" = ((ICloneable) otherItem).Clone();\r\n\t\t\telse\r\n\t\t\t\tthrow new InvalidOperationExce" +
+                    "ption();\r\n");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.CreateExternalCopyMethod("other." + it.Name)));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n");
-            
-            #line 23 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-	} else  { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t???;\r\n");
-            
-            #line 25 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
 	} 
             
             #line default

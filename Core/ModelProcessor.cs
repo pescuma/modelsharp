@@ -412,7 +412,7 @@ namespace org.pescuma.ModelSharp.Core
 			AddDataContracts(model);
 			AddDebugAttributes(model);
 			AddClonable(model);
-			CheckIfCanCloneAllNeededFields(model);
+//			CheckIfCanCloneAllNeededFields(model);
 			AddUsingsForKnownTypes(model);
 		}
 
@@ -439,23 +439,23 @@ namespace org.pescuma.ModelSharp.Core
 				type.Using.Add("System.Collections");
 		}
 
-		private void CheckIfCanCloneAllNeededFields(ModelInfo model)
-		{
-			foreach (var type in model.Types)
-			{
-				if (!type.Cloneable)
-					continue;
-
-				foreach (var prop in type.Properties)
-				{
-					if (!prop.DeepCopy)
-						continue;
-
-					if (!prop.HasCopyConstructor && prop.CreateExternalCopyMethod("a") == null)
-						log.Error("Can't deep copy field " + type.Name + "." + prop.Name);
-				}
-			}
-		}
+//		private void CheckIfCanCloneAllNeededFields(ModelInfo model)
+//		{
+//			foreach (var type in model.Types)
+//			{
+//				if (!type.Cloneable)
+//					continue;
+//
+//				foreach (var prop in type.Properties)
+//				{
+//					if (!prop.DeepCopy)
+//						continue;
+//
+//					if (!prop.HasCopyConstructor && prop.CreateExternalCopyMethod("a") == null)
+//						log.Error("Can't deep copy field " + type.Name + "." + prop.Name);
+//				}
+//			}
+//		}
 
 		private void UpdateExtendsProperties(ModelInfo model)
 		{

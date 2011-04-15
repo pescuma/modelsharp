@@ -55,10 +55,16 @@ namespace examples.required
 			this.prop5 = other.Prop5;
 			if (other.compLazy != null)
 			{
-				this.compLazy = new Type2(other.CompLazy);
+				if (other.CompLazy is ICloneable)
+					this.compLazy = ((ICloneable) otherItem).Clone();
+				else
+					throw new InvalidOperationException();
 				AddCompLazyListeners(this.compLazy);
 			}
-			this.comp = new Type2(other.Comp);
+			if (other.Comp is ICloneable)
+				this.comp = ((ICloneable) otherItem).Clone();
+			else
+				throw new InvalidOperationException();
 			AddCompListeners(this.comp);
 			ValidateProp2(this.prop2);
 			ValidateProp5(this.prop5);

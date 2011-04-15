@@ -6,20 +6,21 @@
 			<#= target #> = other.<#= it.Name #>;
 <#	} else if (it.IsPrimitive) { #>
 			<#= target #> = other.<#= it.Name #>;
-<#	} else if (it.HasCopyConstructor) { #>
+<#	} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
 <#		if (!it.Required && it.LazyInitializer == null) { #>
 			if (other.<#= it.Name #> == null)
 				<#= target #> = null;
-			else
+			else 
 <#		} #>
-				<#= target #> = new <#= it.TypeName #>(other.<#= it.Name #>);
-<#	} else if (it.CreateExternalCopyMethod("other." + it.Name) != null) { #>
-<#		if (!it.Required) { #>
+			<#= target #> = <#= it.CreateExternalCopyMethod("other." + it.Name) #>;
+<#	} else  { #>
+<#		if (!it.Required && it.LazyInitializer == null) { #>
 			if (other.<#= it.Name #> == null)
 				<#= target #> = null;
-			else
+			else 
 <#		} #>
-				<#= target #> = <#= it.CreateExternalCopyMethod("other." + it.Name) #>;
-<#	} else  { #>
-			???;
+			if (other.<#= it.Name #> is ICloneable)
+				<#= target #> = ((ICloneable) otherItem).Clone();
+			else
+				throw new InvalidOperationException();
 <#	} #>

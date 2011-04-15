@@ -50,7 +50,10 @@ namespace examples.validation
 			this.y = other.Y;
 			this.z = other.Z;
 			this.w = other.W;
-			this.comp = new Point(other.Comp);
+			if (other.Comp is ICloneable)
+				this.comp = ((ICloneable) otherItem).Clone();
+			else
+				throw new InvalidOperationException();
 			AddCompListeners(this.comp);
 			ValidateX(this.x);
 			ValidateY(this.y);

@@ -19,8 +19,12 @@
 				<#= target #> = null;
 			else 
 <#		} #>
+<#		if (it.HasCopyConstructor) { #>
+				<#= target #> = new <#= it.TypeName #>(other.<#= it.Name #>);
+<# 		} else { #>
 			if (other.<#= it.Name #> is ICloneable)
-				<#= target #> = ((ICloneable) otherItem).Clone();
+				<#= target #> = (<#= it.TypeName #>) ((ICloneable) other.<#= it.Name #>).Clone();
 			else
 				throw new InvalidOperationException();
+<#		} #>
 <#	} #>

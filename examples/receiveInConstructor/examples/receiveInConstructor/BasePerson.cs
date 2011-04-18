@@ -38,10 +38,7 @@ namespace examples.receiveInConstructor
 		
 		public BasePerson(BasePerson other)
 		{
-			if (other.HomeAddress is ICloneable)
-				this.homeAddress = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.homeAddress = new Address(other.HomeAddress);
 			AddHomeAddressListeners(this.homeAddress);
 			this.workAddress = other.WorkAddress;
 			AddWorkAddressListeners(this.workAddress);

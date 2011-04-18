@@ -199,24 +199,77 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\tif (other.");
             
             #line 22 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+		if (it.HasCopyConstructor) { 
             
             #line default
             #line hidden
-            this.Write(" is ICloneable)\r\n\t\t\t\t");
+            this.Write("\t\t\t\t");
             
             #line 23 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(" = ((ICloneable) otherItem).Clone();\r\n\t\t\telse\r\n\t\t\t\tthrow new InvalidOperationExce" +
-                    "ption();\r\n");
+            this.Write(" = new ");
+            
+            #line 23 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write("(other.");
+            
+            #line 23 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n");
+            
+            #line 24 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+ 		} else { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\tif (other.");
+            
+            #line 25 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" is ICloneable)\r\n\t\t\t\t");
             
             #line 26 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(target));
+            
+            #line default
+            #line hidden
+            this.Write(" = (");
+            
+            #line 26 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write(") ((ICloneable) other.");
+            
+            #line 26 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(").Clone();\r\n\t\t\telse\r\n\t\t\t\tthrow new InvalidOperationException();\r\n");
+            
+            #line 29 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
+		} 
+            
+            #line default
+            #line hidden
+            
+            #line 30 "X:\c#\modelsharp\Core\templates\CopyProperty.tt"
 	} 
             
             #line default

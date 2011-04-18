@@ -42,10 +42,7 @@ namespace examples.doc
 		public BasePoint(BasePoint other)
 		{
 			this.x = other.X;
-			if (other.Y is ICloneable)
-				this.y = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.y = new Point(other.Y);
 			AddYListeners(this.y);
 			this.ws = new ObservableList<double>();
 			this.ws.AddRange(other.Ws);

@@ -26,12 +26,13 @@ namespace org.pescuma.ModelSharp.Core.model
 {
 	public class BaseFieldInfo
 	{
-		public string Name;
+		public readonly string Name;
 		public string FieldName;
-		public string PrivateName;
-		public string VarName;
+		public readonly string PrivateName;
+		public readonly string VarName;
 		public string TypeName;
-		public string DefineName;
+		public TypeInfo TypeInfo;
+		public readonly string DefineName;
 		public bool ReadOnly;
 		public readonly List<string> Annotations = new List<string>();
 		public string Documentation;
@@ -127,6 +128,16 @@ namespace org.pescuma.ModelSharp.Core.model
 				return "string.Copy(" + varName + ")";
 
 			return null;
+		}
+
+		public bool IsGenerated
+		{
+			get { return TypeInfo != null; }
+		}
+
+		public bool HasCopyConstructor
+		{
+			get { return TypeInfo != null && TypeInfo.Cloneable; }
 		}
 	}
 }

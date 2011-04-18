@@ -407,6 +407,7 @@ namespace org.pescuma.ModelSharp.Core
 			AddCollectionUsings(model);
 			MakeChangesForImmutable(model);
 			UpdateExtendsProperties(model);
+			ComputeTypeInfoForProperties(model);
 			ComputePropertyOrder(model);
 			AddNotifcationInformation(model);
 			AddDataContracts(model);
@@ -493,6 +494,23 @@ namespace org.pescuma.ModelSharp.Core
 			}
 
 			throw new InvalidOperationException("Type hierarchy is too deep. Didn't you made a recursion?");
+		}
+
+		private void ComputeTypeInfoForProperties(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				foreach (var prop in type.Properties)
+				{
+					prop.TypeInfo = model.GetType(prop.TypeName);
+
+					if (prop is CollectionInfo)
+					{
+						var col = (CollectionInfo) prop;
+						col.ContentsType.TypeInfo = model.GetType(col.ContentsType.TypeName);
+					}
+				}
+			}
 		}
 
 		private void ComputeDependentProperties(ModelInfo model)

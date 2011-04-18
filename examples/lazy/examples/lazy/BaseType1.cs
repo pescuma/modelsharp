@@ -39,10 +39,7 @@ namespace examples.lazy
 			AddProp1Listeners(this.prop1);
 			if (other.comp1 != null)
 			{
-				if (other.Comp1 is ICloneable)
-					this.comp1 = ((ICloneable) otherItem).Clone();
-				else
-					throw new InvalidOperationException();
+				this.comp1 = new Type2(other.Comp1);
 				AddComp1Listeners(this.comp1);
 			}
 			if (other.col1 != null)

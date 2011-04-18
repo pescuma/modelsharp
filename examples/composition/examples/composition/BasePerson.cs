@@ -36,15 +36,9 @@ namespace examples.composition
 		
 		public BasePerson(BasePerson other)
 		{
-			if (other.HomeAddress is ICloneable)
-				this.homeAddress = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.homeAddress = new Address(other.HomeAddress);
 			AddHomeAddressListeners(this.homeAddress);
-			if (other.WorkAddress is ICloneable)
-				this.workAddress = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.workAddress = new Address(other.WorkAddress);
 			AddWorkAddressListeners(this.workAddress);
 		}
 		

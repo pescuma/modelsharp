@@ -38,10 +38,7 @@ namespace examples.immutable
 		{
 			this.P1 = other.P1;
 			this.P2 = other.P2;
-			if (other.Dir is ICloneable)
-				this.Dir = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.Dir = new Point(other.Dir);
 			var border = new List<Point>();
 			border.AddRange(other.Border);
 			Border = new ReadOnlyCollection<Point>(border);

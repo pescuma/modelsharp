@@ -56,14 +56,7 @@ namespace examples.deepCopy
 		{
 			this.homeAddressCol = new ObservableList<Address>();
 			foreach (Address otherItem in other.HomeAddressCol)
-			{
-				if (otherItem == null)
-					this.homeAddressCol.Add(null);
-				else if (otherItem is ICloneable)
-					this.homeAddressCol.Add(((ICloneable) otherItem).Clone());
-				else
-					throw new InvalidOperationException();
-			}
+				this.homeAddressCol.Add(otherItem == null ? null : new Address(otherItem));
 			AddHomeAddressColListListeners(this.homeAddressCol);
 			this.workAddressCol = new ObservableList<Address>();
 			this.workAddressCol.AddRange(other.WorkAddressCol);
@@ -72,14 +65,7 @@ namespace examples.deepCopy
 			{
 				this.lazyAddressCol = new ObservableList<Address>();
 				foreach (Address otherItem in other.LazyAddressCol)
-				{
-					if (otherItem == null)
-						this.lazyAddressCol.Add(null);
-					else if (otherItem is ICloneable)
-						this.lazyAddressCol.Add(((ICloneable) otherItem).Clone());
-					else
-						throw new InvalidOperationException();
-				}
+					this.lazyAddressCol.Add(otherItem == null ? null : new Address(otherItem));
 				AddLazyAddressColListListeners(this.lazyAddressCol);
 			}
 			this.stringCol = new ObservableList<string>();
@@ -97,10 +83,8 @@ namespace examples.deepCopy
 			AddDoubleCol2ListListeners(this.doubleCol2);
 			if (other.HomeAddressProp == null)
 				this.homeAddressProp = null;
-			else if (other.HomeAddressProp is ICloneable)
-				this.homeAddressProp = ((ICloneable) otherItem).Clone();
 			else
-				throw new InvalidOperationException();
+				this.homeAddressProp = new Address(other.HomeAddressProp);
 			AddHomeAddressPropListeners(this.homeAddressProp);
 			this.workAddressProp = other.WorkAddressProp;
 			AddWorkAddressPropListeners(this.workAddressProp);
@@ -999,28 +983,14 @@ namespace examples.deepCopy
 		{
 			HomeAddressCol.Clear();
 			foreach (Address otherItem in other.HomeAddressCol)
-			{
-				if (otherItem == null)
-					HomeAddressCol.Add(null);
-				else if (otherItem is ICloneable)
-					HomeAddressCol.Add(((ICloneable) otherItem).Clone());
-				else
-					throw new InvalidOperationException();
-			}
+				HomeAddressCol.Add(otherItem == null ? null : new Address(otherItem));
 			WorkAddressCol.Clear();
 			WorkAddressCol.AddRange(other.WorkAddressCol);
 			if (other.lazyAddressCol != null)
 			{
 				LazyAddressCol.Clear();
 				foreach (Address otherItem in other.LazyAddressCol)
-				{
-					if (otherItem == null)
-						LazyAddressCol.Add(null);
-					else if (otherItem is ICloneable)
-						LazyAddressCol.Add(((ICloneable) otherItem).Clone());
-					else
-						throw new InvalidOperationException();
-				}
+					LazyAddressCol.Add(otherItem == null ? null : new Address(otherItem));
 			}
 			else
 			{
@@ -1038,10 +1008,8 @@ namespace examples.deepCopy
 			DoubleCol2.AddRange(other.DoubleCol2);
 			if (other.HomeAddressProp == null)
 				HomeAddressProp = null;
-			else if (other.HomeAddressProp is ICloneable)
-				HomeAddressProp = ((ICloneable) otherItem).Clone();
 			else
-				throw new InvalidOperationException();
+				HomeAddressProp = new Address(other.HomeAddressProp);
 			WorkAddressProp = other.WorkAddressProp;
 		}
 		

@@ -78,7 +78,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             
             #line 5 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- if (!it.DeepCopy) { 
+ 	if (!it.DeepCopy) { 
             
             #line default
             #line hidden
@@ -99,7 +99,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 7 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } else if (it.ContentsType.IsPrimitive) { 
+ 	} else if (it.ContentsType.IsPrimitive) { 
             
             #line default
             #line hidden
@@ -120,7 +120,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 9 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } else if (it.ContentsType.CreateExternalCopyMethod("otherItem") != null) { 
+ 	} else if (it.ContentsType.CreateExternalCopyMethod("otherItem") != null) { 
             
             #line default
             #line hidden
@@ -155,7 +155,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 12 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } else  { 
+ 	} else  { 
             
             #line default
             #line hidden
@@ -173,25 +173,66 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n\t\t\t\tif (otherItem == null)\r\n\t\t\t\t\t");
+            this.Write(")\r\n");
+            
+            #line 14 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+		if (it.ContentsType.HasCopyConstructor) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t");
+            
+            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(target));
+            
+            #line default
+            #line hidden
+            this.Write(".Add(otherItem == null ? null : new ");
+            
+            #line 15 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Contents));
+            
+            #line default
+            #line hidden
+            this.Write("(otherItem));\r\n");
             
             #line 16 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+ 		} else { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t{\r\n\t\t\t\tif (otherItem == null)\r\n\t\t\t\t\t");
+            
+            #line 19 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
             this.Write(".Add(null);\r\n\t\t\t\telse if (otherItem is ICloneable)\r\n\t\t\t\t\t");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
-            this.Write(".Add(((ICloneable) otherItem).Clone());\r\n\t\t\t\telse\r\n\t\t\t\t\tthrow new InvalidOperatio" +
-                    "nException();\r\n\t\t\t}\r\n");
+            this.Write(".Add((");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\CopyList.tt"
- } 
+            #line 21 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            
+            #line default
+            #line hidden
+            this.Write(") ((ICloneable) otherItem).Clone());\r\n\t\t\t\telse\r\n\t\t\t\t\tthrow new InvalidOperationEx" +
+                    "ception();\r\n\t\t\t}\r\n");
+            
+            #line 25 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+		} 
+            
+            #line default
+            #line hidden
+            
+            #line 26 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+ 	} 
             
             #line default
             #line hidden

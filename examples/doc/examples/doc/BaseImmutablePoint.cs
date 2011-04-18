@@ -45,10 +45,7 @@ namespace examples.doc
 		public BaseImmutablePoint(BaseImmutablePoint other)
 		{
 			this.X = other.X;
-			if (other.Y is ICloneable)
-				this.Y = ((ICloneable) otherItem).Clone();
-			else
-				throw new InvalidOperationException();
+			this.Y = new Point(other.Y);
 			var ws = new List<double>();
 			ws.AddRange(other.Ws);
 			Ws = new ReadOnlyCollection<double>(ws);

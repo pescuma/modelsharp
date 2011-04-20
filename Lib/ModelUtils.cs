@@ -32,5 +32,12 @@ namespace org.pescuma.ModelSharp.Lib
 			var memberExpression = (MemberExpression) lambda.Body;
 			return memberExpression.Member.Name;
 		}
+
+		public static string NameOfProperty<TType, TProperty>(Expression<Func<TType, TProperty>> property)
+		{
+			var lambda = (LambdaExpression) property;
+			var memberExpression = (MemberExpression) lambda.Body;
+			return memberExpression.Member.Name;
+		}
 	}
 }

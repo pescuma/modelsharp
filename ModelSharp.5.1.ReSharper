@@ -20,7 +20,8 @@ Init
 bool
 Attrib
 Validator
-pragma</UserWords>
+pragma
+Utils</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

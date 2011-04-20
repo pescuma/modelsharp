@@ -117,28 +117,27 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("();\r\n");
+            this.Write("();\r\n\t\t\tAdd");
             
             #line 11 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-		Include("CopyList", col, "target", "this." + col.FieldName); 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\tAdd");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListListeners(this.");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
+            #line 11 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
+            
+            #line 12 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+		Include("CopyList", col, "target", "this." + col.FieldName); 
+            
+            #line default
+            #line hidden
             
             #line 13 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
 		if (col.ExposeAsReadOnly) { 
@@ -207,41 +206,41 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             
-            #line 21 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 22 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tAdd");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("Listeners(this.");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 23 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 24 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 24 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t}\r\n");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\MutableOtherToField.tt"
  } 
             
             #line default

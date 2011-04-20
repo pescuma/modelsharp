@@ -22,7 +22,9 @@
 <#		if (it.HasCopyConstructor) { #>
 				<#= target #> = new <#= it.TypeName #>(other.<#= it.Name #>);
 <# 		} else { #>
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (other.<#= it.Name #> is ICloneable)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				<#= target #> = (<#= it.TypeName #>) ((ICloneable) other.<#= it.Name #>).Clone();
 			else
 				throw new InvalidOperationException();

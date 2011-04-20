@@ -4,6 +4,7 @@
 using org.pescuma.ModelSharp.Lib;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -15,23 +16,11 @@ namespace examples.doc
 	/// </summary>
 	[DataContract]
 	[DebuggerDisplay("Point[X={X} Ws={Ws.Count}items]")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string X = "X";
-			public const string Y = "Y";
-			public const string LEN = "Len";
-			public const string WS = "Ws";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePoint()
+		protected BasePoint()
 		{
 			this.y = new Point();
 			AddYListeners(this.y);
@@ -39,17 +28,17 @@ namespace examples.doc
 			AddWsListListeners(this.ws);
 		}
 		
-		public BasePoint(BasePoint other)
+		protected BasePoint(BasePoint other)
 		{
 			this.x = other.X;
 			this.y = new Point(other.Y);
 			AddYListeners(this.y);
 			this.ws = new ObservableList<double>();
-			this.ws.AddRange(other.Ws);
 			AddWsListListeners(this.ws);
+			this.ws.AddRange(other.Ws);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property X
 		
@@ -82,11 +71,11 @@ namespace examples.doc
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.X);
+			NotifyPropertyChanging(() => X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.X);
+			NotifyPropertyChanged(() => X);
 			
 			return true;
 		}
@@ -139,22 +128,22 @@ namespace examples.doc
 		
 		private void YPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.Y, sender, e);
+			NotifyChildPropertyChanging(() => Y, sender, e);
 		}
 		
 		private void YChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.Y, sender, e);
+			NotifyChildPropertyChanging(() => Y, sender, e);
 		}
 		
 		private void YPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.Y, sender, e);
+			NotifyChildPropertyChanged(() => Y, sender, e);
 		}
 		
 		private void YChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.Y, sender, e);
+			NotifyChildPropertyChanged(() => Y, sender, e);
 		}
 		
 		#endregion Property Y
@@ -204,11 +193,15 @@ namespace examples.doc
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += WsListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += WsListPropertyChangedEventHandler;
 		}
 		
@@ -217,7 +210,7 @@ namespace examples.doc
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.WS);
+			NotifyPropertyChanging(() => Ws);
 		}
 		
 		private void WsListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -225,10 +218,65 @@ namespace examples.doc
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.WS);
+			NotifyPropertyChanged(() => Ws);
 		}
 		
 		#endregion Property Ws
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Point) other);
+		}
 		
 		public virtual void CopyFrom(Point other)
 		{
@@ -238,45 +286,7 @@ namespace examples.doc
 			Ws.AddRange(other.Ws);
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -292,7 +302,7 @@ namespace examples.doc
 			return new Point((Point) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -302,7 +312,7 @@ namespace examples.doc
 			AddWsListListeners(this.ws);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

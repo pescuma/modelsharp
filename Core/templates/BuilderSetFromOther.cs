@@ -12,7 +12,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class BuilderSetFromOther : TemplateUtils
     {
@@ -76,56 +76,56 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 3 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
  if (it.IsCollection) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tClear");
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n\t\t\tAddTo");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(other.");
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 6 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 6 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\t\tSet");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("(other.");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
  } 
             
             #line default
@@ -133,7 +133,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderSetFromOther.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\BuilderSetFromOther.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

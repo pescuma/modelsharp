@@ -17,8 +17,10 @@
 			{
 				if (otherItem == null)
 					<#= target #>.Add(null);
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 				else if (otherItem is ICloneable)
-					<#= target #>.Add((<#= it.TypeName #>) ((ICloneable) otherItem).Clone());
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+					<#= target #>.Add((<#= it.ContentsType.TypeName #>) ((ICloneable) otherItem).Clone());
 				else
 					throw new InvalidOperationException();
 			}

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -13,32 +14,23 @@ namespace examples.extends
 
 	[DataContract]
 	[DebuggerDisplay("C[Date2={Date2}]")]
-	public abstract class BaseC : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BaseC : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public new class PROPERTIES : B.PROPERTIES
-		{
-			public const string DATE2 = "Date2";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseC()
+		protected BaseC()
 		{
 			AddDate2Listeners(this.date2);
 		}
 		
-		public BaseC(BaseC other)
+		protected BaseC(BaseC other)
 		: base(other)
 		{
 			this.date2 = other.Date2;
 			AddDate2Listeners(this.date2);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Date2
 		
@@ -68,7 +60,7 @@ namespace examples.extends
 			if (this.date2 == date2)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.DATE2);
+			NotifyPropertyChanging(() => Date2);
 			
 			RemoveDate2Listeners(date2);
 			
@@ -76,7 +68,7 @@ namespace examples.extends
 			
 			AddDate2Listeners(date2);
 			
-			NotifyPropertyChanged(PROPERTIES.DATE2);
+			NotifyPropertyChanged(() => Date2);
 			
 			return true;
 		}
@@ -127,25 +119,36 @@ namespace examples.extends
 		
 		private void Date2PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.DATE2, sender, e);
+			NotifyChildPropertyChanging(() => Date2, sender, e);
 		}
 		
 		private void Date2ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.DATE2, sender, e);
+			NotifyChildPropertyChanging(() => Date2, sender, e);
 		}
 		
 		private void Date2PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.DATE2, sender, e);
+			NotifyChildPropertyChanged(() => Date2, sender, e);
 		}
 		
 		private void Date2ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.DATE2, sender, e);
+			NotifyChildPropertyChanged(() => Date2, sender, e);
 		}
 		
 		#endregion Property Date2
+		
+		#region Property Notification
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((C) other);
+		}
 		
 		public virtual void CopyFrom(C other)
 		{
@@ -153,9 +156,7 @@ namespace examples.extends
 			Date2 = other.Date2;
 		}
 		
-		#region Property Notification
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -171,7 +172,7 @@ namespace examples.extends
 			return new C((C) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -187,7 +188,7 @@ namespace examples.extends
 			AddDate2Listeners(this.date2);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

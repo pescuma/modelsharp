@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ArgName.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\ArgName.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class ArgName : TemplateUtils
     {
@@ -77,7 +77,7 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ArgName.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\ArgName.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
@@ -85,7 +85,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\ArgName.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\ArgName.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

@@ -54,16 +54,22 @@
 				return;
 
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += <#= it.Name #>ListPropertyChangingEventHandler;
 
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += <#= it.Name #>ListPropertyChangedEventHandler;
 <# if (it.ContentsType.CanListenTo) { #>
 
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += <#= it.Name #>ListChangedEventHandler;
 
 			foreach (var item in child)
@@ -76,7 +82,7 @@
 			if (e.PropertyName != <#= it.TypeName #>.PROPERTIES.ITEMS)
 				return;
 
-			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
+			NotifyPropertyChanging(() => <#= it.Name #>);
 		}
 
 		private void <#= it.Name #>ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -84,7 +90,7 @@
 			if (e.PropertyName != <#= it.TypeName #>.PROPERTIES.ITEMS)
 				return;
 
-			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
+			NotifyPropertyChanged(() => <#= it.Name #>);
 		}
 <# if (it.ContentsType.CanListenTo) { #>
 
@@ -125,19 +131,27 @@
 				return;
 
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= <#= it.Name #>ItemPropertyChangingEventHandler;
 
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= <#= it.Name #>ItemChildPropertyChangingEventHandler;
 
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= <#= it.Name #>ItemPropertyChangedEventHandler;
 
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= <#= it.Name #>ItemChildPropertyChangedEventHandler;
 		}
 
@@ -147,39 +161,47 @@
 				return;
 
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += <#= it.Name #>ItemPropertyChangingEventHandler;
 
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += <#= it.Name #>ItemChildPropertyChangingEventHandler;
 
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += <#= it.Name #>ItemPropertyChangedEventHandler;
 
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += <#= it.Name #>ItemChildPropertyChangedEventHandler;
 		}
 
 		private void <#= it.Name #>ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
+			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
+			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
+			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
+			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
 		}
 <# } #>

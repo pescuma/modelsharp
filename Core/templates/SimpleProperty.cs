@@ -504,14 +504,15 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" value)\r\n\t\t{\r\n#pragma warning disable 219\r\n\t\t\tvar property = PROPERTIES.");
+            this.Write(" value)\r\n\t\t{\r\n#pragma warning disable 219\r\n\t\t\tvar property = ModelUtils.NameOfPro" +
+                    "perty(() => ");
             
             #line 62 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(";\r\n#pragma warning restore 219\r\n");
+            this.Write(");\r\n#pragma warning restore 219\r\n");
             
             #line 64 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
 		ForEach("PropertyValidate", it.Validations); 
@@ -587,10 +588,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
+            this.Write("\r\n\t\t\tNotifyPropertyChanging(() => ");
             
             #line 76 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
@@ -664,10 +665,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t\tNotifyPropertyChanged(PROPERTIES.");
+            this.Write("\t\t\tNotifyPropertyChanged(() => ");
             
             #line 88 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
@@ -791,10 +792,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{\r\n\t\t" +
-                    "\tNotifyChildPropertyChanging(PROPERTIES.");
+                    "\tNotifyChildPropertyChanging(() => ");
             
             #line 143 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
@@ -806,10 +807,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e" +
-                    ")\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
+                    ")\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(() => ");
             
             #line 148 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
@@ -821,10 +822,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n\t\t\tN" +
-                    "otifyChildPropertyChanged(PROPERTIES.");
+                    "otifyChildPropertyChanged(() => ");
             
             #line 153 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
@@ -836,10 +837,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)\r" +
-                    "\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
+                    "\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(() => ");
             
             #line 158 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden

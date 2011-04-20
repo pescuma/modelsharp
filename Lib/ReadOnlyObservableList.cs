@@ -43,7 +43,6 @@ namespace org.pescuma.ModelSharp.Lib
 		public class PROPERTIES
 		{
 			public const string ITEMS = "Item[]";
-			public const string COUNT = "Count";
 		}
 
 		#endregion

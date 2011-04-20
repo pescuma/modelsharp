@@ -208,30 +208,31 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(".Add(null);\r\n\t\t\t\telse if (otherItem is ICloneable)\r\n\t\t\t\t\t");
+            this.Write(".Add(null);\r\n// ReSharper disable ConditionIsAlwaysTrueOrFalse\r\n\t\t\t\telse if (othe" +
+                    "rItem is ICloneable)\r\n// ReSharper restore ConditionIsAlwaysTrueOrFalse\r\n\t\t\t\t\t");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\CopyList.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(target));
             
             #line default
             #line hidden
             this.Write(".Add((");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\CopyList.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
+            #line 23 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.TypeName));
             
             #line default
             #line hidden
             this.Write(") ((ICloneable) otherItem).Clone());\r\n\t\t\t\telse\r\n\t\t\t\t\tthrow new InvalidOperationEx" +
                     "ception();\r\n\t\t\t}\r\n");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\CopyList.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 26 "X:\c#\modelsharp\Core\templates\CopyList.tt"
+            #line 28 "X:\c#\modelsharp\Core\templates\CopyList.tt"
  	} 
             
             #line default

@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -14,27 +15,16 @@ namespace examples.noncloneable
 	[DebuggerDisplay("Point[X={X} Y={Y} A={A}]")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string X = "X";
-			public const string Y = "Y";
-			public const string A = "A";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePoint()
+		protected BasePoint()
 		{
 			this.y = 2;
 			this.a = new Point();
 			AddAListeners(this.a);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property X
 		
@@ -64,11 +54,11 @@ namespace examples.noncloneable
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.X);
+			NotifyPropertyChanging(() => X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.X);
+			NotifyPropertyChanged(() => X);
 			
 			return true;
 		}
@@ -103,11 +93,11 @@ namespace examples.noncloneable
 			if (this.y == y)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.Y);
+			NotifyPropertyChanging(() => Y);
 			
 			this.y = y;
 			
-			NotifyPropertyChanged(PROPERTIES.Y);
+			NotifyPropertyChanged(() => Y);
 			
 			return true;
 		}
@@ -142,7 +132,7 @@ namespace examples.noncloneable
 			if (this.a == a)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.A);
+			NotifyPropertyChanging(() => A);
 			
 			RemoveAListeners(a);
 			
@@ -150,7 +140,7 @@ namespace examples.noncloneable
 			
 			AddAListeners(a);
 			
-			NotifyPropertyChanged(PROPERTIES.A);
+			NotifyPropertyChanged(() => A);
 			
 			return true;
 		}
@@ -201,39 +191,34 @@ namespace examples.noncloneable
 		
 		private void APropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.A, sender, e);
+			NotifyChildPropertyChanging(() => A, sender, e);
 		}
 		
 		private void AChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.A, sender, e);
+			NotifyChildPropertyChanging(() => A, sender, e);
 		}
 		
 		private void APropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.A, sender, e);
+			NotifyChildPropertyChanged(() => A, sender, e);
 		}
 		
 		private void AChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.A, sender, e);
+			NotifyChildPropertyChanged(() => A, sender, e);
 		}
 		
 		#endregion Property A
-		
-		public virtual void CopyFrom(Point other)
-		{
-			X = other.X;
-			Y = other.Y;
-			A = other.A;
-		}
 		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -241,8 +226,10 @@ namespace examples.noncloneable
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -250,8 +237,10 @@ namespace examples.noncloneable
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -259,14 +248,16 @@ namespace examples.noncloneable
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
-		#endregion
+		#endregion Property Notification
 		
 		#region Serialization
 		
@@ -275,7 +266,7 @@ namespace examples.noncloneable
 			AddAListeners(this.a);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

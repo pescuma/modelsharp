@@ -5,6 +5,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -13,30 +14,11 @@ namespace examples.computeProperty
 
 	[DataContract]
 	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items P={P.Count}items]")]
-	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string X = "X";
-			public const string Y = "Y";
-			public const string LENGTH = "Length";
-			public const string DUMMY = "Dummy";
-			public const string DUMMY_CACHED = "DummyCached";
-			public const string SQUARED_LENGTH = "SquaredLength";
-			public const string SQUARED_LENGTH_CACHED = "SquaredLengthCached";
-			public const string CHILDREN = "Children";
-			public const string P = "P";
-			public const string COMP_SUB = "CompSub";
-			public const string COMP_SUB_CACHED = "CompSubCached";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseMyClass()
+		protected BaseMyClass()
 		{
 			this.y = 2;
 			this.children = new ObservableList<MyClass>();
@@ -45,19 +27,19 @@ namespace examples.computeProperty
 			AddPListListeners(this.p);
 		}
 		
-		public BaseMyClass(BaseMyClass other)
+		protected BaseMyClass(BaseMyClass other)
 		{
 			this.x = other.X;
 			this.y = other.Y;
 			this.children = new ObservableList<MyClass>();
-			this.children.AddRange(other.Children);
 			AddChildrenListListeners(this.children);
+			this.children.AddRange(other.Children);
 			this.p = new ObservableList<Point>();
-			this.p.AddRange(other.P);
 			AddPListListeners(this.p);
+			this.p.AddRange(other.P);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property X
 		
@@ -87,11 +69,11 @@ namespace examples.computeProperty
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.X);
+			NotifyPropertyChanging(() => X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.X);
+			NotifyPropertyChanged(() => X);
 			
 			return true;
 		}
@@ -126,11 +108,11 @@ namespace examples.computeProperty
 			if (this.y == y)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.Y);
+			NotifyPropertyChanging(() => Y);
 			
 			this.y = y;
 			
-			NotifyPropertyChanged(PROPERTIES.Y);
+			NotifyPropertyChanged(() => Y);
 			
 			return true;
 		}
@@ -183,7 +165,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.DUMMY_CACHED)
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(() => DummyCached)
 		private void InvalidateDummyCachedCache()
 		{
 			dummyCachedCacheValid = false;
@@ -233,7 +215,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED)
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(() => SquaredLengthCached)
 		private void InvalidateSquaredLengthCachedCache()
 		{
 			squaredLengthCachedCacheValid = false;
@@ -279,15 +261,21 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += ChildrenListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += ChildrenListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += ChildrenListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -299,7 +287,7 @@ namespace examples.computeProperty
 			if (e.PropertyName != ObservableList<MyClass>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.CHILDREN);
+			NotifyPropertyChanging(() => Children);
 		}
 		
 		private void ChildrenListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -307,7 +295,7 @@ namespace examples.computeProperty
 			if (e.PropertyName != ObservableList<MyClass>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.CHILDREN);
+			NotifyPropertyChanged(() => Children);
 		}
 		
 		private void ChildrenListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -347,19 +335,27 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= ChildrenItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= ChildrenItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= ChildrenItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= ChildrenItemChildPropertyChangedEventHandler;
 		}
 		
@@ -369,40 +365,48 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += ChildrenItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += ChildrenItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += ChildrenItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += ChildrenItemChildPropertyChangedEventHandler;
 		}
 		
 		private void ChildrenItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.CHILDREN, sender, e);
+			NotifyChildPropertyChanging(() => Children, sender, e);
 		}
 		
 		private void ChildrenItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.CHILDREN, sender, e);
+			NotifyChildPropertyChanging(() => Children, sender, e);
 		}
 		
 		private void ChildrenItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.CHILDREN, sender, e);
+			NotifyChildPropertyChanged(() => Children, sender, e);
 		}
 		
 		private void ChildrenItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.CHILDREN, sender, e);
+			NotifyChildPropertyChanged(() => Children, sender, e);
 		}
 		
 		#endregion Property Children
@@ -432,15 +436,21 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += PListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += PListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += PListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -452,7 +462,7 @@ namespace examples.computeProperty
 			if (e.PropertyName != ObservableList<Point>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.P);
+			NotifyPropertyChanging(() => P);
 		}
 		
 		private void PListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -460,7 +470,7 @@ namespace examples.computeProperty
 			if (e.PropertyName != ObservableList<Point>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.P);
+			NotifyPropertyChanged(() => P);
 		}
 		
 		private void PListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -500,19 +510,27 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= PItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= PItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= PItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= PItemChildPropertyChangedEventHandler;
 		}
 		
@@ -522,40 +540,48 @@ namespace examples.computeProperty
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += PItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += PItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += PItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += PItemChildPropertyChangedEventHandler;
 		}
 		
 		private void PItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.P, sender, e);
+			NotifyChildPropertyChanging(() => P, sender, e);
 		}
 		
 		private void PItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.P, sender, e);
+			NotifyChildPropertyChanging(() => P, sender, e);
 		}
 		
 		private void PItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.P, sender, e);
+			NotifyChildPropertyChanged(() => P, sender, e);
 		}
 		
 		private void PItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.P, sender, e);
+			NotifyChildPropertyChanged(() => P, sender, e);
 		}
 		
 		#endregion Property P
@@ -589,7 +615,7 @@ namespace examples.computeProperty
 			}
 		}
 		
-		/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED)
+		/// Do not call this method directly. Instead, call NotifyPropertyChanged(() => CompSubCached)
 		private void InvalidateCompSubCachedCache()
 		{
 			compSubCachedCacheValid = false;
@@ -610,117 +636,113 @@ namespace examples.computeProperty
 		
 		#endregion Property CompSubCached
 		
-		public virtual void CopyFrom(MyClass other)
-		{
-			X = other.X;
-			Y = other.Y;
-			Children.Clear();
-			Children.AddRange(other.Children);
-			P.Clear();
-			P.AddRange(other.P);
-		}
-		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanging(() => Length);
+				NotifyPropertyChanging(() => SquaredLength);
+				NotifyPropertyChanging(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanging(() => Length);
+				NotifyPropertyChanging(() => SquaredLength);
+				NotifyPropertyChanging(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.CHILDREN)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Children))
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(() => SquaredLength);
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
-				NotifyPropertyChanging(PROPERTIES.COMP_SUB);
-				NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
+				NotifyPropertyChanging(() => SquaredLengthCached);
+				NotifyPropertyChanging(() => CompSub);
+				NotifyPropertyChanging(() => CompSubCached);
 			}
 		}
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanging(() => Length);
+				NotifyPropertyChanging(() => SquaredLength);
+				NotifyPropertyChanging(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanging(() => Length);
+				NotifyPropertyChanging(() => SquaredLength);
+				NotifyPropertyChanging(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.CHILDREN)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Children))
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(() => SquaredLength);
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanging(() => SquaredLengthCached);
 				string path = (e is ChildPropertyChangingEventArgs ? ((ChildPropertyChangingEventArgs) e).FullPath : e.PropertyName);
 				if (path == "X")
 				{
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
+					NotifyPropertyChanging(() => CompSub);
+					NotifyPropertyChanging(() => CompSubCached);
 				}
 				else if (path == "Y")
 				{
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
+					NotifyPropertyChanging(() => CompSub);
+					NotifyPropertyChanging(() => CompSubCached);
 				}
 			}
 		}
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
-			if (propertyName == PROPERTIES.X)
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
 				InvalidateSquaredLengthCachedCache();
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
 				InvalidateSquaredLengthCachedCache();
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
 				InvalidateSquaredLengthCachedCache();
 				InvalidateCompSubCachedCache();
 			}
-			if (propertyName == PROPERTIES.DUMMY_CACHED)
+			if (propertyName == ModelUtils.NameOfProperty(() => DummyCached))
 			{
 				InvalidateDummyCachedCache();
 			}
-			else if (propertyName == PROPERTIES.SQUARED_LENGTH_CACHED)
+			else if (propertyName == ModelUtils.NameOfProperty(() => SquaredLengthCached))
 			{
 				InvalidateSquaredLengthCachedCache();
 			}
-			else if (propertyName == PROPERTIES.COMP_SUB_CACHED)
+			else if (propertyName == ModelUtils.NameOfProperty(() => CompSubCached))
 			{
 				InvalidateCompSubCachedCache();
 			}
@@ -729,43 +751,45 @@ namespace examples.computeProperty
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(() => Length);
+				NotifyPropertyChanged(() => SquaredLength);
+				NotifyPropertyChanged(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(() => Length);
+				NotifyPropertyChanged(() => SquaredLength);
+				NotifyPropertyChanged(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.CHILDREN)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Children))
 			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(() => SquaredLength);
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
-				NotifyPropertyChanged(PROPERTIES.COMP_SUB);
-				NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
+				NotifyPropertyChanged(() => SquaredLengthCached);
+				NotifyPropertyChanged(() => CompSub);
+				NotifyPropertyChanged(() => CompSubCached);
 			}
 		}
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
-			if (propertyName == PROPERTIES.X)
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
 				InvalidateSquaredLengthCachedCache();
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
 				InvalidateSquaredLengthCachedCache();
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
 				InvalidateSquaredLengthCachedCache();
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
@@ -783,40 +807,59 @@ namespace examples.computeProperty
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == ModelUtils.NameOfProperty(() => X))
 			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(() => Length);
+				NotifyPropertyChanged(() => SquaredLength);
+				NotifyPropertyChanged(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.Y)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Y))
 			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(() => Length);
+				NotifyPropertyChanged(() => SquaredLength);
+				NotifyPropertyChanged(() => SquaredLengthCached);
 			}
-			else if (propertyName == PROPERTIES.CHILDREN)
+			else if (propertyName == ModelUtils.NameOfProperty(() => Children))
 			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(() => SquaredLength);
 			}
-			else if (propertyName == PROPERTIES.P)
+			else if (propertyName == ModelUtils.NameOfProperty(() => P))
 			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
+				NotifyPropertyChanged(() => SquaredLengthCached);
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
 				if (path == "X")
 				{
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
+					NotifyPropertyChanged(() => CompSub);
+					NotifyPropertyChanged(() => CompSubCached);
 				}
 				else if (path == "Y")
 				{
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
+					NotifyPropertyChanged(() => CompSub);
+					NotifyPropertyChanged(() => CompSubCached);
 				}
 			}
 		}
 		
-		#endregion
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((MyClass) other);
+		}
+		
+		public virtual void CopyFrom(MyClass other)
+		{
+			X = other.X;
+			Y = other.Y;
+			Children.Clear();
+			Children.AddRange(other.Children);
+			P.Clear();
+			P.AddRange(other.P);
+		}
+		
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -832,7 +875,7 @@ namespace examples.computeProperty
 			return new MyClass((MyClass) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -842,7 +885,7 @@ namespace examples.computeProperty
 			AddPListListeners(this.p);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

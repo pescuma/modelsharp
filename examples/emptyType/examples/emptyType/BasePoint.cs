@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,38 +13,28 @@ namespace examples.emptyType
 
 	[DataContract]
 	[DebuggerDisplay("Point[]")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePoint()
+		protected BasePoint()
 		{
 		}
 		
-		public BasePoint(BasePoint other)
+		protected BasePoint(BasePoint other)
 		{
 		}
 		
-		#endregion
-		
-		public virtual void CopyFrom(Point other)
-		{
-		}
+		#endregion Constructors
 		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -51,8 +42,10 @@ namespace examples.emptyType
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -60,8 +53,10 @@ namespace examples.emptyType
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -69,14 +64,29 @@ namespace examples.emptyType
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
-		#endregion
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Point) other);
+		}
+		
+		public virtual void CopyFrom(Point other)
+		{
+		}
+		
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -92,7 +102,7 @@ namespace examples.emptyType
 			return new Point((Point) this);
 		}
 		
-		#endregion
+		#endregion Clone
 	}
 	
 }

@@ -1,0 +1,20 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.TypeInfo" #>
+<# 	if (it.Cloneable) { #>
+		#region Clone
+
+#pragma warning disable 109
+		public new <#= it.Name #> Clone()
+#pragma warning restore 109
+		{
+			return (<#= it.Name #>) ((ICloneable) this).Clone();
+		}
+
+		object ICloneable.Clone()
+		{
+			return new <#= it.Name #>((<#= it.Name #>) this);
+		}
+
+		#endregion Clone
+<# } #>

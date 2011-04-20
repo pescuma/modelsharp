@@ -223,11 +223,11 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("\t\t/// Do not call this method directly. Instead, call NotifyPropertyChanged(PROPE" +
-                    "RTIES.");
+            this.Write("\t\t/// Do not call this method directly. Instead, call NotifyPropertyChanged(() =>" +
+                    " ");
             
             #line 26 "X:\c#\modelsharp\Core\templates\ComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden

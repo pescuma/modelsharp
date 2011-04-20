@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,21 +13,11 @@ namespace examples.receiveInConstructor
 
 	[DataContract]
 	[DebuggerDisplay("Person[WorkAddress={WorkAddress}]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string HOME_ADDRESS = "HomeAddress";
-			public const string WORK_ADDRESS = "WorkAddress";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePerson(Address homeAddress, Address workAddress)
+		protected BasePerson(Address homeAddress, Address workAddress)
 		{
 			if (homeAddress == null)
 				throw new ArgumentNullException("homeAddress");
@@ -36,7 +27,7 @@ namespace examples.receiveInConstructor
 			AddWorkAddressListeners(this.workAddress);
 		}
 		
-		public BasePerson(BasePerson other)
+		protected BasePerson(BasePerson other)
 		{
 			this.homeAddress = new Address(other.HomeAddress);
 			AddHomeAddressListeners(this.homeAddress);
@@ -44,7 +35,7 @@ namespace examples.receiveInConstructor
 			AddWorkAddressListeners(this.workAddress);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property HomeAddress
 		
@@ -89,22 +80,22 @@ namespace examples.receiveInConstructor
 		
 		private void HomeAddressPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddress, sender, e);
 		}
 		
 		private void HomeAddressChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddress, sender, e);
 		}
 		
 		private void HomeAddressPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddress, sender, e);
 		}
 		
 		private void HomeAddressChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddress, sender, e);
 		}
 		
 		#endregion Property HomeAddress
@@ -137,7 +128,7 @@ namespace examples.receiveInConstructor
 			if (this.workAddress == workAddress)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS);
+			NotifyPropertyChanging(() => WorkAddress);
 			
 			RemoveWorkAddressListeners(workAddress);
 			
@@ -145,7 +136,7 @@ namespace examples.receiveInConstructor
 			
 			AddWorkAddressListeners(workAddress);
 			
-			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS);
+			NotifyPropertyChanged(() => WorkAddress);
 			
 			return true;
 		}
@@ -196,38 +187,34 @@ namespace examples.receiveInConstructor
 		
 		private void WorkAddressPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddress, sender, e);
 		}
 		
 		private void WorkAddressChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddress, sender, e);
 		}
 		
 		private void WorkAddressPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddress, sender, e);
 		}
 		
 		private void WorkAddressChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddress, sender, e);
 		}
 		
 		#endregion Property WorkAddress
-		
-		public virtual void CopyFrom(Person other)
-		{
-			HomeAddress.CopyFrom(other.HomeAddress);
-			WorkAddress = other.WorkAddress;
-		}
 		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -235,8 +222,10 @@ namespace examples.receiveInConstructor
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -244,8 +233,10 @@ namespace examples.receiveInConstructor
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -253,14 +244,31 @@ namespace examples.receiveInConstructor
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
-		#endregion
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Person) other);
+		}
+		
+		public virtual void CopyFrom(Person other)
+		{
+			HomeAddress.CopyFrom(other.HomeAddress);
+			WorkAddress = other.WorkAddress;
+		}
+		
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -276,7 +284,7 @@ namespace examples.receiveInConstructor
 			return new Person((Person) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -286,7 +294,7 @@ namespace examples.receiveInConstructor
 			AddWorkAddressListeners(this.workAddress);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

@@ -32,7 +32,6 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly string VarName;
 		public string TypeName;
 		public TypeInfo TypeInfo;
-		public readonly string DefineName;
 		public bool ReadOnly;
 		public readonly List<string> Annotations = new List<string>();
 		public string Documentation;
@@ -47,13 +46,11 @@ namespace org.pescuma.ModelSharp.Core.model
 			Contract.Ensures(StringUtils.IsValidVariableName(PrivateName));
 			Contract.Ensures(StringUtils.IsValidVariableName(VarName));
 			Contract.Ensures(StringUtils.IsValidTypeName(TypeName));
-			Contract.Ensures(StringUtils.IsValidVariableName(DefineName));
 
 			Name = name;
 			FieldName = PrivateName = conventions.ToFieldName(name);
 			VarName = conventions.ToVarName(name);
 			TypeName = type;
-			DefineName = conventions.ToDefineName(name);
 			ReadOnly = false;
 		}
 

@@ -97,14 +97,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("if (propertyName == PROPERTIES.");
+            this.Write("if (propertyName == ModelUtils.NameOfProperty(() => ");
             
             #line 9 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n");
+            this.Write("))\r\n\t\t\t{\r\n");
             
             #line 11 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 	if (deps.ContainsKey("")) { 
@@ -124,10 +124,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("(PROPERTIES.");
+            this.Write("(() => ");
             
             #line 13 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden
@@ -225,10 +225,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("(PROPERTIES.");
+            this.Write("(() => ");
             
             #line 26 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(prop.Name));
             
             #line default
             #line hidden

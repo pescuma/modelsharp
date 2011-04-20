@@ -54,6 +54,8 @@ namespace examples.immutable
 			return new Line(P1, p2, Dir, Border);
 		}
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new Line Clone()
 #pragma warning restore 109
@@ -65,6 +67,8 @@ namespace examples.immutable
 		{
 			return new Line((Line) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

@@ -16,8 +16,7 @@
 				hasChildPropertyChanging="false" 
 				hasPropertyChanged="false" 
 				hasChildPropertyChanged="false"
-				hasCopyFrom="false"
-				hasProperties="false" />
+				hasCopyFrom="false" />
 		
 		<property name="date2" type="DateTime" />
 	</type>

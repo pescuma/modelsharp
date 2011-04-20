@@ -53,6 +53,8 @@ namespace examples.deepCopy
 			return new ImmutableAddress(Street, City, zipCode);
 		}
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new ImmutableAddress Clone()
 #pragma warning restore 109
@@ -64,6 +66,8 @@ namespace examples.deepCopy
 		{
 			return new ImmutableAddress((ImmutableAddress) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

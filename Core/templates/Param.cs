@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\Param.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class Param : TemplateUtils
     {
@@ -77,7 +77,7 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\Param.tt"
  
 if (it is CollectionInfo) 
 { 
@@ -88,20 +88,20 @@ if (it is CollectionInfo)
             #line hidden
             this.Write("IEnumerable<");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\Param.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\Param.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.VarName));
             
             #line default
             #line hidden
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\Param.tt"
 
 }
 else
@@ -111,20 +111,20 @@ else
             #line default
             #line hidden
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\Param.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\Param.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
             
             #line default
             #line hidden
             
-            #line 12 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+            #line 12 "X:\c#\modelsharp\Core\templates\Param.tt"
 
 } 
 
@@ -134,7 +134,7 @@ else
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Param.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\Param.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

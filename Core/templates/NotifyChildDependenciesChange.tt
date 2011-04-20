@@ -6,11 +6,11 @@
 <#@ parameter name="type" type="System.String" #>
 <#	var deps = it.DependentPropertiesByPath; #>
 
-			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
+			<# if (index > 0) { #>else <# } #>if (propertyName == ModelUtils.NameOfProperty(() => <#= it.Name #>))
 			{
 <#	if (deps.ContainsKey("")) { #>
 <#		foreach(var prop in deps[""]) { #>
-				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
+				NotifyProperty<#= type #>(() => <#= prop.Name #>);
 <#		} #>
 <#	} #>
 <#	if (deps.Keys.Any(s => s != "")) { #>
@@ -23,7 +23,7 @@
 				<# if (innerIndex > 0) { #>else <# } #>if (path == "<#= dep.Key #>")
 				{
 <#		foreach(var prop in dep.Value) { #>
-					NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
+					NotifyProperty<#= type #>(() => <#= prop.Name #>);
 <#		} #>
 				}
 <#		innerIndex++; #>

@@ -5,6 +5,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -13,43 +14,33 @@ namespace examples.collectionReadOnly
 
 	[DataContract]
 	[DebuggerDisplay("Person[Houses={Houses.Count}items HousesLazy={HousesLazy.Count}items]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string HOUSES = "Houses";
-			public const string HOUSES_LAZY = "HousesLazy";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePerson()
+		protected BasePerson()
 		{
 			this.houses = new ObservableList<House>();
 			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
 			AddHousesListListeners(this.houses);
 		}
 		
-		public BasePerson(BasePerson other)
+		protected BasePerson(BasePerson other)
 		{
 			this.houses = new ObservableList<House>();
-			this.houses.AddRange(other.Houses);
 			AddHousesListListeners(this.houses);
+			this.houses.AddRange(other.Houses);
 			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
 			if (other.housesLazy != null)
 			{
 				this.housesLazy = new ObservableList<House>();
-				this.housesLazy.AddRange(other.HousesLazy);
 				AddHousesLazyListListeners(this.housesLazy);
+				this.housesLazy.AddRange(other.HousesLazy);
 				this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
 			}
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Houses
 		
@@ -79,15 +70,21 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += HousesListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -99,7 +96,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.HOUSES);
+			NotifyPropertyChanging(() => Houses);
 		}
 		
 		private void HousesListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -107,7 +104,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.HOUSES);
+			NotifyPropertyChanged(() => Houses);
 		}
 		
 		private void HousesListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -147,19 +144,27 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= HousesItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= HousesItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= HousesItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= HousesItemChildPropertyChangedEventHandler;
 		}
 		
@@ -169,40 +174,48 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += HousesItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += HousesItemChildPropertyChangedEventHandler;
 		}
 		
 		private void HousesItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanging(() => Houses, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanging(() => Houses, sender, e);
 		}
 		
 		private void HousesItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanged(() => Houses, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanged(() => Houses, sender, e);
 		}
 		
 		#endregion Property Houses
@@ -247,15 +260,21 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesLazyListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesLazyListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += HousesLazyListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -267,7 +286,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.HOUSES_LAZY);
+			NotifyPropertyChanging(() => HousesLazy);
 		}
 		
 		private void HousesLazyListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -275,7 +294,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.HOUSES_LAZY);
+			NotifyPropertyChanged(() => HousesLazy);
 		}
 		
 		private void HousesLazyListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -315,19 +334,27 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= HousesLazyItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= HousesLazyItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= HousesLazyItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= HousesLazyItemChildPropertyChangedEventHandler;
 		}
 		
@@ -337,43 +364,106 @@ namespace examples.collectionReadOnly
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesLazyItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += HousesLazyItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesLazyItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += HousesLazyItemChildPropertyChangedEventHandler;
 		}
 		
 		private void HousesLazyItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
+			NotifyChildPropertyChanging(() => HousesLazy, sender, e);
 		}
 		
 		private void HousesLazyItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
+			NotifyChildPropertyChanging(() => HousesLazy, sender, e);
 		}
 		
 		private void HousesLazyItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
+			NotifyChildPropertyChanged(() => HousesLazy, sender, e);
 		}
 		
 		private void HousesLazyItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
+			NotifyChildPropertyChanged(() => HousesLazy, sender, e);
 		}
 		
 		#endregion Property HousesLazy
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Person) other);
+		}
 		
 		public virtual void CopyFrom(Person other)
 		{
@@ -393,45 +483,7 @@ namespace examples.collectionReadOnly
 			}
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -447,7 +499,7 @@ namespace examples.collectionReadOnly
 			return new Person((Person) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -460,7 +512,7 @@ namespace examples.collectionReadOnly
 				this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

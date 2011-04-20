@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,26 +13,15 @@ namespace examples.deepCopy
 
 	[DataContract]
 	[DebuggerDisplay("Address[Street={Street} City={City} ZipCode={ZipCode}]")]
-	public abstract class BaseAddress : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseAddress : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string STREET = "Street";
-			public const string CITY = "City";
-			public const string ZIP_CODE = "ZipCode";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseAddress()
+		protected BaseAddress()
 		{
 		}
 		
-		public BaseAddress(BaseAddress other)
+		protected BaseAddress(BaseAddress other)
 		{
 			this.street = other.Street;
 			if (other.City == null)
@@ -41,7 +31,7 @@ namespace examples.deepCopy
 			this.zipCode = other.ZipCode;
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Street
 		
@@ -71,11 +61,11 @@ namespace examples.deepCopy
 			if (this.street == street)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.STREET);
+			NotifyPropertyChanging(() => Street);
 			
 			this.street = street;
 			
-			NotifyPropertyChanged(PROPERTIES.STREET);
+			NotifyPropertyChanged(() => Street);
 			
 			return true;
 		}
@@ -110,11 +100,11 @@ namespace examples.deepCopy
 			if (this.city == city)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.CITY);
+			NotifyPropertyChanging(() => City);
 			
 			this.city = city;
 			
-			NotifyPropertyChanged(PROPERTIES.CITY);
+			NotifyPropertyChanged(() => City);
 			
 			return true;
 		}
@@ -149,16 +139,71 @@ namespace examples.deepCopy
 			if (this.zipCode == zipCode)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.ZIP_CODE);
+			NotifyPropertyChanging(() => ZipCode);
 			
 			this.zipCode = zipCode;
 			
-			NotifyPropertyChanged(PROPERTIES.ZIP_CODE);
+			NotifyPropertyChanged(() => ZipCode);
 			
 			return true;
 		}
 		
 		#endregion Property ZipCode
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Address) other);
+		}
 		
 		public virtual void CopyFrom(Address other)
 		{
@@ -170,45 +215,7 @@ namespace examples.deepCopy
 			ZipCode = other.ZipCode;
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -224,7 +231,7 @@ namespace examples.deepCopy
 			return new Address((Address) this);
 		}
 		
-		#endregion
+		#endregion Clone
 	}
 	
 }

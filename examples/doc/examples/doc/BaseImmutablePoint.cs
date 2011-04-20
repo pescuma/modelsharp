@@ -69,6 +69,8 @@ namespace examples.doc
 		
 		protected abstract double ComputeLen();
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new ImmutablePoint Clone()
 #pragma warning restore 109
@@ -80,6 +82,8 @@ namespace examples.doc
 		{
 			return new ImmutablePoint((ImmutablePoint) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

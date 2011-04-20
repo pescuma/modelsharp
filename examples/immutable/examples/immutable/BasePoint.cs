@@ -40,6 +40,8 @@ namespace examples.immutable
 			return new Point(X, y);
 		}
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new Point Clone()
 #pragma warning restore 109
@@ -51,6 +53,8 @@ namespace examples.immutable
 		{
 			return new Point((Point) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

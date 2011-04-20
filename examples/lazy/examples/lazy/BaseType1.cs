@@ -5,6 +5,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -13,27 +14,16 @@ namespace examples.lazy
 
 	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Col1={Col1.Count}items]")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string PROP1 = "Prop1";
-			public const string COMP1 = "Comp1";
-			public const string COL1 = "Col1";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseType1()
+		protected BaseType1()
 		{
 			AddProp1Listeners(this.prop1);
 		}
 		
-		public BaseType1(BaseType1 other)
+		protected BaseType1(BaseType1 other)
 		{
 			this.prop1 = other.Prop1;
 			AddProp1Listeners(this.prop1);
@@ -45,12 +35,12 @@ namespace examples.lazy
 			if (other.col1 != null)
 			{
 				this.col1 = new ObservableList<Type2>();
-				this.col1.AddRange(other.Col1);
 				AddCol1ListListeners(this.col1);
+				this.col1.AddRange(other.Col1);
 			}
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Prop1
 		
@@ -80,7 +70,7 @@ namespace examples.lazy
 			if (this.prop1 == prop1)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.PROP1);
+			NotifyPropertyChanging(() => Prop1);
 			
 			RemoveProp1Listeners(prop1);
 			
@@ -88,7 +78,7 @@ namespace examples.lazy
 			
 			AddProp1Listeners(prop1);
 			
-			NotifyPropertyChanged(PROPERTIES.PROP1);
+			NotifyPropertyChanged(() => Prop1);
 			
 			return true;
 		}
@@ -139,22 +129,22 @@ namespace examples.lazy
 		
 		private void Prop1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanging(() => Prop1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanging(() => Prop1, sender, e);
 		}
 		
 		private void Prop1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanged(() => Prop1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanged(() => Prop1, sender, e);
 		}
 		
 		#endregion Property Prop1
@@ -212,22 +202,22 @@ namespace examples.lazy
 		
 		private void Comp1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP1, sender, e);
+			NotifyChildPropertyChanging(() => Comp1, sender, e);
 		}
 		
 		private void Comp1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP1, sender, e);
+			NotifyChildPropertyChanging(() => Comp1, sender, e);
 		}
 		
 		private void Comp1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP1, sender, e);
+			NotifyChildPropertyChanged(() => Comp1, sender, e);
 		}
 		
 		private void Comp1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP1, sender, e);
+			NotifyChildPropertyChanged(() => Comp1, sender, e);
 		}
 		
 		#endregion Property Comp1
@@ -267,15 +257,21 @@ namespace examples.lazy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += Col1ListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += Col1ListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += Col1ListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -287,7 +283,7 @@ namespace examples.lazy
 			if (e.PropertyName != ObservableList<Type2>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.COL1);
+			NotifyPropertyChanging(() => Col1);
 		}
 		
 		private void Col1ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -295,7 +291,7 @@ namespace examples.lazy
 			if (e.PropertyName != ObservableList<Type2>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.COL1);
+			NotifyPropertyChanged(() => Col1);
 		}
 		
 		private void Col1ListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -335,19 +331,27 @@ namespace examples.lazy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= Col1ItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= Col1ItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= Col1ItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= Col1ItemChildPropertyChangedEventHandler;
 		}
 		
@@ -357,43 +361,106 @@ namespace examples.lazy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += Col1ItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += Col1ItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += Col1ItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += Col1ItemChildPropertyChangedEventHandler;
 		}
 		
 		private void Col1ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COL1, sender, e);
+			NotifyChildPropertyChanging(() => Col1, sender, e);
 		}
 		
 		private void Col1ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COL1, sender, e);
+			NotifyChildPropertyChanging(() => Col1, sender, e);
 		}
 		
 		private void Col1ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COL1, sender, e);
+			NotifyChildPropertyChanged(() => Col1, sender, e);
 		}
 		
 		private void Col1ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COL1, sender, e);
+			NotifyChildPropertyChanged(() => Col1, sender, e);
 		}
 		
 		#endregion Property Col1
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Type1) other);
+		}
 		
 		public virtual void CopyFrom(Type1 other)
 		{
@@ -419,45 +486,7 @@ namespace examples.lazy
 			}
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -473,7 +502,7 @@ namespace examples.lazy
 			return new Type1((Type1) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -484,7 +513,7 @@ namespace examples.lazy
 			AddCol1ListListeners(this.col1);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

@@ -19,24 +19,18 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
-namespace org.pescuma.ModelSharp.Core
+using System;
+using System.Linq.Expressions;
+
+namespace org.pescuma.ModelSharp.Lib
 {
-	public class NamingConventions
+	public static class ModelUtils
 	{
-		public string ToPublicName(string name)
+		public static string NameOfProperty<T>(Expression<Func<T>> property)
 		{
-			return StringUtils.FirstUpper(name);
-		}
-
-		public string ToFieldName(string name)
-		{
-			//return "_" + StringUtils.FirstLower(name);
-			return StringUtils.FirstLower(name);
-		}
-
-		public string ToVarName(string name)
-		{
-			return StringUtils.FirstLower(name);
+			var lambda = (LambdaExpression) property;
+			var memberExpression = (MemberExpression) lambda.Body;
+			return memberExpression.Member.Name;
 		}
 	}
 }

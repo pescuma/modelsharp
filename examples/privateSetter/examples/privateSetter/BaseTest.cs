@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,31 +13,22 @@ namespace examples.privateSetter
 
 	[DataContract]
 	[DebuggerDisplay("Test[Date={Date}]")]
-	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string DATE = "Date";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseTest()
+		protected BaseTest()
 		{
 			AddDateListeners(this.date);
 		}
 		
-		public BaseTest(BaseTest other)
+		protected BaseTest(BaseTest other)
 		{
 			this.date = other.Date;
 			AddDateListeners(this.date);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Date
 		
@@ -66,7 +58,7 @@ namespace examples.privateSetter
 			if (this.date == date)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.DATE);
+			NotifyPropertyChanging(() => Date);
 			
 			RemoveDateListeners(date);
 			
@@ -74,7 +66,7 @@ namespace examples.privateSetter
 			
 			AddDateListeners(date);
 			
-			NotifyPropertyChanged(PROPERTIES.DATE);
+			NotifyPropertyChanged(() => Date);
 			
 			return true;
 		}
@@ -125,37 +117,34 @@ namespace examples.privateSetter
 		
 		private void DatePropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.DATE, sender, e);
+			NotifyChildPropertyChanging(() => Date, sender, e);
 		}
 		
 		private void DateChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.DATE, sender, e);
+			NotifyChildPropertyChanging(() => Date, sender, e);
 		}
 		
 		private void DatePropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.DATE, sender, e);
+			NotifyChildPropertyChanged(() => Date, sender, e);
 		}
 		
 		private void DateChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.DATE, sender, e);
+			NotifyChildPropertyChanged(() => Date, sender, e);
 		}
 		
 		#endregion Property Date
-		
-		public virtual void CopyFrom(Test other)
-		{
-			Date = other.Date;
-		}
 		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -163,8 +152,10 @@ namespace examples.privateSetter
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -172,8 +163,10 @@ namespace examples.privateSetter
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -181,14 +174,30 @@ namespace examples.privateSetter
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
-		#endregion
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Test) other);
+		}
+		
+		public virtual void CopyFrom(Test other)
+		{
+			Date = other.Date;
+		}
+		
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -204,7 +213,7 @@ namespace examples.privateSetter
 			return new Test((Test) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -213,7 +222,7 @@ namespace examples.privateSetter
 			AddDateListeners(this.date);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

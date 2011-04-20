@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace org.pescuma.ModelSharp.Lib
 {
@@ -43,7 +44,6 @@ namespace org.pescuma.ModelSharp.Lib
 		public class PROPERTIES
 		{
 			public const string ITEMS = "Item[]";
-			public const string COUNT = "Count";
 		}
 
 		#endregion
@@ -741,6 +741,13 @@ namespace org.pescuma.ModelSharp.Lib
 
 		#endregion INotifyCollectionChanged
 
+		private string NameOf<T>(Expression<Func<T>> property)
+		{
+			var lambda = (LambdaExpression) property;
+			var memberExpression = (MemberExpression) lambda.Body;
+			return memberExpression.Member.Name;
+		}
+
 		#region INotifyPropertyChanging
 
 		public event PropertyChangingEventHandler PropertyChanging;
@@ -749,7 +756,7 @@ namespace org.pescuma.ModelSharp.Lib
 		{
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(PROPERTIES.COUNT));
+				handler(this, new PropertyChangingEventArgs(NameOf(() => Count)));
 		}
 
 		private void OnItemsChanging()
@@ -769,7 +776,7 @@ namespace org.pescuma.ModelSharp.Lib
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(PROPERTIES.COUNT));
+				handler(this, new PropertyChangedEventArgs(NameOf(() => Count)));
 		}
 
 		private void OnItemsChanged()

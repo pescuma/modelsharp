@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,30 +13,21 @@ namespace examples.extends
 
 	[DataContract]
 	[DebuggerDisplay("D[X={X}]")]
-	public abstract class BaseD : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseD : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public new class PROPERTIES : B.PROPERTIES
-		{
-			public const string X = "X";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseD()
+		protected BaseD()
 		{
 		}
 		
-		public BaseD(BaseD other)
+		protected BaseD(BaseD other)
 		: base(other)
 		{
 			this.x = other.X;
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property X
 		
@@ -65,16 +57,27 @@ namespace examples.extends
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.X);
+			NotifyPropertyChanging(() => X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.X);
+			NotifyPropertyChanged(() => X);
 			
 			return true;
 		}
 		
 		#endregion Property X
+		
+		#region Property Notification
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((D) other);
+		}
 		
 		public virtual void CopyFrom(D other)
 		{
@@ -82,9 +85,7 @@ namespace examples.extends
 			X = other.X;
 		}
 		
-		#region Property Notification
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -100,7 +101,7 @@ namespace examples.extends
 			return new D((D) this);
 		}
 		
-		#endregion
+		#endregion Clone
 	}
 	
 }

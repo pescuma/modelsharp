@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,29 +13,20 @@ namespace examples.collection
 
 	[DataContract]
 	[DebuggerDisplay("House[Address={Address}]")]
-	public abstract class BaseHouse : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable
+	public abstract class BaseHouse : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string ADDRESS = "Address";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseHouse()
+		protected BaseHouse()
 		{
 		}
 		
-		public BaseHouse(BaseHouse other)
+		protected BaseHouse(BaseHouse other)
 		{
 			this.address = other.Address;
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Address
 		
@@ -64,28 +56,25 @@ namespace examples.collection
 			if (this.address == address)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.ADDRESS);
+			NotifyPropertyChanging(() => Address);
 			
 			this.address = address;
 			
-			NotifyPropertyChanged(PROPERTIES.ADDRESS);
+			NotifyPropertyChanged(() => Address);
 			
 			return true;
 		}
 		
 		#endregion Property Address
 		
-		public virtual void CopyFrom(House other)
-		{
-			Address = other.Address;
-		}
-		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging(string propertyName)
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -93,8 +82,10 @@ namespace examples.collection
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -102,8 +93,10 @@ namespace examples.collection
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged(string propertyName)
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -111,14 +104,30 @@ namespace examples.collection
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
 		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 		}
 		
-		#endregion
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((House) other);
+		}
+		
+		public virtual void CopyFrom(House other)
+		{
+			Address = other.Address;
+		}
+		
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -134,7 +143,7 @@ namespace examples.collection
 			return new House((House) this);
 		}
 		
-		#endregion
+		#endregion Clone
 	}
 	
 }

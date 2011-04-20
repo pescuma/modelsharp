@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class BuilderField : TemplateUtils
     {
@@ -77,13 +77,13 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 4 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  ForEach("Annotation", it.Annotations); 
             
             #line default
             #line hidden
             
-            #line 5 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 5 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  if (it.IsCollection) {
 	var col = (CollectionInfo) it; 
             
@@ -91,68 +91,68 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\tprivate readonly List<");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.PrivateName));
             
             #line default
             #line hidden
             this.Write(" = new List<");
             
-            #line 7 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 7 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Contents));
             
             #line default
             #line hidden
             this.Write(">();\r\n");
             
-            #line 8 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.PrivateName));
             
             #line default
             #line hidden
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  if(it.DefaultValue != null) { 
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
             
             #line default
             #line hidden
             
-            #line 9 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 9 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  } 
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 10 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
  } 
             
             #line default
@@ -160,7 +160,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\BuilderField.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\BuilderField.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

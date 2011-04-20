@@ -19,24 +19,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
-namespace org.pescuma.ModelSharp.Core
+namespace org.pescuma.ModelSharp.Lib
 {
-	public class NamingConventions
+	public interface ICopyable
 	{
-		public string ToPublicName(string name)
-		{
-			return StringUtils.FirstUpper(name);
-		}
-
-		public string ToFieldName(string name)
-		{
-			//return "_" + StringUtils.FirstLower(name);
-			return StringUtils.FirstLower(name);
-		}
-
-		public string ToVarName(string name)
-		{
-			return StringUtils.FirstLower(name);
-		}
+		void CopyFrom(object other);
 	}
 }

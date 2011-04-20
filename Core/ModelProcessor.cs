@@ -201,7 +201,7 @@ namespace org.pescuma.ModelSharp.Core
 			PosProcessXml(xmlModel);
 
 			var model = CreateModel(xmlModel);
-			ProcessModel(model);
+			PosProcessModel(model);
 
 			return model;
 		}
@@ -258,8 +258,6 @@ namespace org.pescuma.ModelSharp.Core
 							ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
 						if (bc.hasCopyFromSpecified)
 							ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
-						if (bc.hasPropertiesSpecified)
-							ti.BaseClass.HasProperties = bc.hasProperties;
 					}
 
 					foreach (var item in type.Items)
@@ -400,7 +398,7 @@ namespace org.pescuma.ModelSharp.Core
 			return true;
 		}
 
-		private void ProcessModel(ModelInfo model)
+		private void PosProcessModel(ModelInfo model)
 		{
 			ComputeDependentProperties(model);
 			CopyUsingsToType(model);
@@ -413,6 +411,7 @@ namespace org.pescuma.ModelSharp.Core
 			AddDataContracts(model);
 			AddDebugAttributes(model);
 			AddClonable(model);
+			AddCopyable(model);
 //			CheckIfCanCloneAllNeededFields(model);
 			AddUsingsForKnownTypes(model);
 		}
@@ -471,7 +470,6 @@ namespace org.pescuma.ModelSharp.Core
 				type.BaseClass.HasPropertyChanged = true;
 				type.BaseClass.HasPropertyChanging = true;
 				type.BaseClass.HasCopyFrom = true;
-				type.BaseClass.HasProperties = true;
 			}
 		}
 
@@ -558,6 +556,17 @@ namespace org.pescuma.ModelSharp.Core
 			}
 		}
 
+		private void AddCopyable(ModelInfo model)
+		{
+			foreach (var type in model.Types)
+			{
+				if (type.Immutable || !type.Cloneable)
+					continue;
+
+				type.Implements.Add("ICopyable");
+			}
+		}
+
 		private void CopyUsingsToType(ModelInfo model)
 		{
 			foreach (var type in model.Types)
@@ -621,6 +630,7 @@ namespace org.pescuma.ModelSharp.Core
 
 				type.Using.Add("System");
 				type.Using.Add("System.ComponentModel");
+				type.Using.Add("System.Linq.Expressions");
 				type.Using.Add("org.pescuma.ModelSharp.Lib");
 
 				type.Implements.Add("INotifyPropertyChanging");

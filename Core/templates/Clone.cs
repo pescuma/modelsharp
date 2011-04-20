@@ -9,12 +9,13 @@
 // ------------------------------------------------------------------------------
 namespace org.pescuma.ModelSharp.Core.templates
 {
+    using org.pescuma.ModelSharp.Core.model;
     using System;
     
     
-    #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Define.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\Clone.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class Define : TemplateUtils
+    public partial class Clone : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -75,32 +76,59 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\t\t\tpublic const string ");
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Define.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            #line 4 "X:\c#\modelsharp\Core\templates\Clone.tt"
+ 	if (it.Cloneable) { 
             
             #line default
             #line hidden
-            this.Write(" = \"");
+            this.Write("\t\t#region Clone\r\n\r\n#pragma warning disable 109\r\n\t\tpublic new ");
             
-            #line 3 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Define.tt"
+            #line 8 "X:\c#\modelsharp\Core\templates\Clone.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write("\";\r\n");
+            this.Write(" Clone()\r\n#pragma warning restore 109\r\n\t\t{\r\n\t\t\treturn (");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\Clone.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(") ((ICloneable) this).Clone();\r\n\t\t}\r\n\r\n\t\tobject ICloneable.Clone()\r\n\t\t{\r\n\t\t\tretur" +
+                    "n new ");
+            
+            #line 16 "X:\c#\modelsharp\Core\templates\Clone.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("((");
+            
+            #line 16 "X:\c#\modelsharp\Core\templates\Clone.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(") this);\r\n\t\t}\r\n\r\n\t\t#endregion Clone\r\n");
+            
+            #line 20 "X:\c#\modelsharp\Core\templates\Clone.tt"
+ } 
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Desenvolvimento\c#\ModelSharp\Core\templates\Define.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\Clone.tt"
 
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
+private global::org.pescuma.ModelSharp.Core.model.TypeInfo _itField;
 
 /// <summary>
 /// Access the it parameter of the template.
 /// </summary>
-private global::org.pescuma.ModelSharp.Core.model.PropertyInfo it
+private global::org.pescuma.ModelSharp.Core.model.TypeInfo it
 {
     get
     {
@@ -117,14 +145,14 @@ public override void Initialize()
 bool itValueAcquired = false;
 if (this.Session.ContainsKey("it"))
 {
-    if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
+    if ((typeof(global::org.pescuma.ModelSharp.Core.model.TypeInfo).IsAssignableFrom(this.Session["it"].GetType()) == false))
     {
-        this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                "id not match the type of the data passed to the template.");
+        this.Error("The type \'org.pescuma.ModelSharp.Core.model.TypeInfo\' of the parameter \'it\' did n" +
+                "ot match the type of the data passed to the template.");
     }
     else
     {
-        this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(this.Session["it"]));
+        this._itField = ((global::org.pescuma.ModelSharp.Core.model.TypeInfo)(this.Session["it"]));
         itValueAcquired = true;
     }
 }
@@ -133,14 +161,14 @@ if ((itValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("it");
     if ((data != null))
     {
-        if ((typeof(global::org.pescuma.ModelSharp.Core.model.PropertyInfo).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::org.pescuma.ModelSharp.Core.model.TypeInfo).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'org.pescuma.ModelSharp.Core.model.PropertyInfo\' of the parameter \'it\' d" +
-                    "id not match the type of the data passed to the template.");
+            this.Error("The type \'org.pescuma.ModelSharp.Core.model.TypeInfo\' of the parameter \'it\' did n" +
+                    "ot match the type of the data passed to the template.");
         }
         else
         {
-            this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(data));
+            this._itField = ((global::org.pescuma.ModelSharp.Core.model.TypeInfo)(data));
         }
     }
 }

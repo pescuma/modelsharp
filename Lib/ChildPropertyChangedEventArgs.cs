@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace org.pescuma.ModelSharp.Lib
@@ -66,18 +67,33 @@ namespace org.pescuma.ModelSharp.Lib
 			}
 		}
 
-		public bool IsFrom(object sender, string property)
+		public bool IsFrom(object sender, string propertyName)
 		{
 			foreach (var entry in ObjectPath)
 			{
-				if (entry.Sender == sender && entry.Property == property)
+				if (entry.Sender == sender && entry.Property == propertyName)
 					return true;
 			}
 
 			return false;
 		}
 
-		public bool IsFrom(Type sender, string property)
+		public bool IsFrom<T>(object sender, Expression<Func<T>> property)
+		{
+			var lambda = (LambdaExpression) property;
+			var memberExpression = (MemberExpression) lambda.Body;
+			var propertyName = memberExpression.Member.Name;
+
+			foreach (var entry in ObjectPath)
+			{
+				if (entry.Sender == sender && entry.Property == propertyName)
+					return true;
+			}
+
+			return false;
+		}
+
+		public bool IsFrom(Type sender, string propertyName)
 		{
 			if (sender == null)
 				return false;
@@ -85,7 +101,7 @@ namespace org.pescuma.ModelSharp.Lib
 			foreach (var entry in ObjectPath)
 			{
 				if (entry.Sender != null && sender.IsAssignableFrom(entry.Sender.GetType())
-				    && entry.Property == property)
+				    && entry.Property == propertyName)
 					return true;
 			}
 

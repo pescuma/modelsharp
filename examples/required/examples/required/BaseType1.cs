@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,26 +13,11 @@ namespace examples.required
 
 	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Prop2={Prop2} Prop3={Prop3} Prop4={Prop4} Prop5={Prop5}]")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string PROP1 = "Prop1";
-			public const string PROP2 = "Prop2";
-			public const string PROP3 = "Prop3";
-			public const string PROP4 = "Prop4";
-			public const string PROP5 = "Prop5";
-			public const string COMP_LAZY = "CompLazy";
-			public const string COMP = "Comp";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BaseType1(Type2 prop2, int prop4, string prop5)
+		protected BaseType1(Type2 prop2, int prop4, string prop5)
 		{
 			AddProp1Listeners(this.prop1);
 			this.comp = new Type2();
@@ -44,7 +30,7 @@ namespace examples.required
 			ValidateProp5(this.prop5);
 		}
 		
-		public BaseType1(BaseType1 other)
+		protected BaseType1(BaseType1 other)
 		{
 			this.prop1 = other.Prop1;
 			AddProp1Listeners(this.prop1);
@@ -64,7 +50,7 @@ namespace examples.required
 			ValidateProp5(this.prop5);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Prop1
 		
@@ -94,7 +80,7 @@ namespace examples.required
 			if (this.prop1 == prop1)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.PROP1);
+			NotifyPropertyChanging(() => Prop1);
 			
 			RemoveProp1Listeners(prop1);
 			
@@ -102,7 +88,7 @@ namespace examples.required
 			
 			AddProp1Listeners(prop1);
 			
-			NotifyPropertyChanged(PROPERTIES.PROP1);
+			NotifyPropertyChanged(() => Prop1);
 			
 			return true;
 		}
@@ -153,22 +139,22 @@ namespace examples.required
 		
 		private void Prop1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanging(() => Prop1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanging(() => Prop1, sender, e);
 		}
 		
 		private void Prop1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanged(() => Prop1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
+			NotifyChildPropertyChanged(() => Prop1, sender, e);
 		}
 		
 		#endregion Property Prop1
@@ -199,7 +185,7 @@ namespace examples.required
 		private void ValidateProp2(Type2 value)
 		{
 #pragma warning disable 219
-			var property = PROPERTIES.PROP2;
+			var property = ModelUtils.NameOfProperty(() => Prop2);
 #pragma warning restore 219
 			
 #pragma warning disable 472
@@ -216,7 +202,7 @@ namespace examples.required
 				return false;
 			ValidateProp2(prop2);
 			
-			NotifyPropertyChanging(PROPERTIES.PROP2);
+			NotifyPropertyChanging(() => Prop2);
 			
 			RemoveProp2Listeners(prop2);
 			
@@ -224,7 +210,7 @@ namespace examples.required
 			
 			AddProp2Listeners(prop2);
 			
-			NotifyPropertyChanged(PROPERTIES.PROP2);
+			NotifyPropertyChanged(() => Prop2);
 			
 			return true;
 		}
@@ -275,22 +261,22 @@ namespace examples.required
 		
 		private void Prop2PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP2, sender, e);
+			NotifyChildPropertyChanging(() => Prop2, sender, e);
 		}
 		
 		private void Prop2ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.PROP2, sender, e);
+			NotifyChildPropertyChanging(() => Prop2, sender, e);
 		}
 		
 		private void Prop2PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP2, sender, e);
+			NotifyChildPropertyChanged(() => Prop2, sender, e);
 		}
 		
 		private void Prop2ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.PROP2, sender, e);
+			NotifyChildPropertyChanged(() => Prop2, sender, e);
 		}
 		
 		#endregion Property Prop2
@@ -323,11 +309,11 @@ namespace examples.required
 			if (this.prop3 == prop3)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.PROP3);
+			NotifyPropertyChanging(() => Prop3);
 			
 			this.prop3 = prop3;
 			
-			NotifyPropertyChanged(PROPERTIES.PROP3);
+			NotifyPropertyChanged(() => Prop3);
 			
 			return true;
 		}
@@ -362,11 +348,11 @@ namespace examples.required
 			if (this.prop4 == prop4)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.PROP4);
+			NotifyPropertyChanging(() => Prop4);
 			
 			this.prop4 = prop4;
 			
-			NotifyPropertyChanged(PROPERTIES.PROP4);
+			NotifyPropertyChanged(() => Prop4);
 			
 			return true;
 		}
@@ -399,7 +385,7 @@ namespace examples.required
 		private void ValidateProp5(string value)
 		{
 #pragma warning disable 219
-			var property = PROPERTIES.PROP5;
+			var property = ModelUtils.NameOfProperty(() => Prop5);
 #pragma warning restore 219
 			
 #pragma warning disable 472
@@ -416,11 +402,11 @@ namespace examples.required
 				return false;
 			ValidateProp5(prop5);
 			
-			NotifyPropertyChanging(PROPERTIES.PROP5);
+			NotifyPropertyChanging(() => Prop5);
 			
 			this.prop5 = prop5;
 			
-			NotifyPropertyChanged(PROPERTIES.PROP5);
+			NotifyPropertyChanged(() => Prop5);
 			
 			return true;
 		}
@@ -480,22 +466,22 @@ namespace examples.required
 		
 		private void CompLazyPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP_LAZY, sender, e);
+			NotifyChildPropertyChanging(() => CompLazy, sender, e);
 		}
 		
 		private void CompLazyChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP_LAZY, sender, e);
+			NotifyChildPropertyChanging(() => CompLazy, sender, e);
 		}
 		
 		private void CompLazyPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP_LAZY, sender, e);
+			NotifyChildPropertyChanged(() => CompLazy, sender, e);
 		}
 		
 		private void CompLazyChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP_LAZY, sender, e);
+			NotifyChildPropertyChanged(() => CompLazy, sender, e);
 		}
 		
 		#endregion Property CompLazy
@@ -543,25 +529,80 @@ namespace examples.required
 		
 		private void CompPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
+			NotifyChildPropertyChanging(() => Comp, sender, e);
 		}
 		
 		private void CompChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
+			NotifyChildPropertyChanging(() => Comp, sender, e);
 		}
 		
 		private void CompPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
+			NotifyChildPropertyChanged(() => Comp, sender, e);
 		}
 		
 		private void CompChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
+			NotifyChildPropertyChanged(() => Comp, sender, e);
 		}
 		
 		#endregion Property Comp
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Type1) other);
+		}
 		
 		public virtual void CopyFrom(Type1 other)
 		{
@@ -582,45 +623,7 @@ namespace examples.required
 			Comp.CopyFrom(other.Comp);
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -636,7 +639,7 @@ namespace examples.required
 			return new Type1((Type1) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -648,7 +651,7 @@ namespace examples.required
 			AddCompListeners(this.comp);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

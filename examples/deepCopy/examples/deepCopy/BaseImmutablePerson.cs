@@ -89,6 +89,8 @@ namespace examples.deepCopy
 			return new ImmutablePerson(HomeAddressCol, WorkAddressCol, StringCol, StringCol2, DoubleCol, DoubleCol2, HomeAddressProp, workAddressProp);
 		}
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new ImmutablePerson Clone()
 #pragma warning restore 109
@@ -100,6 +102,8 @@ namespace examples.deepCopy
 		{
 			return new ImmutablePerson((ImmutablePerson) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

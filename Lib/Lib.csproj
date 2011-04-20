@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>org.pescuma.ModelSharp.Lib</RootNamespace>
     <AssemblyName>ModelSharp.Lib</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +52,9 @@
     <Compile Include="ChildPropertyChangedEventHandler.cs" />
     <Compile Include="ChildPropertyChangingEventArgs.cs" />
     <Compile Include="ChildPropertyChangingEventHandler.cs" />
+    <Compile Include="ICopyable.cs" />
     <Compile Include="INotifyCollectionChangedConfiguration.cs" />
+    <Compile Include="ModelUtils.cs" />
     <Compile Include="ReadOnlyObservableList.cs" />
     <Compile Include="INotifyChildPropertyChanged.cs" />
     <Compile Include="INotifyChildPropertyChanging.cs" />

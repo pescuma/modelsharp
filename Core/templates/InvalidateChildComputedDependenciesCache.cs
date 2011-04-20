@@ -97,14 +97,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("if (propertyName == PROPERTIES.");
+            this.Write("if (propertyName == ModelUtils.NameOfProperty(() => ");
             
             #line 8 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n");
+            this.Write("))\r\n\t\t\t{\r\n");
             
             #line 10 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 	if (deps.ContainsKey("")) { 

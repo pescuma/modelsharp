@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>org.pescuma.ModelSharp.Core</RootNamespace>
     <AssemblyName>ModelSharp.Core</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +45,6 @@
     <Reference Include="Antlr3.StringTemplate">
       <HintPath>..\libs\StringTemplate\Antlr3.StringTemplate.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL" />
     <Reference Include="NArrange.Core">
       <HintPath>..\libs\NArrange\NArrange.Core.dll</HintPath>
     </Reference>
@@ -93,6 +93,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BuilderSetFromOther.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\Clone.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clone.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\CollectionProperty.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,11 +117,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CopyProperty.tt</DependentUpon>
-    </Compile>
-    <Compile Include="templates\Define.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Define.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\ImmutableClass.cs">
       <AutoGen>True</AutoGen>
@@ -306,6 +306,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BuilderSetFromOther.cs</LastGenOutput>
     </None>
+    <None Include="templates\Clone.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Clone.cs</LastGenOutput>
+    </None>
     <None Include="templates\CollectionProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CollectionProperty.cs</LastGenOutput>
@@ -333,10 +337,6 @@
     <None Include="templates\CopyProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CopyProperty.cs</LastGenOutput>
-    </None>
-    <None Include="templates\Define.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>Define.cs</LastGenOutput>
     </None>
     <None Include="templates\ImmutableClass.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

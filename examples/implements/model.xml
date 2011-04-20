@@ -1,6 +1,6 @@
 <model namespace="examples.implements">
   <using namespace="System.Collections" />
-	<type name="Test" implements="IList, ICollection">
+	<type name="Test" implements="IDummy, IDummy2">
 		<property name="date" type="DateTime" />
 	</type>
 </model>

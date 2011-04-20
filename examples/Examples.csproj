@@ -8,10 +8,11 @@
     <ProjectGuid>{22DD6083-F24E-4ECE-8E51-E32C807B6577}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Examples</RootNamespace>
+    <RootNamespace>examples</RootNamespace>
     <AssemblyName>Examples</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,6 +96,8 @@
     <Compile Include="immutable\examples\immutable\PointBuilder.cs" />
     <Compile Include="implements\examples\implements\BaseTest.cs" />
     <Compile Include="implements\examples\implements\Test.cs" />
+    <Compile Include="implements\IDummy.cs" />
+    <Compile Include="implements\IDummy2.cs" />
     <Compile Include="lazy\examples\lazy\BaseType1.cs" />
     <Compile Include="lazy\examples\lazy\BaseType2.cs" />
     <Compile Include="lazy\examples\lazy\Type1.cs" />

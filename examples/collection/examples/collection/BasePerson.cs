@@ -5,6 +5,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -13,22 +14,11 @@ namespace examples.collection
 
 	[DataContract]
 	[DebuggerDisplay("Person[Cars={Cars.Count}items Name={Name} Houses={Houses.Count}items]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string CARS = "Cars";
-			public const string NAME = "Name";
-			public const string HOUSES = "Houses";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePerson()
+		protected BasePerson()
 		{
 			this.cars = new ObservableList<string>();
 			AddCarsListListeners(this.cars);
@@ -36,18 +26,18 @@ namespace examples.collection
 			AddHousesListListeners(this.houses);
 		}
 		
-		public BasePerson(BasePerson other)
+		protected BasePerson(BasePerson other)
 		{
 			this.cars = new ObservableList<string>();
-			this.cars.AddRange(other.Cars);
 			AddCarsListListeners(this.cars);
+			this.cars.AddRange(other.Cars);
 			this.name = other.Name;
 			this.houses = new ObservableList<House>();
-			this.houses.AddRange(other.Houses);
 			AddHousesListListeners(this.houses);
+			this.houses.AddRange(other.Houses);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property Cars
 		
@@ -74,11 +64,15 @@ namespace examples.collection
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += CarsListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += CarsListPropertyChangedEventHandler;
 		}
 		
@@ -87,7 +81,7 @@ namespace examples.collection
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.CARS);
+			NotifyPropertyChanging(() => Cars);
 		}
 		
 		private void CarsListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -95,7 +89,7 @@ namespace examples.collection
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.CARS);
+			NotifyPropertyChanged(() => Cars);
 		}
 		
 		#endregion Property Cars
@@ -128,11 +122,11 @@ namespace examples.collection
 			if (this.name == name)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.NAME);
+			NotifyPropertyChanging(() => Name);
 			
 			this.name = name;
 			
-			NotifyPropertyChanged(PROPERTIES.NAME);
+			NotifyPropertyChanged(() => Name);
 			
 			return true;
 		}
@@ -164,15 +158,21 @@ namespace examples.collection
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += HousesListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -184,7 +184,7 @@ namespace examples.collection
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.HOUSES);
+			NotifyPropertyChanging(() => Houses);
 		}
 		
 		private void HousesListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -192,7 +192,7 @@ namespace examples.collection
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.HOUSES);
+			NotifyPropertyChanged(() => Houses);
 		}
 		
 		private void HousesListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -232,19 +232,27 @@ namespace examples.collection
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= HousesItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= HousesItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= HousesItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= HousesItemChildPropertyChangedEventHandler;
 		}
 		
@@ -254,43 +262,106 @@ namespace examples.collection
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HousesItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += HousesItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HousesItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += HousesItemChildPropertyChangedEventHandler;
 		}
 		
 		private void HousesItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanging(() => Houses, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanging(() => Houses, sender, e);
 		}
 		
 		private void HousesItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanged(() => Houses, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
+			NotifyChildPropertyChanged(() => Houses, sender, e);
 		}
 		
 		#endregion Property Houses
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Person) other);
+		}
 		
 		public virtual void CopyFrom(Person other)
 		{
@@ -301,45 +372,7 @@ namespace examples.collection
 			Houses.AddRange(other.Houses);
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -355,7 +388,7 @@ namespace examples.collection
 			return new Person((Person) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -365,7 +398,7 @@ namespace examples.collection
 			AddHousesListListeners(this.houses);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

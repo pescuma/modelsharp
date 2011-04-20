@@ -115,6 +115,8 @@ namespace examples.computeProperty
 		
 		protected abstract double ComputeSquaredLengthCached();
 		
+		#region Clone
+		
 #pragma warning disable 109
 		public new MyImmutableClass Clone()
 #pragma warning restore 109
@@ -126,6 +128,8 @@ namespace examples.computeProperty
 		{
 			return new MyImmutableClass((MyImmutableClass) this);
 		}
+		
+		#endregion Clone
 	}
 	
 }

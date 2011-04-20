@@ -5,6 +5,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -13,28 +14,11 @@ namespace examples.deepCopy
 
 	[DataContract]
 	[DebuggerDisplay("Person[HomeAddressCol={HomeAddressCol.Count}items WorkAddressCol={WorkAddressCol.Count}items LazyAddressCol={LazyAddressCol.Count}items StringCol={StringCol.Count}items StringCol2={StringCol2.Count}items DoubleCol={DoubleCol.Count}items DoubleCol2={DoubleCol2.Count}items HomeAddressProp={HomeAddressProp} WorkAddressProp={WorkAddressProp}]")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
-		#region Field Name Defines
-		
-		public class PROPERTIES
-		{
-			public const string HOME_ADDRESS_COL = "HomeAddressCol";
-			public const string WORK_ADDRESS_COL = "WorkAddressCol";
-			public const string LAZY_ADDRESS_COL = "LazyAddressCol";
-			public const string STRING_COL = "StringCol";
-			public const string STRING_COL2 = "StringCol2";
-			public const string DOUBLE_COL = "DoubleCol";
-			public const string DOUBLE_COL2 = "DoubleCol2";
-			public const string HOME_ADDRESS_PROP = "HomeAddressProp";
-			public const string WORK_ADDRESS_PROP = "WorkAddressProp";
-		}
-		
-		#endregion
-		
 		#region Constructors
 		
-		public BasePerson()
+		protected BasePerson()
 		{
 			this.homeAddressCol = new ObservableList<Address>();
 			AddHomeAddressColListListeners(this.homeAddressCol);
@@ -52,35 +36,35 @@ namespace examples.deepCopy
 			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
-		public BasePerson(BasePerson other)
+		protected BasePerson(BasePerson other)
 		{
 			this.homeAddressCol = new ObservableList<Address>();
+			AddHomeAddressColListListeners(this.homeAddressCol);
 			foreach (Address otherItem in other.HomeAddressCol)
 				this.homeAddressCol.Add(otherItem == null ? null : new Address(otherItem));
-			AddHomeAddressColListListeners(this.homeAddressCol);
 			this.workAddressCol = new ObservableList<Address>();
-			this.workAddressCol.AddRange(other.WorkAddressCol);
 			AddWorkAddressColListListeners(this.workAddressCol);
+			this.workAddressCol.AddRange(other.WorkAddressCol);
 			if (other.lazyAddressCol != null)
 			{
 				this.lazyAddressCol = new ObservableList<Address>();
+				AddLazyAddressColListListeners(this.lazyAddressCol);
 				foreach (Address otherItem in other.LazyAddressCol)
 					this.lazyAddressCol.Add(otherItem == null ? null : new Address(otherItem));
-				AddLazyAddressColListListeners(this.lazyAddressCol);
 			}
 			this.stringCol = new ObservableList<string>();
+			AddStringColListListeners(this.stringCol);
 			foreach (string otherItem in other.StringCol)
 				this.stringCol.Add(otherItem == null ? null : string.Copy(otherItem));
-			AddStringColListListeners(this.stringCol);
 			this.stringCol2 = new ObservableList<string>();
-			this.stringCol2.AddRange(other.StringCol2);
 			AddStringCol2ListListeners(this.stringCol2);
+			this.stringCol2.AddRange(other.StringCol2);
 			this.doubleCol = new ObservableList<double>();
-			this.doubleCol.AddRange(other.DoubleCol);
 			AddDoubleColListListeners(this.doubleCol);
+			this.doubleCol.AddRange(other.DoubleCol);
 			this.doubleCol2 = new ObservableList<double>();
-			this.doubleCol2.AddRange(other.DoubleCol2);
 			AddDoubleCol2ListListeners(this.doubleCol2);
+			this.doubleCol2.AddRange(other.DoubleCol2);
 			if (other.HomeAddressProp == null)
 				this.homeAddressProp = null;
 			else
@@ -90,7 +74,7 @@ namespace examples.deepCopy
 			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
-		#endregion
+		#endregion Constructors
 		
 		#region Property HomeAddressCol
 		
@@ -117,15 +101,21 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HomeAddressColListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HomeAddressColListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += HomeAddressColListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -137,7 +127,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_COL);
+			NotifyPropertyChanging(() => HomeAddressCol);
 		}
 		
 		private void HomeAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -145,7 +135,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.HOME_ADDRESS_COL);
+			NotifyPropertyChanged(() => HomeAddressCol);
 		}
 		
 		private void HomeAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -185,19 +175,27 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= HomeAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= HomeAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= HomeAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= HomeAddressColItemChildPropertyChangedEventHandler;
 		}
 		
@@ -207,40 +205,48 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += HomeAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += HomeAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += HomeAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += HomeAddressColItemChildPropertyChangedEventHandler;
 		}
 		
 		private void HomeAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddressCol, sender, e);
 		}
 		
 		private void HomeAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddressCol, sender, e);
 		}
 		
 		private void HomeAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddressCol, sender, e);
 		}
 		
 		private void HomeAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddressCol, sender, e);
 		}
 		
 		#endregion Property HomeAddressCol
@@ -270,15 +276,21 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += WorkAddressColListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += WorkAddressColListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += WorkAddressColListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -290,7 +302,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_COL);
+			NotifyPropertyChanging(() => WorkAddressCol);
 		}
 		
 		private void WorkAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -298,7 +310,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS_COL);
+			NotifyPropertyChanged(() => WorkAddressCol);
 		}
 		
 		private void WorkAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -338,19 +350,27 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= WorkAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= WorkAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= WorkAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= WorkAddressColItemChildPropertyChangedEventHandler;
 		}
 		
@@ -360,40 +380,48 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += WorkAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += WorkAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += WorkAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += WorkAddressColItemChildPropertyChangedEventHandler;
 		}
 		
 		private void WorkAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddressCol, sender, e);
 		}
 		
 		private void WorkAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddressCol, sender, e);
 		}
 		
 		private void WorkAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddressCol, sender, e);
 		}
 		
 		private void WorkAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddressCol, sender, e);
 		}
 		
 		#endregion Property WorkAddressCol
@@ -433,15 +461,21 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += LazyAddressColListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += LazyAddressColListPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += LazyAddressColListChangedEventHandler;
 				
 			foreach (var item in child)
@@ -453,7 +487,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL);
+			NotifyPropertyChanging(() => LazyAddressCol);
 		}
 		
 		private void LazyAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -461,7 +495,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL);
+			NotifyPropertyChanged(() => LazyAddressCol);
 		}
 		
 		private void LazyAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -501,19 +535,27 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= LazyAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= LazyAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= LazyAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= LazyAddressColItemChildPropertyChangedEventHandler;
 		}
 		
@@ -523,40 +565,48 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += LazyAddressColItemPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += LazyAddressColItemChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += LazyAddressColItemPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += LazyAddressColItemChildPropertyChangedEventHandler;
 		}
 		
 		private void LazyAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => LazyAddressCol, sender, e);
 		}
 		
 		private void LazyAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanging(() => LazyAddressCol, sender, e);
 		}
 		
 		private void LazyAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => LazyAddressCol, sender, e);
 		}
 		
 		private void LazyAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
+			NotifyChildPropertyChanged(() => LazyAddressCol, sender, e);
 		}
 		
 		#endregion Property LazyAddressCol
@@ -586,11 +636,15 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += StringColListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += StringColListPropertyChangedEventHandler;
 		}
 		
@@ -599,7 +653,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.STRING_COL);
+			NotifyPropertyChanging(() => StringCol);
 		}
 		
 		private void StringColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -607,7 +661,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.STRING_COL);
+			NotifyPropertyChanged(() => StringCol);
 		}
 		
 		#endregion Property StringCol
@@ -637,11 +691,15 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += StringCol2ListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += StringCol2ListPropertyChangedEventHandler;
 		}
 		
@@ -650,7 +708,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.STRING_COL2);
+			NotifyPropertyChanging(() => StringCol2);
 		}
 		
 		private void StringCol2ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -658,7 +716,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.STRING_COL2);
+			NotifyPropertyChanged(() => StringCol2);
 		}
 		
 		#endregion Property StringCol2
@@ -688,11 +746,15 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += DoubleColListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += DoubleColListPropertyChangedEventHandler;
 		}
 		
@@ -701,7 +763,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.DOUBLE_COL);
+			NotifyPropertyChanging(() => DoubleCol);
 		}
 		
 		private void DoubleColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -709,7 +771,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.DOUBLE_COL);
+			NotifyPropertyChanged(() => DoubleCol);
 		}
 		
 		#endregion Property DoubleCol
@@ -739,11 +801,15 @@ namespace examples.deepCopy
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += DoubleCol2ListPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += DoubleCol2ListPropertyChangedEventHandler;
 		}
 		
@@ -752,7 +818,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(PROPERTIES.DOUBLE_COL2);
+			NotifyPropertyChanging(() => DoubleCol2);
 		}
 		
 		private void DoubleCol2ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -760,7 +826,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(PROPERTIES.DOUBLE_COL2);
+			NotifyPropertyChanged(() => DoubleCol2);
 		}
 		
 		#endregion Property DoubleCol2
@@ -793,7 +859,7 @@ namespace examples.deepCopy
 			if (this.homeAddressProp == homeAddressProp)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP);
+			NotifyPropertyChanging(() => HomeAddressProp);
 			
 			RemoveHomeAddressPropListeners(homeAddressProp);
 			
@@ -801,7 +867,7 @@ namespace examples.deepCopy
 			
 			AddHomeAddressPropListeners(homeAddressProp);
 			
-			NotifyPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP);
+			NotifyPropertyChanged(() => HomeAddressProp);
 			
 			return true;
 		}
@@ -852,22 +918,22 @@ namespace examples.deepCopy
 		
 		private void HomeAddressPropPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddressProp, sender, e);
 		}
 		
 		private void HomeAddressPropChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanging(() => HomeAddressProp, sender, e);
 		}
 		
 		private void HomeAddressPropPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddressProp, sender, e);
 		}
 		
 		private void HomeAddressPropChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanged(() => HomeAddressProp, sender, e);
 		}
 		
 		#endregion Property HomeAddressProp
@@ -900,7 +966,7 @@ namespace examples.deepCopy
 			if (this.workAddressProp == workAddressProp)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP);
+			NotifyPropertyChanging(() => WorkAddressProp);
 			
 			RemoveWorkAddressPropListeners(workAddressProp);
 			
@@ -908,7 +974,7 @@ namespace examples.deepCopy
 			
 			AddWorkAddressPropListeners(workAddressProp);
 			
-			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP);
+			NotifyPropertyChanged(() => WorkAddressProp);
 			
 			return true;
 		}
@@ -959,25 +1025,80 @@ namespace examples.deepCopy
 		
 		private void WorkAddressPropPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddressProp, sender, e);
 		}
 		
 		private void WorkAddressPropChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanging(() => WorkAddressProp, sender, e);
 		}
 		
 		private void WorkAddressPropPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddressProp, sender, e);
 		}
 		
 		private void WorkAddressPropChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
+			NotifyChildPropertyChanged(() => WorkAddressProp, sender, e);
 		}
 		
 		#endregion Property WorkAddressProp
+		
+		#region Property Notification
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangingEventHandler handler = PropertyChanging;
+			if (handler != null)
+				handler(this, new PropertyChangingEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
+		
+		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
+		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+				handler(this, new PropertyChangedEventArgs(propertyName));
+		}
+		
+		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
+		
+		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = ModelUtils.NameOfProperty(property);
+			
+			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
+			if (handler != null)
+				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
+		}
+		
+		#endregion Property Notification
+		
+		#region CopyFrom
+		
+		void ICopyable.CopyFrom(object other)
+		{
+			CopyFrom((Person) other);
+		}
 		
 		public virtual void CopyFrom(Person other)
 		{
@@ -1013,45 +1134,7 @@ namespace examples.deepCopy
 			WorkAddressProp = other.WorkAddressProp;
 		}
 		
-		#region Property Notification
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		protected virtual void NotifyPropertyChanging(string propertyName)
-		{
-			PropertyChangingEventHandler handler = PropertyChanging;
-			if (handler != null)
-				handler(this, new PropertyChangingEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
-		
-		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
-		{
-			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
-		}
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-				handler(this, new PropertyChangedEventArgs(propertyName));
-		}
-		
-		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
-		
-		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
-		{
-			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
-			if (handler != null)
-				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
-		}
-		
-		#endregion
+		#endregion CopyFrom
 		
 		#region Clone
 		
@@ -1067,7 +1150,7 @@ namespace examples.deepCopy
 			return new Person((Person) this);
 		}
 		
-		#endregion
+		#endregion Clone
 		
 		#region Serialization
 		
@@ -1084,7 +1167,7 @@ namespace examples.deepCopy
 			AddWorkAddressPropListeners(this.workAddressProp);
 		}
 		
-		#endregion
+		#endregion Serialization
 	}
 	
 }

@@ -60,9 +60,11 @@
     <Compile Include="composition\examples\composition\Person.cs" />
     <Compile Include="computed-property\examples\computeProperty\BaseMyClass.cs" />
     <Compile Include="computed-property\examples\computeProperty\BaseMyImmutableClass.cs" />
+    <Compile Include="computed-property\examples\computeProperty\BasePoint.cs" />
     <Compile Include="computed-property\examples\computeProperty\MyClass.cs" />
     <Compile Include="computed-property\examples\computeProperty\MyImmutableClass.cs" />
     <Compile Include="computed-property\examples\computeProperty\MyImmutableClassBuilder.cs" />
+    <Compile Include="computed-property\examples\computeProperty\Point.cs" />
     <Compile Include="deepCopy\examples\deepCopy\Address.cs" />
     <Compile Include="deepCopy\examples\deepCopy\BaseAddress.cs" />
     <Compile Include="deepCopy\examples\deepCopy\BaseImmutableAddress.cs" />

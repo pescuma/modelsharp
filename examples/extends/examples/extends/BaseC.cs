@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -16,6 +15,17 @@ namespace examples.extends
 	[DebuggerDisplay("C[Date2={Date2}]")]
 	public abstract class BaseC : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public new class PROPERTIES : B.PROPERTIES
+		{
+			public static readonly string DATE2 = ModelUtils.NameOfProperty((BaseC o) => o.Date2);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BaseC()
@@ -50,17 +60,19 @@ namespace examples.extends
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual DateTime GetDate2()
 		{
 			return this.date2;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetDate2(DateTime date2)
 		{
 			if (this.date2 == date2)
 				return false;
 				
-			NotifyPropertyChanging(() => Date2);
+			NotifyPropertyChanging(PROPERTIES.DATE2);
 			
 			RemoveDate2Listeners(date2);
 			
@@ -68,7 +80,7 @@ namespace examples.extends
 			
 			AddDate2Listeners(date2);
 			
-			NotifyPropertyChanged(() => Date2);
+			NotifyPropertyChanged(PROPERTIES.DATE2);
 			
 			return true;
 		}
@@ -119,22 +131,22 @@ namespace examples.extends
 		
 		private void Date2PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Date2, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.DATE2, sender, e);
 		}
 		
 		private void Date2ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Date2, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.DATE2, sender, e);
 		}
 		
 		private void Date2PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Date2, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.DATE2, sender, e);
 		}
 		
 		private void Date2ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Date2, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.DATE2, sender, e);
 		}
 		
 		#endregion Property Date2

@@ -490,10 +490,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanging(() => ");
+            this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
             #line 85 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
@@ -512,10 +512,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanged(() => ");
+            this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
             #line 93 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
@@ -707,10 +707,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
-                    "\r\n\t\t\tNotifyChildPropertyChanging(() => ");
+                    "\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
             #line 190 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
@@ -722,10 +722,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventAr" +
-                    "gs e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(() => ");
+                    "gs e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
             #line 195 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
@@ -737,10 +737,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
-                    "\t\t\tNotifyChildPropertyChanged(() => ");
+                    "\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
             #line 200 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
@@ -752,10 +752,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs" +
-                    " e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(() => ");
+                    " e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
             #line 205 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden

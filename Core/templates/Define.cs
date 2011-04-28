@@ -9,14 +9,12 @@
 // ------------------------------------------------------------------------------
 namespace org.pescuma.ModelSharp.Core.templates
 {
-    using System.Linq;
-    using org.pescuma.ModelSharp.Core.model;
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+    #line 1 "X:\c#\modelsharp\Core\templates\Define.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
-    public partial class NotifyDependenciesChange : TemplateUtils
+    public partial class Define : TemplateUtils
     {
         #region ToString Helpers
         /// <summary>
@@ -77,60 +75,32 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
             this.GenerationEnvironment = null;
-            this.Write("\r\n\t\t\t");
+            this.Write("\t\t\tpublic static readonly string ");
             
-            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
- if (index > 0) { 
-            
-            #line default
-            #line hidden
-            this.Write("else ");
-            
-            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("if (propertyName == PROPERTIES.");
-            
-            #line 8 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+            #line 3 "X:\c#\modelsharp\Core\templates\Define.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
-            this.Write(")\r\n\t\t\t{\r\n");
+            this.Write(" = ModelUtils.NameOfProperty((");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
-		foreach(var prop in it.ComputedDependentProperties) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\tNotifyProperty");
-            
-            #line 11 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(type));
+            #line 3 "X:\c#\modelsharp\Core\templates\Define.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Owner.ImplementationName));
             
             #line default
             #line hidden
-            this.Write("(PROPERTIES.");
+            this.Write(" o) => o.");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
+            #line 3 "X:\c#\modelsharp\Core\templates\Define.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
-		} 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\NotifyDependenciesChange.tt"
+        #line 1 "X:\c#\modelsharp\Core\templates\Define.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 
@@ -142,32 +112,6 @@ private global::org.pescuma.ModelSharp.Core.model.PropertyInfo it
     get
     {
         return this._itField;
-    }
-}
-
-private int _indexField;
-
-/// <summary>
-/// Access the index parameter of the template.
-/// </summary>
-private int index
-{
-    get
-    {
-        return this._indexField;
-    }
-}
-
-private string _typeField;
-
-/// <summary>
-/// Access the type parameter of the template.
-/// </summary>
-private string type
-{
-    get
-    {
-        return this._typeField;
     }
 }
 
@@ -204,66 +148,6 @@ if ((itValueAcquired == false))
         else
         {
             this._itField = ((global::org.pescuma.ModelSharp.Core.model.PropertyInfo)(data));
-        }
-    }
-}
-bool indexValueAcquired = false;
-if (this.Session.ContainsKey("index"))
-{
-    if ((typeof(int).IsAssignableFrom(this.Session["index"].GetType()) == false))
-    {
-        this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
-                "ta passed to the template.");
-    }
-    else
-    {
-        this._indexField = ((int)(this.Session["index"]));
-        indexValueAcquired = true;
-    }
-}
-if ((indexValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("index");
-    if ((data != null))
-    {
-        if ((typeof(int).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Int32\' of the parameter \'index\' did not match the type of the da" +
-                    "ta passed to the template.");
-        }
-        else
-        {
-            this._indexField = ((int)(data));
-        }
-    }
-}
-bool typeValueAcquired = false;
-if (this.Session.ContainsKey("type"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["type"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
-                "ta passed to the template.");
-    }
-    else
-    {
-        this._typeField = ((string)(this.Session["type"]));
-        typeValueAcquired = true;
-    }
-}
-if ((typeValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("type");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'type\' did not match the type of the da" +
-                    "ta passed to the template.");
-        }
-        else
-        {
-            this._typeField = ((string)(data));
         }
     }
 }

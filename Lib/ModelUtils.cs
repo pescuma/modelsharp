@@ -21,6 +21,7 @@
 //  
 using System;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace org.pescuma.ModelSharp.Lib
 {
@@ -30,14 +31,30 @@ namespace org.pescuma.ModelSharp.Lib
 		{
 			var lambda = (LambdaExpression) property;
 			var memberExpression = (MemberExpression) lambda.Body;
-			return memberExpression.Member.Name;
+			return GetNames(memberExpression);
 		}
 
 		public static string NameOfProperty<TType, TProperty>(Expression<Func<TType, TProperty>> property)
 		{
 			var lambda = (LambdaExpression) property;
 			var memberExpression = (MemberExpression) lambda.Body;
-			return memberExpression.Member.Name;
+			return GetNames(memberExpression);
+		}
+
+		private static string GetNames(MemberExpression memberExpression)
+		{
+			var names = new StringBuilder();
+
+			while (memberExpression != null)
+			{
+				if (names.Length > 0)
+					names.Insert(0, ".");
+				names.Insert(0, memberExpression.Member.Name);
+
+				memberExpression = memberExpression.Expression as MemberExpression;
+			}
+
+			return names.ToString();
 		}
 	}
 }

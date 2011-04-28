@@ -82,7 +82,7 @@
 			if (e.PropertyName != <#= it.TypeName #>.PROPERTIES.ITEMS)
 				return;
 
-			NotifyPropertyChanging(() => <#= it.Name #>);
+			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
 		}
 
 		private void <#= it.Name #>ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -90,7 +90,7 @@
 			if (e.PropertyName != <#= it.TypeName #>.PROPERTIES.ITEMS)
 				return;
 
-			NotifyPropertyChanged(() => <#= it.Name #>);
+			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
 		}
 <# if (it.ContentsType.CanListenTo) { #>
 
@@ -187,21 +187,21 @@
 
 		private void <#= it.Name #>ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 <# } #>

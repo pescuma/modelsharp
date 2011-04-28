@@ -38,5 +38,10 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			return StringUtils.FirstLower(name);
 		}
+
+		public string ToDefineName(string name)
+		{
+			return StringUtils.ToDefineName(name);
+		}
 	}
 }

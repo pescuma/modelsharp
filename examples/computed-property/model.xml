@@ -6,11 +6,12 @@
 		<computed-property name="Dummy" type="string" />
 		<computed-property name="DummyCached" type="string" cached="true" />
 		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
-		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y,P" cached="true" />
+		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y,Ps" cached="true" />
 		<collection name="Children" type="MyClass" />
-		<collection name="P" type="Point" />
-		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y" />
-		<computed-property name="CompSubCached" type="double" dependsOn="P.X,p.Y" cached="true" />
+		<collection name="Ps" type="Point" />
+    <property name="P" type="Point" />
+		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y,Ps.Y" />
+		<computed-property name="CompSubCached" type="double" dependsOn="P.X,p.Y,Ps.Y" cached="true" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
 		<property name="X" type="double" />

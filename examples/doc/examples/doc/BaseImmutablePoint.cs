@@ -67,6 +67,7 @@ namespace examples.doc
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected abstract double ComputeLen();
 		
 		#region Clone

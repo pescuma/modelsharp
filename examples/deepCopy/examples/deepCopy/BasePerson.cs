@@ -5,7 +5,6 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -16,6 +15,25 @@ namespace examples.deepCopy
 	[DebuggerDisplay("Person[HomeAddressCol={HomeAddressCol.Count}items WorkAddressCol={WorkAddressCol.Count}items LazyAddressCol={LazyAddressCol.Count}items StringCol={StringCol.Count}items StringCol2={StringCol2.Count}items DoubleCol={DoubleCol.Count}items DoubleCol2={DoubleCol2.Count}items HomeAddressProp={HomeAddressProp} WorkAddressProp={WorkAddressProp}]")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string HOME_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddressCol);
+			public static readonly string WORK_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddressCol);
+			public static readonly string LAZY_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.LazyAddressCol);
+			public static readonly string STRING_COL = ModelUtils.NameOfProperty((BasePerson o) => o.StringCol);
+			public static readonly string STRING_COL2 = ModelUtils.NameOfProperty((BasePerson o) => o.StringCol2);
+			public static readonly string DOUBLE_COL = ModelUtils.NameOfProperty((BasePerson o) => o.DoubleCol);
+			public static readonly string DOUBLE_COL2 = ModelUtils.NameOfProperty((BasePerson o) => o.DoubleCol2);
+			public static readonly string HOME_ADDRESS_PROP = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddressProp);
+			public static readonly string WORK_ADDRESS_PROP = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddressProp);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePerson()
@@ -90,6 +108,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<Address> GetHomeAddressCol()
 		{
 			return this.homeAddressCol;
@@ -127,7 +146,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => HomeAddressCol);
+			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_COL);
 		}
 		
 		private void HomeAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -135,7 +154,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => HomeAddressCol);
+			NotifyPropertyChanged(PROPERTIES.HOME_ADDRESS_COL);
 		}
 		
 		private void HomeAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -231,22 +250,22 @@ namespace examples.deepCopy
 		
 		private void HomeAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_COL, sender, e);
 		}
 		
 		private void HomeAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_COL, sender, e);
 		}
 		
 		private void HomeAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_COL, sender, e);
 		}
 		
 		private void HomeAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_COL, sender, e);
 		}
 		
 		#endregion Property HomeAddressCol
@@ -265,6 +284,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<Address> GetWorkAddressCol()
 		{
 			return this.workAddressCol;
@@ -302,7 +322,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => WorkAddressCol);
+			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_COL);
 		}
 		
 		private void WorkAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -310,7 +330,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => WorkAddressCol);
+			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS_COL);
 		}
 		
 		private void WorkAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -406,22 +426,22 @@ namespace examples.deepCopy
 		
 		private void WorkAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_COL, sender, e);
 		}
 		
 		private void WorkAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_COL, sender, e);
 		}
 		
 		private void WorkAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_COL, sender, e);
 		}
 		
 		private void WorkAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_COL, sender, e);
 		}
 		
 		#endregion Property WorkAddressCol
@@ -440,6 +460,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual void LazyInitLazyAddressCol()
 		{
 			if (this.lazyAddressCol != null)
@@ -449,6 +470,7 @@ namespace examples.deepCopy
 			AddLazyAddressColListListeners(this.lazyAddressCol);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<Address> GetLazyAddressCol()
 		{
 			LazyInitLazyAddressCol();
@@ -487,7 +509,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => LazyAddressCol);
+			NotifyPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL);
 		}
 		
 		private void LazyAddressColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -495,7 +517,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<Address>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => LazyAddressCol);
+			NotifyPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL);
 		}
 		
 		private void LazyAddressColListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -591,22 +613,22 @@ namespace examples.deepCopy
 		
 		private void LazyAddressColItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => LazyAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
 		}
 		
 		private void LazyAddressColItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => LazyAddressCol, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
 		}
 		
 		private void LazyAddressColItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => LazyAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
 		}
 		
 		private void LazyAddressColItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => LazyAddressCol, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.LAZY_ADDRESS_COL, sender, e);
 		}
 		
 		#endregion Property LazyAddressCol
@@ -625,6 +647,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<string> GetStringCol()
 		{
 			return this.stringCol;
@@ -653,7 +676,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => StringCol);
+			NotifyPropertyChanging(PROPERTIES.STRING_COL);
 		}
 		
 		private void StringColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -661,7 +684,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => StringCol);
+			NotifyPropertyChanged(PROPERTIES.STRING_COL);
 		}
 		
 		#endregion Property StringCol
@@ -680,6 +703,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<string> GetStringCol2()
 		{
 			return this.stringCol2;
@@ -708,7 +732,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => StringCol2);
+			NotifyPropertyChanging(PROPERTIES.STRING_COL2);
 		}
 		
 		private void StringCol2ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -716,7 +740,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<string>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => StringCol2);
+			NotifyPropertyChanged(PROPERTIES.STRING_COL2);
 		}
 		
 		#endregion Property StringCol2
@@ -735,6 +759,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<double> GetDoubleCol()
 		{
 			return this.doubleCol;
@@ -763,7 +788,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => DoubleCol);
+			NotifyPropertyChanging(PROPERTIES.DOUBLE_COL);
 		}
 		
 		private void DoubleColListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -771,7 +796,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => DoubleCol);
+			NotifyPropertyChanged(PROPERTIES.DOUBLE_COL);
 		}
 		
 		#endregion Property DoubleCol
@@ -790,6 +815,7 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<double> GetDoubleCol2()
 		{
 			return this.doubleCol2;
@@ -818,7 +844,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => DoubleCol2);
+			NotifyPropertyChanging(PROPERTIES.DOUBLE_COL2);
 		}
 		
 		private void DoubleCol2ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -826,7 +852,7 @@ namespace examples.deepCopy
 			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => DoubleCol2);
+			NotifyPropertyChanged(PROPERTIES.DOUBLE_COL2);
 		}
 		
 		#endregion Property DoubleCol2
@@ -849,17 +875,19 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Address GetHomeAddressProp()
 		{
 			return this.homeAddressProp;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetHomeAddressProp(Address homeAddressProp)
 		{
 			if (this.homeAddressProp == homeAddressProp)
 				return false;
 				
-			NotifyPropertyChanging(() => HomeAddressProp);
+			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP);
 			
 			RemoveHomeAddressPropListeners(homeAddressProp);
 			
@@ -867,7 +895,7 @@ namespace examples.deepCopy
 			
 			AddHomeAddressPropListeners(homeAddressProp);
 			
-			NotifyPropertyChanged(() => HomeAddressProp);
+			NotifyPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP);
 			
 			return true;
 		}
@@ -918,22 +946,22 @@ namespace examples.deepCopy
 		
 		private void HomeAddressPropPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddressProp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
 		}
 		
 		private void HomeAddressPropChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddressProp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
 		}
 		
 		private void HomeAddressPropPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddressProp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
 		}
 		
 		private void HomeAddressPropChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddressProp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP, sender, e);
 		}
 		
 		#endregion Property HomeAddressProp
@@ -956,17 +984,19 @@ namespace examples.deepCopy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Address GetWorkAddressProp()
 		{
 			return this.workAddressProp;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetWorkAddressProp(Address workAddressProp)
 		{
 			if (this.workAddressProp == workAddressProp)
 				return false;
 				
-			NotifyPropertyChanging(() => WorkAddressProp);
+			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP);
 			
 			RemoveWorkAddressPropListeners(workAddressProp);
 			
@@ -974,7 +1004,7 @@ namespace examples.deepCopy
 			
 			AddWorkAddressPropListeners(workAddressProp);
 			
-			NotifyPropertyChanged(() => WorkAddressProp);
+			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP);
 			
 			return true;
 		}
@@ -1025,22 +1055,22 @@ namespace examples.deepCopy
 		
 		private void WorkAddressPropPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddressProp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
 		}
 		
 		private void WorkAddressPropChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddressProp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
 		}
 		
 		private void WorkAddressPropPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddressProp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
 		}
 		
 		private void WorkAddressPropChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddressProp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP, sender, e);
 		}
 		
 		#endregion Property WorkAddressProp
@@ -1049,10 +1079,8 @@ namespace examples.deepCopy
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -1060,10 +1088,8 @@ namespace examples.deepCopy
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -1071,10 +1097,8 @@ namespace examples.deepCopy
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -1082,10 +1106,8 @@ namespace examples.deepCopy
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

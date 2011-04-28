@@ -294,6 +294,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private bool hasCopyFromFieldSpecified;
         
+        private bool hasPropertiesField;
+        
+        private bool hasPropertiesFieldSpecified;
+        
         private bool hasPropertyChangedField;
         
         private bool hasPropertyChangedFieldSpecified;
@@ -365,6 +369,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.hasCopyFromFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool hasProperties {
+            get {
+                return this.hasPropertiesField;
+            }
+            set {
+                this.hasPropertiesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool hasPropertiesSpecified {
+            get {
+                return this.hasPropertiesFieldSpecified;
+            }
+            set {
+                this.hasPropertiesFieldSpecified = value;
             }
         }
         

@@ -258,6 +258,8 @@ namespace org.pescuma.ModelSharp.Core
 							ti.BaseClass.HasPropertyChanging = bc.hasPropertyChanging;
 						if (bc.hasCopyFromSpecified)
 							ti.BaseClass.HasCopyFrom = bc.hasCopyFrom;
+						if (bc.hasPropertiesSpecified)
+							ti.BaseClass.HasProperties = bc.hasProperties;
 					}
 
 					foreach (var item in type.Items)
@@ -470,6 +472,7 @@ namespace org.pescuma.ModelSharp.Core
 				type.BaseClass.HasPropertyChanged = true;
 				type.BaseClass.HasPropertyChanging = true;
 				type.BaseClass.HasCopyFrom = true;
+				type.BaseClass.HasProperties = true;
 			}
 		}
 
@@ -630,7 +633,6 @@ namespace org.pescuma.ModelSharp.Core
 
 				type.Using.Add("System");
 				type.Using.Add("System.ComponentModel");
-				type.Using.Add("System.Linq.Expressions");
 				type.Using.Add("org.pescuma.ModelSharp.Lib");
 
 				type.Implements.Add("INotifyPropertyChanging");
@@ -690,6 +692,15 @@ namespace org.pescuma.ModelSharp.Core
 
 					prop.PropGetAnnotations.Add("DebuggerStepThrough");
 					prop.PropSetAnnotations.Add("DebuggerStepThrough");
+
+					if (prop.Getter != null)
+						prop.Getter.Annotations.Add("DebuggerStepThrough");
+
+					if (prop.Setter != null)
+						prop.Setter.Annotations.Add("DebuggerStepThrough");
+
+					if (prop.LazyInitializer != null)
+						prop.LazyInitializer.Annotations.Add("DebuggerStepThrough");
 				}
 			}
 		}

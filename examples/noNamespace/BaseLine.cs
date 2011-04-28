@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -12,6 +11,18 @@ using System.Diagnostics;
 [DebuggerDisplay("Line[P1={P1} P2={P2}]")]
 public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 {
+	#region Field Name Defines
+	
+	public class PROPERTIES
+	{
+		public static readonly string P1 = ModelUtils.NameOfProperty((BaseLine o) => o.P1);
+		public static readonly string P2 = ModelUtils.NameOfProperty((BaseLine o) => o.P2);
+		
+		protected PROPERTIES() {}
+	}
+	
+	#endregion
+	
 	#region Constructors
 	
 	protected BaseLine()
@@ -48,17 +59,19 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 		}
 	}
 	
+	[DebuggerStepThrough]
 	protected virtual Point GetP1()
 	{
 		return this.p1;
 	}
 	
+	[DebuggerStepThrough]
 	protected virtual bool SetP1(Point p1)
 	{
 		if (this.p1 == p1)
 			return false;
 			
-		NotifyPropertyChanging(() => P1);
+		NotifyPropertyChanging(PROPERTIES.P1);
 		
 		RemoveP1Listeners(p1);
 		
@@ -66,7 +79,7 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 		
 		AddP1Listeners(p1);
 		
-		NotifyPropertyChanged(() => P1);
+		NotifyPropertyChanged(PROPERTIES.P1);
 		
 		return true;
 	}
@@ -117,22 +130,22 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	private void P1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 	{
-		NotifyChildPropertyChanging(() => P1, sender, e);
+		NotifyChildPropertyChanging(PROPERTIES.P1, sender, e);
 	}
 	
 	private void P1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 	{
-		NotifyChildPropertyChanging(() => P1, sender, e);
+		NotifyChildPropertyChanging(PROPERTIES.P1, sender, e);
 	}
 	
 	private void P1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 	{
-		NotifyChildPropertyChanged(() => P1, sender, e);
+		NotifyChildPropertyChanged(PROPERTIES.P1, sender, e);
 	}
 	
 	private void P1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 	{
-		NotifyChildPropertyChanged(() => P1, sender, e);
+		NotifyChildPropertyChanged(PROPERTIES.P1, sender, e);
 	}
 	
 	#endregion Property P1
@@ -155,17 +168,19 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 		}
 	}
 	
+	[DebuggerStepThrough]
 	protected virtual Point GetP2()
 	{
 		return this.p2;
 	}
 	
+	[DebuggerStepThrough]
 	protected virtual bool SetP2(Point p2)
 	{
 		if (this.p2 == p2)
 			return false;
 			
-		NotifyPropertyChanging(() => P2);
+		NotifyPropertyChanging(PROPERTIES.P2);
 		
 		RemoveP2Listeners(p2);
 		
@@ -173,7 +188,7 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 		
 		AddP2Listeners(p2);
 		
-		NotifyPropertyChanged(() => P2);
+		NotifyPropertyChanged(PROPERTIES.P2);
 		
 		return true;
 	}
@@ -224,22 +239,22 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	private void P2PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 	{
-		NotifyChildPropertyChanging(() => P2, sender, e);
+		NotifyChildPropertyChanging(PROPERTIES.P2, sender, e);
 	}
 	
 	private void P2ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 	{
-		NotifyChildPropertyChanging(() => P2, sender, e);
+		NotifyChildPropertyChanging(PROPERTIES.P2, sender, e);
 	}
 	
 	private void P2PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 	{
-		NotifyChildPropertyChanged(() => P2, sender, e);
+		NotifyChildPropertyChanged(PROPERTIES.P2, sender, e);
 	}
 	
 	private void P2ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 	{
-		NotifyChildPropertyChanged(() => P2, sender, e);
+		NotifyChildPropertyChanged(PROPERTIES.P2, sender, e);
 	}
 	
 	#endregion Property P2
@@ -248,10 +263,8 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
-	protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+	protected virtual void NotifyPropertyChanging(string propertyName)
 	{
-		string propertyName = ModelUtils.NameOfProperty(property);
-		
 		PropertyChangingEventHandler handler = PropertyChanging;
 		if (handler != null)
 			handler(this, new PropertyChangingEventArgs(propertyName));
@@ -259,10 +272,8 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 	
-	protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+	protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 	{
-		string propertyName = ModelUtils.NameOfProperty(property);
-		
 		ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 		if (handler != null)
 			handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -270,10 +281,8 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public event PropertyChangedEventHandler PropertyChanged;
 	
-	protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+	protected virtual void NotifyPropertyChanged(string propertyName)
 	{
-		string propertyName = ModelUtils.NameOfProperty(property);
-		
 		PropertyChangedEventHandler handler = PropertyChanged;
 		if (handler != null)
 			handler(this, new PropertyChangedEventArgs(propertyName));
@@ -281,10 +290,8 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 	
-	protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+	protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 	{
-		string propertyName = ModelUtils.NameOfProperty(property);
-		
 		ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 		if (handler != null)
 			handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

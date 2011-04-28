@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,16 @@ namespace examples.emptyType
 	[DebuggerDisplay("Point[]")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+		
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePoint()
@@ -31,10 +40,8 @@ namespace examples.emptyType
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -42,10 +49,8 @@ namespace examples.emptyType
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -53,10 +58,8 @@ namespace examples.emptyType
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -64,10 +67,8 @@ namespace examples.emptyType
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

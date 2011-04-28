@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,23 @@ namespace examples.required
 	[DebuggerDisplay("Type1[Prop1={Prop1} Prop2={Prop2} Prop3={Prop3} Prop4={Prop4} Prop5={Prop5}]")]
 	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string PROP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop1);
+			public static readonly string PROP2 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop2);
+			public static readonly string PROP3 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop3);
+			public static readonly string PROP4 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop4);
+			public static readonly string PROP5 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop5);
+			public static readonly string COMP_LAZY = ModelUtils.NameOfProperty((BaseType1 o) => o.CompLazy);
+			public static readonly string COMP = ModelUtils.NameOfProperty((BaseType1 o) => o.Comp);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BaseType1(Type2 prop2, int prop4, string prop5)
@@ -70,17 +86,19 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetProp1()
 		{
 			return this.prop1;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp1(Type2 prop1)
 		{
 			if (this.prop1 == prop1)
 				return false;
 				
-			NotifyPropertyChanging(() => Prop1);
+			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
@@ -88,7 +106,7 @@ namespace examples.required
 			
 			AddProp1Listeners(prop1);
 			
-			NotifyPropertyChanged(() => Prop1);
+			NotifyPropertyChanged(PROPERTIES.PROP1);
 			
 			return true;
 		}
@@ -139,22 +157,22 @@ namespace examples.required
 		
 		private void Prop1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
 		}
 		
 		#endregion Property Prop1
@@ -177,6 +195,7 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetProp2()
 		{
 			return this.prop2;
@@ -185,7 +204,7 @@ namespace examples.required
 		private void ValidateProp2(Type2 value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => Prop2);
+			var property = PROPERTIES.PROP2;
 #pragma warning restore 219
 			
 #pragma warning disable 472
@@ -196,13 +215,14 @@ namespace examples.required
 #pragma warning restore 472
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp2(Type2 prop2)
 		{
 			if (this.prop2 == prop2)
 				return false;
 			ValidateProp2(prop2);
 			
-			NotifyPropertyChanging(() => Prop2);
+			NotifyPropertyChanging(PROPERTIES.PROP2);
 			
 			RemoveProp2Listeners(prop2);
 			
@@ -210,7 +230,7 @@ namespace examples.required
 			
 			AddProp2Listeners(prop2);
 			
-			NotifyPropertyChanged(() => Prop2);
+			NotifyPropertyChanged(PROPERTIES.PROP2);
 			
 			return true;
 		}
@@ -261,22 +281,22 @@ namespace examples.required
 		
 		private void Prop2PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop2, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP2, sender, e);
 		}
 		
 		private void Prop2ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop2, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP2, sender, e);
 		}
 		
 		private void Prop2PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop2, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP2, sender, e);
 		}
 		
 		private void Prop2ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop2, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP2, sender, e);
 		}
 		
 		#endregion Property Prop2
@@ -299,21 +319,23 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual int GetProp3()
 		{
 			return this.prop3;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp3(int prop3)
 		{
 			if (this.prop3 == prop3)
 				return false;
 				
-			NotifyPropertyChanging(() => Prop3);
+			NotifyPropertyChanging(PROPERTIES.PROP3);
 			
 			this.prop3 = prop3;
 			
-			NotifyPropertyChanged(() => Prop3);
+			NotifyPropertyChanged(PROPERTIES.PROP3);
 			
 			return true;
 		}
@@ -338,21 +360,23 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual int GetProp4()
 		{
 			return this.prop4;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp4(int prop4)
 		{
 			if (this.prop4 == prop4)
 				return false;
 				
-			NotifyPropertyChanging(() => Prop4);
+			NotifyPropertyChanging(PROPERTIES.PROP4);
 			
 			this.prop4 = prop4;
 			
-			NotifyPropertyChanged(() => Prop4);
+			NotifyPropertyChanged(PROPERTIES.PROP4);
 			
 			return true;
 		}
@@ -377,6 +401,7 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual string GetProp5()
 		{
 			return this.prop5;
@@ -385,7 +410,7 @@ namespace examples.required
 		private void ValidateProp5(string value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => Prop5);
+			var property = PROPERTIES.PROP5;
 #pragma warning restore 219
 			
 #pragma warning disable 472
@@ -396,17 +421,18 @@ namespace examples.required
 #pragma warning restore 472
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp5(string prop5)
 		{
 			if (this.prop5 == prop5)
 				return false;
 			ValidateProp5(prop5);
 			
-			NotifyPropertyChanging(() => Prop5);
+			NotifyPropertyChanging(PROPERTIES.PROP5);
 			
 			this.prop5 = prop5;
 			
-			NotifyPropertyChanged(() => Prop5);
+			NotifyPropertyChanged(PROPERTIES.PROP5);
 			
 			return true;
 		}
@@ -427,6 +453,7 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual void LazyInitCompLazy()
 		{
 			if (this.compLazy != null)
@@ -436,6 +463,7 @@ namespace examples.required
 			AddCompLazyListeners(this.compLazy);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetCompLazy()
 		{
 			LazyInitCompLazy();
@@ -466,22 +494,22 @@ namespace examples.required
 		
 		private void CompLazyPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => CompLazy, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP_LAZY, sender, e);
 		}
 		
 		private void CompLazyChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => CompLazy, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP_LAZY, sender, e);
 		}
 		
 		private void CompLazyPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => CompLazy, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP_LAZY, sender, e);
 		}
 		
 		private void CompLazyChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => CompLazy, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP_LAZY, sender, e);
 		}
 		
 		#endregion Property CompLazy
@@ -500,6 +528,7 @@ namespace examples.required
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetComp()
 		{
 			return this.comp;
@@ -529,22 +558,22 @@ namespace examples.required
 		
 		private void CompPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
 		}
 		
 		#endregion Property Comp
@@ -553,10 +582,8 @@ namespace examples.required
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -564,10 +591,8 @@ namespace examples.required
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -575,10 +600,8 @@ namespace examples.required
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -586,10 +609,8 @@ namespace examples.required
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

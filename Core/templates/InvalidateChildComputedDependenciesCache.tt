@@ -5,7 +5,7 @@
 <#@ parameter name="index" type="System.Int32" #>
 <#@ parameter name="type" type="System.String" #>
 <#	var deps = it.CachedComputedDependentPropertiesByPath; #>
-			<# if (index > 0) { #>else <# } #>if (propertyName == ModelUtils.NameOfProperty(() => <#= it.Name #>))
+			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
 			{
 <#	if (deps.ContainsKey("")) { #>
 <#		foreach(var prop in deps[""]) { #>

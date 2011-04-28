@@ -5,7 +5,6 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -16,6 +15,18 @@ namespace examples.collectionReadOnly
 	[DebuggerDisplay("Person[Houses={Houses.Count}items HousesLazy={HousesLazy.Count}items]")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string HOUSES = ModelUtils.NameOfProperty((BasePerson o) => o.Houses);
+			public static readonly string HOUSES_LAZY = ModelUtils.NameOfProperty((BasePerson o) => o.HousesLazy);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePerson()
@@ -59,6 +70,7 @@ namespace examples.collectionReadOnly
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ReadOnlyObservableList<House> GetHouses()
 		{
 			return this.housesReadOnly;
@@ -96,7 +108,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => Houses);
+			NotifyPropertyChanging(PROPERTIES.HOUSES);
 		}
 		
 		private void HousesListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -104,7 +116,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => Houses);
+			NotifyPropertyChanged(PROPERTIES.HOUSES);
 		}
 		
 		private void HousesListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -200,22 +212,22 @@ namespace examples.collectionReadOnly
 		
 		private void HousesItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Houses, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Houses, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES, sender, e);
 		}
 		
 		private void HousesItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Houses, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
 		}
 		
 		private void HousesItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Houses, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES, sender, e);
 		}
 		
 		#endregion Property Houses
@@ -237,6 +249,7 @@ namespace examples.collectionReadOnly
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual void LazyInitHousesLazy()
 		{
 			if (this.housesLazy != null)
@@ -248,6 +261,7 @@ namespace examples.collectionReadOnly
 			this.housesLazyReadOnly = new ReadOnlyObservableList<House>(this.housesLazy);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ReadOnlyObservableList<House> GetHousesLazy()
 		{
 			LazyInitHousesLazy();
@@ -286,7 +300,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => HousesLazy);
+			NotifyPropertyChanging(PROPERTIES.HOUSES_LAZY);
 		}
 		
 		private void HousesLazyListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -294,7 +308,7 @@ namespace examples.collectionReadOnly
 			if (e.PropertyName != ObservableList<House>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => HousesLazy);
+			NotifyPropertyChanged(PROPERTIES.HOUSES_LAZY);
 		}
 		
 		private void HousesLazyListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -390,22 +404,22 @@ namespace examples.collectionReadOnly
 		
 		private void HousesLazyItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HousesLazy, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
 		}
 		
 		private void HousesLazyItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HousesLazy, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOUSES_LAZY, sender, e);
 		}
 		
 		private void HousesLazyItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HousesLazy, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
 		}
 		
 		private void HousesLazyItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HousesLazy, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOUSES_LAZY, sender, e);
 		}
 		
 		#endregion Property HousesLazy
@@ -414,10 +428,8 @@ namespace examples.collectionReadOnly
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -425,10 +437,8 @@ namespace examples.collectionReadOnly
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -436,10 +446,8 @@ namespace examples.collectionReadOnly
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -447,10 +455,8 @@ namespace examples.collectionReadOnly
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

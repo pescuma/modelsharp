@@ -200,6 +200,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public bool HasPropertyChanged;
 		public bool HasChildPropertyChanged;
 		public bool HasCopyFrom;
+		public bool HasProperties;
 		public bool IsGenerated;
 
 		public bool HasPropertyChange(string type)

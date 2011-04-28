@@ -4,7 +4,6 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -16,6 +15,21 @@ namespace examples.validation
 	[DebuggerDisplay("Point[X={X} Y={Y} Z={Z} W={W}]")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
+			public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
+			public static readonly string Z = ModelUtils.NameOfProperty((BasePoint o) => o.Z);
+			public static readonly string W = ModelUtils.NameOfProperty((BasePoint o) => o.W);
+			public static readonly string COMP = ModelUtils.NameOfProperty((BasePoint o) => o.Comp);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePoint(double x, double w)
@@ -67,6 +81,7 @@ namespace examples.validation
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetX()
 		{
 			return this.x;
@@ -75,24 +90,25 @@ namespace examples.validation
 		private void ValidateX(double value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => X);
+			var property = PROPERTIES.X;
 #pragma warning restore 219
 			
 			if (!(value > 0))
 				throw new Exception();
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
 			if (this.x == x)
 				return false;
 			ValidateX(x);
 			
-			NotifyPropertyChanging(() => X);
+			NotifyPropertyChanging(PROPERTIES.X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(() => X);
+			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
 		}
@@ -118,6 +134,7 @@ namespace examples.validation
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetY()
 		{
 			return this.y;
@@ -126,24 +143,25 @@ namespace examples.validation
 		private void ValidateY(double value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => Y);
+			var property = PROPERTIES.Y;
 #pragma warning restore 219
 			
 			if (!new RangeAttribute(5, 7).IsValid(value))
 				throw new ArgumentException("Range(5, 7)", property);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetY(double y)
 		{
 			if (this.y == y)
 				return false;
 			ValidateY(y);
 			
-			NotifyPropertyChanging(() => Y);
+			NotifyPropertyChanging(PROPERTIES.Y);
 			
 			this.y = y;
 			
-			NotifyPropertyChanged(() => Y);
+			NotifyPropertyChanged(PROPERTIES.Y);
 			
 			return true;
 		}
@@ -170,6 +188,7 @@ namespace examples.validation
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetZ()
 		{
 			return this.z;
@@ -178,7 +197,7 @@ namespace examples.validation
 		private void ValidateZ(double value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => Z);
+			var property = PROPERTIES.Z;
 #pragma warning restore 219
 			
 			if (!(value > 0))
@@ -194,17 +213,18 @@ namespace examples.validation
 				throw new Exception();
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetZ(double z)
 		{
 			if (this.z == z)
 				return false;
 			ValidateZ(z);
 			
-			NotifyPropertyChanging(() => Z);
+			NotifyPropertyChanging(PROPERTIES.Z);
 			
 			this.z = z;
 			
-			NotifyPropertyChanged(() => Z);
+			NotifyPropertyChanged(PROPERTIES.Z);
 			
 			return true;
 		}
@@ -232,6 +252,7 @@ namespace examples.validation
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetW()
 		{
 			return this.w;
@@ -240,7 +261,7 @@ namespace examples.validation
 		private void ValidateW(double value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => W);
+			var property = PROPERTIES.W;
 #pragma warning restore 219
 			
 			if (!new StringLengthAttribute(10).IsValid(value))
@@ -262,17 +283,18 @@ namespace examples.validation
 				throw new Exception();
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetW(double w)
 		{
 			if (this.w == w)
 				return false;
 			ValidateW(w);
 			
-			NotifyPropertyChanging(() => W);
+			NotifyPropertyChanging(PROPERTIES.W);
 			
 			this.w = w;
 			
-			NotifyPropertyChanged(() => W);
+			NotifyPropertyChanged(PROPERTIES.W);
 			
 			return true;
 		}
@@ -296,6 +318,7 @@ namespace examples.validation
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Point GetComp()
 		{
 			return this.comp;
@@ -304,7 +327,7 @@ namespace examples.validation
 		private void ValidateComp(Point value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => Comp);
+			var property = PROPERTIES.COMP;
 #pragma warning restore 219
 			
 			if (!new StringLengthAttribute(10).IsValid(value))
@@ -350,22 +373,22 @@ namespace examples.validation
 		
 		private void CompPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
 		}
 		
 		private void CompChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP, sender, e);
 		}
 		
 		#endregion Property Comp
@@ -374,10 +397,8 @@ namespace examples.validation
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -385,10 +406,8 @@ namespace examples.validation
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -396,10 +415,8 @@ namespace examples.validation
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -407,10 +424,8 @@ namespace examples.validation
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

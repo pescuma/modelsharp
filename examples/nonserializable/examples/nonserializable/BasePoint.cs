@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Diagnostics;
 
@@ -13,6 +12,19 @@ namespace examples.nonserializable
 	[DebuggerDisplay("Point[X={X} Y={Y} A={A}]")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
+			public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
+			public static readonly string A = ModelUtils.NameOfProperty((BasePoint o) => o.A);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePoint()
@@ -49,21 +61,23 @@ namespace examples.nonserializable
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetX()
 		{
 			return this.x;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(() => X);
+			NotifyPropertyChanging(PROPERTIES.X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(() => X);
+			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
 		}
@@ -87,21 +101,23 @@ namespace examples.nonserializable
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetY()
 		{
 			return this.y;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetY(double y)
 		{
 			if (this.y == y)
 				return false;
 				
-			NotifyPropertyChanging(() => Y);
+			NotifyPropertyChanging(PROPERTIES.Y);
 			
 			this.y = y;
 			
-			NotifyPropertyChanged(() => Y);
+			NotifyPropertyChanged(PROPERTIES.Y);
 			
 			return true;
 		}
@@ -125,17 +141,19 @@ namespace examples.nonserializable
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Point GetA()
 		{
 			return this.a;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetA(Point a)
 		{
 			if (this.a == a)
 				return false;
 				
-			NotifyPropertyChanging(() => A);
+			NotifyPropertyChanging(PROPERTIES.A);
 			
 			RemoveAListeners(a);
 			
@@ -143,7 +161,7 @@ namespace examples.nonserializable
 			
 			AddAListeners(a);
 			
-			NotifyPropertyChanged(() => A);
+			NotifyPropertyChanged(PROPERTIES.A);
 			
 			return true;
 		}
@@ -194,22 +212,22 @@ namespace examples.nonserializable
 		
 		private void APropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => A, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.A, sender, e);
 		}
 		
 		private void AChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => A, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.A, sender, e);
 		}
 		
 		private void APropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => A, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.A, sender, e);
 		}
 		
 		private void AChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => A, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.A, sender, e);
 		}
 		
 		#endregion Property A
@@ -218,10 +236,8 @@ namespace examples.nonserializable
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -229,10 +245,8 @@ namespace examples.nonserializable
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -240,10 +254,8 @@ namespace examples.nonserializable
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -251,10 +263,8 @@ namespace examples.nonserializable
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

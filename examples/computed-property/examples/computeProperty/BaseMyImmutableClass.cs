@@ -59,6 +59,7 @@ namespace examples.computeProperty
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double ComputeLength()
 		{
 			return Math.Sqrt(X * X + Y * Y);
@@ -72,6 +73,7 @@ namespace examples.computeProperty
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected abstract string ComputeDummy();
 		
 		public double SquaredLength
@@ -82,6 +84,7 @@ namespace examples.computeProperty
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected abstract double ComputeSquaredLength();
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -113,6 +116,7 @@ namespace examples.computeProperty
 			return this.squaredLengthCachedCache;
 		}
 		
+		[DebuggerStepThrough]
 		protected abstract double ComputeSquaredLengthCached();
 		
 		#region Clone

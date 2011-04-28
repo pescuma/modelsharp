@@ -5,7 +5,6 @@ using org.pescuma.ModelSharp.Lib;
 using System.Collections.Specialized;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
@@ -16,6 +15,19 @@ namespace examples.lazy
 	[DebuggerDisplay("Type1[Prop1={Prop1} Col1={Col1.Count}items]")]
 	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string PROP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop1);
+			public static readonly string COMP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Comp1);
+			public static readonly string COL1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Col1);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BaseType1()
@@ -60,17 +72,19 @@ namespace examples.lazy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetProp1()
 		{
 			return this.prop1;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetProp1(Type2 prop1)
 		{
 			if (this.prop1 == prop1)
 				return false;
 				
-			NotifyPropertyChanging(() => Prop1);
+			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
 			RemoveProp1Listeners(prop1);
 			
@@ -78,7 +92,7 @@ namespace examples.lazy
 			
 			AddProp1Listeners(prop1);
 			
-			NotifyPropertyChanged(() => Prop1);
+			NotifyPropertyChanged(PROPERTIES.PROP1);
 			
 			return true;
 		}
@@ -129,22 +143,22 @@ namespace examples.lazy
 		
 		private void Prop1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Prop1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
 		}
 		
 		private void Prop1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Prop1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.PROP1, sender, e);
 		}
 		
 		#endregion Property Prop1
@@ -163,6 +177,7 @@ namespace examples.lazy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual void LazyInitComp1()
 		{
 			if (this.comp1 != null)
@@ -172,6 +187,7 @@ namespace examples.lazy
 			AddComp1Listeners(this.comp1);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Type2 GetComp1()
 		{
 			LazyInitComp1();
@@ -202,22 +218,22 @@ namespace examples.lazy
 		
 		private void Comp1PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP1, sender, e);
 		}
 		
 		private void Comp1ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Comp1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COMP1, sender, e);
 		}
 		
 		private void Comp1PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP1, sender, e);
 		}
 		
 		private void Comp1ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Comp1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COMP1, sender, e);
 		}
 		
 		#endregion Property Comp1
@@ -236,6 +252,7 @@ namespace examples.lazy
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual void LazyInitCol1()
 		{
 			if (this.col1 != null)
@@ -245,6 +262,7 @@ namespace examples.lazy
 			AddCol1ListListeners(this.col1);
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual ObservableList<Type2> GetCol1()
 		{
 			LazyInitCol1();
@@ -283,7 +301,7 @@ namespace examples.lazy
 			if (e.PropertyName != ObservableList<Type2>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanging(() => Col1);
+			NotifyPropertyChanging(PROPERTIES.COL1);
 		}
 		
 		private void Col1ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
@@ -291,7 +309,7 @@ namespace examples.lazy
 			if (e.PropertyName != ObservableList<Type2>.PROPERTIES.ITEMS)
 				return;
 				
-			NotifyPropertyChanged(() => Col1);
+			NotifyPropertyChanged(PROPERTIES.COL1);
 		}
 		
 		private void Col1ListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
@@ -387,22 +405,22 @@ namespace examples.lazy
 		
 		private void Col1ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Col1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COL1, sender, e);
 		}
 		
 		private void Col1ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Col1, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.COL1, sender, e);
 		}
 		
 		private void Col1ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Col1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COL1, sender, e);
 		}
 		
 		private void Col1ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Col1, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.COL1, sender, e);
 		}
 		
 		#endregion Property Col1
@@ -411,10 +429,8 @@ namespace examples.lazy
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -422,10 +438,8 @@ namespace examples.lazy
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -433,10 +447,8 @@ namespace examples.lazy
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -444,10 +456,8 @@ namespace examples.lazy
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

@@ -6,24 +6,28 @@
 <#@ parameter name="type" type="System.String" #>
 <#	var deps = it.DependentPropertiesByPath; #>
 
-			<# if (index > 0) { #>else <# } #>if (propertyName == ModelUtils.NameOfProperty(() => <#= it.Name #>))
+			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
 			{
 <#	if (deps.ContainsKey("")) { #>
 <#		foreach(var prop in deps[""]) { #>
-				NotifyProperty<#= type #>(() => <#= prop.Name #>);
+				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
 <#		} #>
 <#	} #>
 <#	if (deps.Keys.Any(s => s != "")) { #>
+<#	if (deps.ContainsKey("")) { #>
+
+<# } #>
 				string path = (e is ChildProperty<#= type #>EventArgs ? ((ChildProperty<#= type #>EventArgs) e).FullPath : e.PropertyName);
 <#	} #>
 <#	int innerIndex = 0; #>
 <#	foreach(var dep in deps) { #>
-<#		if (dep.Key == "") 
-			continue; #>
-				<# if (innerIndex > 0) { #>else <# } #>if (path == "<#= dep.Key #>")
+<#		if (dep.Key == "")
+			continue; 
+		var typeName = (it is CollectionInfo ? ((CollectionInfo)it).Contents : it.TypeName); #>
+				<# if (innerIndex > 0) { #>else <# } #>if (path == ModelUtils.NameOfProperty((<#= typeName #> p) => p.<#= dep.Key #>))
 				{
 <#		foreach(var prop in dep.Value) { #>
-					NotifyProperty<#= type #>(() => <#= prop.Name #>);
+					NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
 <#		} #>
 				}
 <#		innerIndex++; #>

@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,17 @@ namespace examples.privateSetter
 	[DebuggerDisplay("Test[Date={Date}]")]
 	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string DATE = ModelUtils.NameOfProperty((BaseTest o) => o.Date);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BaseTest()
@@ -48,17 +58,19 @@ namespace examples.privateSetter
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual DateTime GetDate()
 		{
 			return this.date;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetDate(DateTime date)
 		{
 			if (this.date == date)
 				return false;
 				
-			NotifyPropertyChanging(() => Date);
+			NotifyPropertyChanging(PROPERTIES.DATE);
 			
 			RemoveDateListeners(date);
 			
@@ -66,7 +78,7 @@ namespace examples.privateSetter
 			
 			AddDateListeners(date);
 			
-			NotifyPropertyChanged(() => Date);
+			NotifyPropertyChanged(PROPERTIES.DATE);
 			
 			return true;
 		}
@@ -117,22 +129,22 @@ namespace examples.privateSetter
 		
 		private void DatePropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Date, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.DATE, sender, e);
 		}
 		
 		private void DateChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => Date, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.DATE, sender, e);
 		}
 		
 		private void DatePropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Date, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.DATE, sender, e);
 		}
 		
 		private void DateChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => Date, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.DATE, sender, e);
 		}
 		
 		#endregion Property Date
@@ -141,10 +153,8 @@ namespace examples.privateSetter
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -152,10 +162,8 @@ namespace examples.privateSetter
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -163,10 +171,8 @@ namespace examples.privateSetter
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -174,10 +180,8 @@ namespace examples.privateSetter
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

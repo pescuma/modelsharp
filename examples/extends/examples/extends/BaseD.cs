@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,17 @@ namespace examples.extends
 	[DebuggerDisplay("D[X={X}]")]
 	public abstract class BaseD : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public new class PROPERTIES : B.PROPERTIES
+		{
+			public static readonly string X = ModelUtils.NameOfProperty((BaseD o) => o.X);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BaseD()
@@ -47,21 +57,23 @@ namespace examples.extends
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual double GetX()
 		{
 			return this.x;
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
 			if (this.x == x)
 				return false;
 				
-			NotifyPropertyChanging(() => X);
+			NotifyPropertyChanging(PROPERTIES.X);
 			
 			this.x = x;
 			
-			NotifyPropertyChanged(() => X);
+			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
 		}

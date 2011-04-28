@@ -90,14 +90,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("if (propertyName == ModelUtils.NameOfProperty(() => ");
+            this.Write("if (propertyName == PROPERTIES.");
             
             #line 5 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
-            this.Write("))\r\n\t\t\t{\r\n\t\t\t\t");
+            this.Write(")\r\n\t\t\t{\r\n\t\t\t\t");
             
             #line 7 "X:\c#\modelsharp\Core\templates\InvalidateComputedProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Invalidate.Name));

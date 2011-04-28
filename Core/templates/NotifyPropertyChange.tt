@@ -6,10 +6,8 @@
 <#	if (!it.BaseClass.HasPropertyChange(type)) { #>
 		public event Property<#= type #>EventHandler Property<#= type #>;
 
-		protected virtual void NotifyProperty<#= type #><T>(Expression<Func<T>> property)
+		protected virtual void NotifyProperty<#= type #>(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
 <#			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); #>
@@ -24,10 +22,8 @@
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected override void NotifyProperty<#= type #><T>(Expression<Func<T>> property)
+		protected override void NotifyProperty<#= type #>(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies); #>
 <#			ForEach("InvalidateComputedProperty", it.CachedComputedProperties); #>
@@ -43,10 +39,8 @@
 <#	if (!it.BaseClass.HasChildPropertyChange(type)) { #>
 		public event ChildProperty<#= type #>EventHandler ChildProperty<#= type #>;
 		
-		protected virtual void NotifyChildProperty<#= type #><T>(Expression<Func<T>> property, object sender, Property<#= type #>EventArgs e)
+		protected virtual void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
 <#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>
@@ -60,10 +54,8 @@
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
-		protected override void NotifyChildProperty<#= type #><T>(Expression<Func<T>> property, object sender, Property<#= type #>EventArgs e)
+		protected override void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 <#		if (type == "Changed") { #>
 <#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
 <#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>

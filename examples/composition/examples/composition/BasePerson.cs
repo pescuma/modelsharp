@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
@@ -15,6 +14,18 @@ namespace examples.composition
 	[DebuggerDisplay("Person[]")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
+		#region Field Name Defines
+		
+		public class PROPERTIES
+		{
+			public static readonly string HOME_ADDRESS = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddress);
+			public static readonly string WORK_ADDRESS = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddress);
+			
+			protected PROPERTIES() {}
+		}
+		
+		#endregion
+		
 		#region Constructors
 		
 		protected BasePerson()
@@ -49,6 +60,7 @@ namespace examples.composition
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Address GetHomeAddress()
 		{
 			return this.homeAddress;
@@ -78,22 +90,22 @@ namespace examples.composition
 		
 		private void HomeAddressPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddress, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS, sender, e);
 		}
 		
 		private void HomeAddressChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => HomeAddress, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.HOME_ADDRESS, sender, e);
 		}
 		
 		private void HomeAddressPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddress, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS, sender, e);
 		}
 		
 		private void HomeAddressChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => HomeAddress, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.HOME_ADDRESS, sender, e);
 		}
 		
 		#endregion Property HomeAddress
@@ -112,6 +124,7 @@ namespace examples.composition
 			}
 		}
 		
+		[DebuggerStepThrough]
 		protected virtual Address GetWorkAddress()
 		{
 			return this.workAddress;
@@ -141,22 +154,22 @@ namespace examples.composition
 		
 		private void WorkAddressPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddress, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS, sender, e);
 		}
 		
 		private void WorkAddressChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => WorkAddress, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.WORK_ADDRESS, sender, e);
 		}
 		
 		private void WorkAddressPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddress, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS, sender, e);
 		}
 		
 		private void WorkAddressChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => WorkAddress, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.WORK_ADDRESS, sender, e);
 		}
 		
 		#endregion Property WorkAddress
@@ -165,10 +178,8 @@ namespace examples.composition
 		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
-		protected virtual void NotifyPropertyChanging<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanging(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangingEventHandler handler = PropertyChanging;
 			if (handler != null)
 				handler(this, new PropertyChangingEventArgs(propertyName));
@@ -176,10 +187,8 @@ namespace examples.composition
 		
 		public event ChildPropertyChangingEventHandler ChildPropertyChanging;
 		
-		protected virtual void NotifyChildPropertyChanging<T>(Expression<Func<T>> property, object sender, PropertyChangingEventArgs e)
+		protected virtual void NotifyChildPropertyChanging(string propertyName, object sender, PropertyChangingEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangingEventHandler handler = ChildPropertyChanging;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
@@ -187,10 +196,8 @@ namespace examples.composition
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		
-		protected virtual void NotifyPropertyChanged<T>(Expression<Func<T>> property)
+		protected virtual void NotifyPropertyChanged(string propertyName)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			PropertyChangedEventHandler handler = PropertyChanged;
 			if (handler != null)
 				handler(this, new PropertyChangedEventArgs(propertyName));
@@ -198,10 +205,8 @@ namespace examples.composition
 		
 		public event ChildPropertyChangedEventHandler ChildPropertyChanged;
 		
-		protected virtual void NotifyChildPropertyChanged<T>(Expression<Func<T>> property, object sender, PropertyChangedEventArgs e)
+		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			string propertyName = ModelUtils.NameOfProperty(property);
-			
 			ChildPropertyChangedEventHandler handler = ChildPropertyChanged;
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));

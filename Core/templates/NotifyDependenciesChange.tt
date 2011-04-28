@@ -5,9 +5,9 @@
 <#@ parameter name="index" type="System.Int32" #>
 <#@ parameter name="type" type="System.String" #>
 
-			<# if (index > 0) { #>else <# } #>if (propertyName == ModelUtils.NameOfProperty(() => <#= it.Name #>))
+			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
 			{
 <#		foreach(var prop in it.ComputedDependentProperties) { #>
-				NotifyProperty<#= type #>(() => <#= prop.Name #>);
+				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
 <#		} #>
 			}

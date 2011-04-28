@@ -59,7 +59,7 @@
 		private <#= it.Validator.TypeName #> <#= it.Validator.Name #>(<#= it.Validator.Parameters[0] #> value)
 		{
 #pragma warning disable 219
-			var property = ModelUtils.NameOfProperty(() => <#= it.Name #>);
+			var property = PROPERTIES.<#= it.DefineName #>;
 #pragma warning restore 219
 <#		ForEach("PropertyValidate", it.Validations); #>
 		}
@@ -73,7 +73,7 @@
 				return false;
 <#		Include("ValidateIfRequired", it, "param", it.VarName); #>
 
-			NotifyPropertyChanging(() => <#= it.Name #>);
+			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
 
 <#		if (it.CanListenTo) { #>
 			Remove<#= it.Name #>Listeners(<#= it.VarName #>);
@@ -85,7 +85,7 @@
 			Add<#= it.Name #>Listeners(<#= it.VarName #>);
 
 <#		} #>
-			NotifyPropertyChanged(() => <#= it.Name #>);
+			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);
 
 			return true;
 		}
@@ -140,21 +140,21 @@
 
 		private void <#= it.Name #>PropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>ChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
-			NotifyChildPropertyChanging(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanging(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 
 		private void <#= it.Name #>ChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
-			NotifyChildPropertyChanged(() => <#= it.Name #>, sender, e);
+			NotifyChildPropertyChanged(PROPERTIES.<#= it.DefineName #>, sender, e);
 		}
 <# } // if (it.CanListenTo) #>

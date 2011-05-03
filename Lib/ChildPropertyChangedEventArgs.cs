@@ -67,41 +67,73 @@ namespace org.pescuma.ModelSharp.Lib
 			}
 		}
 
+		public bool IsFrom<T>(object sender, Expression<Func<T>> property)
+		{
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
+		}
+
 		public bool IsFrom(object sender, string propertyName)
 		{
-			foreach (var entry in ObjectPath)
+			if (propertyName == null)
+				throw new ArgumentNullException("propertyName");
+
+			for (int i = 0; i < ObjectPath.Count; i++)
 			{
-				if (entry.Sender == sender && entry.Property == propertyName)
+				var entry = ObjectPath[i];
+
+				if (entry.Sender == sender && IsProperty(propertyName, i))
 					return true;
 			}
 
 			return false;
 		}
 
-		public bool IsFrom<T>(object sender, Expression<Func<T>> property)
+		private bool IsProperty(string propertyName, int objectPathIndex)
 		{
-			var lambda = (LambdaExpression) property;
-			var memberExpression = (MemberExpression) lambda.Body;
-			var propertyName = memberExpression.Member.Name;
+			var entryPropertyName = ObjectPath[objectPathIndex].Property;
 
-			foreach (var entry in ObjectPath)
+			// Check if this is it
+			if (entryPropertyName == propertyName)
+				return true;
+
+			// Check sub properties
+			if (propertyName.IndexOf('.') >= 0)
 			{
-				if (entry.Sender == sender && entry.Property == propertyName)
-					return true;
+				for (int j = objectPathIndex + 1; j < ObjectPath.Count; j++)
+				{
+					if (!propertyName.StartsWith(entryPropertyName))
+						break;
+
+					var child = ObjectPath[j];
+
+					entryPropertyName += "." + child.Property;
+
+					if (entryPropertyName == propertyName)
+						return true;
+				}
 			}
 
 			return false;
+		}
+
+		public bool IsFrom<T>(Type sender, Expression<Func<T>> property)
+		{
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
 		}
 
 		public bool IsFrom(Type sender, string propertyName)
 		{
 			if (sender == null)
-				return false;
+				throw new ArgumentNullException("sender");
+			if (propertyName == null)
+				throw new ArgumentNullException("propertyName");
 
-			foreach (var entry in ObjectPath)
+			for (int i = 0; i < ObjectPath.Count; i++)
 			{
+				var entry = ObjectPath[i];
+
 				if (entry.Sender != null && sender.IsAssignableFrom(entry.Sender.GetType())
-				    && entry.Property == propertyName)
+				    && IsProperty(propertyName, i))
 					return true;
 			}
 

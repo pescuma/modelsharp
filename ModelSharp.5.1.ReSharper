@@ -21,7 +21,8 @@ bool
 Attrib
 Validator
 pragma
-Utils</UserWords>
+Utils
+Namespace</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

@@ -37,9 +37,9 @@ namespace org.pescuma.ModelSharp.Lib
 			List<ObjectPathEntry> path = new List<ObjectPathEntry>();
 			path.Add(new ObjectPathEntry(sender, property));
 
-			if (child is ChildPropertyChangedEventArgs)
+			if (childArgs is ChildPropertyChangedEventArgs)
 			{
-				var other = (ChildPropertyChangedEventArgs) child;
+				var other = (ChildPropertyChangedEventArgs) childArgs;
 				path.AddRange(other.ObjectPath);
 			}
 			else
@@ -67,7 +67,7 @@ namespace org.pescuma.ModelSharp.Lib
 			}
 		}
 
-		public bool IsFrom<T>(object sender, Expression<Func<T>> property)
+		public bool IsFrom<TS, T>(TS sender, Expression<Func<TS, T>> property)
 		{
 			return IsFrom(sender, ModelUtils.NameOfProperty(property));
 		}

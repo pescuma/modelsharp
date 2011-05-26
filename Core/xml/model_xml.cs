@@ -944,6 +944,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string nameField;
         
+        private decimal precisionField;
+        
+        private bool precisionFieldSpecified;
+        
         private bool receiveInConstructorField;
         
         private bool receiveInConstructorFieldSpecified;
@@ -1038,6 +1042,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal precision {
+            get {
+                return this.precisionField;
+            }
+            set {
+                this.precisionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool precisionSpecified {
+            get {
+                return this.precisionFieldSpecified;
+            }
+            set {
+                this.precisionFieldSpecified = value;
             }
         }
         

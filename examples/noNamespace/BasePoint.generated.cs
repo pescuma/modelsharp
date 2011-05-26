@@ -21,8 +21,8 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	
 	public class PROPERTIES
 	{
-		public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
-		public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
+		public static readonly string X = ModelUtils.NameOfParameter(X => {});
+		public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
 		
 		protected PROPERTIES() {}
 	}
@@ -71,7 +71,7 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	[DebuggerStepThrough]
 	protected virtual bool SetX(double x)
 	{
-		if (this.x == x)
+		if (Math.Abs(this.x - x) < 1E-06)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.X);
@@ -112,7 +112,7 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	[DebuggerStepThrough]
 	protected virtual bool SetY(double y)
 	{
-		if (this.y == y)
+		if (Math.Abs(this.y - y) < 1E-06)
 			return false;
 			
 		NotifyPropertyChanging(PROPERTIES.Y);

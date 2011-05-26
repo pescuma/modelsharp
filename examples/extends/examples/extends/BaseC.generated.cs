@@ -25,7 +25,7 @@ namespace examples.extends
 		
 		public new class PROPERTIES : B.PROPERTIES
 		{
-			public static readonly string DATE2 = ModelUtils.NameOfProperty((BaseC o) => o.Date2);
+			public static readonly string DATE2 = ModelUtils.NameOfParameter(Date2 => {});
 			
 			protected PROPERTIES() {}
 		}

@@ -25,11 +25,11 @@ namespace examples.validation
 		
 		public class PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
-			public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
-			public static readonly string Z = ModelUtils.NameOfProperty((BasePoint o) => o.Z);
-			public static readonly string W = ModelUtils.NameOfProperty((BasePoint o) => o.W);
-			public static readonly string COMP = ModelUtils.NameOfProperty((BasePoint o) => o.Comp);
+			public static readonly string X = ModelUtils.NameOfParameter(X => {});
+			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
+			public static readonly string Z = ModelUtils.NameOfParameter(Z => {});
+			public static readonly string W = ModelUtils.NameOfParameter(W => {});
+			public static readonly string COMP = ModelUtils.NameOfParameter(Comp => {});
 			
 			protected PROPERTIES() {}
 		}
@@ -106,7 +106,7 @@ namespace examples.validation
 		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
-			if (this.x == x)
+			if (Math.Abs(this.x - x) < 1E-06)
 				return false;
 			ValidateX(x);
 			
@@ -159,7 +159,7 @@ namespace examples.validation
 		[DebuggerStepThrough]
 		protected virtual bool SetY(double y)
 		{
-			if (this.y == y)
+			if (Math.Abs(this.y - y) < 1E-06)
 				return false;
 			ValidateY(y);
 			
@@ -222,7 +222,7 @@ namespace examples.validation
 		[DebuggerStepThrough]
 		protected virtual bool SetZ(double z)
 		{
-			if (this.z == z)
+			if (Math.Abs(this.z - z) < 1E-06)
 				return false;
 			ValidateZ(z);
 			
@@ -292,7 +292,7 @@ namespace examples.validation
 		[DebuggerStepThrough]
 		protected virtual bool SetW(double w)
 		{
-			if (this.w == w)
+			if (Math.Abs(this.w - w) < 1E-06)
 				return false;
 			ValidateW(w);
 			

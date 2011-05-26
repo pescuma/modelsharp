@@ -12,21 +12,21 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-namespace examples.deepCopy
+namespace examples.double_precision
 {
 
 	[DataContract]
-	[DebuggerDisplay("Address[Street={Street} City={City} ZipCode={ZipCode}]")]
+	[DebuggerDisplay("Point[X={X} Y={Y} Z={Z}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseAddress : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
 		public class PROPERTIES
 		{
-			public static readonly string STREET = ModelUtils.NameOfParameter(Street => {});
-			public static readonly string CITY = ModelUtils.NameOfParameter(City => {});
-			public static readonly string ZIP_CODE = ModelUtils.NameOfParameter(ZipCode => {});
+			public static readonly string X = ModelUtils.NameOfParameter(X => {});
+			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
+			public static readonly string Z = ModelUtils.NameOfParameter(Z => {});
 			
 			protected PROPERTIES() {}
 		}
@@ -35,144 +35,141 @@ namespace examples.deepCopy
 		
 		#region Constructors
 		
-		protected BaseAddress()
+		protected BasePoint()
 		{
 		}
 		
-		protected BaseAddress(BaseAddress other)
+		protected BasePoint(BasePoint other)
 		{
-			this.street = other.Street;
-			if (other.City == null)
-				this.city = null;
-			else
-				this.city = string.Copy(other.City);
-			this.zipCode = other.ZipCode;
+			this.x = other.X;
+			this.y = other.Y;
+			this.z = other.Z;
 		}
 		
 		#endregion Constructors
 		
-		#region Property Street
+		#region Property X
 		
-		[DataMember(Name = "Street", Order = 0, IsRequired = false)]
+		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string street;
+		private double x;
 		
-		public string Street
+		public double X
 		{
 			[DebuggerStepThrough]
 			get {
-				return GetStreet();
+				return GetX();
 			}
 			[DebuggerStepThrough]
 			set {
-				SetStreet(value);
+				SetX(value);
 			}
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual string GetStreet()
+		protected virtual double GetX()
 		{
-			return this.street;
+			return this.x;
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual bool SetStreet(string street)
+		protected virtual bool SetX(double x)
 		{
-			if (this.street == street)
+			if (Math.Abs(this.x - x) < 1E-06)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.STREET);
+			NotifyPropertyChanging(PROPERTIES.X);
 			
-			this.street = street;
+			this.x = x;
 			
-			NotifyPropertyChanged(PROPERTIES.STREET);
+			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
 		}
 		
-		#endregion Property Street
+		#endregion Property X
 		
-		#region Property City
+		#region Property Y
 		
-		[DataMember(Name = "City", Order = 1, IsRequired = false)]
+		[DataMember(Name = "Y", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string city;
+		private float y;
 		
-		public string City
+		public float Y
 		{
 			[DebuggerStepThrough]
 			get {
-				return GetCity();
+				return GetY();
 			}
 			[DebuggerStepThrough]
 			set {
-				SetCity(value);
+				SetY(value);
 			}
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual string GetCity()
+		protected virtual float GetY()
 		{
-			return this.city;
+			return this.y;
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual bool SetCity(string city)
+		protected virtual bool SetY(float y)
 		{
-			if (this.city == city)
+			if (Math.Abs(this.y - y) < 0.0001)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.CITY);
+			NotifyPropertyChanging(PROPERTIES.Y);
 			
-			this.city = city;
+			this.y = y;
 			
-			NotifyPropertyChanged(PROPERTIES.CITY);
+			NotifyPropertyChanged(PROPERTIES.Y);
 			
 			return true;
 		}
 		
-		#endregion Property City
+		#endregion Property Y
 		
-		#region Property ZipCode
+		#region Property Z
 		
-		[DataMember(Name = "ZipCode", Order = 2, IsRequired = false)]
+		[DataMember(Name = "Z", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private string zipCode;
+		private double z;
 		
-		public string ZipCode
+		public double Z
 		{
 			[DebuggerStepThrough]
 			get {
-				return GetZipCode();
+				return GetZ();
 			}
 			[DebuggerStepThrough]
 			set {
-				SetZipCode(value);
+				SetZ(value);
 			}
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual string GetZipCode()
+		protected virtual double GetZ()
 		{
-			return this.zipCode;
+			return this.z;
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual bool SetZipCode(string zipCode)
+		protected virtual bool SetZ(double z)
 		{
-			if (this.zipCode == zipCode)
+			if (Math.Abs(this.z - z) < 0.05)
 				return false;
 				
-			NotifyPropertyChanging(PROPERTIES.ZIP_CODE);
+			NotifyPropertyChanging(PROPERTIES.Z);
 			
-			this.zipCode = zipCode;
+			this.z = z;
 			
-			NotifyPropertyChanged(PROPERTIES.ZIP_CODE);
+			NotifyPropertyChanged(PROPERTIES.Z);
 			
 			return true;
 		}
 		
-		#endregion Property ZipCode
+		#endregion Property Z
 		
 		#region Property Notification
 		
@@ -218,17 +215,14 @@ namespace examples.deepCopy
 		
 		void ICopyable.CopyFrom(object other)
 		{
-			CopyFrom((Address) other);
+			CopyFrom((Point) other);
 		}
 		
-		public virtual void CopyFrom(Address other)
+		public virtual void CopyFrom(Point other)
 		{
-			Street = other.Street;
-			if (other.City == null)
-				City = null;
-			else
-				City = string.Copy(other.City);
-			ZipCode = other.ZipCode;
+			X = other.X;
+			Y = other.Y;
+			Z = other.Z;
 		}
 		
 		#endregion CopyFrom
@@ -236,15 +230,15 @@ namespace examples.deepCopy
 		#region Clone
 		
 #pragma warning disable 109
-		public new Address Clone()
+		public new Point Clone()
 #pragma warning restore 109
 		{
-			return (Address) ((ICloneable) this).Clone();
+			return (Point) ((ICloneable) this).Clone();
 		}
 		
 		object ICloneable.Clone()
 		{
-			return new Address((Address) this);
+			return new Point((Point) this);
 		}
 		
 		#endregion Clone

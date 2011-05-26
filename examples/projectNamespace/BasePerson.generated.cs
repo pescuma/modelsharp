@@ -24,7 +24,7 @@ namespace examples.projectNamespace
 		
 		public class PROPERTIES
 		{
-			public static readonly string NAME = ModelUtils.NameOfProperty((BasePerson o) => o.Name);
+			public static readonly string NAME = ModelUtils.NameOfParameter(Name => {});
 			
 			protected PROPERTIES() {}
 		}

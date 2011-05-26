@@ -90,6 +90,7 @@
       <xs:attribute name="doc"/>
       <xs:attribute name="getter" type="xs:NCName"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="precision" type="xs:decimal"/>
       <xs:attribute name="receiveInConstructor" type="xs:boolean"/>
       <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="requiredException"/>

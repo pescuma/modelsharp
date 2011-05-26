@@ -1,0 +1,7 @@
+<model namespace="examples.double_precision">
+	<type name="Point">
+		<property name="x" type="double" />
+		<property name="y" type="float" />
+		<property name="z" type="double" precision="0.05" />
+	</type>
+</model>

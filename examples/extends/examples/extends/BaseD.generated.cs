@@ -24,7 +24,7 @@ namespace examples.extends
 		
 		public new class PROPERTIES : B.PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfProperty((BaseD o) => o.X);
+			public static readonly string X = ModelUtils.NameOfParameter(X => {});
 			
 			protected PROPERTIES() {}
 		}
@@ -72,7 +72,7 @@ namespace examples.extends
 		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
-			if (this.x == x)
+			if (Math.Abs(this.x - x) < 1E-06)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);

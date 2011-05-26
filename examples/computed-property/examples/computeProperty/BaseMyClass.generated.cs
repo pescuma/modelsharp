@@ -25,18 +25,18 @@ namespace examples.computeProperty
 		
 		public class PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfProperty((BaseMyClass o) => o.X);
-			public static readonly string Y = ModelUtils.NameOfProperty((BaseMyClass o) => o.Y);
-			public static readonly string LENGTH = ModelUtils.NameOfProperty((BaseMyClass o) => o.Length);
-			public static readonly string DUMMY = ModelUtils.NameOfProperty((BaseMyClass o) => o.Dummy);
-			public static readonly string DUMMY_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.DummyCached);
-			public static readonly string SQUARED_LENGTH = ModelUtils.NameOfProperty((BaseMyClass o) => o.SquaredLength);
-			public static readonly string SQUARED_LENGTH_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.SquaredLengthCached);
-			public static readonly string CHILDREN = ModelUtils.NameOfProperty((BaseMyClass o) => o.Children);
-			public static readonly string PS = ModelUtils.NameOfProperty((BaseMyClass o) => o.Ps);
-			public static readonly string P = ModelUtils.NameOfProperty((BaseMyClass o) => o.P);
-			public static readonly string COMP_SUB = ModelUtils.NameOfProperty((BaseMyClass o) => o.CompSub);
-			public static readonly string COMP_SUB_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.CompSubCached);
+			public static readonly string X = ModelUtils.NameOfParameter(X => {});
+			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
+			public static readonly string LENGTH = ModelUtils.NameOfParameter(Length => {});
+			public static readonly string DUMMY = ModelUtils.NameOfParameter(Dummy => {});
+			public static readonly string DUMMY_CACHED = ModelUtils.NameOfParameter(DummyCached => {});
+			public static readonly string SQUARED_LENGTH = ModelUtils.NameOfParameter(SquaredLength => {});
+			public static readonly string SQUARED_LENGTH_CACHED = ModelUtils.NameOfParameter(SquaredLengthCached => {});
+			public static readonly string CHILDREN = ModelUtils.NameOfParameter(Children => {});
+			public static readonly string PS = ModelUtils.NameOfParameter(Ps => {});
+			public static readonly string P = ModelUtils.NameOfParameter(P => {});
+			public static readonly string COMP_SUB = ModelUtils.NameOfParameter(CompSub => {});
+			public static readonly string COMP_SUB_CACHED = ModelUtils.NameOfParameter(CompSubCached => {});
 			
 			protected PROPERTIES() {}
 		}
@@ -98,7 +98,7 @@ namespace examples.computeProperty
 		[DebuggerStepThrough]
 		protected virtual bool SetX(double x)
 		{
-			if (this.x == x)
+			if (Math.Abs(this.x - x) < 1E-06)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
@@ -139,7 +139,7 @@ namespace examples.computeProperty
 		[DebuggerStepThrough]
 		protected virtual bool SetY(double y)
 		{
-			if (this.y == y)
+			if (Math.Abs(this.y - y) < 1E-06)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.Y);

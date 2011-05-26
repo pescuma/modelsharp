@@ -289,6 +289,9 @@ namespace org.pescuma.ModelSharp.Core
 							if (property.receiveInConstructorSpecified && property.receiveInConstructor)
 								prop.ReceiveInConstructor = property.receiveInConstructor;
 
+							if (property.precisionSpecified)
+								prop.Precision = (double) property.precision;
+
 							if (prop.Required && !prop.IsPrimitive)
 								prop.Validations.Add(new ValidationInfo("value == null",
 								                                        property.requiredException

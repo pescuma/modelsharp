@@ -82,21 +82,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(" = ModelUtils.NameOfProperty((");
-            
-            #line 3 "X:\c#\modelsharp\Core\templates\Define.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Owner.ImplementationName));
-            
-            #line default
-            #line hidden
-            this.Write(" o) => o.");
+            this.Write(" = ModelUtils.NameOfParameter(");
             
             #line 3 "X:\c#\modelsharp\Core\templates\Define.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(");\r\n");
+            this.Write(" => {});\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

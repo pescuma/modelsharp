@@ -24,13 +24,13 @@ namespace examples.required
 		
 		public class PROPERTIES
 		{
-			public static readonly string PROP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop1);
-			public static readonly string PROP2 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop2);
-			public static readonly string PROP3 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop3);
-			public static readonly string PROP4 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop4);
-			public static readonly string PROP5 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop5);
-			public static readonly string COMP_LAZY = ModelUtils.NameOfProperty((BaseType1 o) => o.CompLazy);
-			public static readonly string COMP = ModelUtils.NameOfProperty((BaseType1 o) => o.Comp);
+			public static readonly string PROP1 = ModelUtils.NameOfParameter(Prop1 => {});
+			public static readonly string PROP2 = ModelUtils.NameOfParameter(Prop2 => {});
+			public static readonly string PROP3 = ModelUtils.NameOfParameter(Prop3 => {});
+			public static readonly string PROP4 = ModelUtils.NameOfParameter(Prop4 => {});
+			public static readonly string PROP5 = ModelUtils.NameOfParameter(Prop5 => {});
+			public static readonly string COMP_LAZY = ModelUtils.NameOfParameter(CompLazy => {});
+			public static readonly string COMP = ModelUtils.NameOfParameter(Comp => {});
 			
 			protected PROPERTIES() {}
 		}

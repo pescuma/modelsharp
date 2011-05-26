@@ -24,8 +24,8 @@ namespace examples.receiveInConstructor
 		
 		public class PROPERTIES
 		{
-			public static readonly string HOME_ADDRESS = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddress);
-			public static readonly string WORK_ADDRESS = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddress);
+			public static readonly string HOME_ADDRESS = ModelUtils.NameOfParameter(HomeAddress => {});
+			public static readonly string WORK_ADDRESS = ModelUtils.NameOfParameter(WorkAddress => {});
 			
 			protected PROPERTIES() {}
 		}

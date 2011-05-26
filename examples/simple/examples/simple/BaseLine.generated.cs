@@ -24,8 +24,8 @@ namespace examples.simple
 		
 		public class PROPERTIES
 		{
-			public static readonly string P1 = ModelUtils.NameOfProperty((BaseLine o) => o.P1);
-			public static readonly string P2 = ModelUtils.NameOfProperty((BaseLine o) => o.P2);
+			public static readonly string P1 = ModelUtils.NameOfParameter(P1 => {});
+			public static readonly string P2 = ModelUtils.NameOfParameter(P2 => {});
 			
 			protected PROPERTIES() {}
 		}

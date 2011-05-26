@@ -27,6 +27,11 @@ namespace org.pescuma.ModelSharp.Lib
 {
 	public static class ModelUtils
 	{
+		public static string NameOfParameter(Action<int> property)
+		{
+			return property.Method.GetParameters()[0].Name;
+		}
+
 		public static string NameOfProperty<T>(Expression<Func<T>> property)
 		{
 			var lambda = (LambdaExpression) property;

@@ -69,7 +69,11 @@
 <#		ForEach("Annotation", it.Setter.Annotations); #>
 		protected virtual <#= it.Setter.TypeName #> <#= it.Setter.Name #>(<#= it.Setter.Parameters[0] #> <#= it.VarName #>) 
 		{
+<#		if (it.Precision > 0) { #>
+			if (Math.Abs(this.<#= it.FieldName #> - <#= it.VarName #>) < <#= it.Precision #>)
+<#		} else { #>
 			if (this.<#= it.FieldName #> == <#= it.VarName #>)
+<#		} #>
 				return false;
 <#		Include("ValidateIfRequired", it, "param", it.VarName); #>
 

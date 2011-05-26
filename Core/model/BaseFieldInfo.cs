@@ -37,6 +37,29 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> Annotations = new List<string>();
 		public string Documentation;
 
+		private double? precision;
+
+		public double Precision
+		{
+			get
+			{
+				if (precision == null)
+				{
+					if (TypeName == "double" || TypeName == "double?")
+						return 0.000001;
+					else if (TypeName == "float" || TypeName == "float?")
+						return 0.0001;
+					else
+						return -1;
+				}
+				else
+				{
+					return (double) precision;
+				}
+			}
+			set { precision = value; }
+		}
+
 		private string defaultValue;
 
 		public BaseFieldInfo(NamingConventions conventions, string name, string type)

@@ -72,16 +72,49 @@ namespace org.pescuma.ModelSharp.Lib
 			return IsFrom(sender, ModelUtils.NameOfProperty(property));
 		}
 
-		public bool IsFrom(object sender, string propertyName)
+		public bool IsFrom(object sender, params string[] propertiesNames)
 		{
-			if (propertyName == null)
-				throw new ArgumentNullException("propertyName");
+			if (propertiesNames == null || propertiesNames.Length < 1)
+				throw new ArgumentNullException();
+
+			var propertyName = string.Join(".", propertiesNames);
 
 			for (int i = 0; i < ObjectPath.Count; i++)
 			{
 				var entry = ObjectPath[i];
 
 				if (entry.Sender == sender && IsProperty(propertyName, i))
+					return true;
+			}
+
+			return false;
+		}
+
+		public bool IsFrom<T>(Type sender, Expression<Func<T>> property)
+		{
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
+		}
+
+		public bool IsFrom<TS, T>(Type sender, Expression<Func<TS, T>> property)
+		{
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
+		}
+
+		public bool IsFrom(Type sender, params string[] propertiesNames)
+		{
+			if (sender == null)
+				throw new ArgumentNullException();
+			if (propertiesNames == null || propertiesNames.Length < 1)
+				throw new ArgumentNullException();
+
+			var propertyName = string.Join(".", propertiesNames);
+
+			for (int i = 0; i < ObjectPath.Count; i++)
+			{
+				var entry = ObjectPath[i];
+
+				if (entry.Sender != null && sender.IsAssignableFrom(entry.Sender.GetType())
+				    && IsProperty(propertyName, i))
 					return true;
 			}
 
@@ -111,30 +144,6 @@ namespace org.pescuma.ModelSharp.Lib
 					if (entryPropertyName == propertyName)
 						return true;
 				}
-			}
-
-			return false;
-		}
-
-		public bool IsFrom<T>(Type sender, Expression<Func<T>> property)
-		{
-			return IsFrom(sender, ModelUtils.NameOfProperty(property));
-		}
-
-		public bool IsFrom(Type sender, string propertyName)
-		{
-			if (sender == null)
-				throw new ArgumentNullException("sender");
-			if (propertyName == null)
-				throw new ArgumentNullException("propertyName");
-
-			for (int i = 0; i < ObjectPath.Count; i++)
-			{
-				var entry = ObjectPath[i];
-
-				if (entry.Sender != null && sender.IsAssignableFrom(entry.Sender.GetType())
-				    && IsProperty(propertyName, i))
-					return true;
 			}
 
 			return false;

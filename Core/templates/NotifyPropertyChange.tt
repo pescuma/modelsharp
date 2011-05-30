@@ -42,7 +42,7 @@
 		protected virtual void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
 		{
 <#		if (type == "Changed") { #>
-<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
+<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependenciesOnChildren, "", "type", type); #>
 <#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>
 			
 <#			} #>
@@ -50,20 +50,20 @@
 			ChildProperty<#= type #>EventHandler handler = ChildProperty<#= type #>;
 			if (handler != null)
 				handler(sender, new ChildProperty<#= type #>EventArgs(this, propertyName, sender, e));
-<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependenciesOnChildren, "", "type", type); #>
 		}
 
 <#	} else if (it.PropertiesWithDependencies.Count > 0) { #>
 		protected override void NotifyChildProperty<#= type #>(string propertyName, object sender, Property<#= type #>EventArgs e)
 		{
 <#		if (type == "Changed") { #>
-<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); #>
+<#			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependenciesOnChildren, "", "type", type); #>
 <#			if (it.PropertiesWithCachedComputedDependencies.Count() > 0) { #>
 
 <#			} #>
 <#		} #>
 			base.NotifyChildProperty<#= type #>(propertyName, sender, e);
-<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); #>
+<#		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependenciesOnChildren, "", "type", type); #>
 		}
 
 <#	} #>

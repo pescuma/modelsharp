@@ -43,8 +43,8 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> PropSetAnnotations = new List<string>();
 		public readonly List<string> PropGetAnnotations = new List<string>();
 
-		public readonly Dictionary<string, HashSet<PropertyInfo>> DependentPropertiesByPath =
-			new Dictionary<string, HashSet<PropertyInfo>>();
+		public readonly Dictionary<string, HashSet<ComputedPropertyInfo>> DependentPropertiesByPath =
+			new Dictionary<string, HashSet<ComputedPropertyInfo>>();
 
 		public readonly List<ValidationInfo> Validations = new List<ValidationInfo>();
 
@@ -196,10 +196,10 @@ namespace org.pescuma.ModelSharp.Core.model
 			return "With" + Name;
 		}
 
-		public void AddDependentProperty(PropertyInfo other, string path)
+		public void AddDependentProperty(ComputedPropertyInfo other, string path)
 		{
 			if (!DependentPropertiesByPath.ContainsKey(path))
-				DependentPropertiesByPath.Add(path, new HashSet<PropertyInfo>());
+				DependentPropertiesByPath.Add(path, new HashSet<ComputedPropertyInfo>());
 
 			DependentPropertiesByPath[path].Add(other);
 		}
@@ -245,7 +245,7 @@ namespace org.pescuma.ModelSharp.Core.model
 					foreach (var prop in dep.Value)
 					{
 						if (prop.IsComputedAndCached)
-							props.Add((ComputedPropertyInfo) prop);
+							props.Add(prop);
 					}
 
 					if (props.Count > 0)
@@ -283,6 +283,70 @@ namespace org.pescuma.ModelSharp.Core.model
 				return (from prop in DependentProperties
 				        where prop.IsComputed
 				        select prop).ToList();
+			}
+		}
+
+		public List<ComputedPropertyInfo> DirectDependentProperties
+		{
+			get
+			{
+				return (from d in DependentPropertiesByPath
+				        where d.Key == ""
+				        from p in d.Value
+				        select p).ToList();
+			}
+		}
+
+		public List<ComputedPropertyInfo> DependentPropertiesOnAllChildren
+		{
+			get
+			{
+				return (from d in DependentPropertiesByPath
+				        where d.Key == "*"
+				        from p in d.Value
+				        select p).ToList();
+			}
+		}
+
+		public Dictionary<string, HashSet<ComputedPropertyInfo>> IndirectDependentPropertiesByPath
+		{
+			get
+			{
+				return (from d in DependentPropertiesByPath
+				        where d.Key != "*" && d.Key != ""
+				        select d).ToDictionary(d => d.Key, d => d.Value);
+			}
+		}
+
+		public List<ComputedPropertyInfo> DirectDependentCachedComputedProperties
+		{
+			get
+			{
+				return (from d in CachedComputedDependentPropertiesByPath
+						where d.Key == ""
+						from p in d.Value
+						select p).ToList();
+			}
+		}
+
+		public List<ComputedPropertyInfo> DependentCachedComputedPropertiesOnAllChildren
+		{
+			get
+			{
+				return (from d in CachedComputedDependentPropertiesByPath
+						where d.Key == "*"
+						from p in d.Value
+						select p).ToList();
+			}
+		}
+
+		public Dictionary<string, HashSet<ComputedPropertyInfo>> IndirectDependentCachedComputedPropertiesByPath
+		{
+			get
+			{
+				return (from d in CachedComputedDependentPropertiesByPath
+						where d.Key != "*" && d.Key != ""
+						select d).ToDictionary(d => d.Key, d => d.Value);
 			}
 		}
 

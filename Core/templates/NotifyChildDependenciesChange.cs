@@ -79,41 +79,41 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             
             #line 7 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-	var deps = it.DependentPropertiesByPath; 
+ 	var dirDepts = it.DependentPropertiesOnAllChildren; 
+            
+            #line default
+            #line hidden
+            
+            #line 8 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+ 	var depts = it.IndirectDependentPropertiesByPath; 
             
             #line default
             #line hidden
             this.Write("\r\n\t\t\t");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
  if (index > 0) { 
             
             #line default
             #line hidden
             this.Write("else ");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
  } 
             
             #line default
             #line hidden
             this.Write("if (propertyName == PROPERTIES.");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t{\r\n");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-	if (deps.ContainsKey("")) { 
-            
-            #line default
-            #line hidden
-            
             #line 12 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-		foreach(var prop in deps[""]) { 
+	foreach(var prop in dirDepts) { 
             
             #line default
             #line hidden
@@ -134,141 +134,120 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write(");\r\n");
             
             #line 14 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-		} 
-            
-            #line default
-            #line hidden
-            
-            #line 15 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 	} 
             
             #line default
             #line hidden
             
-            #line 16 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-	if (deps.Keys.Any(s => s != "")) { 
+            #line 15 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+	if (depts.Count > 0) { 
             
             #line default
             #line hidden
             
-            #line 17 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-	if (deps.ContainsKey("")) { 
+            #line 16 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+		if (dirDepts.Count > 0) { 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 19 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
- } 
+            #line 18 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+ 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tstring path = (e is ChildProperty");
             
-            #line 20 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs ? ((ChildProperty");
             
-            #line 20 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs) e).FullPath : e.PropertyName);\r\n");
             
-            #line 21 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 20 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 	} 
             
             #line default
             #line hidden
             
-            #line 22 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 	int innerIndex = 0; 
             
             #line default
             #line hidden
             
-            #line 23 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-	foreach(var dep in deps) { 
-            
-            #line default
-            #line hidden
-            
-            #line 24 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-		if (dep.Key == "")
-			continue; 
-		var typeName = (it is CollectionInfo ? ((CollectionInfo)it).Contents : it.TypeName); 
+            #line 22 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+	foreach(var dep in depts) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
  if (innerIndex > 0) { 
             
             #line default
             #line hidden
             this.Write("else ");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("if (path == ModelUtils.NameOfProperty((");
+            this.Write("if (path == ");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(typeName));
-            
-            #line default
-            #line hidden
-            this.Write(" p) => p.");
-            
-            #line 27 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dep.Key));
+            #line 23 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConvertPropertyPathToObfuscation(dep.Key)));
             
             #line default
             #line hidden
-            this.Write("))\r\n\t\t\t\t{\r\n");
+            this.Write(")\r\n\t\t\t\t{\r\n");
             
-            #line 29 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 		foreach(var prop in dep.Value) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\tNotifyProperty");
             
-            #line 30 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("(PROPERTIES.");
             
-            #line 30 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 31 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t}\r\n");
             
-            #line 33 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 29 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 		innerIndex++; 
             
             #line default
             #line hidden
             
-            #line 34 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
+            #line 30 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
 	} 
             
             #line default

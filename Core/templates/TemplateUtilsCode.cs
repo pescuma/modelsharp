@@ -20,6 +20,7 @@
 //  THE SOFTWARE.
 //  
 using System.Collections;
+using System.Text;
 
 namespace org.pescuma.ModelSharp.Core.templates
 {
@@ -81,6 +82,18 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 				index++;
 			}
+		}
+
+		protected string ConvertPropertyPathToObfuscation(string path)
+		{
+			var result = new StringBuilder();
+			foreach (var p in path.Split('.'))
+			{
+				if (result.Length > 0)
+					result.Append(" + \".\" + ");
+				result.Append("ModelUtils.NameOfParameter(" + p + " => {})");
+			}
+			return result.ToString();
 		}
 	}
 }

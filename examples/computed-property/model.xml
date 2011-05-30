@@ -10,8 +10,8 @@
 		<collection name="Children" type="MyClass" />
 		<collection name="Ps" type="Point" />
     <property name="P" type="Point" />
-		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y,Ps.Y" />
-		<computed-property name="CompSubCached" type="double" dependsOn="P.X,p.Y,Ps.Y" cached="true" />
+		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y,Ps.Y,Children.*" />
+		<computed-property name="CompSubCached" type="double" dependsOn="P.X.Z,p.Y,Ps.Y,Children.*" cached="true" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
 		<property name="X" type="double" />

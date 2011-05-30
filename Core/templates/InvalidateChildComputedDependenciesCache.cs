@@ -79,58 +79,52 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.GenerationEnvironment = null;
             
             #line 7 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-	var deps = it.CachedComputedDependentPropertiesByPath; 
+ 	var dirDepts = it.DependentCachedComputedPropertiesOnAllChildren; 
             
             #line default
             #line hidden
-            this.Write("\t\t\t");
             
             #line 8 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+ 	var depts = it.IndirectDependentCachedComputedPropertiesByPath; 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\t\t\t");
+            
+            #line 10 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
  if (index > 0) { 
             
             #line default
             #line hidden
             this.Write("else ");
             
-            #line 8 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
  } 
             
             #line default
             #line hidden
             this.Write("if (propertyName == PROPERTIES.");
             
-            #line 8 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 10 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t\t{\r\n");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-	if (deps.ContainsKey("")) { 
-            
-            #line default
-            #line hidden
-            
-            #line 11 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-		foreach(var prop in deps[""]) { 
+            #line 12 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+	foreach(var prop in dirDepts) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 13 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Invalidate.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n");
-            
-            #line 13 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-		} 
-            
-            #line default
-            #line hidden
             
             #line 14 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 	} 
@@ -139,101 +133,107 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 15 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-	if (deps.Keys.Any(s => s != "")) { 
+	if (depts.Count > 0) { 
+            
+            #line default
+            #line hidden
+            
+            #line 16 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+		if (dirDepts.Count > 0) { 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+ 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tstring path = (e is ChildProperty");
             
-            #line 16 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs ? ((ChildProperty");
             
-            #line 16 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 19 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(type));
             
             #line default
             #line hidden
             this.Write("EventArgs) e).FullPath : e.PropertyName);\r\n");
             
-            #line 17 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 20 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 	} 
             
             #line default
             #line hidden
             
-            #line 18 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 21 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 	int innerIndex = 0; 
             
             #line default
             #line hidden
             
-            #line 19 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-	foreach(var dep in deps) { 
-            
-            #line default
-            #line hidden
-            
-            #line 20 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-		if (dep.Key == "") 
-			continue; 
+            #line 22 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+	foreach(var dep in depts) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
  if (innerIndex > 0) { 
             
             #line default
             #line hidden
             this.Write("else ");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 23 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("if (path == \"");
+            this.Write("if (path == ");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(dep.Key));
+            #line 23 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConvertPropertyPathToObfuscation(dep.Key)));
             
             #line default
             #line hidden
-            this.Write("\")\r\n\t\t\t\t{\r\n");
+            this.Write(")\r\n\t\t\t\t{\r\n");
             
-            #line 24 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 25 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 		foreach(var prop in dep.Value) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 26 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(prop.Invalidate.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 26 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t}\r\n");
             
-            #line 28 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 29 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 		innerIndex++; 
             
             #line default
             #line hidden
             
-            #line 29 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
+            #line 30 "X:\c#\modelsharp\Core\templates\InvalidateChildComputedDependenciesCache.tt"
 	} 
             
             #line default

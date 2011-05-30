@@ -93,7 +93,7 @@ namespace org.pescuma.ModelSharp.CommandLine
 #if DEBUG
 			templatesPath = Path.GetFullPath(Path.Combine(dir, @"..\..\..\Core\templates\"));
 #else
-			_templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
+			templatesPath = Path.GetFullPath(Path.Combine(dir, @"templates\"));
 #endif
 		}
 	}

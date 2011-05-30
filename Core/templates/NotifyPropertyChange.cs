@@ -286,7 +286,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 45 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); 
+			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependenciesOnChildren, "", "type", type); 
             
             #line default
             #line hidden
@@ -333,7 +333,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("EventArgs(this, propertyName, sender, e));\r\n");
             
             #line 53 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); 
+		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependenciesOnChildren, "", "type", type); 
             
             #line default
             #line hidden
@@ -367,7 +367,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 60 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependencies, "", "type", type); 
+			ForEach("InvalidateChildComputedDependenciesCache", it.PropertiesWithCachedComputedDependenciesOnChildren, "", "type", type); 
             
             #line default
             #line hidden
@@ -400,7 +400,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("(propertyName, sender, e);\r\n");
             
             #line 66 "X:\c#\modelsharp\Core\templates\NotifyPropertyChange.tt"
-		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependencies, "", "type", type); 
+		ForEach("NotifyChildDependenciesChange", it.PropertiesWithDependenciesOnChildren, "", "type", type); 
             
             #line default
             #line hidden

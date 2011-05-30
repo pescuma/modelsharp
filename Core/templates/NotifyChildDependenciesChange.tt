@@ -4,27 +4,23 @@
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#@ parameter name="index" type="System.Int32" #>
 <#@ parameter name="type" type="System.String" #>
-<#	var deps = it.DependentPropertiesByPath; #>
+<# 	var dirDepts = it.DependentPropertiesOnAllChildren; #>
+<# 	var depts = it.IndirectDependentPropertiesByPath; #>
 
 			<# if (index > 0) { #>else <# } #>if (propertyName == PROPERTIES.<#= it.DefineName #>)
 			{
-<#	if (deps.ContainsKey("")) { #>
-<#		foreach(var prop in deps[""]) { #>
+<#	foreach(var prop in dirDepts) { #>
 				NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);
-<#		} #>
 <#	} #>
-<#	if (deps.Keys.Any(s => s != "")) { #>
-<#	if (deps.ContainsKey("")) { #>
+<#	if (depts.Count > 0) { #>
+<#		if (dirDepts.Count > 0) { #>
 
-<# } #>
+<# 		} #>
 				string path = (e is ChildProperty<#= type #>EventArgs ? ((ChildProperty<#= type #>EventArgs) e).FullPath : e.PropertyName);
 <#	} #>
 <#	int innerIndex = 0; #>
-<#	foreach(var dep in deps) { #>
-<#		if (dep.Key == "")
-			continue; 
-		var typeName = (it is CollectionInfo ? ((CollectionInfo)it).Contents : it.TypeName); #>
-				<# if (innerIndex > 0) { #>else <# } #>if (path == ModelUtils.NameOfProperty((<#= typeName #> p) => p.<#= dep.Key #>))
+<#	foreach(var dep in depts) { #>
+				<# if (innerIndex > 0) { #>else <# } #>if (path == <#= ConvertPropertyPathToObfuscation(dep.Key) #>)
 				{
 <#		foreach(var prop in dep.Value) { #>
 					NotifyProperty<#= type #>(PROPERTIES.<#= prop.DefineName #>);

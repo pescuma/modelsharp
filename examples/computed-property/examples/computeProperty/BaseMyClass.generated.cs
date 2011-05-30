@@ -813,6 +813,8 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.CHILDREN)
 			{
 				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.COMP_SUB);
+				NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 			}
 			else if (propertyName == PROPERTIES.PS)
 			{
@@ -835,28 +837,15 @@ namespace examples.computeProperty
 			if (handler != null)
 				handler(sender, new ChildPropertyChangingEventArgs(this, propertyName, sender, e));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == PROPERTIES.CHILDREN)
 			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
-			}
-			else if (propertyName == PROPERTIES.Y)
-			{
-				NotifyPropertyChanging(PROPERTIES.LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
-			}
-			else if (propertyName == PROPERTIES.CHILDREN)
-			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanging(PROPERTIES.COMP_SUB);
+				NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 			}
 			else if (propertyName == PROPERTIES.PS)
 			{
-				NotifyPropertyChanging(PROPERTIES.SQUARED_LENGTH_CACHED);
-				
 				string path = (e is ChildPropertyChangingEventArgs ? ((ChildPropertyChangingEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfProperty((Point p) => p.Y))
+				if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
@@ -865,14 +854,17 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangingEventArgs ? ((ChildPropertyChangingEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfProperty((Point p) => p.X))
+				if (path == ModelUtils.NameOfParameter(X => {}))
+				{
+					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
+				}
+				else if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
-				else if (path == ModelUtils.NameOfProperty((Point p) => p.Y))
+				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
 				{
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
@@ -889,6 +881,10 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.Y)
 			{
 				InvalidateSquaredLengthCachedCache();
+			}
+			else if (propertyName == PROPERTIES.CHILDREN)
+			{
+				InvalidateCompSubCachedCache();
 			}
 			else if (propertyName == PROPERTIES.PS)
 			{
@@ -931,6 +927,8 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.CHILDREN)
 			{
 				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.COMP_SUB);
+				NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 			}
 			else if (propertyName == PROPERTIES.PS)
 			{
@@ -949,31 +947,29 @@ namespace examples.computeProperty
 		
 		protected virtual void NotifyChildPropertyChanged(string propertyName, object sender, PropertyChangedEventArgs e)
 		{
-			if (propertyName == PROPERTIES.X)
+		
+			if (propertyName == PROPERTIES.CHILDREN)
 			{
-				InvalidateSquaredLengthCachedCache();
+				InvalidateCompSubCachedCache();
 			}
-			else if (propertyName == PROPERTIES.Y)
-			{
-				InvalidateSquaredLengthCachedCache();
-			}
+			
 			else if (propertyName == PROPERTIES.PS)
 			{
-				InvalidateSquaredLengthCachedCache();
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == "Y")
+				if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					InvalidateCompSubCachedCache();
 				}
 			}
+			
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == "X")
+				if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					InvalidateCompSubCachedCache();
 				}
-				else if (path == "Y")
+				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
 				{
 					InvalidateCompSubCachedCache();
 				}
@@ -983,28 +979,15 @@ namespace examples.computeProperty
 			if (handler != null)
 				handler(sender, new ChildPropertyChangedEventArgs(this, propertyName, sender, e));
 				
-			if (propertyName == PROPERTIES.X)
+			if (propertyName == PROPERTIES.CHILDREN)
 			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
-			}
-			else if (propertyName == PROPERTIES.Y)
-			{
-				NotifyPropertyChanged(PROPERTIES.LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
-			}
-			else if (propertyName == PROPERTIES.CHILDREN)
-			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH);
+				NotifyPropertyChanged(PROPERTIES.COMP_SUB);
+				NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 			}
 			else if (propertyName == PROPERTIES.PS)
 			{
-				NotifyPropertyChanged(PROPERTIES.SQUARED_LENGTH_CACHED);
-				
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfProperty((Point p) => p.Y))
+				if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
@@ -1013,14 +996,17 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfProperty((Point p) => p.X))
+				if (path == ModelUtils.NameOfParameter(X => {}))
+				{
+					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
+				}
+				else if (path == ModelUtils.NameOfParameter(Y => {}))
 				{
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
-				else if (path == ModelUtils.NameOfProperty((Point p) => p.Y))
+				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
 				{
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}

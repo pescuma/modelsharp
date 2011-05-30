@@ -115,8 +115,8 @@ namespace org.pescuma.ModelSharp.Core.model
 			get
 			{
 				return (from p in Properties
-						where !p.ReceiveInConstructor && !p.IsComputed
-						select p);
+				        where !p.ReceiveInConstructor && !p.IsComputed
+				        select p);
 			}
 		}
 
@@ -126,6 +126,16 @@ namespace org.pescuma.ModelSharp.Core.model
 			{
 				return (from prop in Properties
 				        where prop.DependentPropertiesByPath.Count > 0
+				        select prop).ToList();
+			}
+		}
+
+		public List<PropertyInfo> PropertiesWithDependenciesOnChildren
+		{
+			get
+			{
+				return (from prop in Properties
+				        where prop.DependentPropertiesByPath.Count(d => d.Key != "") > 0
 				        select prop).ToList();
 			}
 		}
@@ -140,23 +150,13 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
-		public IEnumerable<ComputedPropertyInfo> CachedComputedPropertiesWithoutDependencies
+		public IEnumerable<PropertyInfo> PropertiesWithCachedComputedDependenciesOnChildren
 		{
 			get
 			{
 				return (from prop in Properties
-				        where prop.IsComputedAndCached && ((ComputedPropertyInfo) prop).DependsOn.Count < 1
-				        select prop).Cast<ComputedPropertyInfo>();
-			}
-		}
-
-		public IEnumerable<ComputedPropertyInfo> ComputedPropertiesWithoutDependencies
-		{
-			get
-			{
-				return (from prop in Properties
-				        where prop.IsComputed && ((ComputedPropertyInfo) prop).DependsOn.Count < 1
-				        select prop).Cast<ComputedPropertyInfo>();
+				        where prop.CachedComputedDependentPropertiesByPath.Count(d => d.Key != "") > 0
+				        select prop);
 			}
 		}
 

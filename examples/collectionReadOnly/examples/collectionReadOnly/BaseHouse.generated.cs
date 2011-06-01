@@ -24,7 +24,7 @@ namespace examples.collectionReadOnly
 		
 		public class PROPERTIES
 		{
-			public static readonly string ADDRESS = ModelUtils.NameOfParameter(Address => {});
+			public static readonly string ADDRESS = ModelUtils.NameOfProperty((BaseHouse o) => o.Address);
 			
 			protected PROPERTIES() {}
 		}

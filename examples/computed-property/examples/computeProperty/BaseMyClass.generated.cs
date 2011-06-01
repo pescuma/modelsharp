@@ -17,7 +17,7 @@ namespace examples.computeProperty
 {
 
 	[DataContract]
-	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items Ps={Ps.Count}items P={P}]")]
+	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items Ps={Ps} P={P}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
@@ -25,18 +25,18 @@ namespace examples.computeProperty
 		
 		public class PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfParameter(X => {});
-			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
-			public static readonly string LENGTH = ModelUtils.NameOfParameter(Length => {});
-			public static readonly string DUMMY = ModelUtils.NameOfParameter(Dummy => {});
-			public static readonly string DUMMY_CACHED = ModelUtils.NameOfParameter(DummyCached => {});
-			public static readonly string SQUARED_LENGTH = ModelUtils.NameOfParameter(SquaredLength => {});
-			public static readonly string SQUARED_LENGTH_CACHED = ModelUtils.NameOfParameter(SquaredLengthCached => {});
-			public static readonly string CHILDREN = ModelUtils.NameOfParameter(Children => {});
-			public static readonly string PS = ModelUtils.NameOfParameter(Ps => {});
-			public static readonly string P = ModelUtils.NameOfParameter(P => {});
-			public static readonly string COMP_SUB = ModelUtils.NameOfParameter(CompSub => {});
-			public static readonly string COMP_SUB_CACHED = ModelUtils.NameOfParameter(CompSubCached => {});
+			public static readonly string X = ModelUtils.NameOfProperty((BaseMyClass o) => o.X);
+			public static readonly string Y = ModelUtils.NameOfProperty((BaseMyClass o) => o.Y);
+			public static readonly string LENGTH = ModelUtils.NameOfProperty((BaseMyClass o) => o.Length);
+			public static readonly string DUMMY = ModelUtils.NameOfProperty((BaseMyClass o) => o.Dummy);
+			public static readonly string DUMMY_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.DummyCached);
+			public static readonly string SQUARED_LENGTH = ModelUtils.NameOfProperty((BaseMyClass o) => o.SquaredLength);
+			public static readonly string SQUARED_LENGTH_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.SquaredLengthCached);
+			public static readonly string CHILDREN = ModelUtils.NameOfProperty((BaseMyClass o) => o.Children);
+			public static readonly string PS = ModelUtils.NameOfProperty((BaseMyClass o) => o.Ps);
+			public static readonly string P = ModelUtils.NameOfProperty((BaseMyClass o) => o.P);
+			public static readonly string COMP_SUB = ModelUtils.NameOfProperty((BaseMyClass o) => o.CompSub);
+			public static readonly string COMP_SUB_CACHED = ModelUtils.NameOfProperty((BaseMyClass o) => o.CompSubCached);
 			
 			protected PROPERTIES() {}
 		}
@@ -50,8 +50,7 @@ namespace examples.computeProperty
 			this.y = 2;
 			this.children = new ObservableList<MyClass>();
 			AddChildrenListListeners(this.children);
-			this.ps = new ObservableList<Point>();
-			AddPsListListeners(this.ps);
+			AddPsListeners(this.ps);
 			AddPListeners(this.p);
 		}
 		
@@ -62,9 +61,8 @@ namespace examples.computeProperty
 			this.children = new ObservableList<MyClass>();
 			AddChildrenListListeners(this.children);
 			this.children.AddRange(other.Children);
-			this.ps = new ObservableList<Point>();
-			AddPsListListeners(this.ps);
-			this.ps.AddRange(other.Ps);
+			this.ps = other.Ps;
+			AddPsListeners(this.ps);
 			this.p = other.P;
 			AddPListeners(this.p);
 		}
@@ -455,172 +453,105 @@ namespace examples.computeProperty
 		
 		[DataMember(Name = "Ps", Order = 3, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Point> ps;
+		private MyClass ps;
 		
-		public ObservableList<Point> Ps
+		public MyClass Ps
 		{
 			[DebuggerStepThrough]
 			get {
 				return GetPs();
 			}
+			[DebuggerStepThrough]
+			set {
+				SetPs(value);
+			}
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual ObservableList<Point> GetPs()
+		protected virtual MyClass GetPs()
 		{
 			return this.ps;
 		}
 		
-		private void AddPsListListeners(ObservableList<Point> child)
+		[DebuggerStepThrough]
+		protected virtual bool SetPs(MyClass ps)
 		{
-			if (child == null)
-				return;
-				
-			var notifyPropertyChanging = child as INotifyPropertyChanging;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (notifyPropertyChanging != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanging.PropertyChanging += PsListPropertyChangingEventHandler;
-				
-			var notifyPropertyChanged = child as INotifyPropertyChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (notifyPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanged.PropertyChanged += PsListPropertyChangedEventHandler;
-				
-			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-			if (notifyChildPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyChildPropertyChanged.CollectionChanged += PsListChangedEventHandler;
-				
-			foreach (var item in child)
-				AddPsItemListeners(item);
-		}
-		
-		private void PsListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
-		{
-			if (e.PropertyName != ObservableList<Point>.PROPERTIES.ITEMS)
-				return;
+			if (this.ps == ps)
+				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.PS);
-		}
-		
-		private void PsListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName != ObservableList<Point>.PROPERTIES.ITEMS)
-				return;
-				
+			
+			RemovePsListeners(ps);
+			
+			this.ps = ps;
+			
+			AddPsListeners(ps);
+			
 			NotifyPropertyChanged(PROPERTIES.PS);
+			
+			return true;
 		}
 		
-		private void PsListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			switch (e.Action)
-			{
-				case NotifyCollectionChangedAction.Add:
-				case NotifyCollectionChangedAction.Remove:
-				case NotifyCollectionChangedAction.Replace:
-				
-					if ((e.OldItems == null || e.OldItems.Count == 0)
-					        && (e.NewItems == null || e.NewItems.Count == 0))
-						throw new InvalidOperationException();
-						
-					if (e.OldItems != null)
-						foreach (var item in e.OldItems)
-							RemovePsItemListeners(item);
-							
-					if (e.NewItems != null)
-						foreach (var item in e.NewItems)
-							AddPsItemListeners(item);
-							
-					break;
-				case NotifyCollectionChangedAction.Move:
-					// Do nothing
-					break;
-				default:
-					// NotifyCollectionChangedAction.Reset: The list should not fire this or
-					// we can't control the items
-					throw new InvalidOperationException();
-			}
-		}
-		
-		private void RemovePsItemListeners(object child)
+		private void RemovePsListeners(object child)
 		{
 			if (child == null)
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanging.PropertyChanging -= PsItemPropertyChangingEventHandler;
+				notifyPropertyChanging.PropertyChanging -= PsPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyChildPropertyChanging.ChildPropertyChanging -= PsItemChildPropertyChangingEventHandler;
+				notifyChildPropertyChanging.ChildPropertyChanging -= PsChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanged.PropertyChanged -= PsItemPropertyChangedEventHandler;
+				notifyPropertyChanged.PropertyChanged -= PsPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyChildPropertyChanged.ChildPropertyChanged -= PsItemChildPropertyChangedEventHandler;
+				notifyChildPropertyChanged.ChildPropertyChanged -= PsChildPropertyChangedEventHandler;
 		}
 		
-		private void AddPsItemListeners(object child)
+		private void AddPsListeners(object child)
 		{
 			if (child == null)
 				return;
 				
 			var notifyPropertyChanging = child as INotifyPropertyChanging;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanging != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanging.PropertyChanging += PsItemPropertyChangingEventHandler;
+				notifyPropertyChanging.PropertyChanging += PsPropertyChangingEventHandler;
 				
 			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanging != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyChildPropertyChanging.ChildPropertyChanging += PsItemChildPropertyChangingEventHandler;
+				notifyChildPropertyChanging.ChildPropertyChanging += PsChildPropertyChangingEventHandler;
 				
 			var notifyPropertyChanged = child as INotifyPropertyChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyPropertyChanged.PropertyChanged += PsItemPropertyChangedEventHandler;
+				notifyPropertyChanged.PropertyChanged += PsPropertyChangedEventHandler;
 				
 			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (notifyChildPropertyChanged != null)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-				notifyChildPropertyChanged.ChildPropertyChanged += PsItemChildPropertyChangedEventHandler;
+				notifyChildPropertyChanged.ChildPropertyChanged += PsChildPropertyChangedEventHandler;
 		}
 		
-		private void PsItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		private void PsPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
 		{
 			NotifyChildPropertyChanging(PROPERTIES.PS, sender, e);
 		}
 		
-		private void PsItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		private void PsChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
 		{
 			NotifyChildPropertyChanging(PROPERTIES.PS, sender, e);
 		}
 		
-		private void PsItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		private void PsPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
 		{
 			NotifyChildPropertyChanged(PROPERTIES.PS, sender, e);
 		}
 		
-		private void PsItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		private void PsChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
 		{
 			NotifyChildPropertyChanged(PROPERTIES.PS, sender, e);
 		}
@@ -845,26 +776,26 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.PS)
 			{
 				string path = (e is ChildPropertyChangingEventArgs ? ((ChildPropertyChangingEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((MyClass o) => o.P))
 				{
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
+				}
+				else if (path == ModelUtils.NameOfProperty((MyClass o) => o.P.X))
+				{
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangingEventArgs ? ((ChildPropertyChangingEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(X => {}))
-				{
-					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
-				}
-				else if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((Point o) => o.X))
 				{
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
-				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
+				else if (path == ModelUtils.NameOfProperty((Point o) => o.Y))
 				{
+					NotifyPropertyChanging(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanging(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
@@ -956,7 +887,7 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.PS)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((MyClass o) => o.P.X))
 				{
 					InvalidateCompSubCachedCache();
 				}
@@ -965,11 +896,11 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((Point o) => o.X))
 				{
 					InvalidateCompSubCachedCache();
 				}
-				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
+				else if (path == ModelUtils.NameOfProperty((Point o) => o.Y))
 				{
 					InvalidateCompSubCachedCache();
 				}
@@ -987,26 +918,26 @@ namespace examples.computeProperty
 			else if (propertyName == PROPERTIES.PS)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((MyClass o) => o.P))
 				{
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
+				}
+				else if (path == ModelUtils.NameOfProperty((MyClass o) => o.P.X))
+				{
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
 			else if (propertyName == PROPERTIES.P)
 			{
 				string path = (e is ChildPropertyChangedEventArgs ? ((ChildPropertyChangedEventArgs) e).FullPath : e.PropertyName);
-				if (path == ModelUtils.NameOfParameter(X => {}))
-				{
-					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
-				}
-				else if (path == ModelUtils.NameOfParameter(Y => {}))
+				if (path == ModelUtils.NameOfProperty((Point o) => o.X))
 				{
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
-				else if (path == ModelUtils.NameOfParameter(X => {}) + "." + ModelUtils.NameOfParameter(Z => {}))
+				else if (path == ModelUtils.NameOfProperty((Point o) => o.Y))
 				{
+					NotifyPropertyChanged(PROPERTIES.COMP_SUB);
 					NotifyPropertyChanged(PROPERTIES.COMP_SUB_CACHED);
 				}
 			}
@@ -1027,8 +958,7 @@ namespace examples.computeProperty
 			Y = other.Y;
 			Children.Clear();
 			Children.AddRange(other.Children);
-			Ps.Clear();
-			Ps.AddRange(other.Ps);
+			Ps = other.Ps;
 			P = other.P;
 		}
 		
@@ -1055,7 +985,7 @@ namespace examples.computeProperty
 		void IDeserializationCallback.OnDeserialization(object sender)
 		{
 			AddChildrenListListeners(this.children);
-			AddPsListListeners(this.ps);
+			AddPsListeners(this.ps);
 			AddPListeners(this.p);
 		}
 		

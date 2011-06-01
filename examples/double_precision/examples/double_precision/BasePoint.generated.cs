@@ -24,9 +24,9 @@ namespace examples.double_precision
 		
 		public class PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfParameter(X => {});
-			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
-			public static readonly string Z = ModelUtils.NameOfParameter(Z => {});
+			public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
+			public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
+			public static readonly string Z = ModelUtils.NameOfProperty((BasePoint o) => o.Z);
 			
 			protected PROPERTIES() {}
 		}

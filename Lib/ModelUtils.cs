@@ -56,7 +56,15 @@ namespace org.pescuma.ModelSharp.Lib
 					names.Insert(0, ".");
 				names.Insert(0, memberExpression.Member.Name);
 
-				memberExpression = memberExpression.Expression as MemberExpression;
+				if (memberExpression.Expression is MethodCallExpression)
+				{
+					var mc = (MethodCallExpression) memberExpression.Expression;
+					memberExpression = mc.Object as MemberExpression;
+				}
+				else
+				{
+					memberExpression = memberExpression.Expression as MemberExpression;
+				}
 			}
 
 			return names.ToString();

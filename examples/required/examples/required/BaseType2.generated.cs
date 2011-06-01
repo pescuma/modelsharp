@@ -24,7 +24,7 @@ namespace examples.required
 		
 		public class PROPERTIES
 		{
-			public static readonly string NAME = ModelUtils.NameOfParameter(Name => {});
+			public static readonly string NAME = ModelUtils.NameOfProperty((BaseType2 o) => o.Name);
 			
 			protected PROPERTIES() {}
 		}

@@ -25,9 +25,9 @@ namespace examples.collection
 		
 		public class PROPERTIES
 		{
-			public static readonly string CARS = ModelUtils.NameOfParameter(Cars => {});
-			public static readonly string NAME = ModelUtils.NameOfParameter(Name => {});
-			public static readonly string HOUSES = ModelUtils.NameOfParameter(Houses => {});
+			public static readonly string CARS = ModelUtils.NameOfProperty((BasePerson o) => o.Cars);
+			public static readonly string NAME = ModelUtils.NameOfProperty((BasePerson o) => o.Name);
+			public static readonly string HOUSES = ModelUtils.NameOfProperty((BasePerson o) => o.Houses);
 			
 			protected PROPERTIES() {}
 		}

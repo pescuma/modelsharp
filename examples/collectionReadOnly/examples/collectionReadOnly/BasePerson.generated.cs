@@ -25,8 +25,8 @@ namespace examples.collectionReadOnly
 		
 		public class PROPERTIES
 		{
-			public static readonly string HOUSES = ModelUtils.NameOfParameter(Houses => {});
-			public static readonly string HOUSES_LAZY = ModelUtils.NameOfParameter(HousesLazy => {});
+			public static readonly string HOUSES = ModelUtils.NameOfProperty((BasePerson o) => o.Houses);
+			public static readonly string HOUSES_LAZY = ModelUtils.NameOfProperty((BasePerson o) => o.HousesLazy);
 			
 			protected PROPERTIES() {}
 		}

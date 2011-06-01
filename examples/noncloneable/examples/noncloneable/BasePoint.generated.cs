@@ -24,9 +24,9 @@ namespace examples.noncloneable
 		
 		public class PROPERTIES
 		{
-			public static readonly string X = ModelUtils.NameOfParameter(X => {});
-			public static readonly string Y = ModelUtils.NameOfParameter(Y => {});
-			public static readonly string A = ModelUtils.NameOfParameter(A => {});
+			public static readonly string X = ModelUtils.NameOfProperty((BasePoint o) => o.X);
+			public static readonly string Y = ModelUtils.NameOfProperty((BasePoint o) => o.Y);
+			public static readonly string A = ModelUtils.NameOfProperty((BasePoint o) => o.A);
 			
 			protected PROPERTIES() {}
 		}

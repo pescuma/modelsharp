@@ -207,7 +207,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("if (path == ");
             
             #line 23 "X:\c#\modelsharp\Core\templates\NotifyChildDependenciesChange.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ConvertPropertyPathToObfuscation(dep.Key)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ConvertPropertyPathToObfuscation(it, dep.Key)));
             
             #line default
             #line hidden

@@ -25,15 +25,15 @@ namespace examples.deepCopy
 		
 		public class PROPERTIES
 		{
-			public static readonly string HOME_ADDRESS_COL = ModelUtils.NameOfParameter(HomeAddressCol => {});
-			public static readonly string WORK_ADDRESS_COL = ModelUtils.NameOfParameter(WorkAddressCol => {});
-			public static readonly string LAZY_ADDRESS_COL = ModelUtils.NameOfParameter(LazyAddressCol => {});
-			public static readonly string STRING_COL = ModelUtils.NameOfParameter(StringCol => {});
-			public static readonly string STRING_COL2 = ModelUtils.NameOfParameter(StringCol2 => {});
-			public static readonly string DOUBLE_COL = ModelUtils.NameOfParameter(DoubleCol => {});
-			public static readonly string DOUBLE_COL2 = ModelUtils.NameOfParameter(DoubleCol2 => {});
-			public static readonly string HOME_ADDRESS_PROP = ModelUtils.NameOfParameter(HomeAddressProp => {});
-			public static readonly string WORK_ADDRESS_PROP = ModelUtils.NameOfParameter(WorkAddressProp => {});
+			public static readonly string HOME_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddressCol);
+			public static readonly string WORK_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddressCol);
+			public static readonly string LAZY_ADDRESS_COL = ModelUtils.NameOfProperty((BasePerson o) => o.LazyAddressCol);
+			public static readonly string STRING_COL = ModelUtils.NameOfProperty((BasePerson o) => o.StringCol);
+			public static readonly string STRING_COL2 = ModelUtils.NameOfProperty((BasePerson o) => o.StringCol2);
+			public static readonly string DOUBLE_COL = ModelUtils.NameOfProperty((BasePerson o) => o.DoubleCol);
+			public static readonly string DOUBLE_COL2 = ModelUtils.NameOfProperty((BasePerson o) => o.DoubleCol2);
+			public static readonly string HOME_ADDRESS_PROP = ModelUtils.NameOfProperty((BasePerson o) => o.HomeAddressProp);
+			public static readonly string WORK_ADDRESS_PROP = ModelUtils.NameOfProperty((BasePerson o) => o.WorkAddressProp);
 			
 			protected PROPERTIES() {}
 		}

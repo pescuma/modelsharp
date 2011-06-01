@@ -8,10 +8,10 @@
 		<computed-property name="SquaredLength" type="double" dependsOn="X,y,Children" />
 		<computed-property name="SquaredLengthCached" type="double" dependsOn="X,y,Ps" cached="true" />
 		<collection name="Children" type="MyClass" />
-		<collection name="Ps" type="Point" />
+    <property name="Ps" type="MyClass" />
     <property name="P" type="Point" />
-		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y,Ps.Y,Children.*" />
-		<computed-property name="CompSubCached" type="double" dependsOn="P.X.Z,p.Y,Ps.Y,Children.*" cached="true" />
+		<computed-property name="CompSub" type="double" dependsOn="P.X,p.Y,Ps.P,Children.*" />
+		<computed-property name="CompSubCached" type="double" dependsOn="P.X,p.Y,Ps.P.X,Children.*" cached="true" />
 	</type>
 	<type name="MyImmutableClass" immutable="true">
 		<property name="X" type="double" />

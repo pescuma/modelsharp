@@ -25,9 +25,9 @@ namespace examples.lazy
 		
 		public class PROPERTIES
 		{
-			public static readonly string PROP1 = ModelUtils.NameOfParameter(Prop1 => {});
-			public static readonly string COMP1 = ModelUtils.NameOfParameter(Comp1 => {});
-			public static readonly string COL1 = ModelUtils.NameOfParameter(Col1 => {});
+			public static readonly string PROP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Prop1);
+			public static readonly string COMP1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Comp1);
+			public static readonly string COL1 = ModelUtils.NameOfProperty((BaseType1 o) => o.Col1);
 			
 			protected PROPERTIES() {}
 		}

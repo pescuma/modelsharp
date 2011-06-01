@@ -27,7 +27,7 @@ namespace examples.@using
 		
 		public class PROPERTIES
 		{
-			public static readonly string DATE = ModelUtils.NameOfParameter(Date => {});
+			public static readonly string DATE = ModelUtils.NameOfProperty((BaseTest2 o) => o.Date);
 			
 			protected PROPERTIES() {}
 		}

@@ -24,9 +24,9 @@ namespace examples.composition
 		
 		public class PROPERTIES
 		{
-			public static readonly string STREET = ModelUtils.NameOfParameter(Street => {});
-			public static readonly string CITY = ModelUtils.NameOfParameter(City => {});
-			public static readonly string ZIP_CODE = ModelUtils.NameOfParameter(ZipCode => {});
+			public static readonly string STREET = ModelUtils.NameOfProperty((BaseAddress o) => o.Street);
+			public static readonly string CITY = ModelUtils.NameOfProperty((BaseAddress o) => o.City);
+			public static readonly string ZIP_CODE = ModelUtils.NameOfProperty((BaseAddress o) => o.ZipCode);
 			
 			protected PROPERTIES() {}
 		}

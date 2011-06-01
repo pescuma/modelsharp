@@ -20,7 +20,7 @@
 <#	} #>
 <#	int innerIndex = 0; #>
 <#	foreach(var dep in depts) { #>
-				<# if (innerIndex > 0) { #>else <# } #>if (path == <#= ConvertPropertyPathToObfuscation(dep.Key) #>)
+				<# if (innerIndex > 0) { #>else <# } #>if (path == <#= ConvertPropertyPathToObfuscation(it, dep.Key) #>)
 				{
 <#		foreach(var prop in dep.Value) { #>
 					<#= prop.Invalidate.Name #>();

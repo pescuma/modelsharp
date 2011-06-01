@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 using System.Collections;
-using System.Text;
+using org.pescuma.ModelSharp.Core.model;
 
 namespace org.pescuma.ModelSharp.Core.templates
 {
@@ -84,16 +84,18 @@ namespace org.pescuma.ModelSharp.Core.templates
 			}
 		}
 
-		protected string ConvertPropertyPathToObfuscation(string path)
+		protected string ConvertPropertyPathToObfuscation(PropertyInfo it, string path)
 		{
-			var result = new StringBuilder();
-			foreach (var p in path.Split('.'))
-			{
-				if (result.Length > 0)
-					result.Append(" + \".\" + ");
-				result.Append("ModelUtils.NameOfParameter(" + p + " => {})");
-			}
-			return result.ToString();
+			return "ModelUtils.NameOfProperty((" + it.TypeName + " o) => o." + path + ")";
+
+//			var result = new StringBuilder();
+//			foreach (var p in path.Split('.'))
+//			{
+//				if (result.Length > 0)
+//					result.Append(" + \".\" + ");
+//				result.Append("ModelUtils.NameOfParameter(" + p + " => {})");
+//			}
+//			return result.ToString();
 		}
 	}
 }

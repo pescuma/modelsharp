@@ -21,6 +21,7 @@
 //  
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace org.pescuma.ModelSharp.Lib
@@ -52,6 +53,9 @@ namespace org.pescuma.ModelSharp.Lib
 
 			while (memberExpression != null)
 			{
+				if (memberExpression.Member.MemberType != MemberTypes.Property)
+					break;
+
 				if (names.Length > 0)
 					names.Insert(0, ".");
 				names.Insert(0, memberExpression.Member.Name);

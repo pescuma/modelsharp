@@ -37,9 +37,9 @@ namespace org.pescuma.ModelSharp.Lib
 			List<ObjectPathEntry> path = new List<ObjectPathEntry>();
 			path.Add(new ObjectPathEntry(sender, property));
 
-			if (child is ChildPropertyChangingEventArgs)
+			if (childArgs is ChildPropertyChangingEventArgs)
 			{
-				var other = (ChildPropertyChangingEventArgs) child;
+				var other = (ChildPropertyChangingEventArgs) childArgs;
 				path.AddRange(other.ObjectPath);
 			}
 			else
@@ -67,42 +67,83 @@ namespace org.pescuma.ModelSharp.Lib
 			}
 		}
 
-		public bool IsFrom(object sender, string propertyName)
+		public bool IsFrom<TS, T>(TS sender, Expression<Func<TS, T>> property)
 		{
-			foreach (var entry in ObjectPath)
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
+		}
+
+		public bool IsFrom(object sender, params string[] propertiesNames)
+		{
+			if (propertiesNames == null || propertiesNames.Length < 1)
+				throw new ArgumentNullException();
+
+			var propertyName = string.Join(".", propertiesNames);
+
+			for (int i = 0; i < ObjectPath.Count; i++)
 			{
-				if (entry.Sender == sender && entry.Property == propertyName)
+				var entry = ObjectPath[i];
+
+				if (entry.Sender == sender && IsProperty(propertyName, i))
 					return true;
 			}
 
 			return false;
 		}
 
-		public bool IsFrom<T>(object sender, Expression<Func<T>> property)
+		public bool IsFrom<T>(Type sender, Expression<Func<T>> property)
 		{
-			var lambda = (LambdaExpression) property;
-			var memberExpression = (MemberExpression) lambda.Body;
-			var propertyName = memberExpression.Member.Name;
-
-			foreach (var entry in ObjectPath)
-			{
-				if (entry.Sender == sender && entry.Property == propertyName)
-					return true;
-			}
-
-			return false;
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
 		}
 
-		public bool IsFrom(Type sender, string propertyName)
+		public bool IsFrom<TS, T>(Type sender, Expression<Func<TS, T>> property)
+		{
+			return IsFrom(sender, ModelUtils.NameOfProperty(property));
+		}
+
+		public bool IsFrom(Type sender, params string[] propertiesNames)
 		{
 			if (sender == null)
-				return false;
+				throw new ArgumentNullException();
+			if (propertiesNames == null || propertiesNames.Length < 1)
+				throw new ArgumentNullException();
 
-			foreach (var entry in ObjectPath)
+			var propertyName = string.Join(".", propertiesNames);
+
+			for (int i = 0; i < ObjectPath.Count; i++)
 			{
+				var entry = ObjectPath[i];
+
 				if (entry.Sender != null && sender.IsAssignableFrom(entry.Sender.GetType())
-				    && entry.Property == propertyName)
+				    && IsProperty(propertyName, i))
 					return true;
+			}
+
+			return false;
+		}
+
+		private bool IsProperty(string propertyName, int objectPathIndex)
+		{
+			var entryPropertyName = ObjectPath[objectPathIndex].Property;
+
+			// Check if this is it
+			if (entryPropertyName == propertyName)
+				return true;
+
+			// Check sub properties
+			if (propertyName.IndexOf('.') >= 0)
+			{
+				for (int j = objectPathIndex + 1; j < ObjectPath.Count; j++)
+				{
+					if (!propertyName.StartsWith(entryPropertyName))
+						break;
+
+					var child = ObjectPath[j];
+
+					entryPropertyName += "." + child.Property;
+
+					if (entryPropertyName == propertyName)
+						return true;
+				}
 			}
 
 			return false;

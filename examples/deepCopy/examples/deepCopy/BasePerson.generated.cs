@@ -895,11 +895,11 @@ namespace examples.deepCopy
 				
 			NotifyPropertyChanging(PROPERTIES.HOME_ADDRESS_PROP);
 			
-			RemoveHomeAddressPropListeners(homeAddressProp);
+			RemoveHomeAddressPropListeners(this.homeAddressProp);
 			
 			this.homeAddressProp = homeAddressProp;
 			
-			AddHomeAddressPropListeners(homeAddressProp);
+			AddHomeAddressPropListeners(this.homeAddressProp);
 			
 			NotifyPropertyChanged(PROPERTIES.HOME_ADDRESS_PROP);
 			
@@ -1004,11 +1004,11 @@ namespace examples.deepCopy
 				
 			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS_PROP);
 			
-			RemoveWorkAddressPropListeners(workAddressProp);
+			RemoveWorkAddressPropListeners(this.workAddressProp);
 			
 			this.workAddressProp = workAddressProp;
 			
-			AddWorkAddressPropListeners(workAddressProp);
+			AddWorkAddressPropListeners(this.workAddressProp);
 			
 			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS_PROP);
 			

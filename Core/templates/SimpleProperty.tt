@@ -80,13 +80,13 @@
 			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);
 
 <#		if (it.CanListenTo) { #>
-			Remove<#= it.Name #>Listeners(<#= it.VarName #>);
+			Remove<#= it.Name #>Listeners(this.<#= it.FieldName #>);
 
 <#		} #>
 			this.<#= it.FieldName #> = <#= it.VarName #>;
 
 <#		if (it.CanListenTo) { #>
-			Add<#= it.Name #>Listeners(<#= it.VarName #>);
+			Add<#= it.Name #>Listeners(this.<#= it.FieldName #>);
 
 <#		} #>
 			NotifyPropertyChanged(PROPERTIES.<#= it.DefineName #>);

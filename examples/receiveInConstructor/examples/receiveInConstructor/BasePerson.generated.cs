@@ -150,11 +150,11 @@ namespace examples.receiveInConstructor
 				
 			NotifyPropertyChanging(PROPERTIES.WORK_ADDRESS);
 			
-			RemoveWorkAddressListeners(workAddress);
+			RemoveWorkAddressListeners(this.workAddress);
 			
 			this.workAddress = workAddress;
 			
-			AddWorkAddressListeners(workAddress);
+			AddWorkAddressListeners(this.workAddress);
 			
 			NotifyPropertyChanged(PROPERTIES.WORK_ADDRESS);
 			

@@ -481,11 +481,11 @@ namespace examples.computeProperty
 				
 			NotifyPropertyChanging(PROPERTIES.PS);
 			
-			RemovePsListeners(ps);
+			RemovePsListeners(this.ps);
 			
 			this.ps = ps;
 			
-			AddPsListeners(ps);
+			AddPsListeners(this.ps);
 			
 			NotifyPropertyChanged(PROPERTIES.PS);
 			
@@ -590,11 +590,11 @@ namespace examples.computeProperty
 				
 			NotifyPropertyChanging(PROPERTIES.P);
 			
-			RemovePListeners(p);
+			RemovePListeners(this.p);
 			
 			this.p = p;
 			
-			AddPListeners(p);
+			AddPListeners(this.p);
 			
 			NotifyPropertyChanged(PROPERTIES.P);
 			

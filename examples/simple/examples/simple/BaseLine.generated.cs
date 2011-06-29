@@ -82,11 +82,11 @@ namespace examples.simple
 				
 			NotifyPropertyChanging(PROPERTIES.P1);
 			
-			RemoveP1Listeners(p1);
+			RemoveP1Listeners(this.p1);
 			
 			this.p1 = p1;
 			
-			AddP1Listeners(p1);
+			AddP1Listeners(this.p1);
 			
 			NotifyPropertyChanged(PROPERTIES.P1);
 			
@@ -191,11 +191,11 @@ namespace examples.simple
 				
 			NotifyPropertyChanging(PROPERTIES.P2);
 			
-			RemoveP2Listeners(p2);
+			RemoveP2Listeners(this.p2);
 			
 			this.p2 = p2;
 			
-			AddP2Listeners(p2);
+			AddP2Listeners(this.p2);
 			
 			NotifyPropertyChanged(PROPERTIES.P2);
 			

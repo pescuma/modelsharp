@@ -80,11 +80,11 @@ namespace examples.extends
 				
 			NotifyPropertyChanging(PROPERTIES.DATE2);
 			
-			RemoveDate2Listeners(date2);
+			RemoveDate2Listeners(this.date2);
 			
 			this.date2 = date2;
 			
-			AddDate2Listeners(date2);
+			AddDate2Listeners(this.date2);
 			
 			NotifyPropertyChanged(PROPERTIES.DATE2);
 			

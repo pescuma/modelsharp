@@ -106,11 +106,11 @@ namespace examples.required
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
-			RemoveProp1Listeners(prop1);
+			RemoveProp1Listeners(this.prop1);
 			
 			this.prop1 = prop1;
 			
-			AddProp1Listeners(prop1);
+			AddProp1Listeners(this.prop1);
 			
 			NotifyPropertyChanged(PROPERTIES.PROP1);
 			
@@ -230,11 +230,11 @@ namespace examples.required
 			
 			NotifyPropertyChanging(PROPERTIES.PROP2);
 			
-			RemoveProp2Listeners(prop2);
+			RemoveProp2Listeners(this.prop2);
 			
 			this.prop2 = prop2;
 			
-			AddProp2Listeners(prop2);
+			AddProp2Listeners(this.prop2);
 			
 			NotifyPropertyChanged(PROPERTIES.PROP2);
 			

@@ -92,11 +92,11 @@ namespace examples.lazy
 				
 			NotifyPropertyChanging(PROPERTIES.PROP1);
 			
-			RemoveProp1Listeners(prop1);
+			RemoveProp1Listeners(this.prop1);
 			
 			this.prop1 = prop1;
 			
-			AddProp1Listeners(prop1);
+			AddProp1Listeners(this.prop1);
 			
 			NotifyPropertyChanged(PROPERTIES.PROP1);
 			

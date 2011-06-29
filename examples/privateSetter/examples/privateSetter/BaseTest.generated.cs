@@ -78,11 +78,11 @@ namespace examples.privateSetter
 				
 			NotifyPropertyChanging(PROPERTIES.DATE);
 			
-			RemoveDateListeners(date);
+			RemoveDateListeners(this.date);
 			
 			this.date = date;
 			
-			AddDateListeners(date);
+			AddDateListeners(this.date);
 			
 			NotifyPropertyChanged(PROPERTIES.DATE);
 			

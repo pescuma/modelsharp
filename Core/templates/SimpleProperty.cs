@@ -650,10 +650,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("Listeners(");
+            this.Write("Listeners(this.");
             
             #line 83 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
@@ -692,10 +692,10 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write("Listeners(");
+            this.Write("Listeners(this.");
             
             #line 89 "X:\c#\modelsharp\Core\templates\SimpleProperty.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.VarName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden

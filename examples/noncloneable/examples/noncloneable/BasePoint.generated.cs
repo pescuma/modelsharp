@@ -158,11 +158,11 @@ namespace examples.noncloneable
 				
 			NotifyPropertyChanging(PROPERTIES.A);
 			
-			RemoveAListeners(a);
+			RemoveAListeners(this.a);
 			
 			this.a = a;
 			
-			AddAListeners(a);
+			AddAListeners(this.a);
 			
 			NotifyPropertyChanged(PROPERTIES.A);
 			

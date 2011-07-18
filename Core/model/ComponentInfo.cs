@@ -45,5 +45,10 @@ namespace org.pescuma.ModelSharp.Core.model
 			get { return true; }
 			set { base.DeepCopy = value; }
 		}
+
+		public override bool IsNullable
+		{
+			get { return false; }
+		}
 	}
 }

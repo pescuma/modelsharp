@@ -19,6 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //  
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
@@ -58,6 +59,22 @@ namespace org.pescuma.ModelSharp.Core.model
 				}
 			}
 			set { precision = value; }
+		}
+
+		public virtual bool IsNullable
+		{
+			get { return !IsPrimitive || TypeName.EndsWith("?"); }
+		}
+
+		public string NonNullableTypeName
+		{
+			get
+			{
+				if (!IsNullable)
+					throw new InvalidOperationException();
+
+				return TypeName.Substring(0, TypeName.Length - 1);
+			}
 		}
 
 		private string defaultValue;

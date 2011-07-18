@@ -98,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Clone.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\CollectionEquals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionEquals.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\CollectionProperty.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -122,6 +127,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Define.tt</DependentUpon>
+    </Compile>
+    <Compile Include="templates\HashCode.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HashCode.tt</DependentUpon>
     </Compile>
     <Compile Include="templates\ImmutableClass.cs">
       <AutoGen>True</AutoGen>
@@ -233,6 +243,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotifyPropertyChange.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\PropertyEquals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PropertyEquals.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\PropertyValidate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -315,6 +330,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Clone.cs</LastGenOutput>
     </None>
+    <None Include="templates\CollectionEquals.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CollectionEquals.cs</LastGenOutput>
+    </None>
     <None Include="templates\CollectionProperty.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CollectionProperty.cs</LastGenOutput>
@@ -326,6 +345,10 @@
     <None Include="templates\Define.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Define.cs</LastGenOutput>
+    </None>
+    <None Include="templates\HashCode.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>HashCode.cs</LastGenOutput>
     </None>
     <None Include="templates\InvalidateChildComputedDependenciesCache.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -422,6 +445,10 @@
     <None Include="templates\NotifyPropertyChange.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>NotifyPropertyChange.cs</LastGenOutput>
+    </None>
+    <None Include="templates\PropertyEquals.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PropertyEquals.cs</LastGenOutput>
     </None>
     <None Include="templates\PropertyValidate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

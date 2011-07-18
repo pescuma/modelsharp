@@ -101,6 +101,10 @@ namespace org.pescuma.ModelSharp.Core.xml {
         
         private string docField;
         
+        private bool equalsField;
+        
+        private bool equalsFieldSpecified;
+        
         private string extendsField;
         
         private bool immutableField;
@@ -192,6 +196,28 @@ namespace org.pescuma.ModelSharp.Core.xml {
             }
             set {
                 this.docField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool equals {
+            get {
+                return this.equalsField;
+            }
+            set {
+                this.equalsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool equalsSpecified {
+            get {
+                return this.equalsFieldSpecified;
+            }
+            set {
+                this.equalsFieldSpecified = value;
             }
         }
         

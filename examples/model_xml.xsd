@@ -25,6 +25,7 @@
       <xs:attribute name="cloneable" type="xs:boolean"/>
       <xs:attribute name="deepCopy" type="xs:boolean"/>
       <xs:attribute name="doc"/>
+      <xs:attribute name="equals" type="xs:boolean"/>
       <xs:attribute name="extends"/>
       <xs:attribute name="immutable" type="xs:boolean"/>
       <xs:attribute name="implements"/>

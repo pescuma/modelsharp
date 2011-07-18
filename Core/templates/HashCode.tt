@@ -1,0 +1,15 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
+<#	if (it.IsCollection) { #>
+			for(var obj in <#= it.Name #>)
+<#		if (((CollectionInfo) it).ContentsType.IsNullable) { #>
+				result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
+<#		} else { #>
+				result = (result * 397) ^ obj.GetHashCode();
+<#		} #>
+<#	} else if (it.IsNullable) { #>
+			result = (result * 397) ^ (<#= it.Name #> != null ? <#= it.Name #>.GetHashCode() : 0);
+<#	} else { #>
+			result = (result * 397) ^ <#= it.Name #>.GetHashCode();
+<#	} #>

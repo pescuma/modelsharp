@@ -70,11 +70,19 @@
 		protected virtual <#= it.Setter.TypeName #> <#= it.Setter.Name #>(<#= it.Setter.Parameters[0] #> <#= it.VarName #>) 
 		{
 <#		if (it.Precision > 0) { #>
+<#			if (it.IsNullable) { #>
+			if (this.<#= it.FieldName #> == null && <#= it.VarName #> == null)
+				return false;
+			if (this.<#= it.FieldName #> != null && <#= it.VarName #> != null && Math.Abs((<#= it.NonNullableTypeName #>) this.<#= it.FieldName #> - (<#= it.NonNullableTypeName #>) <#= it.VarName #>) < <#= it.Precision #>)
+				return false;
+<#			} else { #>
 			if (Math.Abs(this.<#= it.FieldName #> - <#= it.VarName #>) < <#= it.Precision #>)
+				return false;
+<#			} #>
 <#		} else { #>
 			if (this.<#= it.FieldName #> == <#= it.VarName #>)
-<#		} #>
 				return false;
+<#		} #>
 <#		Include("ValidateIfRequired", it, "param", it.VarName); #>
 
 			NotifyPropertyChanging(PROPERTIES.<#= it.DefineName #>);

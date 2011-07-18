@@ -1,0 +1,19 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.CollectionInfo" #>
+			if (<#= it.Name #>.Count != other.<#= it.Name #>.Count)
+				return false;
+			for(int i = 0; i < <#= it.Name #>.Count; ++i)
+			{
+				var mine = <#= it.Name #>[i];
+				var theirs = other.<#= it.Name #>[i];
+<#	if (it.ContentsType.IsNullable) { #>
+				if ((mine == null) != (theirs == null))
+					return false;
+				if (mine != null && !mine.Equals(theirs))
+					return false;
+<# 	} else { #>
+				if (!mine.Equals(theirs))
+					return false;
+<# 	} #>
+			}

@@ -136,6 +136,9 @@ namespace org.pescuma.ModelSharp.Core
 					if (!type.serializableSpecified)
 						type.serializable = true;
 
+					if (!type.equalsSpecified)
+						type.equals = false;
+
 					if (type.Items == null)
 						type.Items = new object[0];
 
@@ -223,7 +226,7 @@ namespace org.pescuma.ModelSharp.Core
 					var type = (type) modelItem;
 
 					var ti = new TypeInfo(type.name, model.@namespace, type.immutable, type.cloneable,
-					                      type.serializable);
+					                      type.serializable, type.equals);
 
 					if (type.deepCopySpecified)
 						ti.DeepCopy = type.deepCopy;

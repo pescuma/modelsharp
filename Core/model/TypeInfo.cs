@@ -36,6 +36,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly bool Immutable;
 		public readonly bool Cloneable;
 		public readonly bool Serializable;
+		public readonly bool Equals;
 		public string Documentation;
 		public bool DeepCopy;
 
@@ -48,12 +49,13 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> Annotations = new List<string>();
 		public readonly List<string> BaseOnlyAnnotations = new List<string>();
 
-		public TypeInfo(string name, string package, bool immutable, bool cloneable, bool serializable)
+		public TypeInfo(string name, string package, bool immutable, bool cloneable, bool serializable, bool equals)
 		{
 			Contract.Requires(StringUtils.IsValidVariableName(name));
 			Contract.Requires(string.IsNullOrEmpty(package) || StringUtils.IsValidTypeName(package));
 
 			Name = name;
+			Equals = equals;
 			ImplementationName = "Base" + name;
 			Package = string.IsNullOrEmpty(package) ? null : package;
 			Immutable = immutable;
@@ -107,6 +109,36 @@ namespace org.pescuma.ModelSharp.Core.model
 				return (from prop in Properties
 				        where !prop.IsComputed
 				        select prop);
+			}
+		}
+
+		public IEnumerable<PropertyInfo> SimpleProperties
+		{
+			get
+			{
+				return (from prop in Properties
+						where !prop.IsComputed && !prop.IsComponent && !prop.IsCollection
+						select prop);
+			}
+		}
+
+		public IEnumerable<PropertyInfo> SimpleOrComponentProperties
+		{
+			get
+			{
+				return (from prop in Properties
+						where !prop.IsComputed && !prop.IsCollection
+						select prop);
+			}
+		}
+
+		public IEnumerable<CollectionInfo> CollectionProperties
+		{
+			get
+			{
+				return (from prop in Properties
+						where prop.IsCollection
+						select prop).Cast<CollectionInfo>();
 			}
 		}
 

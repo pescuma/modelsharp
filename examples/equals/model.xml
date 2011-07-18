@@ -1,0 +1,13 @@
+<model namespace="examples.equals">
+	<type name="Point" equals="true">
+		<property name="x" type="double" />
+		<property name="y" type="double" default="2" />
+		<property name="a" type="Point" default="new Point()" />
+	</type>
+	<type name="Rect" equals="true">
+		<component name="Min" type="Point" />
+		<component name="Max" type="Point" />
+		<computed-property name="Length" type="float" />
+		<collection name="Ps" type="Point" />
+	</type>
+</model>

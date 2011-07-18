@@ -481,22 +481,36 @@ namespace org.pescuma.ModelSharp.Core.templates
             
             #line default
             #line hidden
-            this.Write(@"				return result;
-			}
-		}
-
-		public static bool operator ==(BaseCutParameters left, BaseCutParameters right)
-		{
-			return Equals(left, right);
-		}
-
-		public static bool operator !=(BaseCutParameters left, BaseCutParameters right)
-		{
-			return !Equals(left, right);
-		}
-
-		#endregion Equals
-");
+            this.Write("\t\t\t\treturn result;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\tpublic static bool operator ==(");
+            
+            #line 144 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
+            
+            #line default
+            #line hidden
+            this.Write(" left, ");
+            
+            #line 144 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
+            
+            #line default
+            #line hidden
+            this.Write(" right)\r\n\t\t{\r\n\t\t\treturn Equals(left, right);\r\n\t\t}\r\n\r\n\t\tpublic static bool operato" +
+                    "r !=(");
+            
+            #line 149 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
+            
+            #line default
+            #line hidden
+            this.Write(" left, ");
+            
+            #line 149 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ImplementationName));
+            
+            #line default
+            #line hidden
+            this.Write(" right)\r\n\t\t{\r\n\t\t\treturn !Equals(left, right);\r\n\t\t}\r\n\r\n\t\t#endregion Equals\r\n");
             
             #line 155 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  	} 

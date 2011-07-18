@@ -17,7 +17,7 @@ namespace examples.equals
 {
 
 	[DataContract]
-	[DebuggerDisplay("Rect[Ps={Ps.Count}items]")]
+	[DebuggerDisplay("Rect[Ps={Ps.Count}items Ls={Ls.Count}items LLs={LLs.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseRect : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
 	{
@@ -29,6 +29,8 @@ namespace examples.equals
 			public static readonly string MAX = ModelUtils.NameOfProperty((BaseRect o) => o.Max);
 			public static readonly string LENGTH = ModelUtils.NameOfProperty((BaseRect o) => o.Length);
 			public static readonly string PS = ModelUtils.NameOfProperty((BaseRect o) => o.Ps);
+			public static readonly string LS = ModelUtils.NameOfProperty((BaseRect o) => o.Ls);
+			public static readonly string L_LS = ModelUtils.NameOfProperty((BaseRect o) => o.LLs);
 			
 			protected PROPERTIES() {}
 		}
@@ -45,6 +47,10 @@ namespace examples.equals
 			AddMaxListeners(this.max);
 			this.ps = new ObservableList<Point>();
 			AddPsListListeners(this.ps);
+			this.ls = new ObservableList<double?>();
+			AddLsListListeners(this.ls);
+			this.lLs = new ObservableList<double>();
+			AddLLsListListeners(this.lLs);
 		}
 		
 		protected BaseRect(BaseRect other)
@@ -56,6 +62,12 @@ namespace examples.equals
 			this.ps = new ObservableList<Point>();
 			AddPsListListeners(this.ps);
 			this.ps.AddRange(other.Ps);
+			this.ls = new ObservableList<double?>();
+			AddLsListListeners(this.ls);
+			this.ls.AddRange(other.Ls);
+			this.lLs = new ObservableList<double>();
+			AddLLsListListeners(this.lLs);
+			this.lLs.AddRange(other.LLs);
 		}
 		
 		#endregion Constructors
@@ -379,6 +391,238 @@ namespace examples.equals
 		
 		#endregion Property Ps
 		
+		#region Property Ls
+		
+		[DataMember(Name = "Ls", Order = 3, IsRequired = false)]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private readonly ObservableList<double?> ls;
+		
+		public ObservableList<double?> Ls
+		{
+			[DebuggerStepThrough]
+			get {
+				return GetLs();
+			}
+		}
+		
+		[DebuggerStepThrough]
+		protected virtual ObservableList<double?> GetLs()
+		{
+			return this.ls;
+		}
+		
+		private void AddLsListListeners(ObservableList<double?> child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanging.PropertyChanging += LsListPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanged.PropertyChanged += LsListPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyCollectionChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyChildPropertyChanged.CollectionChanged += LsListChangedEventHandler;
+				
+			foreach (var item in child)
+				AddLsItemListeners(item);
+		}
+		
+		private void LsListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<double?>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanging(PROPERTIES.LS);
+		}
+		
+		private void LsListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<double?>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanged(PROPERTIES.LS);
+		}
+		
+		private void LsListChangedEventHandler(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			switch (e.Action)
+			{
+				case NotifyCollectionChangedAction.Add:
+				case NotifyCollectionChangedAction.Remove:
+				case NotifyCollectionChangedAction.Replace:
+				
+					if ((e.OldItems == null || e.OldItems.Count == 0)
+					        && (e.NewItems == null || e.NewItems.Count == 0))
+						throw new InvalidOperationException();
+						
+					if (e.OldItems != null)
+						foreach (var item in e.OldItems)
+							RemoveLsItemListeners(item);
+							
+					if (e.NewItems != null)
+						foreach (var item in e.NewItems)
+							AddLsItemListeners(item);
+							
+					break;
+				case NotifyCollectionChangedAction.Move:
+					// Do nothing
+					break;
+				default:
+					// NotifyCollectionChangedAction.Reset: The list should not fire this or
+					// we can't control the items
+					throw new InvalidOperationException();
+			}
+		}
+		
+		private void RemoveLsItemListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanging.PropertyChanging -= LsItemPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyChildPropertyChanging.ChildPropertyChanging -= LsItemChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanged.PropertyChanged -= LsItemPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyChildPropertyChanged.ChildPropertyChanged -= LsItemChildPropertyChangedEventHandler;
+		}
+		
+		private void AddLsItemListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanging.PropertyChanging += LsItemPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyChildPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyChildPropertyChanging.ChildPropertyChanging += LsItemChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanged.PropertyChanged += LsItemPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyChildPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyChildPropertyChanged.ChildPropertyChanged += LsItemChildPropertyChangedEventHandler;
+		}
+		
+		private void LsItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.LS, sender, e);
+		}
+		
+		private void LsItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.LS, sender, e);
+		}
+		
+		private void LsItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.LS, sender, e);
+		}
+		
+		private void LsItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.LS, sender, e);
+		}
+		
+		#endregion Property Ls
+		
+		#region Property LLs
+		
+		[DataMember(Name = "LLs", Order = 4, IsRequired = false)]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private readonly ObservableList<double> lLs;
+		
+		public ObservableList<double> LLs
+		{
+			[DebuggerStepThrough]
+			get {
+				return GetLLs();
+			}
+		}
+		
+		[DebuggerStepThrough]
+		protected virtual ObservableList<double> GetLLs()
+		{
+			return this.lLs;
+		}
+		
+		private void AddLLsListListeners(ObservableList<double> child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanging.PropertyChanging += LLsListPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanged.PropertyChanged += LLsListPropertyChangedEventHandler;
+		}
+		
+		private void LLsListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanging(PROPERTIES.L_LS);
+		}
+		
+		private void LLsListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<double>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanged(PROPERTIES.L_LS);
+		}
+		
+		#endregion Property LLs
+		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
@@ -432,6 +676,10 @@ namespace examples.equals
 			Max.CopyFrom(other.Max);
 			Ps.Clear();
 			Ps.AddRange(other.Ps);
+			Ls.Clear();
+			Ls.AddRange(other.Ls);
+			LLs.Clear();
+			LLs.AddRange(other.LLs);
 		}
 		
 		#endregion CopyFrom
@@ -459,6 +707,8 @@ namespace examples.equals
 			AddMinListeners(this.min);
 			AddMaxListeners(this.max);
 			AddPsListListeners(this.ps);
+			AddLsListListeners(this.ls);
+			AddLLsListListeners(this.lLs);
 		}
 		
 		#endregion Serialization
@@ -475,9 +725,25 @@ namespace examples.equals
 			{
 				var mine = Ps[i];
 				var theirs = other.Ps[i];
-				if ((mine == null) != (theirs == null))
+				if (!Equals(mine, theirs))
 					return false;
-				if (mine != null && !mine.Equals(theirs))
+			}
+			if (Ls.Count != other.Ls.Count)
+				return false;
+			for(int i = 0; i < Ls.Count; ++i)
+			{
+				var mine = Ls[i];
+				var theirs = other.Ls[i];
+				if ((mine == null) != (theirs == null) || (mine != null && Math.Abs((double) mine - (double) theirs) >= 1E-06))
+					return false;
+			}
+			if (LLs.Count != other.LLs.Count)
+				return false;
+			for(int i = 0; i < LLs.Count; ++i)
+			{
+				var mine = LLs[i];
+				var theirs = other.LLs[i];
+				if (Math.Abs(mine - theirs) >= 1E-06)
 					return false;
 			}
 			return Min.Equals(other.Min)
@@ -502,16 +768,20 @@ namespace examples.equals
 				result = (result * 397) ^ Max.GetHashCode();
 				for(var obj in Ps)
 					result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
+				for(var obj in Ls)
+					result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
+				for(var obj in LLs)
+					result = (result * 397) ^ obj.GetHashCode();
 				return result;
 			}
 		}
 		
-		public static bool operator ==(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator ==(BaseRect left, BaseRect right)
 		{
 			return Equals(left, right);
 		}
 		
-		public static bool operator !=(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator !=(BaseRect left, BaseRect right)
 		{
 			return !Equals(left, right);
 		}

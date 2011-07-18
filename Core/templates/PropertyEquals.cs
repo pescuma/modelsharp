@@ -189,85 +189,65 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 10 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-	} else { 
+	} else if (it.IsNullable) { 
             
             #line default
             #line hidden
+            this.Write("Equals(");
             
             #line 11 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-		if (it.IsNullable) { 
-            
-            #line default
-            #line hidden
-            this.Write("((");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
-            this.Write(" == null && other.");
+            this.Write(", other.");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" == null) || (");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" != null && other.");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" != null && ");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Equals(other.");
-            
-            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(")))\r\n");
-            
-            #line 13 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
- 		} else { 
-            
-            #line default
-            #line hidden
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Equals(other.");
-            
-            #line 14 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+            #line 11 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(")\r\n");
             
-            #line 15 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
- 		} 
+            #line 12 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+	} else if (it.IsPrimitive) { 
             
             #line default
             #line hidden
+            
+            #line 13 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" == other.");
+            
+            #line 13 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 14 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+ 	} else { 
+            
+            #line default
+            #line hidden
+            
+            #line 15 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(".Equals(other.");
+            
+            #line 15 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n");
             
             #line 16 "X:\c#\modelsharp\Core\templates\PropertyEquals.tt"
  	} 

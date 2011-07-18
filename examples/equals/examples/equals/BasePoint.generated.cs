@@ -37,6 +37,7 @@ namespace examples.equals
 		
 		protected BasePoint()
 		{
+			AddXListeners(this.x);
 			this.y = 2;
 			this.a = new Point();
 			AddAListeners(this.a);
@@ -45,6 +46,7 @@ namespace examples.equals
 		protected BasePoint(BasePoint other)
 		{
 			this.x = other.X;
+			AddXListeners(this.x);
 			this.y = other.Y;
 			this.a = other.A;
 			AddAListeners(this.a);
@@ -56,9 +58,9 @@ namespace examples.equals
 		
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private double x;
+		private double? x;
 		
-		public double X
+		public double? X
 		{
 			[DebuggerStepThrough]
 			get {
@@ -71,24 +73,94 @@ namespace examples.equals
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual double GetX()
+		protected virtual double? GetX()
 		{
 			return this.x;
 		}
 		
 		[DebuggerStepThrough]
-		protected virtual bool SetX(double x)
+		protected virtual bool SetX(double? x)
 		{
-			if (Math.Abs(this.x - x) < 1E-06)
+			if (this.x == null && x == null)
+				return false;
+			if (this.x != null && x != null && Math.Abs((double) this.x - (double) x) < 1E-06)
 				return false;
 				
 			NotifyPropertyChanging(PROPERTIES.X);
 			
+			RemoveXListeners(this.x);
+			
 			this.x = x;
+			
+			AddXListeners(this.x);
 			
 			NotifyPropertyChanged(PROPERTIES.X);
 			
 			return true;
+		}
+		
+		private void RemoveXListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging -= XPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging -= XChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged -= XPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged -= XChildPropertyChangedEventHandler;
+		}
+		
+		private void AddXListeners(object child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+			if (notifyPropertyChanging != null)
+				notifyPropertyChanging.PropertyChanging += XPropertyChangingEventHandler;
+				
+			var notifyChildPropertyChanging = child as INotifyChildPropertyChanging;
+			if (notifyChildPropertyChanging != null)
+				notifyChildPropertyChanging.ChildPropertyChanging += XChildPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+			if (notifyPropertyChanged != null)
+				notifyPropertyChanged.PropertyChanged += XPropertyChangedEventHandler;
+				
+			var notifyChildPropertyChanged = child as INotifyChildPropertyChanged;
+			if (notifyChildPropertyChanged != null)
+				notifyChildPropertyChanged.ChildPropertyChanged += XChildPropertyChangedEventHandler;
+		}
+		
+		private void XPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.X, sender, e);
+		}
+		
+		private void XChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventArgs e)
+		{
+			NotifyChildPropertyChanging(PROPERTIES.X, sender, e);
+		}
+		
+		private void XPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.X, sender, e);
+		}
+		
+		private void XChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs e)
+		{
+			NotifyChildPropertyChanged(PROPERTIES.X, sender, e);
 		}
 		
 		#endregion Property X
@@ -319,6 +391,7 @@ namespace examples.equals
 		
 		void IDeserializationCallback.OnDeserialization(object sender)
 		{
+			AddXListeners(this.x);
 			AddAListeners(this.a);
 		}
 		
@@ -330,9 +403,9 @@ namespace examples.equals
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return Math.Abs(X - other.X) < 1E-06
+			return ((X == null && other.X == null) || (X != null && other.X != null && Math.Abs((double) X - (double) other.X) < 1E-06))
 			       && Math.Abs(Y - other.Y) < 1E-06
-			       && ((A == null && other.A == null) || (A != null && other.A != null && A.Equals(other.A)))
+			       && Equals(A, other.A)
 			       ;
 		}
 		
@@ -349,19 +422,19 @@ namespace examples.equals
 			unchecked
 			{
 				int result = 0;
-				result = (result * 397) ^ X.GetHashCode();
+				result = (result * 397) ^ (X != null ? X.GetHashCode() : 0);
 				result = (result * 397) ^ Y.GetHashCode();
 				result = (result * 397) ^ (A != null ? A.GetHashCode() : 0);
 				return result;
 			}
 		}
 		
-		public static bool operator ==(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator ==(BasePoint left, BasePoint right)
 		{
 			return Equals(left, right);
 		}
 		
-		public static bool operator !=(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator !=(BasePoint left, BasePoint right)
 		{
 			return !Equals(left, right);
 		}

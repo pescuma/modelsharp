@@ -7,10 +7,19 @@
 			{
 				var mine = <#= it.Name #>[i];
 				var theirs = other.<#= it.Name #>[i];
-<#	if (it.ContentsType.IsNullable) { #>
-				if ((mine == null) != (theirs == null))
+<#	if (it.ContentsType.Precision > 0) { #>
+<#		if (it.ContentsType.IsNullable) { #>
+				if ((mine == null) != (theirs == null) || (mine != null && Math.Abs((<#= it.ContentsType.NonNullableTypeName #>) mine - (<#= it.ContentsType.NonNullableTypeName #>) theirs) >= <#= it.ContentsType.Precision #>))
 					return false;
-				if (mine != null && !mine.Equals(theirs))
+<# 		} else { #>
+				if (Math.Abs(mine - theirs) >= <#= it.ContentsType.Precision #>)
+					return false;
+<# 		} #>
+<#	} else if (it.ContentsType.IsNullable) { #>
+				if (!Equals(mine, theirs))
+					return false;
+<#	} else if (it.IsPrimitive) { #>
+				if (mine != theirs)
 					return false;
 <# 	} else { #>
 				if (!mine.Equals(theirs))

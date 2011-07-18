@@ -115,21 +115,81 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("[i];\r\n");
             
             #line 10 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
-	if (it.ContentsType.IsNullable) { 
+	if (it.ContentsType.Precision > 0) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\tif ((mine == null) != (theirs == null))\r\n\t\t\t\t\treturn false;\r\n\t\t\t\tif (mine != " +
-                    "null && !mine.Equals(theirs))\r\n\t\t\t\t\treturn false;\r\n");
+            
+            #line 11 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+		if (it.ContentsType.IsNullable) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tif ((mine == null) != (theirs == null) || (mine != null && Math.Abs((");
+            
+            #line 12 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.NonNullableTypeName));
+            
+            #line default
+            #line hidden
+            this.Write(") mine - (");
+            
+            #line 12 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.NonNullableTypeName));
+            
+            #line default
+            #line hidden
+            this.Write(") theirs) >= ");
+            
+            #line 12 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.Precision));
+            
+            #line default
+            #line hidden
+            this.Write("))\r\n\t\t\t\t\treturn false;\r\n");
+            
+            #line 14 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+ 		} else { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tif (Math.Abs(mine - theirs) >= ");
             
             #line 15 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.ContentsType.Precision));
+            
+            #line default
+            #line hidden
+            this.Write(")\r\n\t\t\t\t\treturn false;\r\n");
+            
+            #line 17 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+ 		} 
+            
+            #line default
+            #line hidden
+            
+            #line 18 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+	} else if (it.ContentsType.IsNullable) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tif (!Equals(mine, theirs))\r\n\t\t\t\t\treturn false;\r\n");
+            
+            #line 21 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+	} else if (it.IsPrimitive) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\tif (mine != theirs)\r\n\t\t\t\t\treturn false;\r\n");
+            
+            #line 24 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
  	} else { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\tif (!mine.Equals(theirs))\r\n\t\t\t\t\treturn false;\r\n");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
+            #line 27 "X:\c#\modelsharp\Core\templates\CollectionEquals.tt"
  	} 
             
             #line default

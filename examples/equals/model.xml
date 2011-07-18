@@ -1,6 +1,6 @@
 <model namespace="examples.equals">
 	<type name="Point" equals="true">
-		<property name="x" type="double" />
+		<property name="x" type="double?" />
 		<property name="y" type="double" default="2" />
 		<property name="a" type="Point" default="new Point()" />
 	</type>
@@ -9,5 +9,7 @@
 		<component name="Max" type="Point" />
 		<computed-property name="Length" type="float" />
 		<collection name="Ps" type="Point" />
+		<collection name="Ls" type="double?" />
+		<collection name="LLs" type="double" />
 	</type>
 </model>

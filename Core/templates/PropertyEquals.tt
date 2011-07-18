@@ -7,10 +7,10 @@
 <# 		} else { #>
 Math.Abs(<#= it.Name #> - other.<#= it.Name #>) < <#= it.Precision #>
 <# 		} #>
-<#	} else { #>
-<#		if (it.IsNullable) { #>
-((<#= it.Name #> == null && other.<#= it.Name #> == null) || (<#= it.Name #> != null && other.<#= it.Name #> != null && <#= it.Name #>.Equals(other.<#= it.Name #>)))
-<# 		} else { #>
+<#	} else if (it.IsNullable) { #>
+Equals(<#= it.Name #>, other.<#= it.Name #>)
+<#	} else if (it.IsPrimitive) { #>
+<#= it.Name #> == other.<#= it.Name #>
+<# 	} else { #>
 <#= it.Name #>.Equals(other.<#= it.Name #>)
-<# 		} #>
 <# 	} #>

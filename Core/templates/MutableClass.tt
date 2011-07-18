@@ -141,12 +141,12 @@ namespace <#= it.Package #>
 			}
 		}
 
-		public static bool operator ==(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator ==(<#= it.ImplementationName #> left, <#= it.ImplementationName #> right)
 		{
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(BaseCutParameters left, BaseCutParameters right)
+		public static bool operator !=(<#= it.ImplementationName #> left, <#= it.ImplementationName #> right)
 		{
 			return !Equals(left, right);
 		}

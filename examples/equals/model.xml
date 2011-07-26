@@ -12,4 +12,9 @@
 		<collection name="Ls" type="double?" />
 		<collection name="LLs" type="double" />
 	</type>
+	<type name="PointImmutable" equals="true" immutable="true">
+		<property name="x" type="double?" />
+		<property name="y" type="double" default="2" />
+		<property name="a" type="PointImmutable" default="new PointImmutable()" />
+	</type>
 </model>

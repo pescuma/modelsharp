@@ -44,7 +44,8 @@ namespace <#= it.Package #>
 
 <# 	} #>
 <# 	ForEach("ImmutableProperty", it.Properties); #>
-<# 	Include("Clone", it); #>
+<#	Include("Clone", it); #>
+<#	Include("Equals", it); #>
 	}
 <# if (it.Package != null) { #>
 

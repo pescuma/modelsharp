@@ -1,0 +1,45 @@
+﻿<#@ template language="C#" inherits="TemplateUtils" #>
+<#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
+<#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.TypeInfo" #>
+<# 	if (it.Equals) { #>
+		
+		#region Equals
+
+		public bool Equals(<#= it.Name #> other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+<# 		ForEach("CollectionEquals", it.CollectionProperties); #>
+			return <# ForEach("PropertyEquals", it.SimpleOrComponentProperties, separator: " && "); #>;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != typeof (<#= it.Name #>)) return false;
+			return Equals((<#= it.Name #>) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int result = 0;
+<# 		ForEach("HashCode", it.NonComputedProperties); #>
+				return result;
+			}
+		}
+
+		public static bool operator ==(<#= it.ImplementationName #> left, <#= it.ImplementationName #> right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(<#= it.ImplementationName #> left, <#= it.ImplementationName #> right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion Equals
+<# 	} #>

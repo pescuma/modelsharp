@@ -128,6 +128,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Define.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\Equals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Equals.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\HashCode.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -345,6 +350,10 @@
     <None Include="templates\Define.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Define.cs</LastGenOutput>
+    </None>
+    <None Include="templates\Equals.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Equals.cs</LastGenOutput>
     </None>
     <None Include="templates\HashCode.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

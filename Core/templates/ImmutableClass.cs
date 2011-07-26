@@ -256,20 +256,26 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 47 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
- 	Include("Clone", it); 
+	Include("Clone", it); 
+            
+            #line default
+            #line hidden
+            
+            #line 48 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+	Include("Equals", it); 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 49 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 50 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
  if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 52 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
+            #line 53 "X:\c#\modelsharp\Core\templates\ImmutableClass.tt"
  } 
             
             #line default

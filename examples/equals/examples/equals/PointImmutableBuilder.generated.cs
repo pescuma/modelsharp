@@ -18,7 +18,7 @@ namespace examples.equals
 	{
 		private double? x;
 		private double y = 2;
-		private PointImmutable a = new PointImmutable();
+		private PointImmutable a = new PointImmutable(2,2,null);
 		
 		public virtual PointImmutableBuilder Set(PointImmutable other)
 		{

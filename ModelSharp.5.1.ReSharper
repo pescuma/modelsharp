@@ -23,7 +23,8 @@ Validator
 pragma
 Utils
 Namespace
-Nullable</UserWords>
+Nullable
+Config</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

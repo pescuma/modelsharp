@@ -66,6 +66,7 @@
     <Compile Include="model\CollectionInfo.cs" />
     <Compile Include="model\ComponentInfo.cs" />
     <Compile Include="model\ComputedPropertyInfo.cs" />
+    <Compile Include="model\GlobalConfiguration.cs" />
     <Compile Include="model\MethodInfo.cs" />
     <Compile Include="model\ModelInfo.cs" />
     <Compile Include="model\PropertyInfo.cs" />

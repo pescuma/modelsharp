@@ -766,11 +766,11 @@ namespace examples.equals
 				int result = 0;
 				result = (result * 397) ^ Min.GetHashCode();
 				result = (result * 397) ^ Max.GetHashCode();
-				for(var obj in Ps)
+				foreach (var obj in Ps)
 					result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
-				for(var obj in Ls)
+				foreach (var obj in Ls)
 					result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
-				for(var obj in LLs)
+				foreach (var obj in LLs)
 					result = (result * 397) ^ obj.GetHashCode();
 				return result;
 			}

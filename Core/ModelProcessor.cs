@@ -26,7 +26,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using Antlr3.ST;
 using NArrange.Core;
 using org.pescuma.ModelSharp.Core.model;
 using org.pescuma.ModelSharp.Core.xml;
@@ -41,7 +40,7 @@ namespace org.pescuma.ModelSharp.Core
 		private readonly string templatesPath;
 		private readonly bool overrideFiles;
 
-		public string ProjectNamespace { get; set; }
+		public readonly GlobalConfiguration GlobalConfig = new GlobalConfiguration();
 		public string BaseOutputPath { get; set; }
 
 		public ILogger Logger { get; set; }
@@ -52,8 +51,6 @@ namespace org.pescuma.ModelSharp.Core
 			this.overrideFiles = overrideFiles;
 			this.filename = new FileInfo(filename);
 			BaseOutputPath = this.filename.Directory.FullName;
-
-			ProjectNamespace = "";
 		}
 
 		public ModelProcessorResult Process()
@@ -116,10 +113,8 @@ namespace org.pescuma.ModelSharp.Core
 
 		private void PosProcessXml(xml.model model)
 		{
-			if (model.@namespace == null)
-				model.@namespace = model.projectNamespace ?? ProjectNamespace;
-			if (model.projectNamespace == null)
-				model.projectNamespace = "";
+			model.@namespace =
+				(model.@namespace ?? model.projectNamespace ?? GlobalConfig.ProjectNamespace ?? "").Trim();
 
 			foreach (var modelItem in model.Items)
 			{
@@ -216,12 +211,18 @@ namespace org.pescuma.ModelSharp.Core
 
 			ModelInfo result = new ModelInfo();
 
-			if (model.projectNamespace != "")
-				ProjectNamespace = model.projectNamespace;
+			if (!string.IsNullOrWhiteSpace(model.projectNamespace))
+				GlobalConfig.ProjectNamespace = model.projectNamespace;
 
 			foreach (var modelItem in model.Items)
 			{
-				if (modelItem is type)
+				if (modelItem is config)
+				{
+					var config = (config) modelItem;
+					if (config.serialization != null && !string.IsNullOrWhiteSpace(config.serialization.@namespace))
+						GlobalConfig.SerializationNamespace = config.serialization.@namespace.Trim();
+				}
+				else if (modelItem is type)
 				{
 					var type = (type) modelItem;
 
@@ -231,16 +232,16 @@ namespace org.pescuma.ModelSharp.Core
 					if (type.deepCopySpecified)
 						ti.DeepCopy = type.deepCopy;
 
-					if (!string.IsNullOrEmpty(type.doc))
+					if (!string.IsNullOrWhiteSpace(type.doc))
 						ti.Documentation = type.doc;
 
-					if (!string.IsNullOrEmpty(type.implements))
+					if (!string.IsNullOrWhiteSpace(type.implements))
 					{
 						var impls = type.implements.Split(',');
 						foreach (var impl in impls)
 						{
 							var tmp = impl.Trim();
-							if (!string.IsNullOrEmpty(tmp))
+							if (!string.IsNullOrWhiteSpace(tmp))
 								ti.Implements.Add(tmp);
 						}
 					}
@@ -278,15 +279,17 @@ namespace org.pescuma.ModelSharp.Core
 							if (property.deepCopySpecified)
 								prop.DeepCopy = property.deepCopy;
 
-							if (!string.IsNullOrEmpty(property.doc))
+							if (!string.IsNullOrWhiteSpace(property.doc))
 								prop.Documentation = property.doc;
 
-							if (!string.IsNullOrEmpty(property.@default))
+							if (!string.IsNullOrWhiteSpace(property.@default))
 								prop.DefaultValue = property.@default;
 
-							if (!string.IsNullOrEmpty(property.getter) && ValidateVisibility(property.getter, "getter"))
+							if (!string.IsNullOrWhiteSpace(property.getter)
+							    && ValidateVisibility(property.getter, "getter"))
 								prop.GetterVisibility = property.getter;
-							if (!string.IsNullOrEmpty(property.setter) && ValidateVisibility(property.setter, "setter"))
+							if (!string.IsNullOrWhiteSpace(property.setter)
+							    && ValidateVisibility(property.setter, "setter"))
 								prop.SetterVisibility = property.setter;
 
 							if (property.receiveInConstructorSpecified && property.receiveInConstructor)
@@ -322,10 +325,10 @@ namespace org.pescuma.ModelSharp.Core
 
 							var comp = new ComponentInfo(conventions, ti, component.name, component.type, component.lazy);
 
-							if (!string.IsNullOrEmpty(component.doc))
+							if (!string.IsNullOrWhiteSpace(component.doc))
 								comp.Documentation = component.doc;
 
-							if (!string.IsNullOrEmpty(component.@default))
+							if (!string.IsNullOrWhiteSpace(component.@default))
 								comp.DefaultValue = component.@default;
 
 							if (component.receiveInConstructorSpecified && component.receiveInConstructor)
@@ -355,7 +358,7 @@ namespace org.pescuma.ModelSharp.Core
 							if (collection.deepCopySpecified)
 								col.DeepCopy = collection.deepCopy;
 
-							if (!string.IsNullOrEmpty(collection.doc))
+							if (!string.IsNullOrWhiteSpace(collection.doc))
 								col.Documentation = collection.doc;
 
 							ti.Properties.Add(col);
@@ -371,10 +374,11 @@ namespace org.pescuma.ModelSharp.Core
 							var prop = new ComputedPropertyInfo(conventions, ti, computed.name, computed.type,
 							                                    computed.cached, deps, computed.formula);
 
-							if (!string.IsNullOrEmpty(computed.getter) && ValidateVisibility(computed.getter, "getter"))
+							if (!string.IsNullOrWhiteSpace(computed.getter)
+							    && ValidateVisibility(computed.getter, "getter"))
 								prop.GetterVisibility = computed.getter;
 
-							if (!string.IsNullOrEmpty(computed.doc))
+							if (!string.IsNullOrWhiteSpace(computed.doc))
 								prop.Documentation = computed.doc;
 
 							ti.Properties.Add(prop);
@@ -658,7 +662,11 @@ namespace org.pescuma.ModelSharp.Core
 
 				type.Using.Add("System.Runtime.Serialization");
 
-				type.Annotations.Add("DataContract");
+				if (!string.IsNullOrWhiteSpace(GlobalConfig.SerializationNamespace))
+					type.Annotations.Add(string.Format("DataContract(Namespace = \"{0}\")",
+					                                   GlobalConfig.SerializationNamespace));
+				else
+					type.Annotations.Add("DataContract");
 
 				if (type.NeedOnDeserialization)
 					type.Implements.Add("IDeserializationCallback");
@@ -746,11 +754,12 @@ namespace org.pescuma.ModelSharp.Core
 		{
 			var pkg = type.Package;
 
-			if (string.IsNullOrEmpty(pkg) || pkg == ProjectNamespace)
+			if (string.IsNullOrWhiteSpace(pkg) || pkg == GlobalConfig.ProjectNamespace)
 				return "";
 
-			if (!string.IsNullOrEmpty(ProjectNamespace) && pkg.StartsWith(ProjectNamespace + '.'))
-				pkg = pkg.Substring(ProjectNamespace.Length + 1);
+			if (!string.IsNullOrWhiteSpace(GlobalConfig.ProjectNamespace)
+			    && pkg.StartsWith(GlobalConfig.ProjectNamespace + '.'))
+				pkg = pkg.Substring(GlobalConfig.ProjectNamespace.Length + 1);
 
 			return pkg.Replace('.', '\\');
 		}
@@ -810,15 +819,15 @@ namespace org.pescuma.ModelSharp.Core
 			return relativeName;
 		}
 
-		private void FormatFileWithNArranger(string file)
-		{
-			WaitForUnlock(file);
-
-			FileArranger fileArranger = new FileArranger(Path.Combine(templatesPath, "SimpleConfig.xml"),
-			                                             new NArrangeLogger(log));
-			if (!fileArranger.Arrange(file, null))
-				log.Error("Could not format file: " + file + ". The file has wrong code :(");
-		}
+//		private void FormatFileWithNArranger(string file)
+//		{
+//			WaitForUnlock(file);
+//
+//			FileArranger fileArranger = new FileArranger(Path.Combine(templatesPath, "SimpleConfig.xml"),
+//			                                             new NArrangeLogger(log));
+//			if (!fileArranger.Arrange(file, null))
+//				log.Error("Could not format file: " + file + ". The file has wrong code :(");
+//		}
 
 		private void FormatFileWithAStyle(string file)
 		{
@@ -851,19 +860,20 @@ namespace org.pescuma.ModelSharp.Core
 			}
 		}
 
-		private void WaitForUnlock(string file)
+// ReSharper disable UnusedParameter.Local
+		private void WaitForUnlock(string file) // ReSharper restore UnusedParameter.Local
 		{
 			Thread.Sleep(10);
 		}
 
-		private void WriteFile(StringTemplate template, string file)
-		{
-			using (TextWriter tw = new StreamWriter(file))
-			{
-				template.Write(new NoIndentWriter(tw));
-				tw.Close();
-			}
-		}
+//		private void WriteFile(StringTemplate template, string file)
+//		{
+//			using (TextWriter tw = new StreamWriter(file))
+//			{
+//				template.Write(new NoIndentWriter(tw));
+//				tw.Close();
+//			}
+//		}
 	}
 
 	public class AStyleLogger : AStyleInterface.ILog

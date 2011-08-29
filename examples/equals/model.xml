@@ -15,6 +15,6 @@
 	<type name="PointImmutable" equals="true" immutable="true">
 		<property name="x" type="double?" />
 		<property name="y" type="double" default="2" />
-		<property name="a" type="PointImmutable" default="new PointImmutable()" />
+		<property name="a" type="PointImmutable" default="new PointImmutable(2,2,null)" />
 	</type>
 </model>

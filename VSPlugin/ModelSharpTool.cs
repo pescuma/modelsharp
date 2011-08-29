@@ -76,7 +76,7 @@ namespace org.pescuma.ModelSharp.VSPlugin
 
 				var modelProcessor = new ModelProcessor(templatesDir, e.InputFilePath, true);
 				modelProcessor.BaseOutputPath = tempDir;
-				modelProcessor.ProjectNamespace = e.Namespace;
+				modelProcessor.GlobalConfig.ProjectNamespace = e.Namespace;
 
 				var result = modelProcessor.Process();
 

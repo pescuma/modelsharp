@@ -2,7 +2,7 @@
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#	if (it.IsCollection) { #>
-			for(var obj in <#= it.Name #>)
+			foreach (var obj in <#= it.Name #>)
 <#		if (((CollectionInfo) it).ContentsType.IsNullable) { #>
 				result = (result * 397) ^ (obj != null ? obj.GetHashCode() : 0);
 <#		} else { #>

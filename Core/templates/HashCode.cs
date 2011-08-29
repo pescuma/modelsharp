@@ -77,13 +77,12 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
 			this.GenerationEnvironment = null;
             
-    
             #line 4 "X:\c#\modelsharp\Core\templates\HashCode.tt"
 	if (it.IsCollection) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\tfor(var obj in ");
+            this.Write("\t\t\tforeach (var obj in ");
             
             #line 5 "X:\c#\modelsharp\Core\templates\HashCode.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));

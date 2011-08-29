@@ -4,10 +4,23 @@
     <xs:complexType mixed="true">
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="using"/>
+        <xs:element ref="config"/>
         <xs:element ref="type"/>
       </xs:choice>
       <xs:attribute name="namespace"/>
       <xs:attribute name="projectNamespace" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="serialization"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="serialization">
+    <xs:complexType>
+      <xs:attribute name="namespace" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="type">

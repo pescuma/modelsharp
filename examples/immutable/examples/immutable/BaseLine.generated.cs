@@ -15,7 +15,7 @@ using System;
 namespace examples.immutable
 {
 
-	[DataContract]
+	[DataContract(Name = "Line")]
 	[DebuggerDisplay("Line[P1={P1} P2={P2} Border={Border.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseLine : ICloneable

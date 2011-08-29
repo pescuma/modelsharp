@@ -37,7 +37,7 @@ namespace org.pescuma.ModelSharp.Core.model
 
 			ContentsType = new BaseFieldInfo(conventions, "Items", contents);
 			Contents = contents;
-			ReadOnly = !lazy;
+			ReadOnly = false; // !lazy; <= Needed for serializationa
 			ExposeAsReadOnly = readOnly;
 
 			Setter = null;

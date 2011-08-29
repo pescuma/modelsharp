@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.equals
 {
 
-	[DataContract]
+	[DataContract(Name = "Rect")]
 	public class Rect : BaseRect
 	{
 		public Rect()

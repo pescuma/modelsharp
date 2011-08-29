@@ -12,7 +12,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-[DataContract]
+[DataContract(Name = "Point")]
 [DebuggerDisplay("Point[X={X} Y={Y}]")]
 [GeneratedCode("Model#", "0.2.0.0")]
 public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
@@ -196,4 +196,14 @@ public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyC
 	}
 	
 	#endregion Clone
+	
+	#region Serialization
+	
+	[OnDeserializing]
+	private void OnDeserializing(StreamingContext context)
+	{
+		this.y = 2;
+	}
+	
+	#endregion Serialization
 }

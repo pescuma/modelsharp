@@ -15,10 +15,10 @@ using System.Diagnostics;
 namespace examples.required
 {
 
-	[DataContract]
+	[DataContract(Name = "Type1")]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Prop2={Prop2} Prop3={Prop3} Prop4={Prop4} Prop5={Prop5}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -524,7 +524,7 @@ namespace examples.required
 		
 		[DataMember(Name = "Comp", Order = 6, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Type2 comp;
+		private Type2 comp;
 		
 		public Type2 Comp
 		{
@@ -670,7 +670,14 @@ namespace examples.required
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.comp = new Type2();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddProp1Listeners(this.prop1);
 			AddProp2Listeners(this.prop2);

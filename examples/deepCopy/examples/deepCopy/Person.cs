@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.deepCopy
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	public class Person : BasePerson
 	{
 		public Person()

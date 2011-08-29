@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace examples.@using
 {
 
-	[DataContract]
+	[DataContract(Name = "Test2")]
 	public class Test2 : BaseTest2
 	{
 		public Test2()

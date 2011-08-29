@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.collection
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	[DebuggerDisplay("Person[Cars={Cars.Count}items Name={Name} Houses={Houses.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -61,7 +61,7 @@ namespace examples.collection
 		
 		[DataMember(Name = "Cars", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> cars;
+		private ObservableList<string> cars;
 		
 		public ObservableList<string> Cars
 		{
@@ -158,7 +158,7 @@ namespace examples.collection
 		
 		[DataMember(Name = "Houses", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<House> houses;
+		private ObservableList<House> houses;
 		
 		public ObservableList<House> Houses
 		{
@@ -406,7 +406,15 @@ namespace examples.collection
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.cars = new ObservableList<string>();
+			this.houses = new ObservableList<House>();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddCarsListListeners(this.cars);
 			AddHousesListListeners(this.houses);

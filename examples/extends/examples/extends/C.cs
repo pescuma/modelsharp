@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.extends
 {
 
-	[DataContract]
+	[DataContract(Name = "C")]
 	public class C : BaseC
 	{
 		public C()

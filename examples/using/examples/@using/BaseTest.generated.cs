@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.@using
 {
 
-	[DataContract]
+	[DataContract(Name = "Test")]
 	[DebuggerDisplay("Test[Date={Date}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -228,7 +228,8 @@ namespace examples.@using
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddDateListeners(this.date);
 		}

@@ -29,7 +29,7 @@ namespace org.pescuma.ModelSharp.Core.model
 		{
 			Setter = null;
 			WithSetter = null;
-			ReadOnly = !lazy;
+			ReadOnly = false; // !lazy; <= Needed for serialization
 			DefaultValue = "new " + type + "()";
 		}
 

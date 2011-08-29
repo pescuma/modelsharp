@@ -8,7 +8,7 @@ using System;
 namespace examples.equals
 {
 
-	[DataContract]
+	[DataContract(Name = "PointImmutable")]
 	public class PointImmutable : BasePointImmutable
 	{
 		public PointImmutable(double? x, double y, PointImmutable a)

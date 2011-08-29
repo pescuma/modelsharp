@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.composition
 {
 
-	[DataContract]
+	[DataContract(Name = "Address")]
 	public class Address : BaseAddress
 	{
 		public Address()

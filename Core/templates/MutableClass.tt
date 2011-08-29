@@ -91,24 +91,26 @@ namespace <#= it.Package #>
 		
 <#		Include("Clone", it); #>
 <# 	} #>
-<# 	if (it.NeedOnDeserialization) { #>
+<# 	if (it.NeedOnDeserialized || it.NeedOnDeserializing) { #>
 		
 		#region Serialization
 
-		void IDeserializationCallback.OnDeserialization(object sender)
+<# 	if (it.NeedOnDeserializing) { #>
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
 		{
-<#		if (it.Extends != null) { #>
-			// Call OnDeserialization in base class if it exists
-			if (typeof(<#= it.Extends #>).GetInterface(typeof(IDeserializationCallback).FullName) != null)
-			{
-				var map = typeof(<#= it.Extends #>).GetInterfaceMap(typeof(IDeserializationCallback));
-				map.TargetMethods[0].Invoke(this, new[] { sender });
-			}
+<#		ForEach("MutableSetFieldDefaultValue", it.Properties); #>
+		}
 
-<#		} #>
+<# 	} #>
+<# 	if (it.NeedOnDeserialized) { #>
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
+		{
 <#		ForEach("MutableOnDeserialization", it.Properties); #>
 		}
 
+<# 	} #>
 		#endregion Serialization
 <# 	} #>
 <#		Include("Equals", it); #>

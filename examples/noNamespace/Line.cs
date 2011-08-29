@@ -7,7 +7,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-[DataContract]
+[DataContract(Name = "Line")]
 public class Line : BaseLine
 {
 	public Line()

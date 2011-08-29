@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.lazy
 {
 
-	[DataContract]
+	[DataContract(Name = "Type1")]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Col1={Col1.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -522,7 +522,8 @@ namespace examples.lazy
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddProp1Listeners(this.prop1);
 			AddComp1Listeners(this.comp1);

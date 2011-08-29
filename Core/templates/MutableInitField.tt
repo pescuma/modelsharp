@@ -2,17 +2,6 @@
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#	if (it.LazyInitializer == null) { #>
-<#		if (it.DefaultValue != null) { #>
-			this.<#= it.FieldName #> = <#= it.DefaultValue #>;
-<#		} else if (it.IsCollection) {
-			var col = (CollectionInfo) it; #>
-			this.<#= col.FieldName #> = new <#= col.TypeName #>();
-<#			if (col.ExposeAsReadOnly) { #>
-			this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= col.FieldName #>);
-<#			} #>
-<#		} else if (it.IsComputedAndCached) { 
-			var computed = (ComputedPropertyInfo) it; #>
-			<#= computed.ValidFieldName #> = false;
-<#		} #>
+<#		Include("MutableSetFieldDefaultValue", it); #>
 <#		Include("MutableListenToField", it); #>
 <#	} #>

@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.equals
 {
 
-	[DataContract]
+	[DataContract(Name = "Rect")]
 	[DebuggerDisplay("Rect[Ps={Ps.Count}items Ls={Ls.Count}items LLs={LLs.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseRect : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseRect : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -76,7 +76,7 @@ namespace examples.equals
 		
 		[DataMember(Name = "Min", Order = 0, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Point min;
+		private Point min;
 		
 		public Point Min
 		{
@@ -140,7 +140,7 @@ namespace examples.equals
 		
 		[DataMember(Name = "Max", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Point max;
+		private Point max;
 		
 		public Point Max
 		{
@@ -219,7 +219,7 @@ namespace examples.equals
 		
 		[DataMember(Name = "Ps", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Point> ps;
+		private ObservableList<Point> ps;
 		
 		public ObservableList<Point> Ps
 		{
@@ -395,7 +395,7 @@ namespace examples.equals
 		
 		[DataMember(Name = "Ls", Order = 3, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double?> ls;
+		private ObservableList<double?> ls;
 		
 		public ObservableList<double?> Ls
 		{
@@ -571,7 +571,7 @@ namespace examples.equals
 		
 		[DataMember(Name = "LLs", Order = 4, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> lLs;
+		private ObservableList<double> lLs;
 		
 		public ObservableList<double> LLs
 		{
@@ -702,7 +702,18 @@ namespace examples.equals
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.min = new Point();
+			this.max = new Point();
+			this.ps = new ObservableList<Point>();
+			this.ls = new ObservableList<double?>();
+			this.lLs = new ObservableList<double>();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddMinListeners(this.min);
 			AddMaxListeners(this.max);

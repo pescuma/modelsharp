@@ -18,10 +18,10 @@ namespace examples.doc
 	/// <summary>
 	/// A point, man!
 	/// </summary>
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Ws={Ws.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -107,7 +107,7 @@ namespace examples.doc
 		
 		[DataMember(Name = "Y", Order = 1, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Point y;
+		private Point y;
 		
 		/// <summary>
 		/// Y, oh Y
@@ -192,7 +192,7 @@ namespace examples.doc
 		
 		[DataMember(Name = "Ws", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> ws;
+		private ObservableList<double> ws;
 		
 		/// <summary>
 		/// All the ws you can find
@@ -322,7 +322,15 @@ namespace examples.doc
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.y = new Point();
+			this.ws = new ObservableList<double>();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddYListeners(this.y);
 			AddWsListListeners(this.ws);

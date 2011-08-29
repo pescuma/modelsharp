@@ -8,7 +8,7 @@ using System;
 namespace examples.deepCopy
 {
 
-	[DataContract]
+	[DataContract(Name = "ImmutableAddress")]
 	public class ImmutableAddress : BaseImmutableAddress
 	{
 		public ImmutableAddress(string street, string city, string zipCode)

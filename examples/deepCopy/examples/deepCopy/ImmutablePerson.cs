@@ -10,7 +10,7 @@ using System;
 namespace examples.deepCopy
 {
 
-	[DataContract]
+	[DataContract(Name = "ImmutablePerson")]
 	public class ImmutablePerson : BaseImmutablePerson
 	{
 		public ImmutablePerson(IEnumerable<ImmutableAddress> homeAddressCol, IEnumerable<ImmutableAddress> workAddressCol, IEnumerable<string> stringCol, IEnumerable<string> stringCol2, IEnumerable<double> doubleCol, IEnumerable<double> doubleCol2, Address homeAddressProp, Address workAddressProp)

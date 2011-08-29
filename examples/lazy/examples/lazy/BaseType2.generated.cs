@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.lazy
 {
 
-	[DataContract]
+	[DataContract(Name = "Type2")]
 	[DebuggerDisplay("Type2[Name={Name}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseType2 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

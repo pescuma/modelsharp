@@ -10,7 +10,7 @@ using System;
 namespace examples.immutable
 {
 
-	[DataContract]
+	[DataContract(Name = "Line")]
 	public class Line : BaseLine
 	{
 		public Line(Point p1, Point p2, Point dir, IEnumerable<Point> border)

@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.extends
 {
 
-	[DataContract]
+	[DataContract(Name = "S2")]
 	[DebuggerDisplay("S2[Date2={Date2}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseS2 : List<string>, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseS2 : List<string>, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -229,15 +229,9 @@ namespace examples.extends
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
-			// Call OnDeserialization in base class if it exists
-			if (typeof(List<string>).GetInterface(typeof(IDeserializationCallback).FullName) != null)
-			{
-				var map = typeof(List<string>).GetInterfaceMap(typeof(IDeserializationCallback));
-				map.TargetMethods[0].Invoke(this, new[] { sender });
-			}
-			
 			AddDate2Listeners(this.date2);
 		}
 		

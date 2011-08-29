@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.config1
 {
 
-	[DataContract(Namespace = "data")]
+	[DataContract(Name = "Point", Namespace = "data")]
 	public class Point : BasePoint
 	{
 		public Point()

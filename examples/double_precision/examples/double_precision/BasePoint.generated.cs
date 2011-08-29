@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.double_precision
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Y={Y} Z={Z}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

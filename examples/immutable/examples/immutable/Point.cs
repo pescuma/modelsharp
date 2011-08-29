@@ -8,7 +8,7 @@ using System;
 namespace examples.immutable
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	public class Point : BasePoint
 	{
 		public Point(double x, double y)

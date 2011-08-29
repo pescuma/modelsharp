@@ -7,7 +7,7 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-[DataContract]
+[DataContract(Name = "Point")]
 public class Point : BasePoint
 {
 	public Point()

@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.required
 {
 
-	[DataContract]
+	[DataContract(Name = "Type1")]
 	public class Type1 : BaseType1
 	{
 		public Type1(Type2 prop2, int prop4, string prop5)

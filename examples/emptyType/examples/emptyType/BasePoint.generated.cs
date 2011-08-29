@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.emptyType
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

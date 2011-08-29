@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.implements
 {
 
-	[DataContract]
+	[DataContract(Name = "Test")]
 	public class Test : BaseTest
 	{
 		public Test()

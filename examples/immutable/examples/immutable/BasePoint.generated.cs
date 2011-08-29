@@ -13,7 +13,7 @@ using System;
 namespace examples.immutable
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Y={Y}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePoint : ICloneable

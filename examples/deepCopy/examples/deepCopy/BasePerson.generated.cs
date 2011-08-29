@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.deepCopy
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	[DebuggerDisplay("Person[HomeAddressCol={HomeAddressCol.Count}items WorkAddressCol={WorkAddressCol.Count}items LazyAddressCol={LazyAddressCol.Count}items StringCol={StringCol.Count}items StringCol2={StringCol2.Count}items DoubleCol={DoubleCol.Count}items DoubleCol2={DoubleCol2.Count}items HomeAddressProp={HomeAddressProp} WorkAddressProp={WorkAddressProp}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -104,7 +104,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "HomeAddressCol", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Address> homeAddressCol;
+		private ObservableList<Address> homeAddressCol;
 		
 		public ObservableList<Address> HomeAddressCol
 		{
@@ -280,7 +280,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "WorkAddressCol", Order = 1, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<Address> workAddressCol;
+		private ObservableList<Address> workAddressCol;
 		
 		public ObservableList<Address> WorkAddressCol
 		{
@@ -643,7 +643,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "StringCol", Order = 3, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> stringCol;
+		private ObservableList<string> stringCol;
 		
 		public ObservableList<string> StringCol
 		{
@@ -699,7 +699,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "StringCol2", Order = 4, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<string> stringCol2;
+		private ObservableList<string> stringCol2;
 		
 		public ObservableList<string> StringCol2
 		{
@@ -755,7 +755,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "DoubleCol", Order = 5, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> doubleCol;
+		private ObservableList<double> doubleCol;
 		
 		public ObservableList<double> DoubleCol
 		{
@@ -811,7 +811,7 @@ namespace examples.deepCopy
 		
 		[DataMember(Name = "DoubleCol2", Order = 6, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<double> doubleCol2;
+		private ObservableList<double> doubleCol2;
 		
 		public ObservableList<double> DoubleCol2
 		{
@@ -1182,7 +1182,19 @@ namespace examples.deepCopy
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.homeAddressCol = new ObservableList<Address>();
+			this.workAddressCol = new ObservableList<Address>();
+			this.stringCol = new ObservableList<string>();
+			this.stringCol2 = new ObservableList<string>();
+			this.doubleCol = new ObservableList<double>();
+			this.doubleCol2 = new ObservableList<double>();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddHomeAddressColListListeners(this.homeAddressCol);
 			AddWorkAddressColListListeners(this.workAddressCol);

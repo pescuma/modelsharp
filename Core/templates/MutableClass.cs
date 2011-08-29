@@ -381,70 +381,76 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             
             #line 94 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
- 	if (it.NeedOnDeserialization) { 
+ 	if (it.NeedOnDeserialized || it.NeedOnDeserializing) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\r\n\t\t#region Serialization\r\n\r\n\t\tvoid IDeserializationCallback.OnDeserialization(" +
-                    "object sender)\r\n\t\t{\r\n");
+            this.Write("\t\t\r\n\t\t#region Serialization\r\n\r\n");
             
-            #line 100 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
-		if (it.Extends != null) { 
+            #line 98 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ 	if (it.NeedOnDeserializing) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t// Call OnDeserialization in base class if it exists\r\n\t\t\tif (typeof(");
+            this.Write("\t\t[OnDeserializing]\r\n\t\tprivate void OnDeserializing(StreamingContext context)\r\n\t\t" +
+                    "{\r\n");
             
             #line 102 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
+		ForEach("MutableSetFieldDefaultValue", it.Properties); 
             
             #line default
             #line hidden
-            this.Write(").GetInterface(typeof(IDeserializationCallback).FullName) != null)\r\n\t\t\t{\r\n\t\t\t\tvar" +
-                    " map = typeof(");
+            this.Write("\t\t}\r\n\r\n");
             
-            #line 104 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(it.Extends));
-            
-            #line default
-            #line hidden
-            this.Write(").GetInterfaceMap(typeof(IDeserializationCallback));\r\n\t\t\t\tmap.TargetMethods[0].In" +
-                    "voke(this, new[] { sender });\r\n\t\t\t}\r\n\r\n");
-            
-            #line 108 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
-		} 
+            #line 105 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ 	} 
             
             #line default
             #line hidden
             
-            #line 109 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 106 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ 	if (it.NeedOnDeserialized) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t[OnDeserialized]\r\n\t\tprivate void OnDeserialized(StreamingContext context)\r\n\t\t{\r" +
+                    "\n");
+            
+            #line 110 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
 		ForEach("MutableOnDeserialization", it.Properties); 
             
             #line default
             #line hidden
-            this.Write("\t\t}\r\n\r\n\t\t#endregion Serialization\r\n");
+            this.Write("\t\t}\r\n\r\n");
             
             #line 113 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  	} 
             
             #line default
             #line hidden
+            this.Write("\t\t#endregion Serialization\r\n");
             
-            #line 114 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 115 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+ 	} 
+            
+            #line default
+            #line hidden
+            
+            #line 116 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
 		Include("Equals", it); 
             
             #line default
             #line hidden
             this.Write("\t}\r\n");
             
-            #line 116 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 118 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  	if (it.Package != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n}\r\n");
             
-            #line 119 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
+            #line 121 "X:\c#\modelsharp\Core\templates\MutableClass.tt"
  	} 
             
             #line default

@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.computeProperty
 {
 
-	[DataContract]
+	[DataContract(Name = "MyClass")]
 	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items Ps={Ps} P={P}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -277,7 +277,7 @@ namespace examples.computeProperty
 		
 		[DataMember(Name = "Children", Order = 2, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly ObservableList<MyClass> children;
+		private ObservableList<MyClass> children;
 		
 		public ObservableList<MyClass> Children
 		{
@@ -982,7 +982,18 @@ namespace examples.computeProperty
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.y = 2;
+			dummyCachedCacheValid = false;
+			squaredLengthCachedCacheValid = false;
+			this.children = new ObservableList<MyClass>();
+			compSubCachedCacheValid = false;
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddChildrenListListeners(this.children);
 			AddPsListeners(this.ps);

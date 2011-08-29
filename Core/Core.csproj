@@ -234,6 +234,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MutableParamToField.tt</DependentUpon>
     </Compile>
+    <Compile Include="templates\MutableSetFieldDefaultValue.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MutableSetFieldDefaultValue.tt</DependentUpon>
+    </Compile>
     <Compile Include="templates\NotifyChildDependenciesChange.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -443,6 +448,10 @@
     <None Include="templates\MutableParamToField.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>MutableParamToField.cs</LastGenOutput>
+    </None>
+    <None Include="templates\MutableSetFieldDefaultValue.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>MutableSetFieldDefaultValue.cs</LastGenOutput>
     </None>
     <None Include="templates\NotifyChildDependenciesChange.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

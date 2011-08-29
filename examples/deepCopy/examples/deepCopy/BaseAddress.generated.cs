@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.deepCopy
 {
 
-	[DataContract]
+	[DataContract(Name = "Address")]
 	[DebuggerDisplay("Address[Street={Street} City={City} ZipCode={ZipCode}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseAddress : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

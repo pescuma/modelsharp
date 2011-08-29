@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.projectNamespace
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	public class Person : BasePerson
 	{
 		public Person()

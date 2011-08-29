@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.config2
 {
 
-	[DataContract]
+	[DataContract(Name = "Line")]
 	public class Line : BaseLine
 	{
 		public Line()

@@ -18,7 +18,7 @@ namespace examples.doc
 	/// <summary>
 	/// A point, man!
 	/// </summary>
-	[DataContract]
+	[DataContract(Name = "ImmutablePoint")]
 	[DebuggerDisplay("ImmutablePoint[X={X} Ws={Ws.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseImmutablePoint : ICloneable

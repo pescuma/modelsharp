@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.collectionReadOnly
 {
 
-	[DataContract]
+	[DataContract(Name = "House")]
 	[DebuggerDisplay("House[Address={Address}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseHouse : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

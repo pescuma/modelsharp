@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.collectionReadOnly
 {
 
-	[DataContract]
+	[DataContract(Name = "House")]
 	public class House : BaseHouse
 	{
 		public House()

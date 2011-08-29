@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.config2
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Y={Y}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
@@ -199,6 +199,16 @@ namespace examples.config2
 		}
 		
 		#endregion Clone
+		
+		#region Serialization
+		
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.y = 2;
+		}
+		
+		#endregion Serialization
 	}
 	
 }

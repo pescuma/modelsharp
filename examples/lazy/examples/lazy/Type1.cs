@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.lazy
 {
 
-	[DataContract]
+	[DataContract(Name = "Type1")]
 	public class Type1 : BaseType1
 	{
 		public Type1()

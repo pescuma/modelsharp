@@ -12,10 +12,10 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-[DataContract]
+[DataContract(Name = "Line")]
 [DebuggerDisplay("Line[P1={P1} P2={P2}]")]
 [GeneratedCode("Model#", "0.2.0.0")]
-public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 {
 	#region Field Name Defines
 	
@@ -338,7 +338,8 @@ public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyCh
 	
 	#region Serialization
 	
-	void IDeserializationCallback.OnDeserialization(object sender)
+	[OnDeserialized]
+	private void OnDeserialized(StreamingContext context)
 	{
 		AddP1Listeners(this.p1);
 		AddP2Listeners(this.p2);

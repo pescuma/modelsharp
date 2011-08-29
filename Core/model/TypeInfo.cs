@@ -49,7 +49,8 @@ namespace org.pescuma.ModelSharp.Core.model
 		public readonly List<string> Annotations = new List<string>();
 		public readonly List<string> BaseOnlyAnnotations = new List<string>();
 
-		public TypeInfo(string name, string package, bool immutable, bool cloneable, bool serializable, bool equals)
+		public TypeInfo(string name, string package, bool immutable, bool cloneable, bool serializable,
+		                bool equals)
 		{
 			Contract.Requires(StringUtils.IsValidVariableName(name));
 			Contract.Requires(string.IsNullOrEmpty(package) || StringUtils.IsValidTypeName(package));
@@ -117,8 +118,8 @@ namespace org.pescuma.ModelSharp.Core.model
 			get
 			{
 				return (from prop in Properties
-						where !prop.IsComputed && !prop.IsComponent && !prop.IsCollection
-						select prop);
+				        where !prop.IsComputed && !prop.IsComponent && !prop.IsCollection
+				        select prop);
 			}
 		}
 
@@ -127,8 +128,8 @@ namespace org.pescuma.ModelSharp.Core.model
 			get
 			{
 				return (from prop in Properties
-						where !prop.IsComputed && !prop.IsCollection
-						select prop);
+				        where !prop.IsComputed && !prop.IsCollection
+				        select prop);
 			}
 		}
 
@@ -137,8 +138,8 @@ namespace org.pescuma.ModelSharp.Core.model
 			get
 			{
 				return (from prop in Properties
-						where prop.IsCollection
-						select prop).Cast<CollectionInfo>();
+				        where prop.IsCollection
+				        select prop).Cast<CollectionInfo>();
 			}
 		}
 
@@ -214,12 +215,26 @@ namespace org.pescuma.ModelSharp.Core.model
 			}
 		}
 
-		public bool NeedOnDeserialization
+		public bool NeedOnDeserialized
 		{
 			get
 			{
 				return !Immutable && Serializable && (from p in Properties
 				                                      where p.IsCollection || p.CanListenTo
+				                                      select p).Count() > 0;
+			}
+		}
+
+		public bool NeedOnDeserializing
+		{
+			get
+			{
+				return !Immutable && Serializable && (from p in Properties
+				                                      where
+				                                      	p.LazyInitializer == null
+				                                      	&&
+				                                      	(p.IsCollection || p.DefaultValue != null
+				                                      	 || p.IsComputedAndCached)
 				                                      select p).Count() > 0;
 			}
 		}

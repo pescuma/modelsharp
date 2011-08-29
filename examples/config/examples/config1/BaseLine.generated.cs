@@ -15,10 +15,10 @@ using System.Diagnostics;
 namespace examples.config1
 {
 
-	[DataContract(Namespace = "data")]
+	[DataContract(Name = "Line", Namespace = "data")]
 	[DebuggerDisplay("Line[P1={P1} P2={P2}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -341,7 +341,8 @@ namespace examples.config1
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddP1Listeners(this.p1);
 			AddP2Listeners(this.p2);

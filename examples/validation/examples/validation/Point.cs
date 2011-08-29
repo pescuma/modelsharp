@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.validation
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	public class Point : BasePoint
 	{
 		public Point(double x, double w)

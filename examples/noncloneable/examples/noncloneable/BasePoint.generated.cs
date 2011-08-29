@@ -15,10 +15,10 @@ using System.Diagnostics;
 namespace examples.noncloneable
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Y={Y} A={A}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged
 	{
 		#region Field Name Defines
 		
@@ -277,7 +277,15 @@ namespace examples.noncloneable
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.y = 2;
+			this.a = new Point();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddAListeners(this.a);
 		}

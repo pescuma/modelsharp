@@ -663,13 +663,10 @@ namespace org.pescuma.ModelSharp.Core
 				type.Using.Add("System.Runtime.Serialization");
 
 				if (!string.IsNullOrWhiteSpace(GlobalConfig.SerializationNamespace))
-					type.Annotations.Add(string.Format("DataContract(Namespace = \"{0}\")",
-					                                   GlobalConfig.SerializationNamespace));
+					type.Annotations.Add(string.Format("DataContract(Name = \"{0}\", Namespace = \"{1}\")",
+					                                   type.Name, GlobalConfig.SerializationNamespace));
 				else
-					type.Annotations.Add("DataContract");
-
-				if (type.NeedOnDeserialization)
-					type.Implements.Add("IDeserializationCallback");
+					type.Annotations.Add(string.Format("DataContract(Name = \"{0}\")", type.Name));
 
 				foreach (var prop in type.Properties)
 				{

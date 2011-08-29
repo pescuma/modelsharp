@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.projectNamespace
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	[DebuggerDisplay("Person[Name={Name}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

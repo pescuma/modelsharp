@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.receiveInConstructor
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	public class Person : BasePerson
 	{
 		public Person(Address homeAddress, Address workAddress)

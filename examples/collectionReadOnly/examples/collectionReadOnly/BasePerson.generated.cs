@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.collectionReadOnly
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	[DebuggerDisplay("Person[Houses={Houses.Count}items HousesLazy={HousesLazy.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -63,7 +63,7 @@ namespace examples.collectionReadOnly
 		
 		[DataMember(Name = "Houses", Order = 0, IsRequired = false)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected readonly ObservableList<House> houses;
+		protected ObservableList<House> houses;
 		
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private ReadOnlyObservableList<House> housesReadOnly;
@@ -515,7 +515,15 @@ namespace examples.collectionReadOnly
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.houses = new ObservableList<House>();
+			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddHousesListListeners(this.houses);
 			this.housesReadOnly = new ReadOnlyObservableList<House>(this.houses);

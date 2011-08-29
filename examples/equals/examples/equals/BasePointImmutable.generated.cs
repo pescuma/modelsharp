@@ -13,7 +13,7 @@ using System;
 namespace examples.equals
 {
 
-	[DataContract]
+	[DataContract(Name = "PointImmutable")]
 	[DebuggerDisplay("PointImmutable[X={X} Y={Y} A={A}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BasePointImmutable : ICloneable

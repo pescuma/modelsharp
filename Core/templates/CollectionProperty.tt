@@ -3,7 +3,7 @@
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.CollectionInfo" #>
 <# ForEach("Annotation", it.FieldAnnotations); #>
 <# if (it.ExposeAsReadOnly) { #>
-		protected <# if (!it.Lazy) { #>readonly <# } #><#= it.TypeName #> <#= it.FieldName #>;
+		protected <#= it.TypeName #> <#= it.FieldName #>;
 
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private <#= it.ExposedTypeName #> <#= it.ExposedFieldName #>;

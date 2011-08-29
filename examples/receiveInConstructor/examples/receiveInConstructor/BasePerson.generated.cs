@@ -15,10 +15,10 @@ using System.Diagnostics;
 namespace examples.receiveInConstructor
 {
 
-	[DataContract]
+	[DataContract(Name = "Person")]
 	[DebuggerDisplay("Person[WorkAddress={WorkAddress}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -58,7 +58,7 @@ namespace examples.receiveInConstructor
 		
 		[DataMember(Name = "HomeAddress", Order = 0, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Address homeAddress;
+		private Address homeAddress;
 		
 		public Address HomeAddress
 		{
@@ -300,7 +300,14 @@ namespace examples.receiveInConstructor
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.homeAddress = new Address();
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddHomeAddressListeners(this.homeAddress);
 			AddWorkAddressListeners(this.workAddress);

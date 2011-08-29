@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace examples.computeProperty
 {
 
-	[DataContract]
+	[DataContract(Name = "MyClass")]
 	public class MyClass : BaseMyClass
 	{
 		public MyClass()

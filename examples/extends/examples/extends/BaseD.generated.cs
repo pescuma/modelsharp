@@ -15,7 +15,7 @@ using System.Diagnostics;
 namespace examples.extends
 {
 
-	[DataContract]
+	[DataContract(Name = "D")]
 	[DebuggerDisplay("D[X={X}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseD : B, INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable

@@ -16,10 +16,10 @@ using System.Diagnostics;
 namespace examples.validation
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	[DebuggerDisplay("Point[X={X} Y={Y} Z={Z} W={W}]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
-	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, IDeserializationCallback, ICloneable, ICopyable
+	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines
 		
@@ -311,7 +311,7 @@ namespace examples.validation
 		
 		[DataMember(Name = "Comp", Order = 4, IsRequired = true)]
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Point comp;
+		private Point comp;
 		
 		[StringLength(10)]
 		[Required]
@@ -475,7 +475,15 @@ namespace examples.validation
 		
 		#region Serialization
 		
-		void IDeserializationCallback.OnDeserialization(object sender)
+		[OnDeserializing]
+		private void OnDeserializing(StreamingContext context)
+		{
+			this.y = 2;
+			this.comp = new Point(2,2);
+		}
+		
+		[OnDeserialized]
+		private void OnDeserialized(StreamingContext context)
 		{
 			AddCompListeners(this.comp);
 		}

@@ -10,7 +10,7 @@ using System;
 namespace examples.computeProperty
 {
 
-	[DataContract]
+	[DataContract(Name = "MyImmutableClass")]
 	public class MyImmutableClass : BaseMyImmutableClass
 	{
 		public MyImmutableClass(double x, double y, IEnumerable<MyClass> children)

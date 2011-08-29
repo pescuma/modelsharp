@@ -15,7 +15,7 @@ using System;
 namespace examples.computeProperty
 {
 
-	[DataContract]
+	[DataContract(Name = "MyImmutableClass")]
 	[DebuggerDisplay("MyImmutableClass[X={X} Y={Y} Children={Children.Count}items]")]
 	[GeneratedCode("Model#", "0.2.0.0")]
 	public abstract class BaseMyImmutableClass : ICloneable

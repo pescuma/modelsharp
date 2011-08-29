@@ -10,7 +10,7 @@ using System.Diagnostics;
 namespace examples.equals
 {
 
-	[DataContract]
+	[DataContract(Name = "Point")]
 	public class Point : BasePoint
 	{
 		public Point()

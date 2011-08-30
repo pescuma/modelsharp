@@ -16,9 +16,9 @@ using System.Diagnostics;
 namespace examples.extends
 {
 
-	[DataContract(Name = "A")]
+	[DataContract]
 	[DebuggerDisplay("A[Date={Date}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseA : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

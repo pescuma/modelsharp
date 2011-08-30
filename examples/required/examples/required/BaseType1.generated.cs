@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.required
 {
 
-	[DataContract(Name = "Type1")]
+	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Prop2={Prop2} Prop3={Prop3} Prop4={Prop4} Prop5={Prop5}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

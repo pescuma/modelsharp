@@ -12,9 +12,9 @@ using org.pescuma.ModelSharp.Lib;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 
-[DataContract(Name = "Line")]
+[DataContract]
 [DebuggerDisplay("Line[P1={P1} P2={P2}]")]
-[GeneratedCode("Model#", "0.2.0.0")]
+[GeneratedCode("Model#", "0.2.1.0")]
 public abstract class BaseLine : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 {
 	#region Field Name Defines

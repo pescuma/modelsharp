@@ -16,9 +16,9 @@ using System.Diagnostics;
 namespace examples.computeProperty
 {
 
-	[DataContract(Name = "MyClass")]
+	[DataContract]
 	[DebuggerDisplay("MyClass[X={X} Y={Y} Children={Children.Count}items Ps={Ps} P={P}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseMyClass : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

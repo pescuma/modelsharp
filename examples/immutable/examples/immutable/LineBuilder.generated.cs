@@ -15,7 +15,7 @@ using System;
 namespace examples.immutable
 {
 
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public class LineBuilder
 	{
 		private Point p1;

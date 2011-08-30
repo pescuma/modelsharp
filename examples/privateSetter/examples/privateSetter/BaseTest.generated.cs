@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.privateSetter
 {
 
-	[DataContract(Name = "Test")]
+	[DataContract]
 	[DebuggerDisplay("Test[Date={Date}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseTest : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

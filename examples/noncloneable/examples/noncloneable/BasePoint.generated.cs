@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.noncloneable
 {
 
-	[DataContract(Name = "Point")]
+	[DataContract]
 	[DebuggerDisplay("Point[X={X} Y={Y} A={A}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged
 	{
 		#region Field Name Defines

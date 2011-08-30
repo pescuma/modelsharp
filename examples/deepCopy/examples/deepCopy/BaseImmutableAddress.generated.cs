@@ -13,9 +13,9 @@ using System;
 namespace examples.deepCopy
 {
 
-	[DataContract(Name = "ImmutableAddress")]
+	[DataContract]
 	[DebuggerDisplay("ImmutableAddress[Street={Street} City={City} ZipCode={ZipCode}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseImmutableAddress : ICloneable
 	{
 		[DataMember(Name = "Street", Order = 0, IsRequired = false)]

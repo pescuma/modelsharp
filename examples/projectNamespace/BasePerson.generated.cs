@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.projectNamespace
 {
 
-	[DataContract(Name = "Person")]
+	[DataContract]
 	[DebuggerDisplay("Person[Name={Name}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

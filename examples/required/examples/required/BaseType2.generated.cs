@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.required
 {
 
-	[DataContract(Name = "Type2")]
+	[DataContract]
 	[DebuggerDisplay("Type2[Name={Name}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseType2 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

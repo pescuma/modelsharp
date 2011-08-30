@@ -15,9 +15,9 @@ using System.Diagnostics;
 namespace examples.config2
 {
 
-	[DataContract(Name = "Point")]
+	[DataContract]
 	[DebuggerDisplay("Point[X={X} Y={Y}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BasePoint : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

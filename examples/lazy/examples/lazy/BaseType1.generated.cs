@@ -16,9 +16,9 @@ using System.Diagnostics;
 namespace examples.lazy
 {
 
-	[DataContract(Name = "Type1")]
+	[DataContract]
 	[DebuggerDisplay("Type1[Prop1={Prop1} Col1={Col1.Count}items]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseType1 : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

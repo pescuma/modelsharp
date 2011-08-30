@@ -16,9 +16,9 @@ using System.Diagnostics;
 namespace examples.equals
 {
 
-	[DataContract(Name = "Rect")]
+	[DataContract]
 	[DebuggerDisplay("Rect[Ps={Ps.Count}items Ls={Ls.Count}items LLs={LLs.Count}items]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BaseRect : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
 		#region Field Name Defines

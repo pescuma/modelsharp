@@ -13,9 +13,9 @@ using System;
 namespace examples.immutable
 {
 
-	[DataContract(Name = "Point")]
+	[DataContract]
 	[DebuggerDisplay("Point[X={X} Y={Y}]")]
-	[GeneratedCode("Model#", "0.2.0.0")]
+	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BasePoint : ICloneable
 	{
 		[DataMember(Name = "X", Order = 0, IsRequired = false)]

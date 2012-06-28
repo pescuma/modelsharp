@@ -30,7 +30,8 @@
 			if (this.<#= it.FieldName #> != null)
 				return;
 
-			this.<#= it.FieldName #> = new <#= it.TypeName #>();
+			this.<#= it.FieldName #> = new <#= it.TypeName #><#= it.DefaultValue != null ? " { " + it.DefaultValue + " }" : "()" #>;
+
 			Add<#= it.Name #>ListListeners(this.<#= it.FieldName #>);
 <#		if (it.ExposeAsReadOnly) { #>
 			

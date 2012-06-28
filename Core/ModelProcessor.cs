@@ -361,6 +361,9 @@ namespace org.pescuma.ModelSharp.Core
 							if (!string.IsNullOrWhiteSpace(collection.doc))
 								col.Documentation = collection.doc;
 
+							if (!string.IsNullOrWhiteSpace(collection.@default))
+								col.DefaultValue = collection.@default;
+
 							ti.Properties.Add(col);
 						}
 						else if (item is computedproperty)

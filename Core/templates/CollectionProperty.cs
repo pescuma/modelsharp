@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+    #line 1 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class CollectionProperty : TemplateUtils
     {
@@ -77,325 +77,331 @@ namespace org.pescuma.ModelSharp.Core.templates
         {
             this.GenerationEnvironment = null;
             
-            #line 4 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 4 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  ForEach("Annotation", it.FieldAnnotations); 
             
             #line default
             #line hidden
             
-            #line 5 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 5 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.ExposeAsReadOnly) { 
             
             #line default
             #line hidden
             this.Write("\t\tprotected ");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 6 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 6 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\n\t\t[DebuggerBrowsable(DebuggerBrowsableState.Never)]\r\n\t\tprivate ");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 9 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedTypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 9 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedFieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 10 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } else { 
             
             #line default
             #line hidden
             this.Write("\t\tprivate ");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.ReadOnly) { 
             
             #line default
             #line hidden
             this.Write("readonly ");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 11 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 12 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 14 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 14 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.Documentation != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t/// <summary>\r\n\t\t/// ");
             
-            #line 16 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 16 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Documentation));
             
             #line default
             #line hidden
             this.Write("\r\n\t\t/// </summary>\r\n");
             
-            #line 18 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 18 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 19 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 19 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  ForEach("Annotation", it.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tpublic ");
             
-            #line 20 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 20 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedTypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 20 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 20 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write(" \r\n\t\t{\r\n");
             
-            #line 22 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 22 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  ForEach("Annotation", it.PropGetAnnotations); 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 23 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 23 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.GetterVisibility != null) { 
             
             #line default
             #line hidden
             
-            #line 23 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 23 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.GetterVisibility));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 23 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 23 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("get{ return ");
             
-            #line 23 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 23 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.Name));
             
             #line default
             #line hidden
             this.Write("(); }\r\n\t\t}\r\n");
             
-            #line 25 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 25 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 27 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 27 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  ForEach("Annotation", it.LazyInitializer.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tprotected virtual ");
             
-            #line 28 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 28 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.LazyInitializer.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 28 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 28 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.LazyInitializer.Name));
             
             #line default
             #line hidden
             this.Write("() \r\n\t\t{\r\n\t\t\tif (this.");
             
-            #line 30 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 30 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" != null)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tthis.");
             
-            #line 33 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 33 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 33 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 33 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
-            this.Write("();\r\n\t\t\tAdd");
             
-            #line 34 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 33 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue != null ? " { " + it.DefaultValue + " }" : "()"));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n\r\n\t\t\tAdd");
+            
+            #line 35 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListListeners(this.");
             
-            #line 34 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 35 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 35 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 36 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
 		if (it.ExposeAsReadOnly) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\r\n\t\t\tthis.");
             
-            #line 37 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 38 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedFieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 37 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 38 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedTypeName));
             
             #line default
             #line hidden
             this.Write("(this.");
             
-            #line 37 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 38 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 38 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 39 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
 		} 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n");
             
-            #line 40 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 41 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 42 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 43 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  ForEach("Annotation", it.Getter.Annotations); 
             
             #line default
             #line hidden
             this.Write("\t\tprotected virtual ");
             
-            #line 43 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 44 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.TypeName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 43 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 44 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Getter.Name));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n");
             
-            #line 45 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 46 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.LazyInitializer != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t");
             
-            #line 46 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 47 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.LazyInitializer.Name));
             
             #line default
             #line hidden
             this.Write("();\r\n");
             
-            #line 47 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 48 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\treturn this.");
             
-            #line 48 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 49 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.ExposedFieldName));
             
             #line default
             #line hidden
             this.Write(";\r\n\t\t}\r\n\r\n\t\tprivate void Add");
             
-            #line 51 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 52 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListListeners(");
             
-            #line 51 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 52 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
@@ -411,7 +417,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += ");
             
-            #line 60 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 61 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -424,14 +430,14 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += ");
             
-            #line 66 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 67 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListPropertyChangedEventHandler;\r\n");
             
-            #line 67 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 68 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.ContentsType.CanListenTo) { 
             
             #line default
@@ -443,28 +449,28 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.CollectionChanged += ");
             
-            #line 73 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 74 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ListChangedEventHandler;\r\n\r\n\t\t\tforeach (var item in child)\r\n\t\t\t\tAdd");
             
-            #line 76 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 77 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ItemListeners(item);\r\n");
             
-            #line 77 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 78 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 80 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 81 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -472,21 +478,21 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tif (e.PropertyName != ");
             
-            #line 82 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 83 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanging(PROPERTIES.");
             
-            #line 85 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 86 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 88 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 89 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -494,28 +500,28 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tif (e.PropertyName != ");
             
-            #line 90 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 91 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.TypeName));
             
             #line default
             #line hidden
             this.Write(".PROPERTIES.ITEMS)\r\n\t\t\t\treturn;\r\n\r\n\t\t\tNotifyPropertyChanged(PROPERTIES.");
             
-            #line 93 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 94 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t}\r\n");
             
-            #line 95 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 96 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  if (it.ContentsType.CanListenTo) { 
             
             #line default
             #line hidden
             this.Write("\r\n\t\tprivate void ");
             
-            #line 97 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 98 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -536,7 +542,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 						foreach (var item in e.OldItems)
 							Remove");
             
-            #line 111 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 112 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -544,7 +550,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemListeners(item);\r\n\r\n\t\t\t\t\tif (e.NewItems != null)\r\n\t\t\t\t\t\tforeach (var item in " +
                     "e.NewItems)\r\n\t\t\t\t\t\t\tAdd");
             
-            #line 115 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 116 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -564,7 +570,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 
 		private void Remove");
             
-            #line 128 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 129 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -580,7 +586,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging -= ");
             
-            #line 137 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 138 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -593,7 +599,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging -= ");
             
-            #line 143 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 144 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -606,7 +612,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged -= ");
             
-            #line 149 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 150 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -619,14 +625,14 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged -= ");
             
-            #line 155 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 156 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void Add");
             
-            #line 158 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 159 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -642,7 +648,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanging.PropertyChanging += ");
             
-            #line 167 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 168 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -655,7 +661,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanging.ChildPropertyChanging += ");
             
-            #line 173 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 174 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -668,7 +674,7 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyPropertyChanged.PropertyChanged += ");
             
-            #line 179 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 180 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -681,14 +687,14 @@ namespace org.pescuma.ModelSharp.Core.templates
 // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				notifyChildPropertyChanged.ChildPropertyChanged += ");
             
-            #line 185 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 186 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
             #line hidden
             this.Write("ItemChildPropertyChangedEventHandler;\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 188 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 189 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -696,14 +702,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)\r\n\t\t{" +
                     "\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 190 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 191 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 193 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 194 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -711,14 +717,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangingEventHandler(object sender, ChildPropertyChangingEventAr" +
                     "gs e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanging(PROPERTIES.");
             
-            #line 195 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 196 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 198 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 199 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -726,14 +732,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)\r\n\t\t{\r\n" +
                     "\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 200 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 201 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n\r\n\t\tprivate void ");
             
-            #line 203 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 204 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.Name));
             
             #line default
@@ -741,14 +747,14 @@ namespace org.pescuma.ModelSharp.Core.templates
             this.Write("ItemChildPropertyChangedEventHandler(object sender, ChildPropertyChangedEventArgs" +
                     " e)\r\n\t\t{\r\n\t\t\tNotifyChildPropertyChanged(PROPERTIES.");
             
-            #line 205 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 206 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefineName));
             
             #line default
             #line hidden
             this.Write(", sender, e);\r\n\t\t}\r\n");
             
-            #line 207 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+            #line 208 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
  } 
             
             #line default
@@ -756,7 +762,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\CollectionProperty.tt"
+        #line 1 "X:\masterCut\model-sharp\Core\templates\CollectionProperty.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.CollectionInfo _itField;
 

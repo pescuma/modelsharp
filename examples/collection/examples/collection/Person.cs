@@ -11,19 +11,19 @@ using System.Diagnostics;
 namespace examples.collection
 {
 
-	[DataContract(Name = "Person")]
+[DataContract(Name = "Person")]
 	public class Person : BasePerson
 	{
 		public Person()
-		: base()
+			: base()
 		{
 		}
-		
+
 		public Person(Person other)
-		: base(other)
+			: base(other)
 		{
 		}
-		
+
 	}
-	
+
 }

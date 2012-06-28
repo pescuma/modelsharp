@@ -3,6 +3,7 @@
 		<collection name="cars" type="string" />
 		<property name="name" type="string" />
 		<collection name="houses" type="House" />
+		<collection name="Any" type="int" default="1, 2, 3"/>
 	</type>
 	<type name="House">
 		<property name="address" type="string" />

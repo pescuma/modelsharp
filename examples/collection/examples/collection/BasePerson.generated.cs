@@ -17,7 +17,7 @@ namespace examples.collection
 {
 
 	[DataContract]
-	[DebuggerDisplay("Person[Cars={Cars.Count}items Name={Name} Houses={Houses.Count}items]")]
+	[DebuggerDisplay("Person[Cars={Cars.Count}items Name={Name} Houses={Houses.Count}items Any={Any.Count}items]")]
 	[GeneratedCode("Model#", "0.2.1.0")]
 	public abstract class BasePerson : INotifyPropertyChanging, INotifyChildPropertyChanging, INotifyPropertyChanged, INotifyChildPropertyChanged, ICloneable, ICopyable
 	{
@@ -28,6 +28,7 @@ namespace examples.collection
 			public static readonly string CARS = ModelUtils.NameOfProperty((BasePerson o) => o.Cars);
 			public static readonly string NAME = ModelUtils.NameOfProperty((BasePerson o) => o.Name);
 			public static readonly string HOUSES = ModelUtils.NameOfProperty((BasePerson o) => o.Houses);
+			public static readonly string ANY = ModelUtils.NameOfProperty((BasePerson o) => o.Any);
 			
 			protected PROPERTIES() {}
 		}
@@ -42,6 +43,8 @@ namespace examples.collection
 			AddCarsListListeners(this.cars);
 			this.houses = new ObservableList<House>();
 			AddHousesListListeners(this.houses);
+			this.any = new ObservableList<int> { 1, 2, 3 };
+			AddAnyListListeners(this.any);
 		}
 		
 		protected BasePerson(BasePerson other)
@@ -53,6 +56,9 @@ namespace examples.collection
 			this.houses = new ObservableList<House>();
 			AddHousesListListeners(this.houses);
 			this.houses.AddRange(other.Houses);
+			this.any = new ObservableList<int>();
+			AddAnyListListeners(this.any);
+			this.any.AddRange(other.Any);
 		}
 		
 		#endregion Constructors
@@ -330,6 +336,62 @@ namespace examples.collection
 		
 		#endregion Property Houses
 		
+		#region Property Any
+		
+		[DataMember(Name = "Any", Order = 3, IsRequired = false)]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private ObservableList<int> any;
+		
+		public ObservableList<int> Any
+		{
+			[DebuggerStepThrough]
+			get {
+				return GetAny();
+			}
+		}
+		
+		[DebuggerStepThrough]
+		protected virtual ObservableList<int> GetAny()
+		{
+			return this.any;
+		}
+		
+		private void AddAnyListListeners(ObservableList<int> child)
+		{
+			if (child == null)
+				return;
+				
+			var notifyPropertyChanging = child as INotifyPropertyChanging;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanging != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanging.PropertyChanging += AnyListPropertyChangingEventHandler;
+				
+			var notifyPropertyChanged = child as INotifyPropertyChanged;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			if (notifyPropertyChanged != null)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
+				notifyPropertyChanged.PropertyChanged += AnyListPropertyChangedEventHandler;
+		}
+		
+		private void AnyListPropertyChangingEventHandler(object sender, PropertyChangingEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<int>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanging(PROPERTIES.ANY);
+		}
+		
+		private void AnyListPropertyChangedEventHandler(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName != ObservableList<int>.PROPERTIES.ITEMS)
+				return;
+				
+			NotifyPropertyChanged(PROPERTIES.ANY);
+		}
+		
+		#endregion Property Any
+		
 		#region Property Notification
 		
 		public event PropertyChangingEventHandler PropertyChanging;
@@ -384,6 +446,8 @@ namespace examples.collection
 			Name = other.Name;
 			Houses.Clear();
 			Houses.AddRange(other.Houses);
+			Any.Clear();
+			Any.AddRange(other.Any);
 		}
 		
 		#endregion CopyFrom
@@ -411,6 +475,7 @@ namespace examples.collection
 		{
 			this.cars = new ObservableList<string>();
 			this.houses = new ObservableList<House>();
+			this.any = new ObservableList<int> { 1, 2, 3 };
 		}
 		
 		[OnDeserialized]
@@ -418,6 +483,7 @@ namespace examples.collection
 		{
 			AddCarsListListeners(this.cars);
 			AddHousesListListeners(this.houses);
+			AddAnyListListeners(this.any);
 		}
 		
 		#endregion Serialization

@@ -2,11 +2,11 @@
 <#@ import namespace="org.pescuma.ModelSharp.Core.model" #>
 <#@ parameter name="it" type="org.pescuma.ModelSharp.Core.model.PropertyInfo" #>
 <#	if (it.LazyInitializer == null) { #>
-<#		if (it.DefaultValue != null) { #>
+<#		if (it.DefaultValue != null && !it.IsCollection) { #>
 			this.<#= it.FieldName #> = <#= it.DefaultValue #>;
 <#		} else if (it.IsCollection) {
 			var col = (CollectionInfo) it; #>
-			this.<#= col.FieldName #> = new <#= col.TypeName #>();
+			this.<#= col.FieldName #> = new <#= col.TypeName #><#= col.DefaultValue != null ? " { " + col.DefaultValue + " }" : "()" #>;
 <#			if (col.ExposeAsReadOnly) { #>
 			this.<#= col.ExposedFieldName #> = new <#= col.ExposedTypeName #>(this.<#= col.FieldName #>);
 <#			} #>

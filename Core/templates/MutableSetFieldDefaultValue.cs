@@ -13,7 +13,7 @@ namespace org.pescuma.ModelSharp.Core.templates
     using System;
     
     
-    #line 1 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+    #line 1 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "10.0.0.0")]
     public partial class MutableSetFieldDefaultValue : TemplateUtils
     {
@@ -76,35 +76,34 @@ namespace org.pescuma.ModelSharp.Core.templates
         public override string TransformText()
         {
 			this.GenerationEnvironment = null;
-
-            #line 4 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 4 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 	if (it.LazyInitializer == null) { 
             
             #line default
             #line hidden
             
-            #line 5 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
-		if (it.DefaultValue != null) { 
+            #line 5 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
+		if (it.DefaultValue != null && !it.IsCollection) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tthis.");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 6 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.FieldName));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 6 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 6 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(it.DefaultValue));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 7 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 7 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 		} else if (it.IsCollection) {
 			var col = (CollectionInfo) it; 
             
@@ -112,55 +111,61 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\t\tthis.");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 9 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 9 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 9 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.TypeName));
             
             #line default
             #line hidden
-            this.Write("();\r\n");
             
-            #line 10 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 9 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.DefaultValue != null ? " { " + col.DefaultValue + " }" : "()"));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n");
+            
+            #line 10 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 			if (col.ExposeAsReadOnly) { 
             
             #line default
             #line hidden
             this.Write("\t\t\tthis.");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.ExposedFieldName));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.ExposedTypeName));
             
             #line default
             #line hidden
             this.Write("(this.");
             
-            #line 11 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 11 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.FieldName));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 12 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 12 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 			} 
             
             #line default
             #line hidden
             
-            #line 13 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 13 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 		} else if (it.IsComputedAndCached) { 
 			var computed = (ComputedPropertyInfo) it; 
             
@@ -168,20 +173,20 @@ namespace org.pescuma.ModelSharp.Core.templates
             #line hidden
             this.Write("\t\t\t");
             
-            #line 15 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 15 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(computed.ValidFieldName));
             
             #line default
             #line hidden
             this.Write(" = false;\r\n");
             
-            #line 16 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 16 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 		} 
             
             #line default
             #line hidden
             
-            #line 17 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+            #line 17 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 	} 
             
             #line default
@@ -189,7 +194,7 @@ namespace org.pescuma.ModelSharp.Core.templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "X:\c#\modelsharp\Core\templates\MutableSetFieldDefaultValue.tt"
+        #line 1 "X:\masterCut\model-sharp\Core\templates\MutableSetFieldDefaultValue.tt"
 
 private global::org.pescuma.ModelSharp.Core.model.PropertyInfo _itField;
 

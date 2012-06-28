@@ -59,6 +59,7 @@
   <xs:element name="collection">
     <xs:complexType>
       <xs:attribute name="deepCopy" type="xs:boolean"/>
+      <xs:attribute name="default"/>
       <xs:attribute name="doc"/>
       <xs:attribute name="lazy" type="xs:boolean"/>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
@@ -109,7 +110,7 @@
       <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="requiredException"/>
       <xs:attribute name="setter" type="xs:NCName"/>
-      <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="type" use="required"/>
       <xs:attribute name="validation"/>
       <xs:attribute name="validationAttrib"/>
       <xs:attribute name="validationException"/>
